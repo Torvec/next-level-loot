@@ -1,3 +1,3 @@
-# loot_vault_next
+# Loot Vault Next Edition
 
 The Loot Vault App using NextJS, TailwindCSS, and GraphQL
