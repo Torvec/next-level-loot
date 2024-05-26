@@ -7,18 +7,18 @@ import Link from "next/link";
 export default function Nav() {
   return (
     <nav>
-      <ul className="flex gap-4">
+      <ul className="flex gap-8">
         <li>
           <Link href="/free-games">Free Games</Link>
         </li>
         <li>
-          <Link href="">Link</Link>
+          <Link href="/best-deals">Best Deals</Link>
         </li>
         <li>
-          <Link href="">Link</Link>
+          <Link href="/highest-rated">Highest Rated</Link>
         </li>
         <li>
-          <Link href="">Link</Link>
+          <Link href="/wishlist">Wishlist</Link>
         </li>
       </ul>
     </nav>
