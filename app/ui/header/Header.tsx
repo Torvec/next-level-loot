@@ -5,7 +5,7 @@ import Search from "./search/Search";
 export default function Header() {
   return (
     <header className="bg-slate-800 p-4">
-      <div className="container mx-auto flex items-baseline justify-between">
+      <div className="container mx-auto flex items-center justify-between">
         <Logo />
         <Nav />
         <Search />
