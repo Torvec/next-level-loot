@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "./ui/header/Header";
-import Footer from "./ui/footer/Footer";
+import "../styles/globals.css";
+import Header from "../components/ui/header/Header";
+import Footer from "../components/ui/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className="bg-slate-600 text-slate-200
-    "
-    >
+    <html lang="en" className="bg-slate-600 text-slate-200">
       <body className={inter.className}>
         <Header />
         {children}

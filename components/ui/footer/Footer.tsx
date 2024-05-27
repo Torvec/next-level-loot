@@ -1,4 +1,4 @@
-import ExternalLink from "../components/ExternalLink";
+import ExternalLink from "../../../components/ExternalLink";
 
 export default function Footer() {
   const FooterHeader = ({ displayText }: { displayText: string }) => {
