@@ -31,7 +31,7 @@ export default function Nav() {
 
   const NavLinkList = () => {
     return (
-      <ul className="flex">
+      <ul className="hidden md:flex">
         {navLinkContent.map(({ route, displayText }, index) => (
           <NavLinkItem key={index} route={route} displayText={displayText} />
         ))}

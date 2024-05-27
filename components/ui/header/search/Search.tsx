@@ -11,7 +11,7 @@ import {
 export default function Search() {
   return (
     <Dialog>
-      <DialogTrigger className="rounded-lg border border-white/20 bg-slate-700/25 px-3 py-1.5 text-sm text-slate-200">
+      <DialogTrigger className="hidden rounded-lg border border-white/20 bg-slate-700/25 px-3 py-1.5 text-sm text-slate-200 md:block">
         Search Games...
       </DialogTrigger>
       <DialogContent className="bg-slate-700">
