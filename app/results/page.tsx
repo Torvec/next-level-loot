@@ -1,6 +1,6 @@
 async function searchResults() {
   const response = await fetch(
-    `https://api.rawg.io/api/platforms?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}`,
+    `https://api.rawg.io/api/platforms?key=${process.env.RAWG_API_KEY}`,
   );
   if (!response.ok) {
     throw new Error("Failed to fetch platforms");
@@ -9,8 +9,7 @@ async function searchResults() {
 }
 
 export default async function Results() {
-  const data = await searchResults();
-  //   console.log(data);
+  // const data = await searchResults();
 
   return (
     <main className="grid h-screen place-content-center bg-slate-600">
