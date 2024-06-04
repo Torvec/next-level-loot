@@ -19,7 +19,7 @@ export default async function FreeGamesDetail({
     },
   };
 
-  async function fetchFreeGames(url: string) {
+  async function fetchFreeGame(url: string) {
     try {
       const response = await fetch(gamerpowerBaseURL + url, options);
       const result = await response.json();
@@ -29,26 +29,8 @@ export default async function FreeGamesDetail({
     }
   }
 
-  const {
-    id,
-    title,
-    worth,
-    thumbnail,
-    image,
-    description,
-    instructions,
-    open_giveaway_url,
-    published_date,
-    type,
-    platforms,
-    end_date,
-    users,
-    status,
-    gamerpower_url,
-    open_giveaway,
-  } = await fetchFreeGames(gamerpowerIndividualGiveaway);
-  return (
-    <main className="container mx-auto bg-slate-600 pb-32">
+  const PageHeader = () => {
+    return (
       <header className="mb-16 bg-blue-950 py-32 text-center">
         <h2 className=" text-4xl font-bold">Free Games and Giveaways</h2>
         <p className="text-sm">
@@ -59,13 +41,15 @@ export default async function FreeGamesDetail({
           />
         </p>
       </header>
+    );
+  };
+
+  const FreeGameCard = () => {
+    return (
       <section className="grid place-content-center">
         <div className="rounded-xl bg-white/10 p-8 shadow-xl">
           <h3 className="mb-4 text-pretty text-2xl">{title}</h3>
           <ul>
-            {/* <li>
-                  <img src={thumbnail} alt={title} className="h-auto w-full" />
-                </li> */}
             <li>{description}</li>
             <li>{instructions}</li>
             <li>
@@ -98,6 +82,30 @@ export default async function FreeGamesDetail({
           </ul>
         </div>
       </section>
+    );
+  };
+
+  const {
+    title,
+    worth,
+    image,
+    description,
+    instructions,
+    open_giveaway_url,
+    published_date,
+    type,
+    platforms,
+    end_date,
+    users,
+    status,
+    gamerpower_url,
+    open_giveaway,
+  } = await fetchFreeGame(gamerpowerIndividualGiveaway);
+
+  return (
+    <main className="container mx-auto bg-slate-600 pb-32">
+      <PageHeader />
+      <FreeGameCard />
     </main>
   );
 }
