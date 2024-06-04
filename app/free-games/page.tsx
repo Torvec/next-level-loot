@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
+import Link from "next/link";
 import ExternalLink from "@/components/ExternalLink";
 
 const gamerpowerBaseURL = "https://gamerpower.p.rapidapi.com/api/";
@@ -40,10 +42,9 @@ const options = {
   },
 };
 
-async function fetchFreeGames() {
-  const url = gamerpowerBaseURL + gamerpowerGiveaways;
+async function fetchFreeGames(url: string) {
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(gamerpowerBaseURL + url, options);
     const result = await response.json();
     return result;
   } catch (error) {
@@ -71,7 +72,7 @@ type FreeGamesTypes = {
 };
 
 export default async function FreeGames() {
-  const data = await fetchFreeGames();
+  const data = await fetchFreeGames(gamerpowerGiveaways);
 
   return (
     <main className="container mx-auto bg-slate-600 pb-32">
@@ -85,7 +86,7 @@ export default async function FreeGames() {
           />
         </p>
       </header>
-      <section className="grid grid-cols-3 gap-10">
+      <section className="grid gap-10 md:grid-cols-3">
         {data.map(
           ({
             id,
@@ -105,22 +106,24 @@ export default async function FreeGames() {
             gamerpower_url,
             open_giveaway,
           }: FreeGamesTypes) => (
-            <div key={id}>
-              <h3 className="text-2xl">{title}</h3>
+            <div key={id} className="rounded-xl bg-white/10 p-8 shadow-xl">
+              <h3 className="mb-4 text-pretty text-2xl">{title}</h3>
               <ul>
-                <li>{description}</li>
-                <li>{instructions}</li>
                 <li>
-                  Start Date: {published_date} - End Date: {end_date}
+                  <img src={thumbnail} alt={title} className="h-auto w-full" />
+                </li>
+                {/* <li>{description}</li> */}
+                {/* <li>{instructions}</li> */}
+                <li>
+                  Start: {published_date} - End: {end_date}
                 </li>
                 <li>Type: {type}</li>
                 <li>Platforms: {platforms}</li>
                 <li># of Users: {users}</li>
                 <li>Status: {status}</li>
                 <li>Worth: {worth}</li>
-                {/* <li><Image src={thumbnail} alt={title} width={200} height={200} />
-            <li><Image src={image} alt={title} width={200} height={200} /> */}
-                <li>
+                {/* <li><img src={image} alt={title} width={200} height={200} /></li> */}
+                {/* <li>
                   <ExternalLink
                     href={open_giveaway_url}
                     displayText="Open Giveaway"
@@ -137,7 +140,8 @@ export default async function FreeGames() {
                     href={open_giveaway}
                     displayText="Open Giveaway"
                   />
-                </li>
+                </li> */}
+                <Link href={`/free-games/${id}`}>Details</Link>
               </ul>
             </div>
           ),
@@ -146,24 +150,3 @@ export default async function FreeGames() {
     </main>
   );
 }
-
-// RESPONSE TYPE FROM GAMERPOWER API:
-
-// {
-//     id: number,
-//     title: 'string',
-//     worth: 'N/A' | 'string,
-//     thumbnail: 'url string',
-//     image: 'url string',
-//     description: 'string',
-//     instructions: 'string ',
-//     open_giveaway_url: 'url string',
-//     published_date: 'N/A' | 'ISO 8601 date string',
-//     type: 'DLC',
-//     platforms: 'PC',
-//     end_date: 'N/A' | 'ISO 8601 date string',
-//     users: number,
-//     status: 'Active',
-//     gamerpower_url: 'url string',
-//     open_giveaway: 'url string'
-//   },
