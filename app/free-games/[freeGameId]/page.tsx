@@ -31,7 +31,7 @@ export default async function FreeGamesDetail({
 
   const PageHeader = () => {
     return (
-      <header className="mb-16 bg-blue-950 py-32 text-center">
+      <header className="mb-8 bg-blue-950 py-32 text-center">
         <h2 className=" text-4xl font-bold">Free Games and Giveaways</h2>
         <p className="text-sm">
           Powered by{" "}

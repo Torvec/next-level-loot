@@ -2,37 +2,9 @@
 import Link from "next/link";
 import ExternalLink from "@/components/ExternalLink";
 import type { FreeGamesTypes } from "@/types/freeGamesTypes";
+import FreeGamesFilter from "./FreeGamesFilter";
 
-const gamerpowerBaseURL = "https://gamerpower.p.rapidapi.com/api/";
-
-const gamerpowerGiveaways = "giveaways";
-
-const gamerpowerIndividualGiveaway = "giveaway?id=";
-
-const queryParameters = {
-  platform: [
-    "pc",
-    "steam",
-    "epic-games-store",
-    "itchio",
-    "gog",
-    "ubisoft",
-    "vr",
-    "origin",
-    "battlenet",
-    "xbox-360",
-    "xbox-one",
-    "xbox-series-xs",
-    "ps4",
-    "ps5",
-    "switch",
-    "android",
-    "ios",
-    "drm-free",
-  ],
-  type: ["game", "loot", "beta"],
-  "sort-by": ["value", "popularity"],
-};
+const gamerpowerBaseURL = "https://gamerpower.p.rapidapi.com/api/giveaways";
 
 const options = {
   method: "GET",
@@ -42,9 +14,9 @@ const options = {
   },
 };
 
-async function fetchFreeGames(url: string) {
+async function fetchFreeGames() {
   try {
-    const response = await fetch(gamerpowerBaseURL + url, options);
+    const response = await fetch(gamerpowerBaseURL, options);
     const result = await response.json();
     return result;
   } catch (error) {
@@ -54,7 +26,7 @@ async function fetchFreeGames(url: string) {
 
 const PageHeader = () => {
   return (
-    <header className="mb-16 bg-blue-950 py-32 text-center">
+    <header className="mb-8 bg-blue-950 py-32 text-center">
       <h2 className=" text-4xl font-bold">Free Games and Giveaways</h2>
       <p className="text-sm">
         Powered by{" "}
@@ -107,11 +79,12 @@ const GameList = ({ list }: { list: FreeGamesTypes[] }) => {
 };
 
 export default async function FreeGames() {
-  const data = await fetchFreeGames(gamerpowerGiveaways);
+  const data = await fetchFreeGames();
 
   return (
     <main className="container mx-auto bg-slate-600 pb-32">
       <PageHeader />
+      <FreeGamesFilter />
       <GameList list={data} />
     </main>
   );
