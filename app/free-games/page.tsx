@@ -1,27 +1,48 @@
+"usc client";
+
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import ExternalLink from "@/components/ExternalLink";
 import type { FreeGamesTypes } from "@/types/freeGamesTypes";
 import FreeGamesFilter from "./FreeGamesFilter";
 
-const gamerpowerBaseURL = "https://gamerpower.p.rapidapi.com/api/giveaways";
+// const gamerpowerGiveawaysURL = "https://gamerpower.p.rapidapi.com/api/giveaways";
 
-const options = {
-  method: "GET",
-  headers: {
-    "x-rapidapi-key": `${process.env.GAMERPOWER_API_KEY}`,
-    "x-rapidapi-host": "gamerpower.p.rapidapi.com",
-  },
-};
+// const options = {
+//   method: "GET",
+//   headers: {
+//     "x-rapidapi-key": `${process.env.GAMERPOWER_API_KEY}`,
+//     "x-rapidapi-host": "gamerpower.p.rapidapi.com",
+//   },
+// };
 
-async function fetchFreeGames() {
-  try {
-    const response = await fetch(gamerpowerBaseURL, options);
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+// async function fetchFreeGames() {
+//   try {
+//     const response = await fetch(gamerpowerGiveawaysURL, options);
+//     const result = await response.json();
+//     return result;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+async function freeGamesQuery(formData: FormData) {
+  const platform = formData.get("platform");
+  const type = formData.get("type");
+  const sort = formData.get("sort");
+  const response = await fetch(
+    `https://gamerpower.p.rapidapi.com/api/giveaways?platform=${platform}&type=${type}&sort-by=${sort}`,
+    {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": `${process.env.GAMERPOWER_API_KEY}`,
+        "x-rapidapi-host": "gamerpower.p.rapidapi.com",
+      },
+    },
+  );
+  const result = await response.json();
+  console.log(result);
+  return result;
 }
 
 const PageHeader = () => {
@@ -79,7 +100,7 @@ const GameList = ({ list }: { list: FreeGamesTypes[] }) => {
 };
 
 export default async function FreeGames() {
-  const data = await fetchFreeGames();
+  await freeGamesQuery(data);
 
   return (
     <main className="container mx-auto bg-slate-600 pb-32">

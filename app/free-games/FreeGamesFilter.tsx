@@ -1,5 +1,3 @@
-"use client";
-
 const queryParams = {
   platform: [
     { label: "All", value: "all" },
