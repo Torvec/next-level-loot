@@ -1,0 +1,21 @@
+meta {
+  name: Get links to the stores that sell the game-
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/games/:game_pk/stores
+  body: none
+  auth: none
+}
+
+params:query {
+  ~ordering: 
+  ~page: 
+  ~page_size: 
+}
+
+params:path {
+  game_pk: 
+}

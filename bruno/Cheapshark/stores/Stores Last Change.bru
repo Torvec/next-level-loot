@@ -1,0 +1,21 @@
+meta {
+  name: Stores Last Change
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}/api/1.0/stores?lastChange=
+  body: none
+  auth: none
+}
+
+params:query {
+  lastChange: 
+}
+
+docs {
+  Including the `lastChange` parameter on the Stores endpoint will return an object with a mapping of `storeIDs` to the last update / change time for that store (in Unix Timestamp format).
+  
+  This can be useful to know for reducing the number of API requests for deals or games.
+}

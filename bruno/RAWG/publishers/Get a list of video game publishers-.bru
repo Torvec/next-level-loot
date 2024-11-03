@@ -1,0 +1,16 @@
+meta {
+  name: Get a list of video game publishers-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/publishers
+  body: none
+  auth: none
+}
+
+params:query {
+  ~page: 
+  ~page_size: 
+}

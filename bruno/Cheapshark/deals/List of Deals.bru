@@ -1,0 +1,35 @@
+meta {
+  name: List of Deals
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/api/1.0/deals?storeID=1&upperPrice=15
+  body: none
+  auth: none
+}
+
+params:query {
+  storeID: 1
+  upperPrice: 15
+  ~pageNumber: 
+  ~pageSize: 
+  ~sortBy: 
+  ~desc: 
+  ~lowerPrice: 
+  ~metacritic: 
+  ~steamRating: 
+  ~maxAge: 
+  ~steamAppID: 
+  ~title: 
+  ~exact: 
+  ~AAA: 
+  ~steamworks: 
+  ~onSale: 
+  ~output: 
+}
+
+docs {
+  Get a paged list of deals matching any number of criteria, all the following filtering parameters are optional.
+}

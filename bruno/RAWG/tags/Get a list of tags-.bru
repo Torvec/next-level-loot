@@ -1,0 +1,16 @@
+meta {
+  name: Get a list of tags-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/tags
+  body: none
+  auth: none
+}
+
+params:query {
+  ~page: 
+  ~page_size: 
+}

@@ -1,0 +1,16 @@
+meta {
+  name: Get a list of game creators-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/creators
+  body: none
+  auth: none
+}
+
+params:query {
+  ~page: 
+  ~page_size: 
+}

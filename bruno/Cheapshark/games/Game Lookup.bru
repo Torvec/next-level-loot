@@ -1,0 +1,19 @@
+meta {
+  name: Game Lookup
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}/api/1.0/games?id=612
+  body: none
+  auth: none
+}
+
+params:query {
+  id: 612
+}
+
+docs {
+  Gets info for a specific game. Response includes a list of all deals associated with the game.
+}

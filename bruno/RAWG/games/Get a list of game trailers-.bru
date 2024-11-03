@@ -1,0 +1,15 @@
+meta {
+  name: Get a list of game trailers-
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/games/:id/movies
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 
+}

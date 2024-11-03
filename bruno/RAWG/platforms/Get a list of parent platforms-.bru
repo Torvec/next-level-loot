@@ -1,0 +1,17 @@
+meta {
+  name: Get a list of parent platforms-
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/platforms/lists/parents
+  body: none
+  auth: none
+}
+
+params:query {
+  ~ordering: 
+  ~page: 
+  ~page_size: 
+}

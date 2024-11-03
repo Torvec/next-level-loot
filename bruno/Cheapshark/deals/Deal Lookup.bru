@@ -1,0 +1,19 @@
+meta {
+  name: Deal Lookup
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}/api/1.0/deals?id=X8sebHhbc1Ga0dTkgg59WgyM506af9oNZZJLU9uSrX8%3D
+  body: none
+  auth: none
+}
+
+params:query {
+  id: X8sebHhbc1Ga0dTkgg59WgyM506af9oNZZJLU9uSrX8%3D
+}
+
+docs {
+  Get info for a specific deal. Response includes game info, any cheaper current deals, and the cheapest historical price. As elsewhere, dealID is encoded
+}

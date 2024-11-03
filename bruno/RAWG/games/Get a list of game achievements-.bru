@@ -1,0 +1,15 @@
+meta {
+  name: Get a list of game achievements-
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/games/:id/achievements
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 
+}

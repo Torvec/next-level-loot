@@ -1,0 +1,16 @@
+meta {
+  name: Get a list of game developers-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/developers
+  body: none
+  auth: none
+}
+
+params:query {
+  ~page: 
+  ~page_size: 
+}

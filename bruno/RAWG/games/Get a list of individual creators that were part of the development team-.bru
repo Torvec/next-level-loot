@@ -1,0 +1,21 @@
+meta {
+  name: Get a list of individual creators that were part of the development team-
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/games/:game_pk/development-team
+  body: none
+  auth: none
+}
+
+params:query {
+  ~ordering: 
+  ~page: 
+  ~page_size: 
+}
+
+params:path {
+  game_pk: 
+}

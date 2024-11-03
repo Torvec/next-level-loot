@@ -1,0 +1,24 @@
+meta {
+  name: List of Games
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/api/1.0/games?title=batman
+  body: none
+  auth: none
+}
+
+params:query {
+  title: batman
+  ~steamAppID: 35140
+  ~limit: 60
+  ~exact: 0
+}
+
+docs {
+  Get a list of games that contain a given title or match a steamAppID. Response includes the cheapest current deal for each game.
+  
+  **📌 Note**: At least one search criteria must be set to receive a response.
+}

@@ -1,0 +1,37 @@
+meta {
+  name: Get a list of games-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/games
+  body: none
+  auth: none
+}
+
+params:query {
+  ~page: 
+  ~page_size: 
+  ~search: 
+  ~search_precise: 
+  ~search_exact: 
+  ~parent_platforms: 
+  ~platforms: 
+  ~stores: 
+  ~developers: 
+  ~publishers: 
+  ~genres: 
+  ~tags: 
+  ~creators: 
+  ~dates: 
+  ~updated: 
+  ~platforms_count: 
+  ~metacritic: 
+  ~exclude_collection: 
+  ~exclude_additions: 
+  ~exclude_parents: 
+  ~exclude_game_series: 
+  ~exclude_stores: 
+  ~ordering: 
+}

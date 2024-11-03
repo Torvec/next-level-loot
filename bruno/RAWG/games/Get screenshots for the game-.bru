@@ -1,0 +1,21 @@
+meta {
+  name: Get screenshots for the game-
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/games/:game_pk/screenshots
+  body: none
+  auth: none
+}
+
+params:query {
+  ~ordering: 
+  ~page: 
+  ~page_size: 
+}
+
+params:path {
+  game_pk: 
+}

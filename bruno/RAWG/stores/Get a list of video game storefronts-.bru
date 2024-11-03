@@ -1,0 +1,17 @@
+meta {
+  name: Get a list of video game storefronts-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/stores
+  body: none
+  auth: none
+}
+
+params:query {
+  ~ordering: 
+  ~page: 
+  ~page_size: 
+}

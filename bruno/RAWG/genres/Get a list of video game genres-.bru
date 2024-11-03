@@ -1,0 +1,17 @@
+meta {
+  name: Get a list of video game genres-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/genres
+  body: none
+  auth: none
+}
+
+params:query {
+  ~ordering: 
+  ~page: 
+  ~page_size: 
+}
