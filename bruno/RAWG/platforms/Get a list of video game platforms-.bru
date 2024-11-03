@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of video game platforms-
+  name: Get a list of video game platforms
   type: http
   seq: 1
 }
 
 get {
-  url: {{baseUrl}}/platforms
+  url: {{rawgURL}}/platforms?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~ordering: 
   ~page: 
   ~page_size: 

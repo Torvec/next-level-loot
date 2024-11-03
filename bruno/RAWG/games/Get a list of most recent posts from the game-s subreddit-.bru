@@ -1,13 +1,17 @@
 meta {
-  name: Get a list of most recent posts from the game-s subreddit-
+  name: Get a list of most recent posts from the game's subreddit
   type: http
   seq: 11
 }
 
 get {
-  url: {{baseUrl}}/games/:id/reddit
+  url: {{rawgURL}}/games/:id/reddit?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

@@ -1,16 +1,17 @@
 meta {
-  name: Get links to the stores that sell the game-
+  name: Get links to the stores that sell the game
   type: http
   seq: 7
 }
 
 get {
-  url: {{baseUrl}}/games/:game_pk/stores
+  url: {{rawgURL}}/games/:game_pk/stores?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~ordering: 
   ~page: 
   ~page_size: 

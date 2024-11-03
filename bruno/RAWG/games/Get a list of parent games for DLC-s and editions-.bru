@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of parent games for DLC-s and editions-
+  name: Get a list of parent games for DLCs and editions
   type: http
   seq: 5
 }
 
 get {
-  url: {{baseUrl}}/games/:game_pk/parent-games
+  url: {{rawgURL}}/games/:game_pk/parent-games?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
 }

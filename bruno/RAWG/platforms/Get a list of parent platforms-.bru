@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of parent platforms-
+  name: Get a list of parent platforms
   type: http
   seq: 2
 }
 
 get {
-  url: {{baseUrl}}/platforms/lists/parents
+  url: {{rawgURL}}/platforms/lists/parents?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~ordering: 
   ~page: 
   ~page_size: 

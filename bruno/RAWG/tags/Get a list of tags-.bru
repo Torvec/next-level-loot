@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of tags-
+  name: Get a list of tags
   type: http
   seq: 1
 }
 
 get {
-  url: {{baseUrl}}/tags
+  url: {{rawgURL}}/tags?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
 }

@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of creator positions -jobs--
+  name: Get a list of creator positions (jobs)
   type: http
   seq: 1
 }
 
 get {
-  url: {{baseUrl}}/creator-roles
+  url: {{rawgURL}}/creator-roles?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
 }

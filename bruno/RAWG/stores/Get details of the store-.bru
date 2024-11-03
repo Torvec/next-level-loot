@@ -1,13 +1,17 @@
 meta {
-  name: Get details of the store-
+  name: Get details of the store
   type: http
   seq: 2
 }
 
 get {
-  url: {{baseUrl}}/stores/:id
+  url: {{rawgURL}}/stores/:id?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

@@ -1,13 +1,17 @@
 meta {
-  name: Get streams on Twitch associated with the game- available only for business and enterprise API users-
+  name: Get streams on Twitch associated with the game (available only for business and enterprise API users)
   type: http
   seq: 13
 }
 
 get {
-  url: {{baseUrl}}/games/:id/twitch
+  url: {{rawgURL}}/games/:id/twitch?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

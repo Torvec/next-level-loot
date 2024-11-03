@@ -1,13 +1,17 @@
 meta {
-  name: Get details of the creator-
+  name: Get details of the creator
   type: http
   seq: 2
 }
 
 get {
-  url: {{baseUrl}}/creators/:id
+  url: {{rawgURL}}/creators/:id?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

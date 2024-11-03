@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of individual creators that were part of the development team-
+  name: Get a list of individual creators that were part of the development team
   type: http
   seq: 3
 }
 
 get {
-  url: {{baseUrl}}/games/:game_pk/development-team
+  url: {{rawgURL}}/games/:game_pk/development-team?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~ordering: 
   ~page: 
   ~page_size: 

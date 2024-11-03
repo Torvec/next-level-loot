@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of game developers-
+  name: Get a list of game developers
   type: http
   seq: 1
 }
 
 get {
-  url: {{baseUrl}}/developers
+  url: {{rawgURL}}/developers?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
 }

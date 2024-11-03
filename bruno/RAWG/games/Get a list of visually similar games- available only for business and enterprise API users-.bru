@@ -1,13 +1,17 @@
 meta {
-  name: Get a list of visually similar games- available only for business and enterprise API users-
+  name: Get a list of visually similar games (available only for business and enterprise API users)
   type: http
   seq: 12
 }
 
 get {
-  url: {{baseUrl}}/games/:id/suggested
+  url: {{rawgURL}}/games/:id/suggested?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

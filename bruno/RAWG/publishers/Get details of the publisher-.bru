@@ -1,13 +1,17 @@
 meta {
-  name: Get details of the publisher-
+  name: Get details of the publisher
   type: http
   seq: 2
 }
 
 get {
-  url: {{baseUrl}}/publishers/:id
+  url: {{rawgURL}}/publishers/:id?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

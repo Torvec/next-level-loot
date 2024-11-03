@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of game creators-
+  name: Get a list of game creators
   type: http
   seq: 1
 }
 
 get {
-  url: {{baseUrl}}/creators
+  url: {{rawgURL}}/creators?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
 }

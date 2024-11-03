@@ -1,13 +1,17 @@
 meta {
-  name: Get details of the game-
+  name: Get details of the game
   type: http
   seq: 8
 }
 
 get {
-  url: {{baseUrl}}/games/:id
+  url: {{rawgURL}}/games/:id?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

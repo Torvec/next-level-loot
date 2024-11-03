@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of video game publishers-
+  name: Get a list of video game publishers
   type: http
   seq: 1
 }
 
 get {
-  url: {{baseUrl}}/publishers
+  url: {{rawgURL}}/publishers?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
 }

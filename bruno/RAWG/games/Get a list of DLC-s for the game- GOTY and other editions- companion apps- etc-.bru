@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of DLC-s for the game- GOTY and other editions- companion apps- etc-
+  name: Get a list of DLCs for the game (GOTY and other editions, companion apps, etc)
   type: http
   seq: 2
 }
 
 get {
-  url: {{baseUrl}}/games/:game_pk/additions
+  url: {{rawgURL}}/games/:game_pk/additions?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
 }

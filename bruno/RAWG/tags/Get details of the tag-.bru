@@ -1,13 +1,17 @@
 meta {
-  name: Get details of the tag-
+  name: Get details of the tag
   type: http
   seq: 2
 }
 
 get {
-  url: {{baseUrl}}/tags/:id
+  url: {{rawgURL}}/tags/:id?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of games that are part of the same series-
+  name: Get a list of games that are part of the same series
   type: http
   seq: 4
 }
 
 get {
-  url: {{baseUrl}}/games/:game_pk/game-series
+  url: {{rawgURL}}/games/:game_pk/game-series?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
 }

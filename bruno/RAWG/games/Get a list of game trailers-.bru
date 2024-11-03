@@ -1,13 +1,17 @@
 meta {
-  name: Get a list of game trailers-
+  name: Get a list of game trailers
   type: http
   seq: 10
 }
 
 get {
-  url: {{baseUrl}}/games/:id/movies
+  url: {{rawgURL}}/games/:id/movies?key={{rawg-key}}
   body: none
   auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
 }
 
 params:path {

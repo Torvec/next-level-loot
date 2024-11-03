@@ -1,16 +1,17 @@
 meta {
-  name: Get a list of games-
+  name: Get a list of games
   type: http
   seq: 1
 }
 
 get {
-  url: {{baseUrl}}/games
+  url: {{rawgURL}}/games?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
+  key: {{rawg-key}}
   ~page: 
   ~page_size: 
   ~search: 
