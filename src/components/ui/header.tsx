@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SunMoon } from "lucide-react";
+import SearchInput from "@/components/ui/search-input";
 import { Gamepad2 } from "lucide-react";
 
 export default async function Header() {
@@ -27,7 +27,7 @@ export default async function Header() {
   ];
 
   return (
-    <header className="border-b border-white">
+    <header className="border-b border-neutral-700">
       <div className="container mx-auto flex flex-col items-center justify-between py-4 md:flex-row">
         {/* LOGO */}
         <h1 className="font-bold uppercase">
@@ -38,7 +38,7 @@ export default async function Header() {
         </h1>
         {/* NAVIGATION */}
         <nav>
-          <ul className="flex flex-wrap items-center justify-center gap-8 font-semibold">
+          <ul className="flex flex-wrap items-center justify-center gap-8 font-medium">
             {navLinks.map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} className="hover:underline">
@@ -48,10 +48,8 @@ export default async function Header() {
             ))}
           </ul>
         </nav>
-        {/* THEME TOGGLE */}
-        <button className="flex items-center gap-1 rounded-lg bg-neutral-500 px-2 py-1.5 text-sm uppercase hover:bg-neutral-600">
-          <SunMoon size={24} />
-        </button>
+        {/* SEARCH */}
+        <SearchInput />
       </div>
     </header>
   );
