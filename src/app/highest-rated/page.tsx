@@ -1,3 +1,13 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
 export default async function HighestRated() {
   interface Platform {
     id: number;
@@ -109,24 +119,76 @@ export default async function HighestRated() {
         <h1 className="py-32 text-center text-4xl font-bold uppercase">
           Highest Rated
         </h1>
-        <ul>
-          {highestRatedGames.map((game) => (
-            <li key={game.id}>
-              <h2>{game.name}</h2>
-              <img src={game.background_image} alt={game.name} />
-              <p>Metacritic Score: {game.metacritic}</p>
-              <p>
-                Rating: {game.rating} ({game.rating_top})
-              </p>
-              <p>Released: {game.released}</p>
-              <p>
-                Platforms:{" "}
-                {game.platforms.map((p) => p.platform.name).join(", ")}
-              </p>
-              <p>Genres: {game.genres.map((g) => g.name).join(", ")}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="mb-32 grid grid-cols-3 gap-8">
+          {highestRatedGames.map(
+            ({
+              name,
+              platforms,
+              stores,
+              released,
+              background_image,
+              metacritic,
+              id,
+              esrb_rating,
+              short_screenshots,
+              genres,
+            }) => (
+              <Card key={id} className="rounded-xl border-neutral-700">
+                <CardHeader>
+                  <CardDescription>
+                    <img src={background_image} alt={name} />
+                  </CardDescription>
+                  <CardTitle>{name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>Metacritic Score: {metacritic}</p>
+                  <p>Platforms:</p>
+                  <ul>
+                    {platforms.map((p) => (
+                      <li key={p.platform.id}>{p.platform.name}</li>
+                    ))}
+                  </ul>
+                  <p>Stores:</p>
+                  <ul>
+                    {stores ? (
+                      stores.map((s) => (
+                        <li key={s.store.id}>{s.store.name}</li>
+                      ))
+                    ) : (
+                      <li>No stores available</li>
+                    )}
+                  </ul>
+                  <p>Released: {released}</p>
+                  <p>
+                    ESRB Rating: {esrb_rating ? esrb_rating.name : "Not Rated"}
+                  </p>
+                  <p>Genres:</p>
+                  <ul>
+                    {genres.map((genre) => (
+                      <li key={genre.id}>{genre.name}</li>
+                    ))}
+                  </ul>
+                  <div>
+                    <h3>Screenshots</h3>
+                    <ul className="grid grid-cols-3 gap-4">
+                      {short_screenshots.map((screenshot) => (
+                        <li key={screenshot.id}>
+                          <img
+                            src={screenshot.image}
+                            alt={`${name} screenshot`}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="bg-neutral-500">Deals</Button>
+                </CardFooter>
+              </Card>
+            ),
+          )}
+        </div>
       </>
     );
   } catch (error) {
