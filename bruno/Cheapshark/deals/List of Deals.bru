@@ -5,14 +5,14 @@ meta {
 }
 
 get {
-  url: {{cheapsharkURL}}/api/1.0/deals?storeID=1&upperPrice=15
+  url: {{cheapsharkURL}}/api/1.0/deals
   body: none
   auth: none
 }
 
 params:query {
-  storeID: 1
-  upperPrice: 15
+  ~storeID: 1
+  ~upperPrice: 15
   ~pageNumber: 
   ~pageSize: 
   ~sortBy: 
