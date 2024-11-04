@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{gamerpowerURL}}/api/giveaways?sort={{sort-by-value}}&type={{type-game}}&platform={{platform-pc}}
+  url: {{gamerpowerURL}}/api/giveaways?sort={{sort-by-value}}&type={{type-game}}
   body: none
   auth: none
 }
@@ -13,7 +13,7 @@ get {
 params:query {
   sort: {{sort-by-value}}
   type: {{type-game}}
-  platform: {{platform-pc}}
+  ~platform: {{platform-pc}}
 }
 
 headers {

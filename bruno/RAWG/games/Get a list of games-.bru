@@ -5,34 +5,34 @@ meta {
 }
 
 get {
-  url: {{rawgURL}}/games?key={{rawg-key}}
+  url: {{rawgURL}}/games?key={{rawg-key}}&page_size=50&platforms=7,4,187,186&dates&metacritic&ordering=-metacritic
   body: none
   auth: none
 }
 
 params:query {
   key: {{rawg-key}}
+  page_size: 50
+  platforms: 7,4,187,186
+  dates: 
+  metacritic: 
+  ordering: -metacritic
   ~page: 
-  ~page_size: 
   ~search: 
   ~search_precise: 
   ~search_exact: 
   ~parent_platforms: 
-  ~platforms: 
   ~stores: 
   ~developers: 
   ~publishers: 
   ~genres: 
   ~tags: 
   ~creators: 
-  ~dates: 
   ~updated: 
   ~platforms_count: 
-  ~metacritic: 
   ~exclude_collection: 
   ~exclude_additions: 
   ~exclude_parents: 
   ~exclude_game_series: 
   ~exclude_stores: 
-  ~ordering: 
 }

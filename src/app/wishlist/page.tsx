@@ -1,3 +1,9 @@
 export default function Wishlist() {
-  return <div>My Wishlist Page</div>;
+  return (
+    <>
+      <h1 className="py-32 text-center text-4xl font-bold uppercase">
+        My Wishlist
+      </h1>
+    </>
+  );
 }
