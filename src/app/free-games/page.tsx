@@ -1,3 +1,13 @@
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 export default async function FreeGames() {
   interface FreeGame {
     id: number;
@@ -19,11 +29,17 @@ export default async function FreeGames() {
   }
 
   try {
+    const rapidAPIKey = process.env.RAPIDAPI_KEY;
+
+    if (!rapidAPIKey) {
+      throw new Error("RAPIDAPI_KEY is not defined");
+    }
+
     const response = await fetch(
-      "https://gamerpower.p.rapidapi.com/api/giveaways?sort=value&type=game",
+      "https://gamerpower.p.rapidapi.com/api/giveaways?sort=value",
       {
         headers: {
-          "X-RapidAPI-Key": process.env.RAPIDAPI_KEY || "",
+          "X-RapidAPI-Key": rapidAPIKey,
           "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
         },
       },
@@ -39,31 +55,52 @@ export default async function FreeGames() {
         <h1 className="py-32 text-center text-4xl font-bold uppercase">
           Free Games
         </h1>
-        <ul>
-          {freeGames.map((freeGame) => (
-            <li key={freeGame.id}>
-              <h2>{freeGame.title}</h2>
-              <img src={freeGame.thumbnail} alt={freeGame.title} />
-              <p>{freeGame.description}</p>
-              <p>
-                <strong>Worth:</strong> {freeGame.worth}
-              </p>
-              <p>
-                <strong>Platforms:</strong> {freeGame.platforms}
-              </p>
-              <p>
-                <strong>End Date:</strong> {freeGame.end_date}
-              </p>
-              <a
-                href={freeGame.open_giveaway_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get Giveaway
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="mb-32 grid grid-cols-3 gap-8">
+          {freeGames.map(
+            ({
+              id,
+              title,
+              worth,
+              // thumbnail,
+              image,
+              description,
+              instructions,
+              open_giveaway_url,
+              published_date,
+              platforms,
+              end_date,
+            }) => (
+              <Card key={id} className="rounded-xl border-neutral-700">
+                <CardHeader>
+                  <CardDescription>
+                    <img src={image} alt={title} />
+                  </CardDescription>
+                  <CardTitle>{title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>{description}</p>
+                  <p>Platforms: {platforms}</p>
+                  <p>Worth: {worth}</p>
+                  <p>
+                    Published Date: {published_date} - End Date: {end_date}
+                  </p>
+                  <p>{instructions}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button className="bg-neutral-500">
+                    <a
+                      href={open_giveaway_url}
+                      target="_blank"
+                      rel="noopener noreferrer external"
+                    >
+                      Grab It
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ),
+          )}
+        </div>
       </>
     );
   } catch (error) {

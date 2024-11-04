@@ -101,39 +101,6 @@ export default async function BestDeals() {
             },
           )}
         </div>
-        {/* <ul>
-          {gameDeals.map((gameDeal) => (
-            <li key={gameDeal.dealID}>
-              <h2>{gameDeal.title}</h2>
-              <img src={gameDeal.thumb} alt={gameDeal.title} />
-              <p>{gameDeal.metacriticLink}</p>
-              <p>
-                <strong>Sale Price:</strong> {gameDeal.salePrice}
-              </p>
-              <p>
-                <strong>Normal Price:</strong> {gameDeal.normalPrice}
-              </p>
-              <p>
-                <strong>Savings:</strong> {gameDeal.savings}%
-              </p>
-              <p>
-                <strong>Steam Rating:</strong> {gameDeal.steamRatingText} (
-                {gameDeal.steamRatingPercent}%)
-              </p>
-              <p>
-                <strong>Release Date:</strong>{" "}
-                {new Date(gameDeal.releaseDate * 1000).toLocaleDateString()}
-              </p>
-              <a
-                href={`https://store.steampowered.com/app/${gameDeal.steamAppID}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View on Steam
-              </a>
-            </li>
-          ))}
-        </ul> */}
       </>
     );
   } catch (error) {

@@ -105,6 +105,10 @@ export default async function HighestRated() {
   try {
     const rawgAPIKey = process.env.RAWG_API_KEY;
 
+    if (!rawgAPIKey) {
+      throw new Error("RAWG_API_KEY is not defined");
+    }
+
     const response = await fetch(
       `https://api.rawg.io/api/games?key=${rawgAPIKey}&page_size=25&platforms=7,4,187,186&dates&metacritic&ordering=-metacritic`,
     );
