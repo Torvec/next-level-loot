@@ -59,10 +59,6 @@ export default async function HighestRated() {
     image: string;
   }
 
-  // interface ParentPlatform {
-  //   platform: Platform;
-  // }
-
   interface Genre {
     id: number;
     name: string;

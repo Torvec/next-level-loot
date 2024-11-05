@@ -1,3 +1,8 @@
+// TODO: Sort by data, value, popularity
+// TODO: Filter by Type or Platform
+// Type Options: game, loot, beta
+// Platform Options: pc, steam, epic-games-store, itchio, gog, origin, ubisoft, battlenet, drm-free, ps5, ps4, xbox-series-xs, xbox-one, switch, android, ios, vr
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -60,6 +65,7 @@ export default async function FreeGames() {
             ({
               id,
               title,
+              type,
               worth,
               // thumbnail,
               image,
@@ -78,6 +84,7 @@ export default async function FreeGames() {
                   <CardTitle>{title}</CardTitle>
                 </CardHeader>
                 <CardContent>
+                  <p>Loot Type: {type}</p>
                   <p>{description}</p>
                   <p>Platforms: {platforms}</p>
                   <p>Worth: {worth}</p>
