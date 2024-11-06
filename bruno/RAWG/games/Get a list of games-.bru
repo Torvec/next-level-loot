@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{rawgURL}}/games?key={{rawg-key}}&page_size=25&platforms=7,4,187,186&dates&metacritic&ordering=-metacritic
+  url: {{rawgURL}}/games?key={{rawg-key}}&page_size=25&platforms=7,4,187,186&dates&metacritic&search=metal gear solid
   body: none
   auth: none
 }
@@ -16,9 +16,9 @@ params:query {
   platforms: 7,4,187,186
   dates: 
   metacritic: 
-  ordering: -metacritic
+  search: metal gear solid
+  ~ordering: -metacritic
   ~page: 
-  ~search: 
   ~search_precise: 
   ~search_exact: 
   ~parent_platforms: 
