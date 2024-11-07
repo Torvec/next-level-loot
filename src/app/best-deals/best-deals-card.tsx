@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { GameDealType } from "./page";
+import { setWishlistItem } from "@/lib/wishlist";
 
 export default function BestDealsCard({
   thumb,
@@ -50,7 +51,10 @@ export default function BestDealsCard({
             </a>
           </Button>
         )}
-        <Button className="bg-yellow-500 text-blue-900 hover:bg-yellow-400">
+        <Button
+          onClick={() => setWishlistItem("wishlist", title)}
+          className="bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+        >
           Add to Wishlist
         </Button>
       </CardFooter>
