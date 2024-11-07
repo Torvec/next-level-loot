@@ -1,12 +1,6 @@
 "use client";
 
 import {
-  initWishlist,
-  isWishlistEmpty,
-  getWishlist,
-  removeWishlistItem,
-} from "@/lib/wishlist";
-import {
   Card,
   CardContent,
   CardDescription,
@@ -15,20 +9,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useWishlist, useWishlistDispatch } from "@/lib/wishlist-provider";
 
 export default function Wishlist() {
-  initWishlist("wishlist");
-  const wishlistItems = getWishlist("wishlist");
+  const wishlist = useWishlist();
+  const wishlistIsEmpty = wishlist.length === 0;
+  const dispatch = useWishlistDispatch();
+
   return (
     <>
       <h1 className="py-32 text-center text-4xl font-bold uppercase">
         My Wishlist
       </h1>
-      {isWishlistEmpty("wishlist") ? (
+      {wishlistIsEmpty ? (
         <p>Is empty</p>
       ) : (
         <div className="grid grid-cols-3 gap-8">
-          {wishlistItems.map((item, index) => (
+          {wishlist.map((item, index) => (
             <Card key={index}>
               <CardHeader>
                 <CardDescription></CardDescription>
@@ -37,7 +34,7 @@ export default function Wishlist() {
               <CardContent></CardContent>
               <CardFooter>
                 <Button
-                  onClick={() => removeWishlistItem("wishlist", index)}
+                  onClick={() => dispatch({ type: "REMOVE", index })}
                   className="bg-red-500 text-white"
                 >
                   Remove

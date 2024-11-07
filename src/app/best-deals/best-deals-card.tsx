@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { GameDealType } from "./page";
-import { setWishlistItem } from "@/lib/wishlist";
+import { useWishlistDispatch } from "@/lib/wishlist-provider";
 
 export default function BestDealsCard({
   thumb,
@@ -22,6 +22,7 @@ export default function BestDealsCard({
   dealRating,
   steamAppID,
 }: GameDealType) {
+  const dispatch = useWishlistDispatch();
   const formattedSavings = parseFloat(savings).toFixed(0);
   const formattedDealRating = parseFloat(dealRating).toFixed(0);
 
@@ -52,7 +53,7 @@ export default function BestDealsCard({
           </Button>
         )}
         <Button
-          onClick={() => setWishlistItem("wishlist", title)}
+          onClick={() => dispatch({ type: "ADD", item: title })}
           className="bg-yellow-500 text-blue-900 hover:bg-yellow-400"
         >
           Add to Wishlist

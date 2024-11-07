@@ -36,7 +36,7 @@ export function setWishlistItem(key: string, item: unknown) {
     console.error("Error setting wishlist item:", error);
   }
 }
-export function getWishlist(key: string): React.ReactNode[] {
+export function getWishlist(key: string): string[] {
   try {
     const wishlist = localStorage.getItem(key);
     return wishlist ? JSON.parse(wishlist) : [];

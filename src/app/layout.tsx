@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import WishlistProvider from "@/lib/wishlist-provider";
 import Header from "@/components/ui/header";
 import Container from "@/components/ui/container";
 import Footer from "@/components/ui/footer";
@@ -32,7 +33,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >
         <Header />
-        <Container>{children}</Container>
+        <Container>
+          <WishlistProvider>{children}</WishlistProvider>
+        </Container>
         <Footer />
       </body>
     </html>
