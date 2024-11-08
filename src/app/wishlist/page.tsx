@@ -24,7 +24,7 @@ export default function Wishlist() {
       {wishlistIsEmpty ? (
         <p>Is empty</p>
       ) : (
-        <div className="grid grid-cols-3 gap-8">
+        <div className="mb-32 grid grid-cols-3 gap-8">
           {wishlist.map((item, index) => (
             <Card key={index}>
               <CardHeader>
@@ -44,6 +44,14 @@ export default function Wishlist() {
           ))}
         </div>
       )}
+      <div className="mb-32 flex justify-center">
+        <Button
+          onClick={() => dispatch({ type: "CLEAR" })}
+          className="bg-red-500 text-white"
+        >
+          Clear Wishlist
+        </Button>
+      </div>
     </>
   );
 }

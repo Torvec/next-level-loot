@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import "@/styles/globals.css";
 import WishlistProvider from "@/lib/wishlist-provider";
 import Header from "@/components/ui/header";
 import Container from "@/components/ui/container";
 import Footer from "@/components/ui/footer";
 
 const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
+  src: "../styles/fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
+  src: "../styles/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });

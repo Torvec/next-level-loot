@@ -56,6 +56,9 @@ function wishlistReducer(
       const updatedRemoveState = state.filter((_, i) => i !== action.index);
       localStorage.setItem("wishlist", JSON.stringify(updatedRemoveState));
       return updatedRemoveState;
+    case "CLEAR":
+      localStorage.removeItem("wishlist");
+      return [];
     default:
       throw new Error("Unknown action: " + action.type);
   }

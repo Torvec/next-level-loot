@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FreeGameType } from "./page";
+import { useWishlistDispatch } from "@/lib/wishlist-provider";
 
 export default function FreeGamesCard({
   title,
@@ -24,6 +25,8 @@ export default function FreeGamesCard({
   platforms,
   end_date,
 }: FreeGameType) {
+  const dispatch = useWishlistDispatch();
+
   return (
     <Card className="rounded-xl border-neutral-700">
       <CardHeader>
@@ -42,7 +45,7 @@ export default function FreeGamesCard({
         </p>
         <p>{instructions}</p>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="justify-between">
         <Button className="bg-neutral-500">
           <a
             href={open_giveaway_url}
@@ -51,6 +54,12 @@ export default function FreeGamesCard({
           >
             Grab It
           </a>
+        </Button>
+        <Button
+          onClick={() => dispatch({ type: "ADD", item: title })}
+          className="bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+        >
+          Add to Wishlist
         </Button>
       </CardFooter>
     </Card>
