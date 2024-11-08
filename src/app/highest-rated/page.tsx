@@ -144,7 +144,7 @@ export default async function HighestRated() {
       </>
     );
   } catch (error) {
-    console.error("Error fetching free games:", error);
-    return <div>Error loading free games.</div>;
+    console.error("Error fetching the highest rated games:", error);
+    return <div>Error loading the highest rated games.</div>;
   }
 }

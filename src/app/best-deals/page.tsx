@@ -80,7 +80,7 @@ export default async function BestDeals() {
       </>
     );
   } catch (error) {
-    console.error("Error fetching free games:", error);
-    return <div>Error loading free games.</div>;
+    console.error("Error fetching the best deals:", error);
+    return <div>Error loading the best deals.</div>;
   }
 }
