@@ -11,23 +11,70 @@ get {
 }
 
 params:query {
-  ~storeID: 1
-  ~upperPrice: 15
+  ~storeID: {{store-id-steam}}
+  ~upperPrice: 
   ~pageNumber: 
   ~pageSize: 
-  ~sortBy: 
+  ~sortBy: {{sortby-dealrating}}
   ~desc: 
   ~lowerPrice: 
   ~metacritic: 
   ~steamRating: 
   ~maxAge: 
-  ~steamAppID: 
-  ~title: 
-  ~exact: 
-  ~AAA: 
-  ~steamworks: 
-  ~onSale: 
-  ~output: 
+  ~steamAppID: {{not-using}}
+  ~title: {{not-using}}
+  ~exact: {{not-using}}
+  ~AAA: {{not-using}}
+  ~steamworks: {{not-using}}
+  ~output: {{not-using}}
+}
+
+vars:pre-request {
+  store-id-steam: 1
+  store-id-gamersgate: 2
+  store-id-greenmangaming: 3
+  store-id-amazon: 4
+  store-id-gamestop: 5
+  store-id-direct2drive: 6
+  store-id-gog: 7
+  store-id-origin: 8
+  store-id-get-games: 9
+  store-id-shiny-loot: 10
+  store-id-humble-store: 11
+  store-id-desura: 12
+  store-id-uplay: 13
+  store-id-indiegamestand: 14
+  store-id-fanatical: 15
+  store-id-gamesrocket: 16
+  store-id-games-republic: 17
+  store-id-silagames: 18
+  store-id-playfield: 19
+  store-id-imperialgames: 20
+  store-id-wingamestore: 21
+  store-id-funstockdigital: 22
+  store-id-gamebillet: 23
+  store-id-voidu: 24
+  store-id-epic-games-store: 25
+  store-id-razer-game-store: 26
+  store-id-gamesplanet: 27
+  store-id-gamesload: 28
+  store-id-2game: 29
+  store-id-indiegala: 30
+  store-id-blizzard-shop: 31
+  store-id-allyouplay: 32
+  store-id-dlgamer: 33
+  store-id-noctre: 34
+  store-id-dreamgame: 35
+  sortby-dealrating: DealRating
+  sortby-title: Title
+  sortby-savings: Savings
+  sortby-price: Price
+  sortby-metacritic: Metacritic
+  sortby-reviews: Reviews
+  sortby-release: Release
+  sortby-store: Store
+  sortby-recent: Recent
+  not-using: not-used
 }
 
 docs {
