@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
@@ -34,7 +35,10 @@ export default function RootLayout({
       >
         <Header />
         <Container>
-          <WishlistProvider>{children}</WishlistProvider>
+          <WishlistProvider>
+            {children}
+            <SpeedInsights />
+          </WishlistProvider>
         </Container>
         <Footer />
       </body>
