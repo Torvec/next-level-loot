@@ -1,11 +1,11 @@
 meta {
-  name: Get details of the genre
+  name: Get details of the game
   type: http
-  seq: 2
+  seq: 3
 }
 
 get {
-  url: {{rawgURL}}/genres/:id?key={{rawg-key}}
+  url: {{rawgURL}}/games/:id?key={{rawg-key}}
   body: none
   auth: none
 }
@@ -15,5 +15,5 @@ params:query {
 }
 
 params:path {
-  id: 
+  id: 3498
 }

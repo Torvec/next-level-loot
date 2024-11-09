@@ -1,0 +1,121 @@
+meta {
+  name: Get a list of games
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{rawgURL}}/games?key={{rawg-key}}&page_size=25&platforms={{platform-web}}&ordering=-metacritic
+  body: none
+  auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
+  page_size: 25
+  platforms: {{platform-web}}
+  ordering: -metacritic
+  ~dates: 
+  ~metacritic: 
+  ~search: 
+  ~page: 
+  ~search_precise: 
+  ~search_exact: 
+  ~parent_platforms: 
+  ~stores: 
+  ~developers: 
+  ~publishers: 
+  ~genres: 
+  ~tags: 
+  ~creators: 
+  ~updated: 
+  ~platforms_count: 
+  ~exclude_collection: 
+  ~exclude_additions: 
+  ~exclude_parents: 
+  ~exclude_game_series: 
+  ~exclude_stores: 
+}
+
+vars:pre-request {
+  platform-pc: 4
+  platform-playstation-5: 187
+  platform-playstation-4: 18
+  platform-xbox-one: 1
+  platform-xbox-series-s-x: 186
+  platform-nintendo-switch: 7
+  platform-ios: 3
+  platform-android: 21
+  platform-nintendo-3ds: 8
+  platform-nintendo-ds: 9
+  platform-nintendo-dsi: 13
+  platform-macos: 5
+  platform-linux: 6
+  platform-xbox-360: 14
+  platform-xbox: 80
+  platform-playstation-3: 16
+  platform-playstation-2: 15
+  platform-playstation: 27
+  platform-ps-vita: 19
+  platform-psp: 17
+  platform-wii-u: 10
+  platform-wii: 11
+  platform-gamecube: 105
+  platform-nintendo-64: 83
+  platform-game-boy-advance: 24
+  platform-game-boy-color: 43
+  platform-game-boy: 26
+  platform-snes: 79
+  platform-nes: 49
+  platform-classic-macintosh: 55
+  platform-apple-ii: 41
+  platform-commodore-amiga: 166
+  platform-atari-7800: 28
+  platform-atari-5200: 31
+  platform-atari-2600: 23
+  platform-atari-flashback: 22
+  platform-atari-8-bit: 25
+  platform-atari-st: 34
+  platform-atari-lynx: 46
+  platform-atari-xegs: 50
+  platform-genesis: 167
+  platform-sega-saturn: 107
+  platform-sega-cd: 119
+  platform-sega-32x: 117
+  platform-sega-master-system: 74
+  platform-dreamcast: 106
+  platform-3do: 111
+  platform-jaguar: 112
+  platform-game-gear: 77
+  platform-neo-geo: 12
+  platform-web: 171
+  genre-action: 4
+  genre-indie: 51
+  genre-adventure: 3
+  genre-rpg: 5
+  genre-strategy: 10
+  genre-shooter: 2
+  genre-casual: 40
+  genre-simulation: 14
+  genre-puzzle: 7
+  genre-arcade: 11
+  genre-platformer: 83
+  genre-racing: 1
+  genre-massively-multiplayer: 59
+  genre-sports: 15
+  genre-fighting: 6
+  genre-family: 19
+  genre-board-games: 28
+  genre-educational: 34
+  genre-card: 17
+  store-steam: 1
+  store-playstation-store: 3
+  store-xbox-store: 2
+  store-app-store: 4
+  store-gog: 5
+  store-nintendo-store: 6
+  store-xbox-360-store: 7
+  store-google-play: 8
+  store-itch-io: 9
+  store-epic-games: 11
+}

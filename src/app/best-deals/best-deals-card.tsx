@@ -37,9 +37,9 @@ export default function BestDealsCard({
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>Sale Price: {salePrice}</p>
-        <p>Retail Price: {normalPrice}</p>
-        <p>Savings: {formattedSavings}%</p>
+        <p>Sale Price: ${salePrice}</p>
+        <p>Retail Price: ${normalPrice}</p>
+        <p>Savings: {formattedSavings}% OFF!</p>
         <p>Deal Rating: {formattedDealRating}</p>
       </CardContent>
       <CardFooter className="justify-between">
