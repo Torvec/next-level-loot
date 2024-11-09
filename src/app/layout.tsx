@@ -1,4 +1,5 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
@@ -38,6 +39,7 @@ export default function RootLayout({
           <WishlistProvider>
             {children}
             <SpeedInsights />
+            <Analytics />
           </WishlistProvider>
         </Container>
         <Footer />
