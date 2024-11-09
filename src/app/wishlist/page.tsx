@@ -22,7 +22,9 @@ export default function Wishlist() {
         My Wishlist
       </h1>
       {wishlistIsEmpty ? (
-        <p>Is empty</p>
+        <p className="mb-32 border border-neutral-500 py-32 text-center text-2xl font-semibold">
+          Your Wishlist is Empty
+        </p>
       ) : (
         <div className="mb-32 grid grid-cols-3 gap-8">
           {wishlist.map((item, index) => (
@@ -48,6 +50,7 @@ export default function Wishlist() {
         <Button
           onClick={() => dispatch({ type: "CLEAR" })}
           className="bg-red-500 text-white"
+          disabled={wishlistIsEmpty}
         >
           Clear Wishlist
         </Button>

@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { FreeGameType } from "./page";
 import { useWishlistDispatch } from "@/lib/wishlist-provider";
+import useIsInWishlist from "@/lib/use-is-in-wishlist";
 
 export default function FreeGamesCard({
   title,
@@ -26,6 +27,7 @@ export default function FreeGamesCard({
   end_date,
 }: FreeGameType) {
   const dispatch = useWishlistDispatch();
+  const isInWishlist = useIsInWishlist(title);
 
   return (
     <Card className="rounded-xl border-neutral-700">
@@ -58,8 +60,9 @@ export default function FreeGamesCard({
         <Button
           onClick={() => dispatch({ type: "ADD", item: title })}
           className="bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+          disabled={isInWishlist}
         >
-          Add to Wishlist
+          {isInWishlist ? "In Wishlist" : "Add to Wishlist"}
         </Button>
       </CardFooter>
     </Card>
