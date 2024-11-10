@@ -20,10 +20,6 @@ export default async function Header() {
       href: "/wishlist",
       label: "My Wishlist",
     },
-    {
-      href: "/about",
-      label: "About",
-    },
   ];
 
   return (
