@@ -90,7 +90,7 @@ export default function Footer() {
                 <ul className="flex gap-16 py-2">
                   <li>
                     <a
-                      href="https://www.gamerpower.com/api-read"
+                      href="https://torvec.github.io/Loot-Vault/"
                       target="_blank"
                       rel="noopener external"
                       className="flex w-max items-center gap-1 text-orange-500 hover:text-orange-400"
@@ -101,7 +101,7 @@ export default function Footer() {
                   </li>
                   <li>
                     <a
-                      href="https://www.gamerpower.com/api-read"
+                      href="https://github.com/Torvec/Loot-Vault"
                       target="_blank"
                       rel="noopener external"
                       className="flex w-max items-center gap-1 text-orange-500 hover:text-orange-400"
