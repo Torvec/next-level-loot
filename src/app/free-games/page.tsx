@@ -4,25 +4,7 @@
 // Platform Options: pc, steam, epic-games-store, itchio, gog, origin, ubisoft, battlenet, drm-free, ps5, ps4, xbox-series-xs, xbox-one, switch, android, ios, vr
 
 import FreeGamesCard from "./free-games-card";
-
-export interface FreeGameType {
-  id: number;
-  title: string;
-  worth: string;
-  // thumbnail: string;
-  image: string;
-  // description: string;
-  // instructions: string;
-  open_giveaway_url: string;
-  published_date: string;
-  type: string;
-  platforms: string;
-  end_date: string;
-  // users: number;
-  // status: string;
-  // gamerpower_url: string;
-  // open_giveaway: string;
-}
+import { FreeGameType } from "./types";
 
 export default async function FreeGames() {
   const rapidAPIKey = process.env.RAPIDAPI_KEY;

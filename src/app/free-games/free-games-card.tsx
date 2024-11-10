@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FreeGameType } from "./page";
+import { FreeGameType } from "./types";
 import { useWishlistDispatch } from "@/lib/wishlist-provider";
 import useIsInWishlist from "@/lib/use-is-in-wishlist";
 

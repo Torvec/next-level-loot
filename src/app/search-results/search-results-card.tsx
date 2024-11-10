@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { SearchResultType } from "./page";
+import { SearchResultType } from "./types";
 
 export default function SearchResultsCard({
   name,

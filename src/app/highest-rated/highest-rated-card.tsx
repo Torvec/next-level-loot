@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { HighestRatedGameType } from "./page";
+import { HighestRatedGameType } from "./types";
 
 export default function HighestRatedCard({
   name,
