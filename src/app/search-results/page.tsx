@@ -1,5 +1,7 @@
 "use client";
 
+// TODO: Error boundary doesn't quite work as expected due to using useEffect to fetch data
+
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import SearchResultsCard from "./search-results-card";
