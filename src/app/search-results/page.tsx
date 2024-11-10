@@ -69,7 +69,7 @@ export default function SearchResults() {
       <h1 className="py-32 text-center text-4xl font-bold uppercase">
         Search Results
       </h1>
-      <div className="mb-32 grid grid-cols-3 gap-8">
+      <div className="mb-32 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
         {results.map(
           ({
             name,

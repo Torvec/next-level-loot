@@ -11,8 +11,8 @@ export interface FreeGameType {
   worth: string;
   // thumbnail: string;
   image: string;
-  description: string;
-  instructions: string;
+  // description: string;
+  // instructions: string;
   open_giveaway_url: string;
   published_date: string;
   type: string;
@@ -54,7 +54,7 @@ export default async function FreeGames() {
         <h1 className="py-32 text-center text-4xl font-bold uppercase">
           Free Games
         </h1>
-        <div className="mb-32 grid grid-cols-3 gap-8">
+        <div className="mb-32 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {freeGames.map(
             ({
               id,
@@ -63,8 +63,8 @@ export default async function FreeGames() {
               worth,
               // thumbnail,
               image,
-              description,
-              instructions,
+              // description,
+              // instructions,
               open_giveaway_url,
               published_date,
               platforms,
@@ -78,8 +78,8 @@ export default async function FreeGames() {
                   type={type}
                   worth={worth}
                   image={image}
-                  description={description}
-                  instructions={instructions}
+                  // description={description}
+                  // instructions={instructions}
                   open_giveaway_url={open_giveaway_url}
                   published_date={published_date}
                   platforms={platforms}

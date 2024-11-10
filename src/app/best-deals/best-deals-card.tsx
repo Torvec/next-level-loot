@@ -42,21 +42,22 @@ export default function BestDealsCard({
         <p>Savings: {formattedSavings}% OFF!</p>
         <p>Deal Rating: {formattedDealRating}</p>
       </CardContent>
-      <CardFooter className="justify-between">
-        {steamAppID && (
-          <Button className="bg-slate-700 hover:bg-slate-500">
-            <a
-              href={`https://store.steampowered.com/app/${steamAppID}`}
-              target="_blank"
-              rel="noopener noreferrer external"
-            >
-              View on Steam
-            </a>
-          </Button>
-        )}
+      <CardFooter className="flex-col justify-between gap-4 md:flex-row">
+        <Button
+          className="w-full bg-slate-700 hover:bg-slate-500"
+          disabled={!steamAppID}
+        >
+          <a
+            href={`https://store.steampowered.com/app/${steamAppID}`}
+            target="_blank"
+            rel="noopener noreferrer external"
+          >
+            {steamAppID ? "View on Steam" : "Unavailable"}
+          </a>
+        </Button>
         <Button
           onClick={() => dispatch({ type: "ADD", item: title })}
-          className="bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+          className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
           disabled={isInWishlist}
         >
           {isInWishlist ? "In Wishlist" : "Add to Wishlist"}

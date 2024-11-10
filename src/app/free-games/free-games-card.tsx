@@ -19,8 +19,8 @@ export default function FreeGamesCard({
   type,
   worth,
   image,
-  description,
-  instructions,
+  // description,
+  // instructions,
   open_giveaway_url,
   published_date,
   platforms,
@@ -39,16 +39,16 @@ export default function FreeGamesCard({
       </CardHeader>
       <CardContent>
         <p>Loot Type: {type}</p>
-        <p>{description}</p>
+        {/* <p>{description}</p> */}
         <p>Platforms: {platforms}</p>
         <p>Worth: {worth}</p>
         <p>
           Published Date: {published_date} - End Date: {end_date}
         </p>
-        <p>{instructions}</p>
+        {/* <p>{instructions}</p> */}
       </CardContent>
-      <CardFooter className="justify-between">
-        <Button className="bg-neutral-500">
+      <CardFooter className="flex-col justify-between gap-4 md:flex-row">
+        <Button className="w-full bg-neutral-500 hover:bg-neutral-600">
           <a
             href={open_giveaway_url}
             target="_blank"
@@ -59,7 +59,7 @@ export default function FreeGamesCard({
         </Button>
         <Button
           onClick={() => dispatch({ type: "ADD", item: title })}
-          className="bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+          className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
           disabled={isInWishlist}
         >
           {isInWishlist ? "In Wishlist" : "Add to Wishlist"}

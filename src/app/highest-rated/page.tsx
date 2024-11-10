@@ -98,7 +98,7 @@ export default async function HighestRated() {
     }
 
     const response = await fetch(
-      `https://api.rawg.io/api/games?key=${rawgAPIKey}&page_size=25&platforms=7,4,187,186&dates&metacritic&ordering=-metacritic`,
+      `https://api.rawg.io/api/games?key=${rawgAPIKey}&page_size=24&platforms=7,4,187,186&dates&metacritic&ordering=-metacritic`,
     );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -111,7 +111,7 @@ export default async function HighestRated() {
         <h1 className="py-32 text-center text-4xl font-bold uppercase">
           Highest Rated
         </h1>
-        <div className="mb-32 grid grid-cols-3 gap-8">
+        <div className="mb-32 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {highestRatedGames.map(
             ({
               name,

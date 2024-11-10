@@ -38,7 +38,7 @@ export default async function BestDeals() {
         <h1 className="py-32 text-center text-4xl font-bold uppercase">
           Best Deals
         </h1>
-        <div className="mb-32 grid grid-cols-4 gap-8">
+        <div className="mb-32 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {gameDeals.map(
             ({
               // internalName,

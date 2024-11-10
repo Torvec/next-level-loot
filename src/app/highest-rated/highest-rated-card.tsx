@@ -67,7 +67,9 @@ export default function HighestRatedCard({
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="bg-neutral-500">Deals</Button>
+        <Button className="w-full bg-neutral-500 hover:bg-neutral-600">
+          Deals
+        </Button>
       </CardFooter>
     </Card>
   );

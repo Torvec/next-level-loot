@@ -24,7 +24,7 @@ export default async function Header() {
 
   return (
     <header className="border-b border-neutral-700">
-      <div className="container mx-auto flex flex-col items-center justify-between py-4 md:flex-row">
+      <div className="container mx-auto flex flex-col items-center justify-between gap-2 px-4 py-4 md:flex-row md:gap-0 xl:px-0">
         {/* LOGO */}
         <h1 className="font-bold uppercase">
           <Link
@@ -36,9 +36,10 @@ export default async function Header() {
             The Loot Vault
           </Link>
         </h1>
+
         {/* NAVIGATION */}
         <nav>
-          <ul className="flex flex-wrap items-center justify-center gap-8 font-medium">
+          <ul className="hidden font-medium lg:flex lg:flex-row lg:items-center lg:justify-center lg:gap-8">
             {navLinks.map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} prefetch={true} className="hover:underline">
@@ -48,6 +49,7 @@ export default async function Header() {
             ))}
           </ul>
         </nav>
+
         {/* SEARCH */}
         <SearchInput />
       </div>

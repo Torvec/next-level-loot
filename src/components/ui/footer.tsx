@@ -17,19 +17,24 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-neutral-700 bg-neutral-900/25">
-      <div className="container mx-auto space-y-16 pb-32 pt-16">
-        <div className="flex items-start justify-between">
+    <footer className="border-t border-neutral-700 bg-neutral-900/50">
+      <div className="container mx-auto px-4 pb-32 pt-16 xl:px-0">
+        <div className="mb-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {/* Logo */}
-          <h3 className="mb-4 flex w-1/4 items-center gap-2 text-xl font-bold uppercase">
-            <Gamepad2 size={24} />
-            The Loot Vault
-          </h3>
+          <div className="flex gap-2">
+            <Gamepad2 size={32} />
+            <div>
+              <h3 className="text-xl font-bold uppercase">The Loot Vault</h3>
+              <h4 className="pl-1 text-sm text-neutral-400">
+                For Gamers on a Budget!
+              </h4>
+            </div>
+          </div>
 
           {/* Project */}
-          <div className="w-1/4">
+          <div>
             <h3 className="mb-4 font-bold">Project</h3>
-            <ul className="space-y-2 text-neutral-400">
+            <ul className="space-y-1 text-neutral-400">
               <li>Made with Next JS</li>
               <li className="flex gap-2">
                 GitHub:
@@ -52,10 +57,11 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
           {/* API's Used */}
-          <div className="w-1/4">
+          <div>
             <h3 className="mb-4 font-bold">API&apos;s</h3>
-            <ul className="space-y-2 text-neutral-400">
+            <ul className="space-y-1 text-neutral-400">
               <li className="flex gap-2">
                 Best Deals:
                 <ExtLink href="https://apidocs.cheapshark.com/">
@@ -78,10 +84,11 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
           {/* Developer */}
-          <div className="w-1/4">
+          <div className="lg:col-start-2 xl:col-start-4">
             <h3 className="mb-4 font-bold">Developer</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               <li className="text-neutral-400">
                 Designed and developed by Edward Vonschondorf
               </li>
@@ -93,15 +100,24 @@ export default function Footer() {
               <li>
                 <ExtLink href="https://github.com/Torvec">My Github</ExtLink>
               </li>
+              <li>
+                <ExtLink href="https://www.linkedin.com/in/edward-vonschondorf/">
+                  LinkedIn
+                </ExtLink>
+              </li>
             </ul>
           </div>
         </div>
-        {/* THEME TOGGLE */}
+
+        {/* Bottom Footer */}
         <div className="flex justify-between">
+          {/* Year */}
           <h4 className="flex gap-2 text-sm text-neutral-500">
             <Code size={20} />
             <span>2024</span>
           </h4>
+
+          {/* Theme Toggle */}
           <div className="flex gap-1">
             <Button className="rounded-xl bg-neutral-900">
               <Moon size={24} />
