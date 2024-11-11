@@ -1,4 +1,5 @@
-import HighestRatedCard from "./highest-rated-card";
+import ResultsList from "@/components/ui/results-list";
+import HighestRatedGamesCard from "./highest-rated-games-card";
 import { HighestRatedGameType } from "./types";
 
 export default async function HighestRated() {
@@ -26,36 +27,23 @@ export default async function HighestRated() {
       <h1 className="py-32 text-center text-4xl font-bold uppercase">
         Highest Rated
       </h1>
-      <div className="mb-32 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-        {highestRatedGames.map(
-          ({
-            name,
-            platforms,
-            stores,
-            released,
-            background_image,
-            metacritic,
-            id,
-            esrb_rating,
-            short_screenshots,
-            genres,
-          }) => (
-            <HighestRatedCard
-              key={id}
-              name={name}
-              platforms={platforms}
-              stores={stores}
-              released={released}
-              background_image={background_image}
-              metacritic={metacritic}
-              id={id}
-              esrb_rating={esrb_rating}
-              short_screenshots={short_screenshots}
-              genres={genres}
-            />
-          ),
-        )}
-      </div>
+      <ResultsList>
+        {highestRatedGames.map((hrg) => (
+          <HighestRatedGamesCard
+            key={hrg.id}
+            name={hrg.name}
+            platforms={hrg.platforms}
+            stores={hrg.stores}
+            released={hrg.released}
+            background_image={hrg.background_image}
+            metacritic={hrg.metacritic}
+            id={hrg.id}
+            esrb_rating={hrg.esrb_rating}
+            short_screenshots={hrg.short_screenshots}
+            genres={hrg.genres}
+          />
+        ))}
+      </ResultsList>
     </>
   );
 }

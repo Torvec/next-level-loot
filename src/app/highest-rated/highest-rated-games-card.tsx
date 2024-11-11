@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { HighestRatedGameType } from "./types";
 
-export default function HighestRatedCard({
+export default function HighestRatedGamesCard({
   name,
   platforms,
   stores,

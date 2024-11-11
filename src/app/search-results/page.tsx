@@ -4,6 +4,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import ResultsList from "@/components/ui/results-list";
 import SearchResultsCard from "./search-results-card";
 import { SearchResultType } from "./types";
 
@@ -26,36 +27,23 @@ export default function SearchResults() {
       <h1 className="py-32 text-center text-4xl font-bold uppercase">
         Search Results
       </h1>
-      <div className="mb-32 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-        {results.map(
-          ({
-            name,
-            platforms,
-            stores,
-            released,
-            background_image,
-            metacritic,
-            id,
-            esrb_rating,
-            short_screenshots,
-            genres,
-          }) => (
-            <SearchResultsCard
-              key={id}
-              name={name}
-              platforms={platforms}
-              stores={stores}
-              released={released}
-              background_image={background_image}
-              metacritic={metacritic}
-              id={id}
-              esrb_rating={esrb_rating}
-              short_screenshots={short_screenshots}
-              genres={genres}
-            />
-          ),
-        )}
-      </div>
+      <ResultsList>
+        {results.map((r) => (
+          <SearchResultsCard
+            key={r.id}
+            name={r.name}
+            platforms={r.platforms}
+            stores={r.stores}
+            released={r.released}
+            background_image={r.background_image}
+            metacritic={r.metacritic}
+            id={r.id}
+            esrb_rating={r.esrb_rating}
+            short_screenshots={r.short_screenshots}
+            genres={r.genres}
+          />
+        ))}
+      </ResultsList>
     </>
   );
 }

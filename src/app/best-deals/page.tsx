@@ -1,3 +1,4 @@
+import ResultsList from "@/components/ui/results-list";
 import BestDealsCard from "./best-deals-card";
 import { GameDealType } from "./types";
 
@@ -18,45 +19,21 @@ export default async function BestDeals() {
       <h1 className="py-32 text-center text-4xl font-bold uppercase">
         Best Deals
       </h1>
-      <div className="mb-32 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-        {gameDeals.map(
-          ({
-            // internalName,
-            title,
-            // metacriticLink,
-            dealID,
-            // storeID,
-            // gameID,
-            salePrice,
-            normalPrice,
-            // isOnSale,
-            savings,
-            // metacriticScore,
-            // steamRatingText,
-            // steamRatingPercent,
-            // steamRatingCount,
-            steamAppID,
-            // releaseDate,
-            // lastChange,
-            dealRating,
-            thumb,
-          }) => {
-            return (
-              <BestDealsCard
-                key={dealID}
-                dealID={dealID}
-                title={title}
-                salePrice={salePrice}
-                normalPrice={normalPrice}
-                savings={savings}
-                dealRating={dealRating}
-                steamAppID={steamAppID}
-                thumb={thumb}
-              />
-            );
-          },
-        )}
-      </div>
+      <ResultsList>
+        {gameDeals.map((gd) => (
+          <BestDealsCard
+            key={gd.dealID}
+            dealID={gd.dealID}
+            title={gd.title}
+            salePrice={gd.salePrice}
+            normalPrice={gd.normalPrice}
+            savings={gd.savings}
+            dealRating={gd.dealRating}
+            steamAppID={gd.steamAppID}
+            thumb={gd.thumb}
+          />
+        ))}
+      </ResultsList>
     </>
   );
 }

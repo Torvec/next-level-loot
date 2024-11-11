@@ -19,8 +19,6 @@ export default function FreeGamesCard({
   type,
   worth,
   image,
-  // description,
-  // instructions,
   open_giveaway_url,
   published_date,
   platforms,
@@ -39,13 +37,11 @@ export default function FreeGamesCard({
       </CardHeader>
       <CardContent>
         <p>Loot Type: {type}</p>
-        {/* <p>{description}</p> */}
         <p>Platforms: {platforms}</p>
         <p>Worth: {worth}</p>
         <p>
           Published Date: {published_date} - End Date: {end_date}
         </p>
-        {/* <p>{instructions}</p> */}
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
         <Button className="w-full bg-neutral-500 hover:bg-neutral-600">
