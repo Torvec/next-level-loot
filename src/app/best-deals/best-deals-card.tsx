@@ -13,8 +13,10 @@ import { Button } from "@/components/ui/button";
 import { GameDealType } from "./types";
 import { useWishlistDispatch } from "@/lib/wishlist-provider";
 import useIsInWishlist from "@/lib/use-is-in-wishlist";
+import Link from "next/link";
 
 export default function BestDealsCard({
+  dealID,
   thumb,
   title,
   salePrice,
@@ -41,6 +43,9 @@ export default function BestDealsCard({
         <p>Retail Price: ${normalPrice}</p>
         <p>Savings: {formattedSavings}% OFF!</p>
         <p>Deal Rating: {formattedDealRating}</p>
+        <p>
+          <Link href={`/best-deals/${dealID}`}>Details</Link>
+        </p>
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
         <Button

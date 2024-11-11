@@ -13,8 +13,10 @@ import { Button } from "@/components/ui/button";
 import { FreeGameType } from "./types";
 import { useWishlistDispatch } from "@/lib/wishlist-provider";
 import useIsInWishlist from "@/lib/use-is-in-wishlist";
+import Link from "next/link";
 
 export default function FreeGamesCard({
+  id,
   title,
   type,
   worth,
@@ -41,6 +43,9 @@ export default function FreeGamesCard({
         <p>Worth: {worth}</p>
         <p>
           Published Date: {published_date} - End Date: {end_date}
+        </p>
+        <p>
+          <Link href={`/free-games/${id}`}>Details</Link>
         </p>
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
