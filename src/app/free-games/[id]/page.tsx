@@ -4,9 +4,9 @@ import FreeGamesCard from "../free-games-card";
 export default async function FreeGamePage({
   params,
 }: {
-  params: { id: number };
+  params: Promise<{ id: number }>;
 }) {
-  const { id } = await params;
+  const id = (await params).id;
 
   const rapidAPIKey = process.env.RAPIDAPI_KEY;
 

@@ -4,9 +4,9 @@ import { HighestRatedGameType } from "../types";
 export default async function HighestRated({
   params,
 }: {
-  params: { id: number };
+  params: Promise<{ id: number }>;
 }) {
-  const { id } = await params;
+  const id = (await params).id;
 
   const rawgAPIKey = process.env.RAWG_API_KEY;
 

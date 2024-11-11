@@ -1,8 +1,12 @@
 import { GameDealType } from "../types";
 import BestDealsCard from "../best-deals-card";
 
-export default async function DealPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
+export default async function DealPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const id = (await params).id;
 
   const response = await fetch(
     `https://www.cheapshark.com/api/1.0/deals?id=${id}`,
