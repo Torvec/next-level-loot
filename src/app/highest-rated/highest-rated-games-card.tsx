@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { HighestRatedGameType } from "./types";
+import Link from "next/link";
 
 export default function HighestRatedGamesCard({
+  id,
   name,
   platforms,
   stores,
@@ -65,6 +67,9 @@ export default function HighestRatedGamesCard({
             ))}
           </ul>
         </div>
+        <p>
+          <Link href={`/highest-rated/${id}`}>Details</Link>
+        </p>
       </CardContent>
       <CardFooter>
         <Button className="w-full bg-neutral-500 hover:bg-neutral-600">
