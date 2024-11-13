@@ -28,9 +28,10 @@ export default async function Page(props: {
   }
 
   const fetchURL = {
-    "best-deals": "https://www.cheapshark.com/api/1.0/deals",
-    "free-games": "https://gamerpower.p.rapidapi.com/api/giveaways?sort=value",
-    "highest-rated": `https://api.rawg.io/api/games?key=${rawgAPIKey}&page_size=24&platforms=7,4,187,186&dates&metacritic&ordering=-metacritic`,
+    "best-deals": "https://www.cheapshark.com/api/1.0/deals?sortBy=DealRating",
+    "free-games":
+      "https://gamerpower.p.rapidapi.com/api/giveaways?sort=value&type=game",
+    "highest-rated": `https://api.rawg.io/api/games?key=${rawgAPIKey}&page_size=24&platforms=7,4,187,186&ordering=-metacritic`,
   };
 
   let response;
