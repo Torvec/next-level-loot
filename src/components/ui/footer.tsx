@@ -1,5 +1,4 @@
-import { Moon, Sun, Monitor, ExternalLink, Code, Gamepad2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ExternalLink, Gamepad2 } from "lucide-react";
 
 export default function Footer() {
   const ExtLink = ({ href, children }: { href: string; children: string }) => {
@@ -17,7 +16,7 @@ export default function Footer() {
   };
 
   const LogoSection = () => (
-    <div className="flex gap-2">
+    <div className="mb-8 flex gap-2">
       <Gamepad2 size={32} />
       <div>
         <h3 className="text-xl font-bold uppercase">The Loot Vault</h3>
@@ -32,7 +31,7 @@ export default function Footer() {
     <div>
       <h3 className="mb-4 font-bold">Project</h3>
       <ul className="space-y-1 text-neutral-400">
-        <li>Made with Next JS</li>
+        <li>Made with Next.js 15</li>
         <li className="flex gap-2">
           GitHub:
           <ExtLink href="https://github.com/Torvec/loot_vault_next">
@@ -40,7 +39,7 @@ export default function Footer() {
           </ExtLink>
         </li>
         <li className="text-pretty">
-          Based off of my first coding bootcamp group project:
+          Based on my first UC Berkeley coding bootcamp group project:
         </li>
         <li>
           <ExtLink href="https://torvec.github.io/Loot-Vault/">
@@ -76,7 +75,7 @@ export default function Footer() {
         </li>
         <li className="flex gap-2">
           API Development/Testing:
-          <ExtLink href="https://insomnia.rest/">Bruno</ExtLink>
+          <ExtLink href="https://www.usebruno.com/">Bruno</ExtLink>
         </li>
       </ul>
     </div>
@@ -85,19 +84,18 @@ export default function Footer() {
   const DeveloperSection = () => (
     <div className="lg:col-start-2 xl:col-start-4">
       <h3 className="mb-4 font-bold">Developer</h3>
-      <ul className="space-y-1">
-        <li className="text-neutral-400">
-          Designed and developed by Edward Vonschondorf
+      <ul className="space-y-1 text-neutral-400">
+        <li className="text-pretty">
+          Designed and developed by Edward Vonschondorf in 2024
         </li>
         <li>
           <ExtLink href="https://edward-vonschondorf.dev">
             Edward-vonschondorf.dev
           </ExtLink>
         </li>
-        <li>
-          <ExtLink href="https://github.com/Torvec">My Github</ExtLink>
-        </li>
-        <li>
+        <li className="flex gap-8">
+          <ExtLink href="https://github.com/Torvec">Github</ExtLink>
+          <span>|</span>
           <ExtLink href="https://www.linkedin.com/in/edward-vonschondorf/">
             LinkedIn
           </ExtLink>
@@ -106,39 +104,15 @@ export default function Footer() {
     </div>
   );
 
-  const BottomSection = () => (
-    <div className="flex justify-between">
-      {/* Year */}
-      <h4 className="flex gap-2 text-sm text-neutral-500">
-        <Code size={20} />
-        <span>2024</span>
-      </h4>
-
-      {/* Theme Toggle */}
-      <div className="flex gap-1">
-        <Button className="rounded-xl bg-neutral-900">
-          <Moon size={24} />
-        </Button>
-        <Button className="rounded-xl bg-neutral-900">
-          <Sun size={24} />
-        </Button>
-        <Button className="rounded-xl bg-neutral-900">
-          <Monitor size={24} />
-        </Button>
-      </div>
-    </div>
-  );
-
   return (
     <footer className="border-t border-neutral-700 bg-neutral-900/50">
       <div className="container mx-auto px-4 pb-32 pt-16 xl:px-0">
-        <div className="mb-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <LogoSection />
           <ProjectSection />
           <APISection />
           <DeveloperSection />
         </div>
-        <BottomSection />
       </div>
     </footer>
   );
