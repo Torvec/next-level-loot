@@ -1,0 +1,21 @@
+meta {
+  name: Search a Game
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{cheapsharkURL}}/api/1.0/deals?title=Metal Gear&exact=0&onSale=1
+  body: none
+  auth: none
+}
+
+params:query {
+  title: Metal Gear
+  exact: 0
+  onSale: 1
+}
+
+docs {
+  Get a paged list of deals matching any number of criteria, all the following filtering parameters are optional.
+}

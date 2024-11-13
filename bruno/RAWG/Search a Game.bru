@@ -1,0 +1,19 @@
+meta {
+  name: Search a Game
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{rawgURL}}/games?key={{rawg-key}}&page_size=24&search=Metal Gear
+  body: none
+  auth: none
+}
+
+params:query {
+  key: {{rawg-key}}
+  page_size: 24
+  search: Metal Gear
+  ~search_exact: 
+  ~search_precise: 
+}
