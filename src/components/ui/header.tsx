@@ -1,33 +1,28 @@
 import Link from "next/link";
 import { Moon, Sun, Monitor, Gamepad2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-type Slug = "best-deals" | "highest-rated" | "free-games" | "wishlist";
-
-type Category = "Best Deals" | "Highest Rated" | "Free Games" | "My Wishlist";
-
-type NavLink = { slug: Slug; category: Category };
-
-const navLinks: NavLink[] = [
-  {
-    slug: "best-deals",
-    category: "Best Deals",
-  },
-  {
-    slug: "highest-rated",
-    category: "Highest Rated",
-  },
-  {
-    slug: "free-games",
-    category: "Free Games",
-  },
-  {
-    slug: "wishlist",
-    category: "My Wishlist",
-  },
-];
+import { type NavLink } from "@/app/(games)/[category]/types";
 
 export default async function Header() {
+  const navLinks: NavLink[] = [
+    {
+      href: "best-deals",
+      label: "Best Deals",
+    },
+    {
+      href: "highest-rated",
+      label: "Highest Rated",
+    },
+    {
+      href: "free-games",
+      label: "Free Games",
+    },
+    {
+      href: "wishlist",
+      label: "My Wishlist",
+    },
+  ];
+
   const Logo = () => (
     <h1 className="font-bold uppercase">
       <Link
@@ -44,10 +39,10 @@ export default async function Header() {
   const Navigation = () => (
     <nav>
       <ul className="hidden font-medium lg:flex lg:flex-row lg:items-center lg:justify-center lg:gap-8">
-        {navLinks.map(({ slug, category }) => (
-          <li key={slug}>
-            <Link href={`/${slug}`} prefetch={true} className="hover:underline">
-              {category}
+        {navLinks.map(({ href, label }) => (
+          <li key={href}>
+            <Link href={`/${href}`} prefetch={true} className="hover:underline">
+              {label}
             </Link>
           </li>
         ))}

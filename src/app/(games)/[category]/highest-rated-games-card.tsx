@@ -16,14 +16,14 @@ import Link from "next/link";
 export default function HighestRatedGamesCard({
   id,
   name,
-  platforms,
-  stores,
+  // platforms,
+  // stores,
   released,
   background_image,
   metacritic,
   esrb_rating,
-  short_screenshots,
-  genres,
+  // short_screenshots,
+  // genres,
 }: HighestRatedGameType) {
   return (
     <Card className="rounded-xl border-neutral-700">
@@ -36,36 +36,36 @@ export default function HighestRatedGamesCard({
       <CardContent>
         <p>Metacritic Score: {metacritic}</p>
         <p>Platforms:</p>
-        <ul>
+        {/* <ul>
           {platforms.map((p) => (
             <li key={p.platform.id}>{p.platform.name}</li>
           ))}
-        </ul>
+        </ul> */}
         <p>Stores:</p>
-        <ul>
+        {/* <ul>
           {stores ? (
             stores.map((s) => <li key={s.store.id}>{s.store.name}</li>)
           ) : (
             <li>No stores available</li>
           )}
-        </ul>
+        </ul> */}
         <p>Released: {released}</p>
         <p>ESRB Rating: {esrb_rating ? esrb_rating.name : "Not Rated"}</p>
         <p>Genres:</p>
-        <ul>
+        {/* <ul>
           {genres.map((genre) => (
             <li key={genre.id}>{genre.name}</li>
           ))}
-        </ul>
+        </ul> */}
         <div>
           <h3>Screenshots</h3>
-          <ul className="grid grid-cols-3 gap-4">
+          {/* <ul className="grid grid-cols-3 gap-4">
             {short_screenshots.map((screenshot) => (
               <li key={screenshot.id}>
                 <img src={screenshot.image} alt={`${name} screenshot`} />
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
         <p>
           <Link href={`/highest-rated/${id}`}>Details</Link>

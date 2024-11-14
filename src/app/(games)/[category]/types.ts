@@ -1,3 +1,17 @@
+export type Category =
+  | "best-deals"
+  | "highest-rated"
+  | "free-games"
+  | "wishlist";
+
+export type Label =
+  | "Best Deals"
+  | "Highest Rated"
+  | "Free Games"
+  | "My Wishlist";
+
+export type NavLink = { href: Category; label: Label };
+
 //* CHEAPSHARK API TYPES
 
 //? EXAMPLE RESPONSE FOR
