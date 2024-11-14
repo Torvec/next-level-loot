@@ -10,12 +10,8 @@ export type Label =
   | "Free Games"
   | "My Wishlist";
 
-export type NavLink = { href: Category; label: Label };
-
 //* CHEAPSHARK API TYPES
 
-//? EXAMPLE RESPONSE FOR
-//? GET https://www.cheapshark.com/api/1.0/deals?sortBy=DealRating
 // [
 //   {
 //     internalName: "DECEIVEINC",
@@ -64,8 +60,6 @@ export interface GameDealType {
   thumb: string;
 }
 
-//? EXAMPLE RESPONSE FOR
-//? GET https://www.cheapshark.com/api/1.0/deals?id=bkSqbA%2FpWJkmfhr1rffU8kvQ%2Ffla%2BH%2FvA2NyIsmmPbs%3D
 // {
 //   "gameInfo": {
 //     "storeID": "30",
@@ -137,10 +131,6 @@ export interface GameDealDetailsType {
 
 //* GAMERPOWER API TYPES
 
-//? EXAMPLE RESPONSE FOR
-//? > GET https://gamerpower.p.rapidapi.com/api/giveaways?sort=value&type=game
-//? > x-rapidapi-key: KEY HERE
-//? > x-rapidapi-host: gamerpower.p.rapidapi.com
 // [
 //   {
 //     id: 2983,
@@ -187,10 +177,6 @@ export interface FreeGameType {
   // open_giveaway: string;
 }
 
-//? EXAMPLE RESPONSE FOR
-//? > GET https://gamerpower.p.rapidapi.com/api/giveaway?id=2983
-//? > x-rapidapi-key: KEY HERE
-//? > x-rapidapi-host: gamerpower.p.rapidapi.com
 // {
 //   "id": 2983,
 //   "title": "Spirit of the North Steam Key Giveaway",
@@ -228,8 +214,6 @@ export interface FreeGameDetailsType {
   gamerpower_url: string;
 }
 
-//? EXAMPLE RESPONSE FOR
-//? > GET https://api.rawg.io/api/games?key=KEYHERE&page_size=24&platforms=4,187,186,7&ordering=-metacritic
 // {
 //  "count": 537778,
 //   "next": "https://api.rawg.io/api/games?key=5a057ad3a7d64a2a885ff92668a9468b&ordering=-metacritic&page=2&page_size=24&platforms=4%2C+187%2C186%2C+7",
@@ -484,8 +468,6 @@ export interface HighestRatedGameType {
   genres: Genre[];
 }
 
-//? EXAMPLE RESPONSE FOR
-//? > GET https://api.rawg.io/api/games/25097?key=KEYHERE
 // {
 //   "id": 25097,
 //   "slug": "the-legend-of-zelda-ocarina-of-time",

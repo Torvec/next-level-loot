@@ -2,25 +2,37 @@ import { Category } from "../types";
 import BestDealsCard from "../best-deals-card";
 import FreeGamesCard from "../free-games-card";
 import HighestRatedGamesCard from "../highest-rated-games-card";
-import { fetchDetails } from "../fetch";
+import { fetchData } from "../fetch";
 
 export default async function Page(props: {
   params: Promise<{
-    id: string;
-    category: string;
+    id: string | number;
+    category: Category;
   }>;
 }) {
   const { id, category } = await props.params;
-  const urlDecodedCategory = decodeURIComponent(category) as Category;
-  const urlDecodedId = decodeURIComponent(id);
-  const data = await fetchDetails(urlDecodedCategory, urlDecodedId);
+
+  const fetchDetails = async (category: Category, id: string | number) => {
+    const { baseURL, apiKey, headers, fetchEndPoints } = fetchData[category];
+    const endpoint = fetchEndPoints.details;
+    const url = `${baseURL}${endpoint}${id}${apiKey ? `?${apiKey}` : ""}`;
+    const response = await fetch(url, headers ?? undefined);
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! Status: ${response.status} ${response.statusText}`,
+      );
+    }
+    return response.json();
+  };
+
+  const data = await fetchDetails(category, id);
 
   let content;
-  if (urlDecodedCategory === "best-deals") {
+  if (category === "best-deals") {
     content = <BestDealsCard {...data.gameInfo} />;
-  } else if (urlDecodedCategory === "free-games") {
+  } else if (category === "free-games") {
     content = <FreeGamesCard {...data} />;
-  } else if (urlDecodedCategory === "highest-rated") {
+  } else if (category === "highest-rated") {
     content = <HighestRatedGamesCard {...data} />;
   }
 

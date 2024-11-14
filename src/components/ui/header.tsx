@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Moon, Sun, Monitor, Gamepad2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { type NavLink } from "@/app/(games)/[category]/types";
+import { type Category, type Label } from "@/app/(games)/[category]/types";
+
+type NavLink = { href: Category; label: Label };
 
 export default async function Header() {
   const navLinks: NavLink[] = [

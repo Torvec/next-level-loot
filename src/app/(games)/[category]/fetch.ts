@@ -16,7 +16,7 @@ interface FetchDataType {
   };
 }
 
-const fetchData: Record<Category, FetchDataType> = {
+export const fetchData: Record<Category, FetchDataType> = {
   "best-deals": {
     baseURL: "https://www.cheapshark.com/api/1.0/",
     apiKey: null,
@@ -243,29 +243,3 @@ const fetchData: Record<Category, FetchDataType> = {
     filter: {},
   },
 };
-
-export async function initFetch(category: Category) {
-  const { baseURL, apiKey, headers, fetchEndPoints } = fetchData[category];
-  const endpoint = fetchEndPoints.default;
-  const url = `${baseURL}${endpoint}${apiKey ? `&${apiKey}` : ""}`;
-  const response = await fetch(url, headers ?? undefined);
-  if (!response.ok) {
-    throw new Error(
-      `HTTP error! Status: ${response.status} ${response.statusText}`,
-    );
-  }
-  return response.json();
-}
-
-export async function fetchDetails(category: Category, id: string | number) {
-  const { baseURL, apiKey, headers, fetchEndPoints } = fetchData[category];
-  const endpoint = fetchEndPoints.details;
-  const url = `${baseURL}${endpoint}${id}${apiKey ? `?${apiKey}` : ""}`;
-  const response = await fetch(url, headers ?? undefined);
-  if (!response.ok) {
-    throw new Error(
-      `HTTP error! Status: ${response.status} ${response.statusText}`,
-    );
-  }
-  return response.json();
-}
