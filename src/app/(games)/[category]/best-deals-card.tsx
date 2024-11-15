@@ -23,7 +23,6 @@ export default function BestDealsCard({
   normalPrice,
   savings,
   dealRating,
-  steamAppID,
 }: GameDealType) {
   const dispatch = useWishlistDispatch();
   const isInWishlist = useIsInWishlist(title);
@@ -31,42 +30,39 @@ export default function BestDealsCard({
   const formattedDealRating = parseFloat(dealRating).toFixed(0);
 
   return (
-    <Card className="rounded-xl border-neutral-700">
+    <Card className="flex flex-col justify-between rounded-xl border-neutral-700">
       <CardHeader>
-        <CardDescription className="h-24 bg-neutral-900 py-4">
+        <div className="h-24 bg-neutral-900 py-4">
           <img src={thumb} alt={title} className="mx-auto h-full" />
-        </CardDescription>
+        </div>
         <CardTitle>{title}</CardTitle>
+        <CardDescription className="flex items-center justify-between text-lg">
+          <p>{formattedDealRating}/10 Deal</p>
+          <div className="flex flex-col text-right">
+            <div>
+              <span className="line-through opacity-70">${normalPrice}</span>{" "}
+              <span className="font-bold">
+                {salePrice > 0 ? `$${salePrice}` : "FREE"}
+              </span>
+            </div>
+            <span>{formattedSavings}% OFF!</span>
+          </div>
+        </CardDescription>
       </CardHeader>
-      <CardContent>
-        <p>Sale Price: ${salePrice}</p>
-        <p>Retail Price: ${normalPrice}</p>
-        <p>Savings: {formattedSavings}% OFF!</p>
-        <p>Deal Rating: {formattedDealRating}</p>
-        <p>
-          <Link href={`/best-deals/${dealID}`}>Details</Link>
-        </p>
-      </CardContent>
-      <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-        <Button
-          className="w-full bg-slate-700 hover:bg-slate-500"
-          disabled={!steamAppID}
-        >
-          <a
-            href={`https://store.steampowered.com/app/${steamAppID}`}
-            target="_blank"
-            rel="noopener noreferrer external"
+      <CardContent></CardContent>
+      <CardFooter className="flex-col gap-4">
+        <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
+          <Button className="w-full bg-slate-900 hover:bg-slate-800">
+            <Link href={`/best-deals/${dealID}`}>More Details -&gt;</Link>
+          </Button>
+          <Button
+            onClick={() => dispatch({ type: "ADD", item: title })}
+            className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+            disabled={isInWishlist}
           >
-            {steamAppID ? "View on Steam" : "Unavailable"}
-          </a>
-        </Button>
-        <Button
-          onClick={() => dispatch({ type: "ADD", item: title })}
-          className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-          disabled={isInWishlist}
-        >
-          {isInWishlist ? "In Wishlist" : "Add to Wishlist"}
-        </Button>
+            {isInWishlist ? "In Wishlist" : "+ Wishlist"}
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );

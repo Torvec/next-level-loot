@@ -37,22 +37,21 @@ export type Label =
 //   },
 // ];
 
-// For list of all deals
 export interface GameDealType {
   // internalName: string;
   title: string;
-  // metacriticLink: string | null;
+  metacriticLink: string | null;
   dealID: string;
   // storeID: string;
   // gameID: string;
-  salePrice: string;
+  salePrice: number;
   normalPrice: string;
   // isOnSale: string;
   savings: string;
-  // metacriticScore: string;
-  // steamRatingText: string | null;
-  // steamRatingPercent: string;
-  // steamRatingCount: string;
+  metacriticScore: number;
+  steamRatingText: string | null;
+  steamRatingPercent: number;
+  steamRatingCount: number;
   steamAppID: string | null;
   // releaseDate: number;
   // lastChange: number;
@@ -98,7 +97,6 @@ export interface GameDealType {
 //   }
 // }
 
-//For details about an individual deal
 export interface GameDealDetailsType {
   gameInfo: {
     // storeID: string;
@@ -157,7 +155,6 @@ export interface GameDealDetailsType {
 //   },
 // ];
 
-// For list of all giveaways
 export interface FreeGameType {
   id: number;
   title: string;
@@ -195,7 +192,6 @@ export interface FreeGameType {
 //   "gamerpower_url": "https://www.gamerpower.com/spirit-of-the-north-steam-key-giveaway"
 // }
 
-// For details about an individual giveaway
 export interface FreeGameDetailsType {
   id: number;
   title: string;
