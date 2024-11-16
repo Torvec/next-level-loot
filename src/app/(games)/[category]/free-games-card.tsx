@@ -100,10 +100,10 @@ export default function FreeGamesCard({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <MoreDetailsButton />
+        <GiveawayButton />
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-        <GiveawayButton />
+        <MoreDetailsButton />
         <WishlistButton />
       </CardFooter>
     </Card>

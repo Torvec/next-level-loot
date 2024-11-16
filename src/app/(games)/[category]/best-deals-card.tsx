@@ -54,8 +54,13 @@ export default function BestDealsCard({
   const rating = ratings[parseInt(formattedDealRating)];
 
   const BannerSection = () => (
-    <div className="h-24 bg-gradient-to-t from-slate-900 py-2 sm:py-4">
-      <img src={thumb} alt={title} className="mx-auto h-full" />
+    <div className="relative h-32 overflow-hidden rounded-t-xl py-2 sm:py-4">
+      <img src={thumb} alt="" className="h-32 w-full blur-md" aria-hidden />
+      <img
+        src={thumb}
+        alt={title}
+        className="absolute left-1/2 top-1/2 h-full max-h-20 w-auto -translate-x-1/2 -translate-y-1/2"
+      />
     </div>
   );
 
