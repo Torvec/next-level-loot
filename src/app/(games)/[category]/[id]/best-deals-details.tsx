@@ -9,11 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { Button } from "@/components/ui/button";
 import { useWishlistDispatch } from "@/lib/wishlist-provider";
 import useIsInWishlist from "@/lib/use-is-in-wishlist";
-// import Link from "next/link";
 import { GameDealDetailsType } from "../types";
 
 export default function BestDealsDetails({

@@ -29,42 +29,82 @@ export default function FreeGamesCard({
   const dispatch = useWishlistDispatch();
   const isInWishlist = useIsInWishlist(title);
 
+  const BannerSection = () => (
+    <div className="bg-gradient-to-t from-slate-900">
+      <img src={image} alt={title} className="mx-auto h-full" />
+    </div>
+  );
+
+  const TitleSection = () => (
+    <>
+      <h2 className="w-full sm:w-2/3">{title}</h2>
+      <div className="flex flex-col text-right text-base">
+        <div className="space-x-2">
+          <span className="line-through opacity-70">${worth}</span>
+          <span className="text-xl">Free!</span>
+        </div>
+      </div>
+    </>
+  );
+
+  const DescriptionSection = () => (
+    <>
+      <div>
+        <p>Type: {type}</p>
+        <p>Platforms: {platforms}</p>
+      </div>
+      <div className="text-right">
+        <p>Started: {published_date}</p>
+        <p>Ends: {end_date}</p>
+      </div>
+    </>
+  );
+
+  const MoreDetailsButton = () => (
+    <Button className="w-full bg-neutral-900 hover:bg-neutral-800">
+      <Link href={`/free-games/${id}`}>More Details -&gt;</Link>
+    </Button>
+  );
+
+  const GiveawayButton = () => (
+    <Button className="w-full bg-neutral-500 hover:bg-neutral-600">
+      <a
+        href={open_giveaway_url}
+        target="_blank"
+        rel="noopener noreferrer external"
+      >
+        Get Giveaway
+      </a>
+    </Button>
+  );
+
+  const WishlistButton = () => (
+    <Button
+      onClick={() => dispatch({ type: "ADD", item: title })}
+      className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+      disabled={isInWishlist}
+    >
+      {isInWishlist ? "In Wishlist" : "+ Wishlist"}
+    </Button>
+  );
+
   return (
-    <Card className="rounded-xl border-neutral-700">
+    <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900">
       <CardHeader>
-        <CardDescription>
-          <img src={image} alt={title} />
+        <BannerSection />
+        <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
+          <TitleSection />
+        </CardTitle>
+        <CardDescription className="flex flex-col justify-between gap-4 sm:flex-row">
+          <DescriptionSection />
         </CardDescription>
-        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>Loot Type: {type}</p>
-        <p>Platforms: {platforms}</p>
-        <p>Worth: {worth}</p>
-        <p>
-          Published Date: {published_date} - End Date: {end_date}
-        </p>
-        <p>
-          <Link href={`/free-games/${id}`}>Details</Link>
-        </p>
+        <MoreDetailsButton />
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-        <Button className="w-full bg-neutral-500 hover:bg-neutral-600">
-          <a
-            href={open_giveaway_url}
-            target="_blank"
-            rel="noopener noreferrer external"
-          >
-            Grab It
-          </a>
-        </Button>
-        <Button
-          onClick={() => dispatch({ type: "ADD", item: title })}
-          className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-          disabled={isInWishlist}
-        >
-          {isInWishlist ? "In Wishlist" : "Add to Wishlist"}
-        </Button>
+        <GiveawayButton />
+        <WishlistButton />
       </CardFooter>
     </Card>
   );

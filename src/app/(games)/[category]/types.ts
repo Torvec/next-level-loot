@@ -196,7 +196,7 @@ export interface FreeGameDetailsType {
   id: number;
   title: string;
   worth: string;
-  thumbnail: string;
+  // thumbnail: string;
   image: string;
   description: string;
   instructions: string;
@@ -205,9 +205,9 @@ export interface FreeGameDetailsType {
   type: string;
   platforms: string;
   end_date: string;
-  users: number;
-  status: string;
-  gamerpower_url: string;
+  // users: number;
+  // status: string;
+  // gamerpower_url: string;
 }
 
 // {

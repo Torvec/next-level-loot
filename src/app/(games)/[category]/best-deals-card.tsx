@@ -53,6 +53,12 @@ export default function BestDealsCard({
   };
   const rating = ratings[parseInt(formattedDealRating)];
 
+  const BannerSection = () => (
+    <div className="h-24 bg-gradient-to-t from-slate-900 py-2 sm:py-4">
+      <img src={thumb} alt={title} className="mx-auto h-full" />
+    </div>
+  );
+
   const TitleSection = () => (
     <>
       <h2 className="w-full sm:w-2/3">{title}</h2>
@@ -65,6 +71,13 @@ export default function BestDealsCard({
         </div>
         <span>{formattedSavings}% OFF!</span>
       </div>
+    </>
+  );
+
+  const DescriptionSection = () => (
+    <>
+      <p>Released: {formattedReleaseDate}</p>
+      <p>{rating} Deal!</p>
     </>
   );
 
@@ -134,15 +147,12 @@ export default function BestDealsCard({
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900">
       <CardHeader>
-        <div className="h-24 bg-gradient-to-t from-slate-900 py-2 sm:py-4">
-          <img src={thumb} alt={title} className="mx-auto h-full" />
-        </div>
+        <BannerSection />
         <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
           <TitleSection />
         </CardTitle>
         <CardDescription className="flex justify-between">
-          <p>Released: {formattedReleaseDate}</p>
-          <p>{rating} Deal!</p>
+          <DescriptionSection />
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-1">
