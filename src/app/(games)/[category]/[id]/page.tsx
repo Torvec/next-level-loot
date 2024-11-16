@@ -1,8 +1,8 @@
 import { Category } from "../types";
-import BestDealsCard from "../best-deals-card";
 import FreeGamesCard from "../free-games-card";
 import HighestRatedGamesCard from "../highest-rated-games-card";
 import { fetchData } from "../fetch";
+import BestDealsDetails from "./best-deals-details";
 
 export default async function Page(props: {
   params: Promise<{
@@ -29,7 +29,7 @@ export default async function Page(props: {
 
   let content;
   if (category === "best-deals") {
-    content = <BestDealsCard {...data.gameInfo} />;
+    content = <BestDealsDetails {...data} />;
   } else if (category === "free-games") {
     content = <FreeGamesCard {...data} />;
   } else if (category === "highest-rated") {
