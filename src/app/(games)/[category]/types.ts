@@ -53,7 +53,7 @@ export interface GameDealType {
   steamRatingPercent: number;
   steamRatingCount: number;
   steamAppID: string | null;
-  // releaseDate: number;
+  releaseDate: number;
   // lastChange: number;
   dealRating: string;
   thumb: string;

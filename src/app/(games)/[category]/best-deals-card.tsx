@@ -29,10 +29,14 @@ export default function BestDealsCard({
   steamRatingText,
   steamRatingPercent,
   steamRatingCount,
+  releaseDate,
 }: GameDealType) {
   const dispatch = useWishlistDispatch();
   const isInWishlist = useIsInWishlist(title);
   const formattedSavings = parseFloat(savings).toFixed(0);
+  const formattedReleaseDate = new Date(
+    releaseDate * 1000,
+  ).toLocaleDateString();
 
   const formattedDealRating = parseFloat(dealRating).toFixed(0);
   const ratings: { [key: number]: string } = {
@@ -75,7 +79,7 @@ export default function BestDealsCard({
         >
           <h3 className="font-bold">Metacritic</h3>
           <span className="text-lg font-bold">
-            {metacriticScore === "0" ? metacriticScore : "N/A"}
+            {metacriticScore !== "0" ? metacriticScore : "N/A"}
           </span>
         </a>
       ) : (
@@ -128,7 +132,7 @@ export default function BestDealsCard({
   );
 
   return (
-    <Card className="flex flex-col justify-between rounded-xl border-0 bg-slate-950">
+    <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900">
       <CardHeader>
         <div className="h-24 bg-gradient-to-t from-slate-900 py-2 sm:py-4">
           <img src={thumb} alt={title} className="mx-auto h-full" />
@@ -136,7 +140,8 @@ export default function BestDealsCard({
         <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
           <TitleSection />
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="flex justify-between">
+          <p>Released: {formattedReleaseDate}</p>
           <p>{rating} Deal!</p>
         </CardDescription>
       </CardHeader>

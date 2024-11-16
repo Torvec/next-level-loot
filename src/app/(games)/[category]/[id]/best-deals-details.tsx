@@ -150,6 +150,34 @@ export default function BestDealsDetails({
     </Button>
   );
 
+  const CheaperDealsSection = () => (
+    <div className="rounded-xl bg-gradient-to-t from-slate-900 p-4">
+      <h3 className="text-xl font-bold">Cheaper Deals</h3>
+      <div className="flex flex-col gap-8 sm:flex-row">
+        {cheaperStores.length > 0 ? (
+          cheaperStores.map(({ dealID, storeID, salePrice, retailPrice }) => (
+            <div key={dealID} className="space-y-2 p-4">
+              <h3 className="font-bold">{stores[parseInt(storeID)]}</h3>
+              <div className="space-x-2">
+                <span className="line-through opacity-70">${retailPrice}</span>
+                <span className="text-xl">
+                  {salePrice !== "0.00" ? `$${salePrice}` : "FREE"}
+                </span>
+              </div>
+              <Button className="w-full rounded-xl bg-slate-800 hover:bg-slate-700">
+                <a href={`/best-deals/${dealID}`}>View Deal</a>
+              </Button>
+            </div>
+          ))
+        ) : (
+          <p className="flex-grow p-8 text-center text-slate-400">
+            No cheaper deals found
+          </p>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="mb-4 flex w-full flex-col gap-4 sm:flex-row">
@@ -174,33 +202,7 @@ export default function BestDealsDetails({
           </CardFooter>
         </Card>
       </div>
-      <div className="rounded-xl bg-gradient-to-t from-slate-900 p-4">
-        <h3 className="text-xl font-bold">Cheaper Deals</h3>
-        <div className="flex flex-col gap-8 sm:flex-row">
-          {cheaperStores.length > 0 ? (
-            cheaperStores.map(({ dealID, storeID, salePrice, retailPrice }) => (
-              <div key={dealID} className="space-y-2 p-4">
-                <h3 className="font-bold">{stores[parseInt(storeID)]}</h3>
-                <div className="space-x-2">
-                  <span className="line-through opacity-70">
-                    ${retailPrice}
-                  </span>
-                  <span className="text-xl">
-                    {salePrice !== "0.00" ? `$${salePrice}` : "FREE"}
-                  </span>
-                </div>
-                <Button className="w-full rounded-xl bg-slate-800 hover:bg-slate-700">
-                  <a href={`/best-deals/${dealID}`}>View Deal</a>
-                </Button>
-              </div>
-            ))
-          ) : (
-            <p className="flex-grow p-8 text-center text-slate-400">
-              No other deals found
-            </p>
-          )}
-        </div>
-      </div>
+      <CheaperDealsSection />
     </>
   );
 }
