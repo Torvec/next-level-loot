@@ -1,8 +1,8 @@
 import { Category } from "../types";
-import HighestRatedGamesCard from "../highest-rated-games-card";
 import { fetchData } from "../fetch";
 import BestDealsDetails from "./best-deals-details";
 import FreeGamesDetails from "./free-games-details";
+import HighestRatedDetails from "./highest-rated-details";
 
 export default async function Page(props: {
   params: Promise<{
@@ -33,7 +33,7 @@ export default async function Page(props: {
   } else if (category === "free-games") {
     content = <FreeGamesDetails {...data} />;
   } else if (category === "highest-rated") {
-    content = <HighestRatedGamesCard {...data} />;
+    content = <HighestRatedDetails {...data} />;
   }
 
   return <div className="py-32">{content}</div>;

@@ -210,11 +210,15 @@ export interface FreeGameDetailsType {
   // gamerpower_url: string;
 }
 
+//* RAWG API TYPES
+
 // {
 //  "count": 537778,
 //   "next": "https://api.rawg.io/api/games?key=5a057ad3a7d64a2a885ff92668a9468b&ordering=-metacritic&page=2&page_size=24&platforms=4%2C+187%2C186%2C+7",
 //   "previous": null,
-//   "results": [
+//   "results":
+
+//  [
 //     {
 //       "slug": "the-legend-of-zelda-ocarina-of-time",
 //       "name": "The Legend of Zelda: Ocarina of Time",
@@ -372,8 +376,6 @@ export interface FreeGameDetailsType {
 //     },
 //  {REST OF THE RESULTS},
 // }
-
-//* RAWG API TYPES
 
 interface Platform {
   id: number;
