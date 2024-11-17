@@ -26,16 +26,16 @@ export default function HighestRatedGamesCard({
   esrb_rating,
   genres,
 }: HighestRatedGameType) {
-  const dispatch = useWishlistDispatch();
-  const isInWishlist = useIsInWishlist(name);
-
   const BannerSection = () => (
-    <div className="bg-gradient-to-t from-slate-900">
-      <img
-        src={background_image}
-        alt={name}
-        className="mx-auto h-64 object-cover object-center"
-      />
+    <div className="relative h-48 overflow-hidden rounded-t-xl">
+      <img src={background_image} alt="" className="blur-md" aria-hidden />
+      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2">
+        <img
+          src={background_image}
+          alt={name}
+          className="mx-auto h-max max-h-full w-auto"
+        />
+      </div>
     </div>
   );
 
@@ -89,15 +89,19 @@ export default function HighestRatedGamesCard({
     </Button>
   );
 
-  const WishlistButton = () => (
-    <Button
-      onClick={() => dispatch({ type: "ADD", item: name })}
-      className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-      disabled={isInWishlist}
-    >
-      {isInWishlist ? "In Wishlist" : "+ Wishlist"}
-    </Button>
-  );
+  const WishlistButton = () => {
+    const dispatch = useWishlistDispatch();
+    const isInWishlist = useIsInWishlist(name);
+    return (
+      <Button
+        onClick={() => dispatch({ type: "ADD", item: name })}
+        className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+        disabled={isInWishlist}
+      >
+        {isInWishlist ? "In Wishlist" : "+ Wishlist"}
+      </Button>
+    );
+  };
 
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900">

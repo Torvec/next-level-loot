@@ -29,17 +29,21 @@ export default function HighestRatedDetails({
   publishers,
   tags,
 }: HighestRatedGameDetailsType) {
-  const dispatch = useWishlistDispatch();
-  const isInWishlist = useIsInWishlist(name);
-
-  const ScreenshotsSection = () => (
-    <div className="w-full bg-gradient-to-t from-slate-900 sm:w-1/3">
+  const BannerSection = () => (
+    <div className="relative h-48 overflow-hidden rounded-t-xl lg:w-1/3 lg:rounded-xl">
       <img
         src={background_image}
-        alt={name}
-        className="mx-auto h-auto w-full object-cover object-center"
+        alt=""
+        className="h-full w-full blur-md"
+        aria-hidden
       />
-      <div className="grid grid-cols-2 gap-4"></div>
+      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 place-content-center">
+        <img
+          src={background_image}
+          alt={name}
+          className="mx-auto h-max max-h-full w-auto"
+        />
+      </div>
     </div>
   );
 
@@ -91,6 +95,26 @@ export default function HighestRatedDetails({
     );
   };
 
+  const TagList = () => (
+    <div className="space-y-2">
+      <h3 className="text-sm font-bold">Tags</h3>
+      {tags.length > 0 ? (
+        <ul className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <li
+              key={tag.id}
+              className="rounded-xl bg-slate-800 px-2 py-1 text-sm text-slate-400 hover:scale-110 hover:bg-slate-700"
+            >
+              {tag.name}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-center text-sm text-slate-500">Data Unavailable</p>
+      )}
+    </div>
+  );
+
   const DescriptionText = () => (
     <div>
       {description_raw ? (
@@ -114,21 +138,25 @@ export default function HighestRatedDetails({
     </Button>
   );
 
-  const WishlistButton = () => (
-    <Button
-      onClick={() => dispatch({ type: "ADD", item: name })}
-      className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-      disabled={isInWishlist}
-    >
-      {isInWishlist ? "In Wishlist" : "+ Wishlist"}
-    </Button>
-  );
+  const WishlistButton = () => {
+    const dispatch = useWishlistDispatch();
+    const isInWishlist = useIsInWishlist(name);
+    return (
+      <Button
+        onClick={() => dispatch({ type: "ADD", item: name })}
+        className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+        disabled={isInWishlist}
+      >
+        {isInWishlist ? "In Wishlist" : "+ Wishlist"}
+      </Button>
+    );
+  };
 
   return (
     <>
-      <div className="mb-4 flex w-full flex-col gap-4 sm:flex-row">
-        <ScreenshotsSection />
-        <Card className="flex w-full flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900 sm:w-2/3">
+      <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
+        <BannerSection />
+        <Card className="flex w-full flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900 lg:w-2/3">
           <CardHeader>
             <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
               <TitleSection />
@@ -137,7 +165,7 @@ export default function HighestRatedDetails({
               <DescriptionSection />
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-8">
+          <CardContent className="mb-8 space-y-8">
             <div className="grid gap-4 sm:grid-cols-3">
               <InfoList
                 title="Platforms"
@@ -150,12 +178,6 @@ export default function HighestRatedDetails({
                 list={genres}
                 keyExtractor={(genre) => genre.id.toString()}
                 renderItem={(genre) => genre.name}
-              />
-              <InfoList
-                title="Tags"
-                list={tags}
-                keyExtractor={(t) => t.id.toString()}
-                renderItem={(t) => t.name}
               />
               <InfoList
                 title="Stores"
@@ -177,6 +199,7 @@ export default function HighestRatedDetails({
               />
             </div>
             <DescriptionText />
+            <TagList />
           </CardContent>
           <CardFooter className="flex-col justify-between gap-4 md:flex-row">
             <FindDealsButton />

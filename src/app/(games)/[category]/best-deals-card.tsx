@@ -31,60 +31,65 @@ export default function BestDealsCard({
   steamRatingCount,
   releaseDate,
 }: GameDealType) {
-  const dispatch = useWishlistDispatch();
-  const isInWishlist = useIsInWishlist(title);
-  const formattedSavings = parseFloat(savings).toFixed(0);
-  const formattedReleaseDate = new Date(
-    releaseDate * 1000,
-  ).toLocaleDateString();
-
-  const formattedDealRating = parseFloat(dealRating).toFixed(0);
-  const ratings: { [key: number]: string } = {
-    1: "Abysmal",
-    2: "Terrible",
-    3: "Poor",
-    4: "Bad",
-    5: "Mediocre",
-    6: "Fair",
-    7: "Good",
-    8: "Very Good",
-    9: "Excellent",
-    10: "Perfect",
-  };
-  const rating = ratings[parseInt(formattedDealRating)];
-
   const BannerSection = () => (
-    <div className="relative h-32 overflow-hidden rounded-t-xl py-2 sm:py-4">
-      <img src={thumb} alt="" className="h-32 w-full blur-md" aria-hidden />
-      <img
-        src={thumb}
-        alt={title}
-        className="absolute left-1/2 top-1/2 h-full max-h-20 w-auto -translate-x-1/2 -translate-y-1/2"
-      />
+    <div className="relative h-48 overflow-hidden rounded-t-xl">
+      <img src={thumb} alt="" className="h-full w-full blur-md" aria-hidden />
+      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 place-content-center">
+        <img
+          src={thumb}
+          alt={title}
+          className="mx-auto h-max max-h-full w-auto"
+        />
+      </div>
     </div>
   );
 
-  const TitleSection = () => (
-    <>
-      <h2 className="w-full sm:w-2/3">{title}</h2>
-      <div className="flex flex-col text-right text-base">
-        <div className="space-x-2">
-          <span className="line-through opacity-70">${normalPrice}</span>
-          <span className="text-xl">
-            {salePrice !== "0.00" ? `$${salePrice}` : "FREE"}
-          </span>
+  const TitleSection = () => {
+    const formattedSavings = parseFloat(savings).toFixed(0);
+    return (
+      <>
+        <h2 className="w-full sm:w-2/3">{title}</h2>
+        <div className="flex flex-col text-base sm:text-right">
+          <div className="space-x-2">
+            <span className="line-through opacity-70">${normalPrice}</span>
+            <span className="text-xl">
+              {salePrice !== "0.00" ? `$${salePrice}` : "FREE"}
+            </span>
+          </div>
+          <span>{formattedSavings}% OFF!</span>
         </div>
-        <span>{formattedSavings}% OFF!</span>
-      </div>
-    </>
-  );
+      </>
+    );
+  };
 
-  const DescriptionSection = () => (
-    <>
-      <p>Released: {formattedReleaseDate}</p>
-      <p>{rating} Deal!</p>
-    </>
-  );
+  const DescriptionSection = () => {
+    const formattedReleaseDate =
+      releaseDate > 0
+        ? new Date(releaseDate * 1000).toLocaleDateString()
+        : "N/A";
+
+    const formattedDealRating = parseFloat(dealRating).toFixed(0);
+    const ratings: { [key: number]: string } = {
+      1: "Abysmal",
+      2: "Terrible",
+      3: "Poor",
+      4: "Bad",
+      5: "Mediocre",
+      6: "Fair",
+      7: "Good",
+      8: "Very Good",
+      9: "Excellent",
+      10: "Perfect",
+    };
+    const rating = ratings[parseInt(formattedDealRating)];
+
+    return (
+      <>
+        <p>Released: {formattedReleaseDate}</p>
+        <p>{rating} Deal!</p>
+      </>
+    );
+  };
 
   const MetacriticSection = () => (
     <div>
@@ -133,15 +138,20 @@ export default function BestDealsCard({
     </div>
   );
 
-  const WishlistButton = () => (
-    <Button
-      onClick={() => dispatch({ type: "ADD", item: title })}
-      className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-      disabled={isInWishlist}
-    >
-      {isInWishlist ? "In Wishlist" : "+ Wishlist"}
-    </Button>
-  );
+  const WishlistButton = () => {
+    const dispatch = useWishlistDispatch();
+    const isInWishlist = useIsInWishlist(title);
+
+    return (
+      <Button
+        onClick={() => dispatch({ type: "ADD", item: title })}
+        className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+        disabled={isInWishlist}
+      >
+        {isInWishlist ? "In Wishlist" : "+ Wishlist"}
+      </Button>
+    );
+  };
 
   const MoreDetailsButton = () => (
     <Button className="w-full bg-neutral-900 hover:bg-neutral-800">

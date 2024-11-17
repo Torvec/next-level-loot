@@ -26,19 +26,23 @@ export default function FreeGamesCard({
   platforms,
   end_date,
 }: FreeGameType) {
-  const dispatch = useWishlistDispatch();
-  const isInWishlist = useIsInWishlist(title);
-
   const BannerSection = () => (
-    <div className="bg-gradient-to-t from-slate-900">
-      <img src={image} alt={title} className="mx-auto h-full" />
+    <div className="relative h-48 overflow-hidden rounded-t-xl">
+      <img src={image} alt="" className="h-full w-full blur-md" aria-hidden />
+      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 place-content-center">
+        <img
+          src={image}
+          alt={title}
+          className="mx-auto h-max max-h-full w-auto"
+        />
+      </div>
     </div>
   );
 
   const TitleSection = () => (
     <>
       <h2 className="w-full sm:w-2/3">{title}</h2>
-      <div className="flex flex-col text-right text-base">
+      <div className="flex flex-col text-base lg:text-right">
         <div className="space-x-2">
           <span className="line-through opacity-70">${worth}</span>
           <span className="text-xl">Free!</span>
@@ -53,7 +57,7 @@ export default function FreeGamesCard({
         <p>Type: {type}</p>
         <p>Platforms: {platforms}</p>
       </div>
-      <div className="text-right">
+      <div className="lg:text-right">
         <p>Started: {published_date}</p>
         <p>Ends: {end_date}</p>
       </div>
@@ -78,15 +82,19 @@ export default function FreeGamesCard({
     </Button>
   );
 
-  const WishlistButton = () => (
-    <Button
-      onClick={() => dispatch({ type: "ADD", item: title })}
-      className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-      disabled={isInWishlist}
-    >
-      {isInWishlist ? "In Wishlist" : "+ Wishlist"}
-    </Button>
-  );
+  const WishlistButton = () => {
+    const dispatch = useWishlistDispatch();
+    const isInWishlist = useIsInWishlist(title);
+    return (
+      <Button
+        onClick={() => dispatch({ type: "ADD", item: title })}
+        className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
+        disabled={isInWishlist}
+      >
+        {isInWishlist ? "In Wishlist" : "+ Wishlist"}
+      </Button>
+    );
+  };
 
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900">
