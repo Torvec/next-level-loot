@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { Moon, Sun, Monitor, Gamepad2, Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Gamepad2, Menu } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { type Category, type Label } from "@/app/(games)/[category]/types";
+import ThemeSelect from "./theme-select";
 
 type NavLink = { href: Category; label: Label };
 
@@ -64,20 +64,6 @@ export default async function Header() {
   const MobileHidden: React.FC<{ children: React.ReactNode }> = ({
     children,
   }) => <div className="hidden lg:block">{children}</div>;
-
-  const ThemeSelect = () => (
-    <div className="flex gap-1">
-      <Button className="rounded-xl bg-muted-foreground">
-        <Moon size={24} />
-      </Button>
-      <Button className="rounded-xl bg-muted-foreground">
-        <Sun size={24} />
-      </Button>
-      <Button className="rounded-xl bg-muted-foreground">
-        <Monitor size={24} />
-      </Button>
-    </div>
-  );
 
   const DropDownMenu = () => (
     <Popover>

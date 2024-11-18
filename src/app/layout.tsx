@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { geistSans, geistMono } from "@/styles/fonts/local-font";
 import "@/styles/globals.css";
+import ThemeProvider from "@/lib/theme-provider";
 import WishlistProvider from "@/lib/wishlist-provider";
 import Header from "@/components/ui/header";
 import Container from "@/components/ui/container";
@@ -20,19 +21,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} dark flex min-h-screen flex-col antialiased`}
-      >
-        <Header />
-        <Container>
-          <WishlistProvider>
-            {children}
-            <SpeedInsights />
-            <Analytics />
-          </WishlistProvider>
-        </Container>
-        <Footer />
-      </body>
+      <ThemeProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
+        >
+          <Header />
+          <Container>
+            <WishlistProvider>
+              {children}
+              <SpeedInsights />
+              <Analytics />
+            </WishlistProvider>
+          </Container>
+          <Footer />
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
