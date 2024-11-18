@@ -35,7 +35,7 @@ export default async function Header() {
       <Link
         href={"/"}
         prefetch={true}
-        className="flex items-center gap-2 text-lg"
+        className="flex items-center gap-2 text-lg hover:scale-110"
       >
         <Gamepad2 size={24} />
         The Loot Vault
@@ -51,7 +51,7 @@ export default async function Header() {
             <Link
               href={`/${href}`}
               prefetch={true}
-              className="block px-2 py-2 hover:bg-neutral-700 lg:inline lg:px-0 lg:py-0 lg:hover:bg-black lg:hover:underline"
+              className="block px-2 py-2 hover:bg-muted-foreground hover:text-background lg:inline lg:px-0 lg:py-0 lg:hover:bg-transparent lg:hover:text-foreground lg:hover:underline"
             >
               {label}
             </Link>
@@ -67,13 +67,13 @@ export default async function Header() {
 
   const ThemeSelect = () => (
     <div className="flex gap-1">
-      <Button className="rounded-xl bg-neutral-800">
+      <Button className="rounded-xl bg-muted-foreground">
         <Moon size={24} />
       </Button>
-      <Button className="rounded-xl bg-neutral-800">
+      <Button className="rounded-xl bg-muted-foreground">
         <Sun size={24} />
       </Button>
-      <Button className="rounded-xl bg-neutral-800">
+      <Button className="rounded-xl bg-muted-foreground">
         <Monitor size={24} />
       </Button>
     </div>
@@ -84,7 +84,7 @@ export default async function Header() {
       <PopoverTrigger className="lg:hidden">
         <Menu />
       </PopoverTrigger>
-      <PopoverContent className="space-y-4 border-neutral-700 bg-black">
+      <PopoverContent className="space-y-4 border-foreground bg-secondary">
         <NavList />
         <ThemeSelect />
       </PopoverContent>
@@ -92,7 +92,7 @@ export default async function Header() {
   );
 
   return (
-    <header className="border-b border-neutral-700">
+    <header className="border-b border-muted bg-background text-foreground">
       <div className="container mx-auto flex items-center justify-between gap-2 px-4 py-4 md:flex-row md:gap-0 xl:px-0">
         <Logo />
         <MobileHidden>

@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
 import {
   Card,
   CardContent,
@@ -9,11 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import WishlistButton from "@/components/ui/wishlist-button";
+import MoreDetailsButton from "@/components/ui/more-details-button";
+import BannerSection from "@/components/ui/banner-section";
+import { Badge } from "@/components/ui/badge";
 import { HighestRatedGameType } from "./types";
-import { useWishlistDispatch } from "@/lib/wishlist-provider";
-import useIsInWishlist from "@/lib/use-is-in-wishlist";
-import Link from "next/link";
 
 export default function HighestRatedGamesCard({
   id,
@@ -26,24 +23,11 @@ export default function HighestRatedGamesCard({
   esrb_rating,
   genres,
 }: HighestRatedGameType) {
-  const BannerSection = () => (
-    <div className="relative h-48 overflow-hidden rounded-t-xl">
-      <img src={background_image} alt="" className="blur-md" aria-hidden />
-      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2">
-        <img
-          src={background_image}
-          alt={name}
-          className="mx-auto h-max max-h-full w-auto"
-        />
-      </div>
-    </div>
-  );
-
   const TitleSection = () => (
     <>
       <h2 className="w-full sm:w-2/3">{name}</h2>
       <div className="flex flex-col">
-        <span className="text-base font-normal uppercase text-neutral-400 sm:text-center">
+        <span className="text-base font-normal uppercase text-muted-foreground sm:text-center">
           Score
         </span>
         <span className="text-xl">{metacritic}/100</span>
@@ -68,14 +52,11 @@ export default function HighestRatedGamesCard({
 
     return (
       <div className="space-y-2">
-        <h3 className="text-center text-sm font-bold">{title}</h3>
+        <h3 className="text-sm font-bold">{title}</h3>
         <ul className="space-y-1">
           {list.map((item) => (
-            <li
-              key={keyExtractor(item)}
-              className="rounded-xl bg-slate-800 px-2 py-1 text-sm text-slate-300 hover:scale-110 hover:bg-slate-700"
-            >
-              {renderItem(item)}
+            <li key={keyExtractor(item)}>
+              <Badge variant="secondary">{renderItem(item)}</Badge>
             </li>
           ))}
         </ul>
@@ -83,30 +64,10 @@ export default function HighestRatedGamesCard({
     );
   };
 
-  const MoreDetailsButton = () => (
-    <Button className="w-full bg-neutral-900 hover:bg-neutral-800">
-      <Link href={`/highest-rated/${id}`}>More Details -&gt;</Link>
-    </Button>
-  );
-
-  const WishlistButton = () => {
-    const dispatch = useWishlistDispatch();
-    const isInWishlist = useIsInWishlist(name);
-    return (
-      <Button
-        onClick={() => dispatch({ type: "ADD", item: name })}
-        className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-        disabled={isInWishlist}
-      >
-        {isInWishlist ? "In Wishlist" : "+ Wishlist"}
-      </Button>
-    );
-  };
-
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900">
       <CardHeader>
-        <BannerSection />
+        <BannerSection src={background_image} alt={name} />
         <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row sm:items-center">
           <TitleSection />
         </CardTitle>
@@ -135,8 +96,8 @@ export default function HighestRatedGamesCard({
         />
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-        <MoreDetailsButton />
-        <WishlistButton />
+        <MoreDetailsButton path={"/highest-rated/"} id={id} />
+        <WishlistButton title={name} />
       </CardFooter>
     </Card>
   );

@@ -7,7 +7,7 @@ export default function Footer() {
         href={href}
         target="_blank"
         rel="noopener external"
-        className="flex w-max items-center gap-2 text-yellow-300 hover:text-yellow-400"
+        className="flex w-max items-center gap-2 text-yellow-300 hover:text-yellow-500"
       >
         <span>{children}</span>
         <ExternalLink size={16} />
@@ -20,7 +20,7 @@ export default function Footer() {
       <Gamepad2 size={32} />
       <div>
         <h3 className="text-xl font-bold uppercase">The Loot Vault</h3>
-        <h4 className="pl-1 text-sm text-neutral-400">
+        <h4 className="pl-1 text-sm text-muted-foreground">
           For Gamers on a Budget!
         </h4>
       </div>
@@ -30,7 +30,7 @@ export default function Footer() {
   const ProjectSection = () => (
     <div>
       <h3 className="mb-4 font-bold">Project</h3>
-      <ul className="space-y-1 text-neutral-400">
+      <ul className="space-y-1 text-muted-foreground">
         <li>Made with Next.js 15</li>
         <li className="flex gap-2">
           GitHub:
@@ -58,7 +58,7 @@ export default function Footer() {
   const APISection = () => (
     <div>
       <h3 className="mb-4 font-bold">API&apos;s</h3>
-      <ul className="space-y-1 text-neutral-400">
+      <ul className="space-y-1 text-muted-foreground">
         <li className="flex gap-2">
           Best Deals:
           <ExtLink href="https://apidocs.cheapshark.com/">Cheapshark</ExtLink>
@@ -84,7 +84,7 @@ export default function Footer() {
   const DeveloperSection = () => (
     <div className="lg:col-start-2 xl:col-start-4">
       <h3 className="mb-4 font-bold">Developer</h3>
-      <ul className="space-y-1 text-neutral-400">
+      <ul className="space-y-1 text-muted-foreground">
         <li className="text-pretty">
           Designed and developed by Edward Vonschondorf in 2024
         </li>
@@ -105,7 +105,7 @@ export default function Footer() {
   );
 
   return (
-    <footer className="border-t border-neutral-700 bg-neutral-900/50">
+    <footer className="border-t border-muted bg-primary-foreground">
       <div className="container mx-auto px-4 pb-32 pt-16 xl:px-0">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <LogoSection />

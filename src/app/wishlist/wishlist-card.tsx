@@ -21,7 +21,7 @@ export default function WishlistCard({
   const dispatch = useWishlistDispatch();
 
   return (
-    <Card className="rounded-xl border-neutral-700">
+    <Card className="rounded-xl border-muted">
       <CardHeader>
         <CardDescription></CardDescription>
         <CardTitle>{item}</CardTitle>
@@ -30,7 +30,7 @@ export default function WishlistCard({
       <CardFooter>
         <Button
           onClick={() => dispatch({ type: "REMOVE", index })}
-          className="bg-red-500 text-white"
+          className="bg-destructive text-destructive-foreground hover:bg-destructive-foreground hover:text-destructive"
         >
           Remove
         </Button>

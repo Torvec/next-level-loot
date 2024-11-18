@@ -7,7 +7,7 @@ export default function ErrorBoundary({ error }: { error: Error }) {
         Oops!
         <br /> Something went wrong.
       </h2>
-      <h3 className="text-xl font-bold text-neutral-300 md:text-2xl lg:text-4xl">
+      <h3 className="text-xl font-bold md:text-2xl lg:text-4xl">
         {error.message}
       </h3>
     </div>

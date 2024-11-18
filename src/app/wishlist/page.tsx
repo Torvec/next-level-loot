@@ -12,7 +12,7 @@ export default function Wishlist() {
 
   const EmptyWishlist = () => {
     return (
-      <p className="mb-32 border border-neutral-500 py-32 text-center text-2xl font-semibold">
+      <p className="mb-32 border border-muted py-32 text-center text-2xl font-semibold">
         Your Wishlist is Empty
       </p>
     );
@@ -23,7 +23,7 @@ export default function Wishlist() {
       <div className="mb-32 flex justify-center">
         <Button
           onClick={() => dispatch({ type: "CLEAR" })}
-          className="bg-red-500 text-white"
+          className="bg-destructive text-destructive-foreground hover:bg-destructive-foreground hover:text-destructive"
           disabled={wishlistIsEmpty}
         >
           Clear Wishlist
