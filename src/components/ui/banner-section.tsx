@@ -14,7 +14,7 @@ export default function BannerSection({
         className="h-full w-full opacity-50 blur-md"
         aria-hidden
       />
-      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 place-content-center">
+      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 place-content-center py-4">
         <img src={src} alt={alt} className="mx-auto h-max max-h-full w-auto" />
       </div>
     </div>

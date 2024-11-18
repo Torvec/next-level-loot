@@ -27,7 +27,7 @@ export default function HighestRatedGamesCard({
     <>
       <h2 className="w-full sm:w-2/3">{name}</h2>
       <div className="flex flex-col">
-        <span className="text-base font-normal uppercase text-muted-foreground sm:text-center">
+        <span className="text-sm font-normal uppercase text-muted-foreground sm:text-center">
           Score
         </span>
         <span className="text-xl">{metacritic}/100</span>
@@ -65,10 +65,10 @@ export default function HighestRatedGamesCard({
   };
 
   return (
-    <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900">
+    <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted">
       <CardHeader>
         <BannerSection src={background_image} alt={name} />
-        <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row sm:items-center">
+        <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
           <TitleSection />
         </CardTitle>
         <CardDescription className="flex flex-col justify-between gap-2 sm:flex-row">

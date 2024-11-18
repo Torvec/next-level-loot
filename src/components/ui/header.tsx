@@ -70,7 +70,7 @@ export default async function Header() {
       <PopoverTrigger className="lg:hidden">
         <Menu />
       </PopoverTrigger>
-      <PopoverContent className="space-y-4 border-foreground bg-secondary">
+      <PopoverContent className="space-y-4 border-muted-foreground bg-secondary">
         <NavList />
         <ThemeSelect />
       </PopoverContent>
