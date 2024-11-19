@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
 import {
   Card,
   CardContent,
@@ -8,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { Button } from "@/components/ui/button";
-import { useWishlistDispatch } from "@/lib/wishlist-provider";
-import useIsInWishlist from "@/lib/use-is-in-wishlist";
+import { ExternalLink } from "lucide-react";
+import BannerSection from "@/components/ui/banner-section";
+import WishlistButton from "@/components/ui/wishlist-button";
 import { FreeGameDetailsType } from "../types";
 
 export default function FreeGamesDetails({
@@ -26,19 +24,6 @@ export default function FreeGamesDetails({
   platforms,
   end_date,
 }: FreeGameDetailsType) {
-  const BannerSection = () => (
-    <div className="relative h-48 overflow-hidden rounded-t-xl lg:w-1/3 lg:rounded-xl">
-      <img src={image} alt="" className="h-full w-full blur-md" aria-hidden />
-      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 place-content-center">
-        <img
-          src={image}
-          alt={title}
-          className="mx-auto h-max max-h-full w-auto"
-        />
-      </div>
-    </div>
-  );
-
   const TitleSection = () => (
     <>
       <h2 className="w-full sm:w-2/3">{title}</h2>
@@ -72,7 +57,7 @@ export default function FreeGamesDetails({
           <p>{description}</p>
         </>
       ) : (
-        <div className="bg-neutral-900 px-4 py-2 text-center text-neutral-500">
+        <div className="px-4 py-2 text-center text-muted-foreground">
           Description Unavailable
         </div>
       )}
@@ -87,7 +72,7 @@ export default function FreeGamesDetails({
           <p>{instructions}</p>
         </>
       ) : (
-        <div className="bg-slate-900 px-4 py-2 text-center text-slate-500">
+        <div className="px-4 py-2 text-center text-muted-foreground">
           Instructions Unavailable
         </div>
       )}
@@ -95,36 +80,28 @@ export default function FreeGamesDetails({
   );
 
   const GiveawayButton = () => (
-    <Button className="w-full bg-neutral-500 hover:bg-neutral-600">
+    <Button
+      asChild
+      className="w-full bg-muted-foreground hover:bg-background hover:text-foreground"
+    >
       <a
         href={open_giveaway_url}
         target="_blank"
         rel="noopener noreferrer external"
       >
         Get Giveaway
+        <ExternalLink />
       </a>
     </Button>
   );
 
-  const WishlistButton = () => {
-    const dispatch = useWishlistDispatch();
-    const isInWishlist = useIsInWishlist(title);
-    return (
-      <Button
-        onClick={() => dispatch({ type: "ADD", item: title })}
-        className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-        disabled={isInWishlist}
-      >
-        {isInWishlist ? "In Wishlist" : "+ Wishlist"}
-      </Button>
-    );
-  };
-
   return (
     <>
       <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
-        <BannerSection />
-        <Card className="flex flex-grow flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900 lg:w-2/3">
+        <div className="lg:w-1/3">
+          <BannerSection src={image} alt={title} />
+        </div>
+        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted lg:w-2/3">
           <CardHeader>
             <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
               <TitleSection />
@@ -139,7 +116,7 @@ export default function FreeGamesDetails({
           </CardContent>
           <CardFooter className="flex-col justify-between gap-4 md:flex-row">
             <GiveawayButton />
-            <WishlistButton />
+            <WishlistButton title={title} />
           </CardFooter>
         </Card>
       </div>

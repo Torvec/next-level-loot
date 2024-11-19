@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
 import {
   Card,
   CardContent,
@@ -10,8 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useWishlistDispatch } from "@/lib/wishlist-provider";
-import useIsInWishlist from "@/lib/use-is-in-wishlist";
+import BannerSection from "@/components/ui/banner-section";
+import WishlistButton from "@/components/ui/wishlist-button";
 import { GameDealDetailsType } from "../types";
 
 export default function BestDealsDetails({
@@ -32,19 +29,6 @@ export default function BestDealsDetails({
     thumb,
   } = gameInfo;
 
-  const BannerSection = () => (
-    <div className="relative h-48 overflow-hidden rounded-t-xl lg:w-1/3 lg:rounded-xl">
-      <img src={thumb} alt="" className="h-full w-full blur-md" aria-hidden />
-      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 place-content-center">
-        <img
-          src={thumb}
-          alt={name}
-          className="mx-auto h-max max-h-full w-auto"
-        />
-      </div>
-    </div>
-  );
-
   const TitleSection = () => (
     <>
       <h2 className="w-full sm:w-2/3">{name}</h2>
@@ -60,28 +44,29 @@ export default function BestDealsDetails({
   );
 
   const DescriptionSection = () => {
-    const formattedReleaseDate = new Date(
-      releaseDate * 1000,
-    ).toLocaleDateString();
+    const formattedReleaseDate =
+      releaseDate > 0
+        ? new Date(releaseDate * 1000).toLocaleDateString()
+        : "N/A";
     return <p>Released: {formattedReleaseDate}</p>;
   };
 
-  const MetaCriticSection = () => (
+  const MetacriticSection = () => (
     <div>
       {metacriticLink ? (
         <a
           href={`https://www.metacritic.com${metacriticLink}`}
           target="_blank"
           rel="noopener external"
-          className="flex w-full items-center justify-between bg-neutral-800 px-4 py-2 hover:opacity-80"
+          className="flex w-full items-center justify-between bg-muted px-4 py-2 hover:scale-105 hover:opacity-80"
         >
           <h3 className="font-bold">Metacritic</h3>
-          <span className="text-lg">
-            {metacriticScore === "0" ? metacriticScore : "N/A"}
+          <span className="text-lg font-bold">
+            {metacriticScore !== "0" ? metacriticScore : "N/A"}
           </span>
         </a>
       ) : (
-        <div className="bg-neutral-900 px-4 py-2 text-center text-neutral-500">
+        <div className="bg-muted px-4 py-2 text-center text-muted-foreground">
           Metacritic Data Unavailable
         </div>
       )}
@@ -95,37 +80,25 @@ export default function BestDealsDetails({
           href={`https://store.steampowered.com/app/${steamAppID}`}
           target="_blank"
           rel="noopener external"
-          className="flex w-full flex-col justify-between bg-slate-900 px-4 py-2 text-slate-300 hover:opacity-80 sm:flex-row"
+          className="flex w-full justify-between bg-muted px-4 py-2 hover:scale-105 hover:opacity-80"
         >
           <h3 className="font-bold">Steam</h3>
-          <div className="flex flex-col sm:text-right">
-            <span className="text-lg">
+          <div className="flex flex-col text-right">
+            <span className="font-bold sm:text-lg">
               {steamRatingPercent}% {steamRatingText}
             </span>
-            <span className="text-slate-400">{steamRatingCount} Reviews</span>
+            <span className="text-muted-foreground">
+              {steamRatingCount} Reviews
+            </span>
           </div>
         </a>
       ) : (
-        <div className="bg-slate-900 px-4 py-2 text-center text-slate-500">
+        <div className="bg-muted px-4 py-2 text-center text-muted-foreground">
           Steam Data Unavailable
         </div>
       )}
     </div>
   );
-
-  const WishlistButton = () => {
-    const dispatch = useWishlistDispatch();
-    const isInWishlist = useIsInWishlist(name);
-    return (
-      <Button
-        onClick={() => dispatch({ type: "ADD", item: name })}
-        className="w-full bg-yellow-500 text-blue-900 hover:bg-yellow-400"
-        disabled={isInWishlist}
-      >
-        {isInWishlist ? "In Wishlist" : "+ Wishlist"}
-      </Button>
-    );
-  };
 
   const CheaperDealsSection = () => {
     const stores: { [key: number]: string } = {
@@ -167,7 +140,7 @@ export default function BestDealsDetails({
     };
 
     return (
-      <div className="rounded-xl bg-gradient-to-t from-slate-900 p-4">
+      <div className="rounded-xl bg-gradient-to-t from-muted p-4">
         <h3 className="text-xl font-bold">Cheaper Deals</h3>
         <div className="flex flex-col gap-8 sm:flex-row">
           {cheaperStores.length > 0 ? (
@@ -182,14 +155,14 @@ export default function BestDealsDetails({
                     {salePrice !== "0.00" ? `$${salePrice}` : "FREE"}
                   </span>
                 </div>
-                <Button className="w-full rounded-xl bg-slate-800 hover:bg-slate-700">
+                <Button className="w-full bg-muted-foreground hover:bg-foreground">
                   <a href={`/best-deals/${dealID}`}>View Deal</a>
                 </Button>
               </div>
             ))
           ) : (
-            <p className="flex-grow p-8 text-center text-slate-400">
-              No cheaper deals found
+            <p className="flex-grow p-8 text-center text-muted-foreground">
+              No cheaper deals found :/
             </p>
           )}
         </div>
@@ -200,8 +173,10 @@ export default function BestDealsDetails({
   return (
     <>
       <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
-        <BannerSection />
-        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-slate-900 lg:w-2/3">
+        <div className="lg:w-1/3">
+          <BannerSection src={thumb} alt={name} />
+        </div>
+        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted lg:w-2/3">
           <CardHeader>
             <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
               <TitleSection />
@@ -211,11 +186,11 @@ export default function BestDealsDetails({
             </CardDescription>
           </CardHeader>
           <CardContent className="mb-8 space-y-1">
-            <MetaCriticSection />
+            <MetacriticSection />
             <SteamSection />
           </CardContent>
           <CardFooter>
-            <WishlistButton />
+            <WishlistButton title={name} />
           </CardFooter>
         </Card>
       </div>

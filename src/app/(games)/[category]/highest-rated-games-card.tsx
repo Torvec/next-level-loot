@@ -53,13 +53,17 @@ export default function HighestRatedGamesCard({
     return (
       <div className="space-y-2">
         <h3 className="text-sm font-bold">{title}</h3>
-        <ul className="space-y-1">
-          {list.map((item) => (
-            <li key={keyExtractor(item)}>
-              <Badge variant="secondary">{renderItem(item)}</Badge>
-            </li>
-          ))}
-        </ul>
+        {list.length > 0 ? (
+          <ul className="space-y-1">
+            {list.map((item) => (
+              <li key={keyExtractor(item)}>
+                <Badge className="hover:scale-105">{renderItem(item)}</Badge>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-muted-foreground">Data Unavailable</p>
+        )}
       </div>
     );
   };

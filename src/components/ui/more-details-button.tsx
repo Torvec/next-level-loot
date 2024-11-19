@@ -9,7 +9,10 @@ export default function MoreDetailsButton({
   path: string;
 }) {
   return (
-    <Button className="w-full bg-background text-foreground hover:bg-muted-foreground hover:text-muted">
+    <Button
+      asChild
+      className="w-full bg-background text-foreground hover:bg-muted-foreground hover:text-muted"
+    >
       <Link href={`${path}${id}`}>More Details -&gt;</Link>
     </Button>
   );

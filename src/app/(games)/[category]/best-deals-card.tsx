@@ -29,6 +29,7 @@ export default function BestDealsCard({
 }: GameDealType) {
   const TitleSection = () => {
     const formattedSavings = parseFloat(savings).toFixed(0);
+
     return (
       <>
         <h2 className="w-full sm:w-2/3">{title}</h2>
@@ -81,7 +82,7 @@ export default function BestDealsCard({
           href={`https://www.metacritic.com${metacriticLink}`}
           target="_blank"
           rel="noopener external"
-          className="flex w-full items-center justify-between bg-muted px-4 py-2 hover:opacity-80"
+          className="flex w-full items-center justify-between bg-muted px-4 py-2 hover:scale-105 hover:opacity-80"
         >
           <h3 className="font-bold">Metacritic</h3>
           <span className="text-lg font-bold">
@@ -103,7 +104,7 @@ export default function BestDealsCard({
           href={`https://store.steampowered.com/app/${steamAppID}`}
           target="_blank"
           rel="noopener external"
-          className="flex w-full justify-between bg-muted px-4 py-2 hover:opacity-80"
+          className="flex w-full justify-between bg-muted px-4 py-2 hover:scale-105 hover:opacity-80"
         >
           <h3 className="font-bold">Steam</h3>
           <div className="flex flex-col text-right">

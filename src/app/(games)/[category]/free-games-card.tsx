@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
 import BannerSection from "@/components/ui/banner-section";
 import MoreDetailsButton from "@/components/ui/more-details-button";
 import WishlistButton from "@/components/ui/wishlist-button";
@@ -49,13 +50,17 @@ export default function FreeGamesCard({
   );
 
   const GiveawayButton = () => (
-    <Button className="w-full bg-muted-foreground text-accent">
+    <Button
+      asChild
+      className="w-full bg-muted-foreground hover:bg-background hover:text-foreground"
+    >
       <a
         href={open_giveaway_url}
         target="_blank"
         rel="noopener noreferrer external"
       >
         Get Giveaway
+        <ExternalLink />
       </a>
     </Button>
   );
@@ -75,7 +80,7 @@ export default function FreeGamesCard({
         <GiveawayButton />
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-        <MoreDetailsButton path={"/free-game/"} id={id} />
+        <MoreDetailsButton path={"/free-games/"} id={id} />
         <WishlistButton title={title} />
       </CardFooter>
     </Card>
