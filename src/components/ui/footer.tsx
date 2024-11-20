@@ -7,7 +7,7 @@ export default function Footer() {
         href={href}
         target="_blank"
         rel="noopener external"
-        className="flex w-max items-center gap-2 text-yellow-300 hover:text-yellow-500"
+        className="flex w-max items-center gap-2 text-gold hover:text-gold-foreground"
       >
         <span>{children}</span>
         <ExternalLink size={16} />
@@ -105,7 +105,7 @@ export default function Footer() {
   );
 
   return (
-    <footer className="border-t border-muted bg-primary-foreground">
+    <footer className="border-t bg-muted">
       <div className="container mx-auto px-4 pb-32 pt-16 xl:px-0">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <LogoSection />

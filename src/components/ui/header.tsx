@@ -31,16 +31,14 @@ export default async function Header() {
   ];
 
   const Logo = () => (
-    <h1 className="font-bold uppercase">
-      <Link
-        href={"/"}
-        prefetch={true}
-        className="flex items-center gap-2 text-lg hover:scale-110"
-      >
-        <Gamepad2 size={24} />
-        The Loot Vault
-      </Link>
-    </h1>
+    <Link
+      href={"/"}
+      prefetch={true}
+      className="flex items-center gap-2 text-lg font-bold uppercase text-foreground hover:text-muted-foreground"
+    >
+      <Gamepad2 size={24} />
+      The Loot Vault
+    </Link>
   );
 
   const NavList = () => (
@@ -78,7 +76,7 @@ export default async function Header() {
   );
 
   return (
-    <header className="border-b border-muted bg-background text-foreground">
+    <header className="border-b bg-muted text-muted-foreground">
       <div className="container mx-auto flex items-center justify-between gap-2 px-4 py-4 md:flex-row md:gap-0 xl:px-0">
         <Logo />
         <MobileHidden>
