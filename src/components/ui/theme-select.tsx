@@ -6,6 +6,7 @@ import { useThemeDispatch } from "@/lib/theme-provider";
 
 export default function ThemeSelect() {
   const dispatch = useThemeDispatch();
+
   return (
     <div className="divide-x">
       <Button
