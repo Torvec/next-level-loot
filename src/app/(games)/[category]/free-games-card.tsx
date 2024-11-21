@@ -13,23 +13,13 @@ import MoreDetailsButton from "@/components/ui/more-details-button";
 import WishlistButton from "@/components/ui/wishlist-button";
 import { FreeGameType } from "./types";
 
-export default function FreeGamesCard({
-  id,
-  title,
-  type,
-  worth,
-  image,
-  open_giveaway_url,
-  published_date,
-  platforms,
-  end_date,
-}: FreeGameType) {
+export default function FreeGamesCard(data: FreeGameType) {
   const TitleSection = () => (
     <>
-      <h2 className="w-full sm:w-2/3">{title}</h2>
+      <h2 className="w-full sm:w-2/3">{data.title}</h2>
       <div className="flex flex-col text-base lg:text-right">
         <div className="space-x-2">
-          <span className="line-through opacity-70">${worth}</span>
+          <span className="line-through opacity-70">${data.worth}</span>
           <span className="text-xl">Free!</span>
         </div>
       </div>
@@ -39,12 +29,12 @@ export default function FreeGamesCard({
   const DescriptionSection = () => (
     <>
       <div>
-        <p>Type: {type}</p>
-        <p>Platforms: {platforms}</p>
+        <p>Type: {data.type}</p>
+        <p>Platforms: {data.platforms}</p>
       </div>
       <div className="lg:text-right">
-        <p>Started: {published_date}</p>
-        <p>Ends: {end_date}</p>
+        <p>Started: {data.published_date}</p>
+        <p>Ends: {data.end_date}</p>
       </div>
     </>
   );
@@ -55,7 +45,7 @@ export default function FreeGamesCard({
       className="w-full bg-muted-foreground hover:bg-background hover:text-foreground"
     >
       <a
-        href={open_giveaway_url}
+        href={data.open_giveaway_url}
         target="_blank"
         rel="noopener noreferrer external"
       >
@@ -68,7 +58,7 @@ export default function FreeGamesCard({
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted">
       <CardHeader>
-        <BannerSection src={image} alt={title} />
+        <BannerSection src={data.image} alt={data.title} />
         <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
           <TitleSection />
         </CardTitle>
@@ -80,8 +70,8 @@ export default function FreeGamesCard({
         <GiveawayButton />
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-        <MoreDetailsButton path={"/free-games/"} id={id} />
-        <WishlistButton title={title} />
+        <MoreDetailsButton path={"/free-games/"} id={data.id} />
+        <WishlistButton title={data.title} />
       </CardFooter>
     </Card>
   );

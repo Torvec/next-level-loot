@@ -5,10 +5,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { type Category, type Label } from "@/app/(games)/[category]/types";
+import { type Routes, type Label } from "@/app/(games)/[category]/types";
 import ThemeSelect from "./theme-select";
 
-type NavLink = { href: Category; label: Label };
+type NavLink = { href: Routes; label: Label };
 
 export default async function Header() {
   const navLinks: NavLink[] = [

@@ -1,4 +1,4 @@
-import { type Category } from "./types";
+import { type Category } from "@/app/(games)/[category]/types";
 
 interface FetchDataType {
   baseURL: string;
@@ -9,14 +9,14 @@ interface FetchDataType {
   fetchEndPoints: Record<string, string>;
   sort: Record<string, string>;
   filter: {
-    platform?: Record<string, number | string>;
-    store?: Record<string, number | string>;
-    genre?: Record<string, number>;
-    type?: Record<string, string>;
+    platform: Record<string, number | string> | null;
+    store: Record<string, number | string> | null;
+    genre: Record<string, number> | null;
+    type: Record<string, string> | null;
   };
 }
 
-export const fetchData: Record<Category, FetchDataType> = {
+export const fetchOptions: Record<Category, FetchDataType> = {
   "best-deals": {
     baseURL: "https://www.cheapshark.com/api/1.0/",
     apiKey: null,
@@ -37,6 +37,7 @@ export const fetchData: Record<Category, FetchDataType> = {
       recent: "Recent",
     },
     filter: {
+      platform: null,
       store: {
         steam: 1,
         gamersgate: 2,
@@ -74,6 +75,8 @@ export const fetchData: Record<Category, FetchDataType> = {
         noctre: 34,
         dreamgame: 35,
       },
+      genre: null,
+      type: null,
     },
   },
   "highest-rated": {
@@ -154,6 +157,18 @@ export const fetchData: Record<Category, FetchDataType> = {
         neogeo: 12,
         web: 171,
       },
+      store: {
+        steam: 1,
+        playstationstore: 3,
+        xboxstore: 2,
+        appstore: 4,
+        gog: 5,
+        nintendostore: 6,
+        xbox360store: 7,
+        googleplay: 8,
+        itchio: 9,
+        epicgames: 11,
+      },
       genre: {
         action: 4,
         indie: 51,
@@ -175,18 +190,7 @@ export const fetchData: Record<Category, FetchDataType> = {
         educational: 34,
         card: 17,
       },
-      store: {
-        steam: 1,
-        playstationstore: 3,
-        xboxstore: 2,
-        appstore: 4,
-        gog: 5,
-        nintendostore: 6,
-        xbox360store: 7,
-        googleplay: 8,
-        itchio: 9,
-        epicgames: 11,
-      },
+      type: null,
     },
   },
   "free-games": {
@@ -208,11 +212,6 @@ export const fetchData: Record<Category, FetchDataType> = {
       popularity: "popularity",
     },
     filter: {
-      type: {
-        game: "game",
-        loot: "loot",
-        beta: "beta",
-      },
       platform: {
         pc: "pc",
         steam: "steam",
@@ -232,14 +231,43 @@ export const fetchData: Record<Category, FetchDataType> = {
         ios: "ios",
         vr: "vr",
       },
+      store: null,
+      genre: null,
+      type: {
+        game: "game",
+        loot: "loot",
+        beta: "beta",
+      },
     },
   },
-  wishlist: {
-    baseURL: "",
-    apiKey: null,
-    headers: null,
-    fetchEndPoints: {},
-    sort: {},
-    filter: {},
-  },
 };
+
+export async function fetchList(category: Category) {
+  const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
+  const endpoint = fetchEndPoints.default;
+  const url = `${baseURL}${endpoint}${apiKey ? `&${apiKey}` : ""}`;
+  const response = await fetch(url, headers ?? undefined);
+
+  if (!response.ok) {
+    throw new Error(
+      `HTTP error! Status: ${response.status} ${response.statusText}`,
+    );
+  }
+
+  return response.json();
+}
+
+export async function fetchDetails(category: Category, id: string | number) {
+  const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
+  const endpoint = fetchEndPoints.details;
+  const url = `${baseURL}${endpoint}${id}${apiKey ? `?${apiKey}` : ""}`;
+  const response = await fetch(url, headers ?? undefined);
+
+  if (!response.ok) {
+    throw new Error(
+      `HTTP error! Status: ${response.status} ${response.statusText}`,
+    );
+  }
+
+  return response.json();
+}

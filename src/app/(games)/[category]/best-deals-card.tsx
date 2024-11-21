@@ -11,33 +11,18 @@ import WishlistButton from "@/components/ui/wishlist-button";
 import MoreDetailsButton from "@/components/ui/more-details-button";
 import { GameDealType } from "./types";
 
-export default function BestDealsCard({
-  dealID,
-  thumb,
-  title,
-  salePrice,
-  normalPrice,
-  savings,
-  dealRating,
-  metacriticLink,
-  metacriticScore,
-  steamAppID,
-  steamRatingText,
-  steamRatingPercent,
-  steamRatingCount,
-  releaseDate,
-}: GameDealType) {
+export default function BestDealsCard(data: GameDealType) {
   const TitleSection = () => {
-    const formattedSavings = parseFloat(savings).toFixed(0);
+    const formattedSavings = parseFloat(data.savings).toFixed(0);
 
     return (
       <>
-        <h2 className="w-full sm:w-2/3">{title}</h2>
+        <h2 className="w-full sm:w-2/3">{data.title}</h2>
         <div className="flex flex-col text-base sm:text-right">
           <div className="space-x-2">
-            <span className="line-through opacity-70">${normalPrice}</span>
+            <span className="line-through opacity-70">${data.normalPrice}</span>
             <span className="text-xl">
-              {salePrice !== "0.00" ? `$${salePrice}` : "FREE"}
+              {data.salePrice !== "0.00" ? `$${data.salePrice}` : "FREE"}
             </span>
           </div>
           <span>{formattedSavings}% OFF!</span>
@@ -48,11 +33,11 @@ export default function BestDealsCard({
 
   const DescriptionSection = () => {
     const formattedReleaseDate =
-      releaseDate > 0
-        ? new Date(releaseDate * 1000).toLocaleDateString()
+      data.releaseDate > 0
+        ? new Date(data.releaseDate * 1000).toLocaleDateString()
         : "N/A";
 
-    const formattedDealRating = parseFloat(dealRating).toFixed(0);
+    const formattedDealRating = parseFloat(data.dealRating).toFixed(0);
     const ratings: { [key: number]: string } = {
       1: "Abysmal",
       2: "Terrible",
@@ -77,16 +62,16 @@ export default function BestDealsCard({
 
   const MetacriticSection = () => (
     <div>
-      {metacriticLink ? (
+      {data.metacriticLink ? (
         <a
-          href={`https://www.metacritic.com${metacriticLink}`}
+          href={`https://www.metacritic.com${data.metacriticLink}`}
           target="_blank"
           rel="noopener external"
           className="flex w-full items-center justify-between bg-muted px-4 py-2 hover:scale-105 hover:opacity-80"
         >
           <h3 className="font-bold">Metacritic</h3>
           <span className="text-lg font-bold">
-            {metacriticScore !== "0" ? metacriticScore : "N/A"}
+            {data.metacriticScore !== "0" ? data.metacriticScore : "N/A"}
           </span>
         </a>
       ) : (
@@ -99,9 +84,9 @@ export default function BestDealsCard({
 
   const SteamSection = () => (
     <div>
-      {steamAppID ? (
+      {data.steamAppID ? (
         <a
-          href={`https://store.steampowered.com/app/${steamAppID}`}
+          href={`https://store.steampowered.com/app/${data.steamAppID}`}
           target="_blank"
           rel="noopener external"
           className="flex w-full justify-between bg-muted px-4 py-2 hover:scale-105 hover:opacity-80"
@@ -109,10 +94,10 @@ export default function BestDealsCard({
           <h3 className="font-bold">Steam</h3>
           <div className="flex flex-col text-right">
             <span className="font-bold sm:text-lg">
-              {steamRatingPercent}% {steamRatingText}
+              {data.steamRatingPercent}% {data.steamRatingText}
             </span>
             <span className="text-muted-foreground">
-              {steamRatingCount} Reviews
+              {data.steamRatingCount} Reviews
             </span>
           </div>
         </a>
@@ -127,7 +112,7 @@ export default function BestDealsCard({
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted">
       <CardHeader>
-        <BannerSection src={thumb} alt={title} />
+        <BannerSection src={data.thumb} alt={data.title} />
         <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
           <TitleSection />
         </CardTitle>
@@ -141,8 +126,8 @@ export default function BestDealsCard({
       </CardContent>
       <CardFooter className="flex-col gap-4">
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <MoreDetailsButton path={"/best-deals/"} id={dealID} />
-          <WishlistButton title={title} />
+          <MoreDetailsButton path={"/best-deals/"} id={data.dealID} />
+          <WishlistButton title={data.title} />
         </div>
       </CardFooter>
     </Card>

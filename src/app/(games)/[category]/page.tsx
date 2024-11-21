@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   FreeGameType,
   GameDealType,
@@ -9,29 +8,21 @@ import ResultsList from "@/components/ui/results-list";
 import BestDealsCard from "./best-deals-card";
 import FreeGamesCard from "./free-games-card";
 import HighestRatedGamesCard from "./highest-rated-games-card";
-import { fetchData } from "./fetch";
+import { fetchList } from "@/lib/fetch";
+
+type DataType =
+  | ((data: GameDealType[]) => JSX.Element[])
+  | ((data: FreeGameType[]) => JSX.Element[])
+  | ((data: { results: HighestRatedGameType[] }) => JSX.Element[]);
 
 export default async function Page(props: {
   params: Promise<{ category: Category }>;
 }) {
   const { category } = await props.params;
 
-  const fetchList = async (category: Category) => {
-    const { baseURL, apiKey, headers, fetchEndPoints } = fetchData[category];
-    const endpoint = fetchEndPoints.default;
-    const url = `${baseURL}${endpoint}${apiKey ? `&${apiKey}` : ""}`;
-    const response = await fetch(url, headers ?? undefined);
-    if (!response.ok) {
-      throw new Error(
-        `HTTP error! Status: ${response.status} ${response.statusText}`,
-      );
-    }
-    return response.json();
-  };
-
   const data = await fetchList(category);
 
-  const categoryComponents = {
+  const categoryComponents: Record<Category, DataType> = {
     "best-deals": (data: GameDealType[]) =>
       data.map((deal) => <BestDealsCard key={deal.dealID} {...deal} />),
     "free-games": (data: FreeGameType[]) =>
@@ -41,8 +32,8 @@ export default async function Page(props: {
         <HighestRatedGamesCard key={game.id} {...game} />
       )),
   };
-  const content =
-    categoryComponents[category as keyof typeof categoryComponents](data);
+
+  const content = categoryComponents[category](data);
 
   return <ResultsList>{content}</ResultsList>;
 }

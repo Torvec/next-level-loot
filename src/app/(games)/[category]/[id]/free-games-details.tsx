@@ -12,24 +12,13 @@ import BannerSection from "@/components/ui/banner-section";
 import WishlistButton from "@/components/ui/wishlist-button";
 import { FreeGameDetailsType } from "../types";
 
-export default function FreeGamesDetails({
-  title,
-  worth,
-  image,
-  description,
-  instructions,
-  open_giveaway_url,
-  published_date,
-  type,
-  platforms,
-  end_date,
-}: FreeGameDetailsType) {
+export default function FreeGamesDetails(data: FreeGameDetailsType) {
   const TitleSection = () => (
     <>
-      <h2 className="w-full sm:w-2/3">{title}</h2>
+      <h2 className="w-full sm:w-2/3">{data.title}</h2>
       <div className="text-base sm:text-right">
         <div className="space-x-2">
-          <span className="line-through opacity-70">${worth}</span>
+          <span className="line-through opacity-70">${data.worth}</span>
           <span className="text-xl">Free!</span>
         </div>
       </div>
@@ -39,22 +28,22 @@ export default function FreeGamesDetails({
   const DescriptionSection = () => (
     <>
       <div>
-        <p>Type: {type}</p>
-        <p>Platforms: {platforms}</p>
+        <p>Type: {data.type}</p>
+        <p>Platforms: {data.platforms}</p>
       </div>
       <div className="sm:text-right">
-        <p>Started: {published_date}</p>
-        <p>Ends: {end_date}</p>
+        <p>Started: {data.published_date}</p>
+        <p>Ends: {data.end_date}</p>
       </div>
     </>
   );
 
   const DescriptionText = () => (
     <div>
-      {description ? (
+      {data.description ? (
         <>
           <h3 className="font-bold">Description</h3>
-          <p>{description}</p>
+          <p>{data.description}</p>
         </>
       ) : (
         <div className="px-4 py-2 text-center text-muted-foreground">
@@ -66,10 +55,10 @@ export default function FreeGamesDetails({
 
   const InstructionsText = () => (
     <div>
-      {instructions ? (
+      {data.instructions ? (
         <>
           <h3 className="font-bold">Instructions</h3>
-          <p>{instructions}</p>
+          <p>{data.instructions}</p>
         </>
       ) : (
         <div className="px-4 py-2 text-center text-muted-foreground">
@@ -85,7 +74,7 @@ export default function FreeGamesDetails({
       className="w-full bg-muted-foreground hover:bg-background hover:text-foreground"
     >
       <a
-        href={open_giveaway_url}
+        href={data.open_giveaway_url}
         target="_blank"
         rel="noopener noreferrer external"
       >
@@ -99,7 +88,7 @@ export default function FreeGamesDetails({
     <>
       <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
         <div className="lg:w-1/3">
-          <BannerSection src={image} alt={title} />
+          <BannerSection src={data.image} alt={data.title} />
         </div>
         <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted lg:w-2/3">
           <CardHeader>
@@ -116,7 +105,7 @@ export default function FreeGamesDetails({
           </CardContent>
           <CardFooter className="flex-col justify-between gap-4 md:flex-row">
             <GiveawayButton />
-            <WishlistButton title={title} />
+            <WishlistButton title={data.title} />
           </CardFooter>
         </Card>
       </div>

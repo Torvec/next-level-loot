@@ -13,36 +13,23 @@ import WishlistButton from "@/components/ui/wishlist-button";
 import { HighestRatedGameDetailsType } from "../types";
 import Link from "next/link";
 
-export default function HighestRatedDetails({
-  name,
-  background_image,
-  metacritic,
-  released,
-  esrb_rating,
-  description_raw,
-  platforms,
-  genres,
-  stores,
-  developers,
-  publishers,
-  tags,
-}: HighestRatedGameDetailsType) {
+export default function HighestRatedDetails(data: HighestRatedGameDetailsType) {
   const TitleSection = () => (
     <>
-      <h2 className="w-full sm:w-2/3">{name}</h2>
+      <h2 className="w-full sm:w-2/3">{data.name}</h2>
       <div className="flex flex-col">
         <span className="text-base font-normal uppercase text-muted-foreground sm:text-center">
           Score
         </span>
-        <span className="text-xl">{metacritic}/100</span>
+        <span className="text-xl">{data.metacritic}/100</span>
       </div>
     </>
   );
 
   const DescriptionSection = () => (
     <>
-      <p>Released: {released}</p>
-      <p>ESRB: {esrb_rating ? esrb_rating.name : "Not Rated"}</p>
+      <p>Released: {data.released}</p>
+      <p>ESRB: {data.esrb_rating ? data.esrb_rating.name : "Not Rated"}</p>
     </>
   );
 
@@ -75,9 +62,9 @@ export default function HighestRatedDetails({
   const TagList = () => (
     <div className="space-y-2">
       <h3 className="text-sm font-bold">Tags</h3>
-      {tags.length > 0 ? (
+      {data.tags.length > 0 ? (
         <ul className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
+          {data.tags.map((tag) => (
             <li key={tag.id}>
               <Badge className="hover:scale-105">{tag.name}</Badge>
             </li>
@@ -93,11 +80,11 @@ export default function HighestRatedDetails({
 
   const DescriptionText = () => (
     <div>
-      {description_raw ? (
+      {data.description_raw ? (
         <>
           <h3 className="font-bold">Description</h3>
           <p className="text-sm leading-loose text-muted-foreground">
-            {description_raw}
+            {data.description_raw}
           </p>
         </>
       ) : (
@@ -118,7 +105,7 @@ export default function HighestRatedDetails({
     <>
       <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
         <div className="lg:w-1/3">
-          <BannerSection src={background_image} alt={name} />
+          <BannerSection src={data.background_image} alt={data.name} />
         </div>
         <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted lg:w-2/3">
           <CardHeader>
@@ -133,31 +120,31 @@ export default function HighestRatedDetails({
             <div className="grid gap-4 sm:grid-cols-3">
               <InfoList
                 title="Platforms"
-                list={platforms}
+                list={data.platforms}
                 keyExtractor={(p) => p.platform.id.toString()}
                 renderItem={(p) => p.platform.name}
               />
               <InfoList
                 title="Genres"
-                list={genres}
+                list={data.genres}
                 keyExtractor={(genre) => genre.id.toString()}
                 renderItem={(genre) => genre.name}
               />
               <InfoList
                 title="Stores"
-                list={stores}
+                list={data.stores}
                 keyExtractor={(s) => s.store.id.toString()}
                 renderItem={(s) => s.store.name}
               />
               <InfoList
                 title="Developers"
-                list={developers}
+                list={data.developers}
                 keyExtractor={(d) => d.id.toString()}
                 renderItem={(d) => d.name}
               />
               <InfoList
                 title="Publishers"
-                list={publishers}
+                list={data.publishers}
                 keyExtractor={(p) => p.id.toString()}
                 renderItem={(p) => p.name}
               />
@@ -167,7 +154,7 @@ export default function HighestRatedDetails({
           </CardContent>
           <CardFooter className="flex-col justify-between gap-4 md:flex-row">
             <FindDealsButton />
-            <WishlistButton title={name} />
+            <WishlistButton title={data.name} />
           </CardFooter>
         </Card>
       </div>
