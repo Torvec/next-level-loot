@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import BannerSection from "@/components/ui/banner-section";
 import WishlistButton from "@/components/ui/wishlist-button";
-import { GameDealDetailsType } from "../types";
+import { GameDealDetailsType } from "../../types";
 
 export default function BestDealsDetails(data: GameDealDetailsType) {
   const TitleSection = () => (

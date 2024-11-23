@@ -5,31 +5,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { type Routes, type Label } from "@/app/(games)/[category]/types";
+import Navigation from "./navigation";
 import ThemeSelect from "./theme-select";
 
-type NavLink = { href: Routes; label: Label };
-
 export default async function Header() {
-  const navLinks: NavLink[] = [
-    {
-      href: "best-deals",
-      label: "Best Deals",
-    },
-    {
-      href: "highest-rated",
-      label: "Highest Rated",
-    },
-    {
-      href: "free-games",
-      label: "Free Games",
-    },
-    {
-      href: "wishlist",
-      label: "My Wishlist",
-    },
-  ];
-
   const Logo = () => (
     <Link
       href={"/"}
@@ -39,24 +18,6 @@ export default async function Header() {
       <Gamepad2 size={24} />
       The Loot Vault
     </Link>
-  );
-
-  const NavList = () => (
-    <nav>
-      <ul className="flex flex-col gap-2 font-medium lg:flex-row lg:items-center lg:justify-center lg:gap-8">
-        {navLinks.map(({ href, label }) => (
-          <li key={href} className="w-full lg:w-max">
-            <Link
-              href={`/${href}`}
-              prefetch={true}
-              className="block px-2 py-2 hover:bg-muted-foreground hover:text-background lg:inline lg:px-0 lg:py-0 lg:hover:bg-transparent lg:hover:text-foreground lg:hover:underline"
-            >
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
   );
 
   const MobileHidden: React.FC<{ children: React.ReactNode }> = ({
@@ -69,7 +30,7 @@ export default async function Header() {
         <Menu />
       </PopoverTrigger>
       <PopoverContent className="space-y-4 border-muted-foreground bg-secondary">
-        <NavList />
+        <Navigation />
         <ThemeSelect />
       </PopoverContent>
     </Popover>
@@ -80,7 +41,7 @@ export default async function Header() {
       <div className="container mx-auto flex items-center justify-between gap-2 px-4 py-4 md:flex-row md:gap-0 xl:px-0">
         <Logo />
         <MobileHidden>
-          <NavList />
+          <Navigation />
         </MobileHidden>
         <MobileHidden>
           <ThemeSelect />

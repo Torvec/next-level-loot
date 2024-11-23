@@ -9,7 +9,7 @@ import {
 import BannerSection from "@/components/ui/banner-section";
 import WishlistButton from "@/components/ui/wishlist-button";
 import MoreDetailsButton from "@/components/ui/more-details-button";
-import { GameDealType } from "./types";
+import { GameDealType } from "../types";
 
 export default function BestDealsCard(data: GameDealType) {
   const TitleSection = () => {

@@ -1,8 +1,8 @@
 import { Category } from "../types";
 import { fetchDetails } from "@/lib/fetch";
-import BestDealsDetails from "./best-deals-details";
-import FreeGamesDetails from "./free-games-details";
-import HighestRatedDetails from "./highest-rated-details";
+import BestDealsDetails from "./components/best-deals-details";
+import FreeGamesDetails from "./components/free-games-details";
+import HighestRatedDetails from "./components/highest-rated-details";
 
 export default async function Page(props: {
   params: Promise<{

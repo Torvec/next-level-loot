@@ -5,9 +5,9 @@ import {
   Category,
 } from "./types";
 import ResultsList from "@/components/ui/results-list";
-import BestDealsCard from "./best-deals-card";
-import FreeGamesCard from "./free-games-card";
-import HighestRatedGamesCard from "./highest-rated-games-card";
+import BestDealsCard from "./components/best-deals-card";
+import FreeGamesCard from "./components/free-games-card";
+import HighestRatedGamesCard from "./components/highest-rated-games-card";
 import { fetchList } from "@/lib/fetch";
 
 type DataType =

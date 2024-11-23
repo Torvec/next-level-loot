@@ -11,7 +11,7 @@ import { ExternalLink } from "lucide-react";
 import BannerSection from "@/components/ui/banner-section";
 import MoreDetailsButton from "@/components/ui/more-details-button";
 import WishlistButton from "@/components/ui/wishlist-button";
-import { FreeGameType } from "./types";
+import { FreeGameType } from "../types";
 
 export default function FreeGamesCard(data: FreeGameType) {
   const TitleSection = () => (

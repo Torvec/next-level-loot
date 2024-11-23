@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import BannerSection from "@/components/ui/banner-section";
 import WishlistButton from "@/components/ui/wishlist-button";
-import { HighestRatedGameDetailsType } from "../types";
+import { HighestRatedGameDetailsType } from "../../types";
 import Link from "next/link";
 
 export default function HighestRatedDetails(data: HighestRatedGameDetailsType) {

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import BannerSection from "@/components/ui/banner-section";
 import WishlistButton from "@/components/ui/wishlist-button";
-import { FreeGameDetailsType } from "../types";
+import { FreeGameDetailsType } from "../../types";
 
 export default function FreeGamesDetails(data: FreeGameDetailsType) {
   const TitleSection = () => (
