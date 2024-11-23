@@ -12,14 +12,16 @@ export default function ThemeSelect() {
       <Button
         onClick={() => dispatch({ type: "SET", theme: "dark" })}
         className="rounded-l-xl rounded-r-none bg-muted-foreground"
+        aria-label="Switch to dark theme"
       >
-        <Moon size={24} />
+        <Moon />
       </Button>
       <Button
         onClick={() => dispatch({ type: "SET", theme: "light" })}
         className="rounded-l-none rounded-r-xl bg-muted-foreground"
+        aria-label="Switch to light theme"
       >
-        <Sun size={24} />
+        <Sun />
       </Button>
     </div>
   );
