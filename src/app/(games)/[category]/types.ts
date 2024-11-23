@@ -8,6 +8,22 @@ export type Label =
   | "Free Games"
   | "My Wishlist";
 
+export type FetchDataType = {
+  baseURL: string;
+  apiKey: string | null;
+  headers: {
+    headers: Record<string, string>;
+  } | null;
+  fetchEndPoints: Record<string, string>;
+  sort: { name: string; value: string }[];
+  filter: {
+    platform: { id?: number; name: string; slug?: string }[] | null;
+    store: { id: number; name: string }[] | null;
+    genre: { id: number; name: string }[] | null;
+    type: { name: string; value: string }[] | null;
+  };
+};
+
 //* CHEAPSHARK API TYPES
 
 export interface GameDealType {

@@ -36,8 +36,8 @@ export default function Navigation() {
               href={`/${href}`}
               prefetch={true}
               className={`${
-                pathname === `/${href}`
-                  ? "border-b-2 border-gold-foreground text-gold-foreground"
+                pathname.startsWith(`/${href}`)
+                  ? "text-gold-foreground lg:border-b-2 lg:border-gold-foreground"
                   : ""
               } block p-4 hover:bg-muted-foreground/75 hover:text-gold lg:inline lg:py-2 lg:hover:border-b-2 lg:hover:border-muted-foreground lg:hover:bg-transparent lg:hover:text-foreground`}
             >

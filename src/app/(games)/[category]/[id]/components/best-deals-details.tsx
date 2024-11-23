@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import BannerSection from "@/components/ui/banner-section";
 import WishlistButton from "@/components/ui/wishlist-button";
 import { GameDealDetailsType } from "../../types";
+import { fetchOptions } from "@/lib/fetch";
 
 export default function BestDealsDetails(data: GameDealDetailsType) {
   const TitleSection = () => (
@@ -45,7 +47,7 @@ export default function BestDealsDetails(data: GameDealDetailsType) {
           href={`https://www.metacritic.com${data.gameInfo.metacriticLink}`}
           target="_blank"
           rel="noopener external"
-          className="flex w-full items-center justify-between bg-muted px-4 py-2 hover:scale-105 hover:opacity-80"
+          className="flex w-full items-center justify-between bg-muted px-4 py-2 hover:opacity-80"
         >
           <h3 className="font-bold">Metacritic</h3>
           <span className="text-lg font-bold">
@@ -69,7 +71,7 @@ export default function BestDealsDetails(data: GameDealDetailsType) {
           href={`https://store.steampowered.com/app/${data.gameInfo.steamAppID}`}
           target="_blank"
           rel="noopener external"
-          className="flex w-full justify-between bg-muted px-4 py-2 hover:scale-105 hover:opacity-80"
+          className="flex w-full justify-between bg-muted px-4 py-2 hover:opacity-80"
         >
           <h3 className="font-bold">Steam</h3>
           <div className="flex flex-col text-right">
@@ -91,69 +93,42 @@ export default function BestDealsDetails(data: GameDealDetailsType) {
   );
 
   const CheaperDealsSection = () => {
-    const storeNames: { [key: number]: string } = {
-      1: "Steam",
-      2: "Gamersgate",
-      3: "Green ManGaming",
-      4: "Amazon",
-      5: "Gamestop",
-      6: "Direct2drive",
-      7: "Gog",
-      8: "Origin",
-      9: "Get Games",
-      10: "Shiny Loot",
-      11: "Humble Store",
-      12: "Desura",
-      13: "Uplay",
-      14: "Indiegamestand",
-      15: "Fanatical",
-      16: "Games Rocket",
-      17: "Games Republic",
-      18: "Silagames",
-      19: "Playfield",
-      20: "Imperial Games",
-      21: "Win Game Store",
-      22: "Funstockdigital",
-      23: "Gamebillet",
-      24: "Voidu",
-      25: "Epic Games Store",
-      26: "Razer Game Store",
-      27: "Gamesplanet",
-      28: "Gamesload",
-      29: "2game",
-      30: "Indiegala",
-      31: "Blizzard Shop",
-      32: "Allyouplay",
-      33: "Dlgamer",
-      34: "Noctre",
-      35: "Dreamgame",
-    };
+    const fetchStores = fetchOptions["best-deals"].filter.store;
+    const storeNames = fetchStores && fetchStores.map((store) => store.name);
 
     return (
-      <div className="rounded-xl bg-gradient-to-t from-muted p-4">
+      <div className="rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
         <h3 className="text-xl font-bold">Cheaper Deals</h3>
         <div className="flex flex-col gap-8 sm:flex-row">
           {data.cheaperStores.length > 0 ? (
-            data.cheaperStores.map((cs) => (
-              <div key={cs.dealID} className="space-y-2 p-4">
-                <h3 className="font-bold">
-                  {storeNames[parseInt(cs.storeID)]}
-                </h3>
-                <div className="space-x-2">
-                  <span className="line-through opacity-70">
-                    ${data.gameInfo.retailPrice}
-                  </span>
-                  <span className="text-xl">
-                    {data.gameInfo.salePrice !== "0.00"
-                      ? `$${data.gameInfo.salePrice}`
-                      : "FREE"}
-                  </span>
+            data.cheaperStores.map((cs) => {
+              const storeID = Number(cs.storeID);
+              return (
+                <div key={cs.dealID} className="space-y-2 p-4">
+                  <h3 className="font-bold">
+                    {storeNames && storeNames[storeID - 1]} Deal
+                  </h3>
+                  <div className="space-x-2">
+                    <span className="line-through opacity-70">
+                      ${data.gameInfo.retailPrice}
+                    </span>
+                    <span className="text-xl">
+                      {data.gameInfo.salePrice !== "0.00"
+                        ? `$${data.gameInfo.salePrice}`
+                        : "FREE"}
+                    </span>
+                  </div>
+                  <Button
+                    asChild
+                    className="w-full bg-muted-foreground hover:bg-foreground"
+                  >
+                    <Link prefetch={true} href={`/best-deals/${cs.dealID}`}>
+                      View Deal
+                    </Link>
+                  </Button>
                 </div>
-                <Button className="w-full bg-muted-foreground hover:bg-foreground">
-                  <a href={`/best-deals/${cs.dealID}`}>View Deal</a>
-                </Button>
-              </div>
-            ))
+              );
+            })
           ) : (
             <p className="flex-grow p-8 text-center text-muted-foreground">
               No cheaper deals found :/
@@ -170,7 +145,7 @@ export default function BestDealsDetails(data: GameDealDetailsType) {
         <div className="lg:w-1/3">
           <BannerSection src={data.gameInfo.thumb} alt={data.gameInfo.name} />
         </div>
-        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted lg:w-2/3">
+        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20 lg:w-2/3">
           <CardHeader>
             <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
               <TitleSection />

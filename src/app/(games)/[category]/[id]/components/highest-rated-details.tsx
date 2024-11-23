@@ -107,7 +107,7 @@ export default function HighestRatedDetails(data: HighestRatedGameDetailsType) {
         <div className="lg:w-1/3">
           <BannerSection src={data.background_image} alt={data.name} />
         </div>
-        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted lg:w-2/3">
+        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20 lg:w-2/3">
           <CardHeader>
             <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
               <TitleSection />

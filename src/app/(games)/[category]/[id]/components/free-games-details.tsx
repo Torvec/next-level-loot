@@ -18,7 +18,7 @@ export default function FreeGamesDetails(data: FreeGameDetailsType) {
       <h2 className="w-full sm:w-2/3">{data.title}</h2>
       <div className="text-base sm:text-right">
         <div className="space-x-2">
-          <span className="line-through opacity-70">${data.worth}</span>
+          <span className="line-through opacity-70">{data.worth}</span>
           <span className="text-xl">Free!</span>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function FreeGamesDetails(data: FreeGameDetailsType) {
         <div className="lg:w-1/3">
           <BannerSection src={data.image} alt={data.title} />
         </div>
-        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted lg:w-2/3">
+        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20 lg:w-2/3">
           <CardHeader>
             <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
               <TitleSection />

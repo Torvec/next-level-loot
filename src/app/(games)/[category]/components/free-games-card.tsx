@@ -19,7 +19,7 @@ export default function FreeGamesCard(data: FreeGameType) {
       <h2 className="w-full sm:w-2/3">{data.title}</h2>
       <div className="flex flex-col text-base lg:text-right">
         <div className="space-x-2">
-          <span className="line-through opacity-70">${data.worth}</span>
+          <span className="line-through opacity-70">{data.worth}</span>
           <span className="text-xl">Free!</span>
         </div>
       </div>
@@ -56,7 +56,7 @@ export default function FreeGamesCard(data: FreeGameType) {
   );
 
   return (
-    <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted">
+    <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
       <CardHeader>
         <BannerSection src={data.image} alt={data.title} />
         <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">

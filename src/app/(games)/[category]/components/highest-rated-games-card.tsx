@@ -59,7 +59,7 @@ export default function HighestRatedGamesCard(data: HighestRatedGameType) {
   };
 
   return (
-    <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted">
+    <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/25">
       <CardHeader>
         <BannerSection src={data.background_image} alt={data.name} />
         <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
