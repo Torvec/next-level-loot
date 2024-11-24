@@ -12,7 +12,8 @@ export default function MoreDetailsButton({
   return (
     <Button
       asChild
-      className="w-full bg-background text-foreground hover:bg-muted-foreground hover:text-muted"
+      variant={"ghost"}
+      className="w-full text-muted-foreground hover:bg-background"
     >
       <Link href={`${path}${id}`}>
         More Details <ChevronRight />

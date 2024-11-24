@@ -13,30 +13,75 @@ import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import { GameDealType } from "../types";
 
 export default function BestDealsCard(data: GameDealType) {
-  const TitleSection = () => {
-    const formattedSavings = parseFloat(data.savings).toFixed(0);
-
-    return (
-      <>
-        <h2 className="w-full sm:w-2/3">{data.title}</h2>
-        <div className="flex flex-col text-base sm:text-right">
-          <div className="space-x-2">
-            <span className="line-through opacity-70">${data.normalPrice}</span>
-            <span className="text-xl">
-              {data.salePrice !== "0.00" ? `$${data.salePrice}` : "FREE"}
-            </span>
-          </div>
-          <span>{formattedSavings}% OFF!</span>
-        </div>
-      </>
-    );
-  };
-
   const DescriptionSection = () => {
     const formattedReleaseDate =
       data.releaseDate > 0
         ? new Date(data.releaseDate * 1000).toLocaleDateString()
         : "N/A";
+
+    return <p>Released: {formattedReleaseDate}</p>;
+  };
+
+  const MetacriticSection = () => (
+    <div className="w-full bg-muted">
+      {data.metacriticLink ? (
+        <a
+          href={`https://www.metacritic.com${data.metacriticLink}`}
+          target="_blank"
+          rel="noopener external"
+          className="flex h-full flex-col items-center justify-between px-4 py-2 hover:opacity-80"
+        >
+          <h3 className="font-bold">Metacritic</h3>
+          <span className="text-xl font-bold">
+            {data.metacriticScore !== "0" ? data.metacriticScore : "N/A"}
+          </span>
+        </a>
+      ) : (
+        <p className="bg-muted px-4 py-2 text-center text-muted-foreground">
+          Metacritic
+          <br /> Data Unavailable
+        </p>
+      )}
+    </div>
+  );
+
+  const SteamSection = () => (
+    <div className="w-full">
+      {data.steamAppID ? (
+        <a
+          href={`https://store.steampowered.com/app/${data.steamAppID}`}
+          target="_blank"
+          rel="noopener external"
+          className="flex flex-col justify-between bg-muted px-4 py-2 text-center hover:opacity-80"
+        >
+          <h3 className="font-bold">Steam</h3>
+          <div className="flex flex-col">
+            <span className="font-bold sm:text-lg">
+              {data.steamRatingPercent}% {data.steamRatingText}
+            </span>
+            <span className="text-muted-foreground">
+              {data.steamRatingCount} Reviews
+            </span>
+          </div>
+        </a>
+      ) : (
+        <p className="bg-muted px-4 py-2 text-center text-muted-foreground">
+          Steam
+          <br /> Data Unavailable
+        </p>
+      )}
+    </div>
+  );
+
+  const RatingSection = () => (
+    <div className="flex gap-4">
+      <MetacriticSection />
+      <SteamSection />
+    </div>
+  );
+
+  const PriceSection = () => {
+    const formattedSavings = parseFloat(data.savings).toFixed(0);
 
     const formattedDealRating = parseFloat(data.dealRating).toFixed(0);
     const ratings: { [key: number]: string } = {
@@ -54,76 +99,39 @@ export default function BestDealsCard(data: GameDealType) {
     const rating = ratings[parseInt(formattedDealRating)];
 
     return (
-      <>
-        <p>Released: {formattedReleaseDate}</p>
-        <p>{rating} Deal!</p>
-      </>
-    );
-  };
-
-  const MetacriticSection = () => (
-    <div>
-      {data.metacriticLink ? (
-        <a
-          href={`https://www.metacritic.com${data.metacriticLink}`}
-          target="_blank"
-          rel="noopener external"
-          className="flex w-full items-center justify-between bg-muted px-4 py-2 hover:opacity-80"
-        >
-          <h3 className="font-bold">Metacritic</h3>
-          <span className="text-lg font-bold">
-            {data.metacriticScore !== "0" ? data.metacriticScore : "N/A"}
+      <div className="mx-auto w-max space-y-4 pt-12 text-center text-base">
+        <div className="flex gap-4">
+          <span className="rounded-xl border-4 border-gold-foreground p-4 text-2xl font-black text-gold-foreground">
+            -{formattedSavings}%
           </span>
-        </a>
-      ) : (
-        <div className="bg-muted px-4 py-2 text-center text-muted-foreground">
-          Metacritic Data Unavailable
-        </div>
-      )}
-    </div>
-  );
-
-  const SteamSection = () => (
-    <div>
-      {data.steamAppID ? (
-        <a
-          href={`https://store.steampowered.com/app/${data.steamAppID}`}
-          target="_blank"
-          rel="noopener external"
-          className="flex w-full justify-between bg-muted px-4 py-2 hover:opacity-80"
-        >
-          <h3 className="font-bold">Steam</h3>
-          <div className="flex flex-col text-right">
-            <span className="font-bold sm:text-lg">
-              {data.steamRatingPercent}% {data.steamRatingText}
+          <div className="flex flex-col justify-between">
+            <span className="text-muted-foreground line-through">
+              ${data.normalPrice}
             </span>
-            <span className="text-muted-foreground">
-              {data.steamRatingCount} Reviews
+            <span className="text-2xl font-bold">
+              {data.salePrice !== "0.00" ? `$${data.salePrice}` : "FREE"}
             </span>
           </div>
-        </a>
-      ) : (
-        <div className="bg-muted px-4 py-2 text-center text-muted-foreground">
-          Steam Data Unavailable
         </div>
-      )}
-    </div>
-  );
+        <p className="text-muted-foreground">{rating} Deal!</p>
+      </div>
+    );
+  };
 
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
       <CardHeader>
         <BannerSection src={data.thumb} alt={data.title} />
-        <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
-          <TitleSection />
+        <CardTitle>
+          <h2>{data.title}</h2>
         </CardTitle>
         <CardDescription className="flex justify-between">
           <DescriptionSection />
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-1">
-        <MetacriticSection />
-        <SteamSection />
+      <CardContent>
+        <RatingSection />
+        <PriceSection />
       </CardContent>
       <CardFooter className="flex-col gap-4">
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
