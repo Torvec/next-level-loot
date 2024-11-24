@@ -7,13 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/buttons/button";
 import BannerSection from "@/components/ui/banner-section";
-import WishlistButton from "@/components/ui/wishlist-button";
+import RedirectButton from "@/components/ui/buttons/redirect-button";
+import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import { GameDealDetailsType } from "../../types";
 import { fetchOptions } from "@/lib/fetch";
+import { ChevronRight } from "lucide-react";
 
-export default function BestDealsDetails(data: GameDealDetailsType) {
+export default function BestDealsDetails({
+  id,
+  ...data
+}: { id: string } & GameDealDetailsType) {
   const TitleSection = () => (
     <>
       <h2 className="w-full sm:w-2/3">{data.gameInfo.name}</h2>
@@ -124,6 +129,7 @@ export default function BestDealsDetails(data: GameDealDetailsType) {
                   >
                     <Link prefetch={true} href={`/best-deals/${cs.dealID}`}>
                       View Deal
+                      <ChevronRight />
                     </Link>
                   </Button>
                 </div>
@@ -131,7 +137,7 @@ export default function BestDealsDetails(data: GameDealDetailsType) {
             })
           ) : (
             <p className="flex-grow p-8 text-center text-muted-foreground">
-              No cheaper deals found :/
+              You found the best deal already!
             </p>
           )}
         </div>
@@ -159,7 +165,13 @@ export default function BestDealsDetails(data: GameDealDetailsType) {
             <SteamSection />
           </CardContent>
           <CardFooter>
-            <WishlistButton title={data.gameInfo.name} />
+            <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
+              <RedirectButton
+                url={`https://www.cheapshark.com/redirect?dealID=${id}&k=1`}
+                text={"Get Deal"}
+              />
+              <WishlistButton title={data.gameInfo.name} />
+            </div>
           </CardFooter>
         </Card>
       </div>

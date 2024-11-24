@@ -15,7 +15,7 @@ export default async function Page(props: {
   const data = await fetchDetails(category, id);
 
   const categoryComponents: Record<Category, JSX.Element> = {
-    "best-deals": <BestDealsDetails {...data} />,
+    "best-deals": <BestDealsDetails {...data} id={id} />,
     "free-games": <FreeGamesDetails {...data} />,
     "highest-rated": <HighestRatedDetails {...data} />,
   };

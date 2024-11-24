@@ -1,5 +1,6 @@
 import { Button } from "./button";
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 export default function MoreDetailsButton({
   id,
@@ -13,7 +14,9 @@ export default function MoreDetailsButton({
       asChild
       className="w-full bg-background text-foreground hover:bg-muted-foreground hover:text-muted"
     >
-      <Link href={`${path}${id}`}>More Details -&gt;</Link>
+      <Link href={`${path}${id}`}>
+        More Details <ChevronRight />
+      </Link>
     </Button>
   );
 }

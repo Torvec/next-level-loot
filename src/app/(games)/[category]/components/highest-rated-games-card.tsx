@@ -6,8 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import WishlistButton from "@/components/ui/wishlist-button";
-import MoreDetailsButton from "@/components/ui/more-details-button";
+import WishlistButton from "@/components/ui/buttons/wishlist-button";
+import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import BannerSection from "@/components/ui/banner-section";
 import { Badge } from "@/components/ui/badge";
 import { HighestRatedGameType } from "../types";

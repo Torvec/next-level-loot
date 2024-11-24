@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/buttons/button";
 import { useWishlistDispatch } from "@/lib/wishlist-provider";
 
 export default function WishlistCard({

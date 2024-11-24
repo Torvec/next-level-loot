@@ -6,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/buttons/button";
 import { Badge } from "@/components/ui/badge";
 import BannerSection from "@/components/ui/banner-section";
-import WishlistButton from "@/components/ui/wishlist-button";
+import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import { HighestRatedGameDetailsType } from "../../types";
 import Link from "next/link";
 

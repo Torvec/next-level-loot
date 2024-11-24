@@ -7,8 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import BannerSection from "@/components/ui/banner-section";
-import WishlistButton from "@/components/ui/wishlist-button";
-import MoreDetailsButton from "@/components/ui/more-details-button";
+import RedirectButton from "@/components/ui/buttons/redirect-button";
+import WishlistButton from "@/components/ui/buttons/wishlist-button";
+import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import { GameDealType } from "../types";
 
 export default function BestDealsCard(data: GameDealType) {
@@ -126,9 +127,13 @@ export default function BestDealsCard(data: GameDealType) {
       </CardContent>
       <CardFooter className="flex-col gap-4">
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <MoreDetailsButton path={"/best-deals/"} id={data.dealID} />
+          <RedirectButton
+            url={`https://www.cheapshark.com/redirect?dealID=${data.dealID}&k=1`}
+            text={"Get Deal"}
+          />
           <WishlistButton title={data.title} />
         </div>
+        <MoreDetailsButton path={"/best-deals/"} id={data.dealID} />
       </CardFooter>
     </Card>
   );

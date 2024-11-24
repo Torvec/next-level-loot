@@ -3,6 +3,7 @@
 import { useWishlistDispatch } from "@/lib/wishlist-provider";
 import useIsInWishlist from "@/lib/use-is-in-wishlist";
 import { Button } from "./button";
+import { BookmarkPlus } from "lucide-react";
 
 export default function WishlistButton({ title }: { title: string }) {
   const dispatch = useWishlistDispatch();
@@ -14,7 +15,13 @@ export default function WishlistButton({ title }: { title: string }) {
       className="w-full bg-gold text-background hover:bg-gold-foreground"
       disabled={isInWishlist}
     >
-      {isInWishlist ? "In Wishlist" : "+ Wishlist"}
+      {isInWishlist ? (
+        "In Wishlist"
+      ) : (
+        <>
+          <BookmarkPlus /> Wishlist
+        </>
+      )}
     </Button>
   );
 }

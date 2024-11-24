@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/buttons/button";
 import ResultsList from "@/components/ui/results-list";
 import WishlistCard from "./wishlist-card";
 import { useWishlist, useWishlistDispatch } from "@/lib/wishlist-provider";

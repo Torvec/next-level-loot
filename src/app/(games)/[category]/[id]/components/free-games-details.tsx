@@ -6,10 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
 import BannerSection from "@/components/ui/banner-section";
-import WishlistButton from "@/components/ui/wishlist-button";
+import RedirectButton from "@/components/ui/buttons/redirect-button";
+import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import { FreeGameDetailsType } from "../../types";
 
 export default function FreeGamesDetails(data: FreeGameDetailsType) {
@@ -68,22 +67,6 @@ export default function FreeGamesDetails(data: FreeGameDetailsType) {
     </div>
   );
 
-  const GiveawayButton = () => (
-    <Button
-      asChild
-      className="w-full bg-muted-foreground hover:bg-background hover:text-foreground"
-    >
-      <a
-        href={data.open_giveaway_url}
-        target="_blank"
-        rel="noopener noreferrer external"
-      >
-        Get Giveaway
-        <ExternalLink />
-      </a>
-    </Button>
-  );
-
   return (
     <>
       <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
@@ -103,9 +86,14 @@ export default function FreeGamesDetails(data: FreeGameDetailsType) {
             <DescriptionText />
             <InstructionsText />
           </CardContent>
-          <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-            <GiveawayButton />
-            <WishlistButton title={data.title} />
+          <CardFooter>
+            <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
+              <RedirectButton
+                url={data.open_giveaway_url}
+                text={"Get Giveaway"}
+              />
+              <WishlistButton title={data.title} />
+            </div>
           </CardFooter>
         </Card>
       </div>
