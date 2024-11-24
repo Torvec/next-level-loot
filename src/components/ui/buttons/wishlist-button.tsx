@@ -12,7 +12,7 @@ export default function WishlistButton({ title }: { title: string }) {
   return (
     <Button
       onClick={() => dispatch({ type: "ADD", item: title })}
-      className="w-full bg-gold text-background hover:bg-gold-foreground"
+      className="w-full bg-muted-foreground text-background hover:bg-foreground hover:text-muted"
       disabled={isInWishlist}
     >
       {isInWishlist ? (

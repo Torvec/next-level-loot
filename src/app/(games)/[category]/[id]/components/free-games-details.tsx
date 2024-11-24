@@ -12,18 +12,6 @@ import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import { FreeGameDetailsType } from "../../types";
 
 export default function FreeGamesDetails(data: FreeGameDetailsType) {
-  const TitleSection = () => (
-    <>
-      <h2 className="w-full sm:w-2/3">{data.title}</h2>
-      <div className="text-base sm:text-right">
-        <div className="space-x-2">
-          <span className="line-through opacity-70">{data.worth}</span>
-          <span className="text-xl">Free!</span>
-        </div>
-      </div>
-    </>
-  );
-
   const DescriptionSection = () => (
     <>
       <div>
@@ -37,35 +25,30 @@ export default function FreeGamesDetails(data: FreeGameDetailsType) {
     </>
   );
 
-  const DescriptionText = () => (
+  const TextSection = ({ title, text }: { title: string; text: string }) => (
     <div>
-      {data.description ? (
-        <>
-          <h3 className="font-bold">Description</h3>
-          <p>{data.description}</p>
-        </>
-      ) : (
-        <div className="px-4 py-2 text-center text-muted-foreground">
-          Description Unavailable
-        </div>
-      )}
+      <h3 className="font-bold">{title}</h3>
+      <p className="text-sm">{text}</p>
     </div>
   );
 
-  const InstructionsText = () => (
-    <div>
-      {data.instructions ? (
-        <>
-          <h3 className="font-bold">Instructions</h3>
-          <p>{data.instructions}</p>
-        </>
-      ) : (
-        <div className="px-4 py-2 text-center text-muted-foreground">
-          Instructions Unavailable
+  const PriceSection = () => {
+    return (
+      <div className="mx-auto w-max space-y-4 text-center text-base">
+        <div className="flex gap-4">
+          <span className="rounded-xl border-4 border-gold-foreground p-4 text-2xl font-black text-gold-foreground">
+            -100%
+          </span>
+          <div className="flex flex-col justify-between">
+            <span className="text-muted-foreground line-through">
+              ${data.worth}
+            </span>
+            <span className="text-2xl font-bold">Free!</span>
+          </div>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  };
 
   return (
     <>
@@ -75,16 +58,17 @@ export default function FreeGamesDetails(data: FreeGameDetailsType) {
         </div>
         <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20 lg:w-2/3">
           <CardHeader>
-            <CardTitle className="flex flex-col justify-between gap-2 opacity-90 sm:flex-row">
-              <TitleSection />
+            <CardTitle>
+              <h2>{data.title}</h2>
             </CardTitle>
             <CardDescription className="flex flex-col justify-between gap-2 sm:flex-row">
               <DescriptionSection />
             </CardDescription>
           </CardHeader>
-          <CardContent className="mb-8 space-y-4">
-            <DescriptionText />
-            <InstructionsText />
+          <CardContent className="space-y-4">
+            <TextSection title="Description" text={data.description} />
+            <TextSection title="Instructions" text={data.instructions} />
+            <PriceSection />
           </CardContent>
           <CardFooter>
             <div className="flex w-full flex-col justify-between gap-4 md:flex-row">

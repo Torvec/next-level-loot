@@ -131,12 +131,12 @@ interface Store {
   slug: string;
 }
 
-// interface Rating {
-//   id: number;
-//   title: string;
-//   count: number;
-//   percent: number;
-// }
+interface Rating {
+  id: number;
+  title: string;
+  count: number;
+  percent: number;
+}
 
 // interface AddedByStatus {
 //   yet: number;
@@ -186,7 +186,7 @@ export interface HighestRatedGameType {
   background_image: string;
   // rating: number;
   // rating_top: number;
-  // ratings: Rating[];
+  ratings: Rating[];
   // ratings_count: number;
   // reviews_text_count: number;
   // added: number;
