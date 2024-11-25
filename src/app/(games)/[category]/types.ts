@@ -17,10 +17,10 @@ export type FetchDataType = {
   fetchEndPoints: Record<string, string>;
   sort: { name: string; value: string }[];
   filter: {
-    platform: { id?: number; name: string; slug?: string }[] | null;
-    store: { id: number; name: string }[] | null;
-    genre: { id: number; name: string }[] | null;
-    type: { name: string; value: string }[] | null;
+    platform?: { name: string; value: string }[];
+    store?: { name: string; value: string }[];
+    genre?: { name: string; value: string }[];
+    type?: { name: string; value: string }[];
   };
 };
 

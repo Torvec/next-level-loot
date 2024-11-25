@@ -23,12 +23,12 @@ export default function SearchInput() {
         placeholder="Search..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="rounded-xl bg-neutral-800 pr-10 text-neutral-400"
+        className="rounded-xl bg-muted pr-10 text-muted-foreground"
       />
       <Button
         type="submit"
         size="icon"
-        className="absolute right-0 top-0 h-full rounded-r-xl bg-neutral-600"
+        className="absolute right-0 top-0 h-full rounded-r-xl bg-foreground"
       >
         <Search className="h-4 w-4" />
         <span className="sr-only">Search</span>
