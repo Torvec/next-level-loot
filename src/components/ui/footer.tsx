@@ -1,21 +1,21 @@
 import { ExternalLink, Gamepad2 } from "lucide-react";
 
-export default function Footer() {
-  const ExtLink = ({ href, children }: { href: string; children: string }) => {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener external"
-        className="flex w-max items-center gap-2 text-gold hover:text-gold-foreground"
-      >
-        <span>{children}</span>
-        <ExternalLink size={16} />
-      </a>
-    );
-  };
+function ExtLink({ href, children }: { href: string; children: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener external"
+      className="flex w-max items-center gap-2 text-gold hover:text-gold-foreground"
+    >
+      <span>{children}</span>
+      <ExternalLink size={16} />
+    </a>
+  );
+}
 
-  const LogoSection = () => (
+function LogoSection() {
+  return (
     <div className="mb-8 flex gap-2">
       <Gamepad2 size={32} />
       <div>
@@ -26,12 +26,14 @@ export default function Footer() {
       </div>
     </div>
   );
+}
 
-  const ProjectSection = () => (
+function ProjectSection() {
+  return (
     <div>
       <h3 className="mb-4 font-bold">Project</h3>
       <ul className="space-y-1 text-muted-foreground">
-        <li>Made with Next.js 15</li>
+        <li>Made with Next.js 15 &amp; React 19</li>
         <li className="flex gap-2">
           GitHub:
           <ExtLink href="https://github.com/Torvec/loot_vault_next">
@@ -54,8 +56,10 @@ export default function Footer() {
       </ul>
     </div>
   );
+}
 
-  const APISection = () => (
+function APISection() {
+  return (
     <div>
       <h3 className="mb-4 font-bold">API&apos;s</h3>
       <ul className="space-y-1 text-muted-foreground">
@@ -80,8 +84,10 @@ export default function Footer() {
       </ul>
     </div>
   );
+}
 
-  const DeveloperSection = () => (
+function DeveloperSection() {
+  return (
     <div className="lg:col-start-2 xl:col-start-4">
       <h3 className="mb-4 font-bold">Developer</h3>
       <ul className="space-y-1 text-muted-foreground">
@@ -103,7 +109,9 @@ export default function Footer() {
       </ul>
     </div>
   );
+}
 
+export default function Footer() {
   return (
     <footer className="border-t bg-muted">
       <div className="container mx-auto px-4 pb-32 pt-16 xl:px-0">
