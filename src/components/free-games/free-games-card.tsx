@@ -10,7 +10,7 @@ import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import { FreeGameType } from "../types";
+import { FreeGameType } from "@/lib/types";
 
 export default function FreeGamesCard(data: FreeGameType) {
   const DescriptionSection = () => (
@@ -35,7 +35,7 @@ export default function FreeGamesCard(data: FreeGameType) {
           </span>
           <div className="flex flex-col justify-between">
             <span className="text-muted-foreground line-through">
-              ${data.worth}
+              {data.worth}
             </span>
             <span className="text-2xl font-bold">Free!</span>
           </div>

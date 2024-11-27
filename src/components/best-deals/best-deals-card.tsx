@@ -10,9 +10,9 @@ import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
-import { GameDealType } from "../types";
+import { BestDealsType } from "@/lib/types";
 
-export default function BestDealsCard(data: GameDealType) {
+export default function BestDealsCard(data: BestDealsType) {
   const DescriptionSection = () => {
     const formattedReleaseDate =
       data.releaseDate > 0
@@ -22,63 +22,67 @@ export default function BestDealsCard(data: GameDealType) {
     return <p>Released: {formattedReleaseDate}</p>;
   };
 
-  const MetacriticSection = () => (
-    <div className="w-full text-center">
-      {data.metacriticLink ? (
-        <a
-          href={`https://www.metacritic.com${data.metacriticLink}`}
-          target="_blank"
-          rel="noopener external"
-          className="block h-full bg-muted py-2 hover:bg-background"
-        >
-          <span className="block font-bold">Metacritic</span>
-          <span className="text-xl font-bold">
-            {data.metacriticScore !== "0" ? data.metacriticScore : "N/A"}
-          </span>
-        </a>
-      ) : (
-        <p className="h-full place-content-center bg-muted py-2 text-muted-foreground">
-          Metacritic
-          <br /> Data Unavailable
-        </p>
-      )}
-    </div>
-  );
-
-  const SteamSection = () => (
-    <div className="w-full text-center">
-      {data.steamAppID ? (
-        <a
-          href={`https://store.steampowered.com/app/${data.steamAppID}`}
-          target="_blank"
-          rel="noopener external"
-          className="block h-full bg-muted py-2 hover:bg-background"
-        >
-          <span className="block font-bold">Steam</span>
-          <div>
-            <span className="block font-bold">
-              {data.steamRatingPercent}% {data.steamRatingText}
+  const ScoreRatingSection = () => {
+    return (
+      <div className="flex gap-4">
+        {data.metacriticLink ? (
+          <div className="flex w-1/3 flex-col justify-between gap-1 rounded-xl border-2 border-muted-foreground py-4 text-center">
+            <span className="block text-sm font-bold uppercase opacity-80">
+              Score
             </span>
-            <span className="block text-muted-foreground">
-              {data.steamRatingCount} Reviews
+            <span className="block text-3xl font-black">
+              {data.metacriticScore !== "0"
+                ? data.metacriticScore + "%"
+                : "N/A"}
+            </span>
+            <a
+              href={`https://www.metacritic.com${data.metacriticLink}`}
+              target="_blank"
+              rel="noopener external"
+            >
+              <span className="text-sm text-muted-foreground">Metacritic</span>
+            </a>
+          </div>
+        ) : (
+          <p className="h-full w-full place-content-center bg-muted p-2 text-muted-foreground">
+            Metacritic
+            <br /> Data Unavailable
+          </p>
+        )}
+        {data.steamAppID ? (
+          <div className="flex w-2/3 flex-grow flex-col justify-center gap-1">
+            <a
+              href={`https://store.steampowered.com/app/${data.steamAppID}`}
+              target="_blank"
+              rel="noopener external"
+            >
+              <span className="block text-center text-sm font-bold uppercase opacity-80">
+                Steam Rating
+              </span>
+            </a>
+            <div className="flex justify-between rounded py-0.5 text-sm">
+              <span>{data.steamRatingPercent}%</span>
+              <span className="pr-2">{data.steamRatingText}</span>
+            </div>
+            <div className="rounded bg-muted">
+              <span
+                className="block h-4 rounded bg-muted-foreground pl-2"
+                style={{ width: `${data.steamRatingPercent}%` }}
+              />
+            </div>
+            <span className="block text-center text-sm text-muted-foreground">
+              {data.steamRatingCount} Ratings
             </span>
           </div>
-        </a>
-      ) : (
-        <p className="h-full place-content-center bg-muted py-2 text-muted-foreground">
-          Steam
-          <br /> Data Unavailable
-        </p>
-      )}
-    </div>
-  );
-
-  const RatingSection = () => (
-    <div className="grid grid-cols-2 gap-1">
-      <MetacriticSection />
-      <SteamSection />
-    </div>
-  );
+        ) : (
+          <p className="h-full w-full place-content-center bg-muted p-2 text-muted-foreground">
+            Steam
+            <br /> Data Unavailable
+          </p>
+        )}
+      </div>
+    );
+  };
 
   const PriceSection = () => {
     const formattedSavings = parseFloat(data.savings).toFixed(0);
@@ -130,7 +134,7 @@ export default function BestDealsCard(data: GameDealType) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <RatingSection />
+        <ScoreRatingSection />
         <PriceSection />
       </CardContent>
       <CardFooter className="flex-col gap-4">

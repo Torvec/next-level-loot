@@ -26,7 +26,7 @@ export type FetchDataType = {
 
 //* CHEAPSHARK API TYPES
 
-export interface GameDealType {
+export interface BestDealsType {
   // internalName: string;
   title: string;
   metacriticLink: string | null;
@@ -48,7 +48,7 @@ export interface GameDealType {
   thumb: string;
 }
 
-export interface GameDealDetailsType {
+export interface BestDealsDetailsType {
   gameInfo: {
     // storeID: string;
     // gameID: string;

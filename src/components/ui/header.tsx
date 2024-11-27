@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type Routes, type Label } from "@/app/(games)/[category]/types";
+import { type Routes, type Label } from "@/lib/types";
 import { Gamepad2, Menu, Moon, Sun } from "lucide-react";
 import { Button } from "./buttons/button";
 import {

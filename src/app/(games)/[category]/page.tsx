@@ -1,16 +1,16 @@
 import {
   FreeGameType,
-  GameDealType,
+  BestDealsType,
   HighestRatedGameType,
   Category,
-} from "./types";
+} from "../../../lib/types";
 import ResultsList from "@/components/ui/results-list";
-import BestDealsCard from "./components/best-deals-card";
-import BestDealsForm from "./components/best-deals-form";
-import FreeGamesCard from "./components/free-games-card";
-import FreeGamesForm from "./components/free-games-form";
-import HighestRatedGamesCard from "./components/highest-rated-games-card";
-import HighestRatedGamesForm from "./components/highest-rated-games-form";
+import BestDealsCard from "../../../components/best-deals/best-deals-card";
+import BestDealsForm from "../../../components/best-deals/best-deals-form";
+import FreeGamesCard from "../../../components/free-games/free-games-card";
+import FreeGamesForm from "../../../components/free-games/free-games-form";
+import HighestRatedGamesCard from "../../../components/highest-rated/highest-rated-games-card";
+import HighestRatedGamesForm from "../../../components/highest-rated/highest-rated-games-form";
 import { fetchList } from "@/lib/fetch";
 
 export default async function Page(props: {
@@ -24,7 +24,7 @@ export default async function Page(props: {
   const categoryComponents = {
     "best-deals": {
       form: <BestDealsForm />,
-      card: (data: GameDealType[]) => {
+      card: (data: BestDealsType[]) => {
         return data.map((deal) => (
           <BestDealsCard key={deal.dealID} {...deal} />
         ));

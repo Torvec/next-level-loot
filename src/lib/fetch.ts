@@ -1,7 +1,4 @@
-import {
-  type Category,
-  type FetchDataType,
-} from "@/app/(games)/[category]/types";
+import { type Category, type FetchDataType } from "@/lib/types";
 
 export const fetchOptions: Record<Category, FetchDataType> = {
   "best-deals": {

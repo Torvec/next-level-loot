@@ -10,7 +10,7 @@ import FindDealsButton from "@/components/ui/buttons/find-deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import BannerSection from "@/components/ui/banner-section";
-import { HighestRatedGameType } from "../types";
+import { HighestRatedGameType } from "@/lib/types";
 
 export default function HighestRatedGamesCard(data: HighestRatedGameType) {
   const DescriptionSection = () => (

@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import BannerSection from "@/components/ui/banner-section";
 import FindDealsButton from "@/components/ui/buttons/find-deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import { HighestRatedGameDetailsType } from "../../types";
+import { HighestRatedGameDetailsType } from "@/lib/types";
 
 export default function HighestRatedDetails(data: HighestRatedGameDetailsType) {
   const DescriptionSection = () => (
