@@ -240,33 +240,3 @@ export const fetchOptions: Record<Category, FetchDataType> = {
     search: false,
   },
 };
-
-export async function fetchList(category: Category) {
-  const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
-  const endpoint = fetchEndPoints.default;
-  const url = `${baseURL}${endpoint}${apiKey ? `&${apiKey}` : ""}`;
-  const response = await fetch(url, headers ?? undefined);
-
-  if (!response.ok) {
-    throw new Error(
-      `HTTP error! Status: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  return response.json();
-}
-
-export async function fetchDetails(category: Category, id: string | number) {
-  const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
-  const endpoint = fetchEndPoints.details;
-  const url = `${baseURL}${endpoint}${id}${apiKey ? `?${apiKey}` : ""}`;
-  const response = await fetch(url, headers ?? undefined);
-
-  if (!response.ok) {
-    throw new Error(
-      `HTTP error! Status: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  return response.json();
-}

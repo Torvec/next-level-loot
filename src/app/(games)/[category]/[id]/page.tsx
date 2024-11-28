@@ -1,16 +1,18 @@
 import { Category } from "@/lib/types";
-import { fetchDetails } from "@/lib/fetch";
+import { fetchOptions } from "@/lib/fetch";
 import BestDealsDetails from "@/components/best-deals/best-deals-details";
 import FreeGamesDetails from "@/components/free-games/free-games-details";
 import HighestRatedDetails from "@/components/highest-rated/highest-rated-details";
 
-export default async function Page(props: {
+export default async function Page({
+  params,
+}: {
   params: Promise<{
     id: string | number;
     category: Category;
   }>;
 }) {
-  const { id, category } = await props.params;
+  const { id, category } = await params;
 
   const data = await fetchDetails(category, id);
 
@@ -23,4 +25,19 @@ export default async function Page(props: {
   const content = categoryComponents[category];
 
   return <div className="py-32">{content}</div>;
+}
+
+async function fetchDetails(category: Category, id: string | number) {
+  const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
+  const endpoint = fetchEndPoints.details;
+  const url = `${baseURL}${endpoint}${id}${apiKey ? `?${apiKey}` : ""}`;
+  const response = await fetch(url, headers ?? undefined);
+
+  if (!response.ok) {
+    throw new Error(
+      `HTTP error! Status: ${response.status} ${response.statusText}`,
+    );
+  }
+
+  return response.json();
 }

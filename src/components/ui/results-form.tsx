@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { fetchOptions } from "@/lib/fetch";
 import SelectBox from "@/components/ui/select-box";
 import SearchInput from "@/components/ui/search-input";
@@ -5,55 +8,62 @@ import { Button } from "@/components/ui/buttons/button";
 import { type Category } from "@/lib/types";
 
 export default function ResultsForm({ category }: { category: Category }) {
-  const sortBy = fetchOptions[category].sort;
-  const filters = fetchOptions[category].filter;
-  const getFilterDefaults = filters.map((filter) => {
-    const firstValue = filter.value[0];
-    return {
-      name: firstValue.name,
-      value: firstValue.value,
-    };
-  });
-  const hasSearchInput = fetchOptions[category].search;
+  const { sort, filter, search } = fetchOptions[category];
+  const [sortValue, setSortValue] = useState(sort[0].value);
+  const [filters, setFilters] = useState(() =>
+    filter.map((f) => ({
+      filter: f.name,
+      value: f.value[0].value,
+    })),
+  );
+
+  const handleFilterChange = (filterName: string, value: string) => {
+    setFilters((prev) =>
+      prev.map((f) => (f.filter === filterName ? { ...f, value } : f)),
+    );
+  };
+
+  const applyFilters = () => {
+    console.log("Applying filters:", filters, "Sort:", sortValue);
+  };
 
   return (
     <div className="flex flex-wrap items-end justify-between gap-2">
-      <form className="flex flex-col gap-4 md:flex-row">
+      <form className="flex flex-col gap-4 lg:flex-row">
         <div>
           <span className="block text-sm text-muted-foreground">Sort</span>
           <SelectBox
-            defaultValue={sortBy[0].value}
-            defaultName={sortBy[0].name}
-            data={sortBy}
+            defaultValue={sort[0].value}
+            defaultName={sort[0].name}
+            data={sort}
+            onValueChange={setSortValue}
           />
         </div>
         <div>
           <span className="block text-sm text-muted-foreground">Filter</span>
-          <div className="flex gap-2">
-            {filters.map(({ name, value }, index) => (
+          <div className="flex flex-col items-center gap-2 lg:flex-row">
+            {filter.map((f) => (
               <SelectBox
-                key={name}
-                defaultValue={getFilterDefaults[index].value}
-                defaultName={getFilterDefaults[index].name}
-                data={value}
+                key={f.name}
+                defaultValue={
+                  filters.find((fl) => fl.filter === f.name)?.value ||
+                  f.value[0].value
+                }
+                defaultName={f.value[0].name}
+                data={f.value}
+                onValueChange={(value) => handleFilterChange(f.name, value)}
               />
             ))}
-            <Button>Apply</Button>
+            <Button
+              onClick={applyFilters}
+              className="w-full max-w-64 bg-muted text-muted-foreground"
+            >
+              Apply Filter
+            </Button>
           </div>
         </div>
       </form>
-      {hasSearchInput && <SearchInput />}
+      {search && <SearchInput />}
     </div>
   );
 }
-
-/*
-
-What do I want this to do?
-- Sort: When the user makes a selection it should re-render the page but not re-fetch any data, it just re-orders everything based off of what the user selected.
-- Filter: When the user makes a selection and submits it should re-fetch the data and re-render the page with the new data.
-- Search: When the user types in the search bar and submits it should re-fetch the data and re-render the page with the new data.
-- If a re-fetch is needed, the form should take into account the current sorting option selected
-- Sort and filter options need default values so that when the user goes to say /best-deals the page will load with the default sort and filter options instead of saying what the option type is
-
-*/
