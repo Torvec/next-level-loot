@@ -21,10 +21,9 @@ export default async function Page({
   const { category } = await params;
   const { search } = await searchParams;
 
-  let data;
-  if (!search) {
-    data = await fetchList(category);
-  }
+  const searchString = Array.isArray(search) ? search.join(",") : search || "";
+
+  const data = await fetchList({ category, search: searchString });
 
   const cards = {
     "best-deals": (data: BestDealsType[]) =>
@@ -47,9 +46,20 @@ export default async function Page({
   );
 }
 
-async function fetchList(category: Category) {
+const fetchList = async ({
+  category,
+  search,
+}: {
+  category: Category;
+  search: string;
+}) => {
   const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
-  const endpoint = fetchEndPoints.default;
+  let endpoint;
+  if (!search) {
+    endpoint = fetchEndPoints.default;
+  } else {
+    endpoint = fetchEndPoints.search + search;
+  }
   const url = `${baseURL}${endpoint}${apiKey ? `&${apiKey}` : ""}`;
   const response = await fetch(url, headers ?? undefined);
 
@@ -60,4 +70,4 @@ async function fetchList(category: Category) {
   }
 
   return response.json();
-}
+};

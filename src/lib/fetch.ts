@@ -8,6 +8,7 @@ export const fetchOptions: Record<Category, FetchDataType> = {
     fetchEndPoints: {
       default: "deals?sortBy=DealRating",
       details: "deals?id=",
+      search: "deals?title=",
     },
     sort: [
       { name: "Deal Rating", value: "DealRating" },
@@ -71,6 +72,7 @@ export const fetchOptions: Record<Category, FetchDataType> = {
     fetchEndPoints: {
       default: "games?page_size=24&platforms=7,4,187,186&ordering=-metacritic",
       details: "games/",
+      search: "games?search=",
     },
     sort: [
       { name: "Name", value: "name" },
