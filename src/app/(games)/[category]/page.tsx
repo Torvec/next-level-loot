@@ -24,6 +24,17 @@ export default async function Page({
   const searchString = Array.isArray(search) ? search.join(",") : search || "";
 
   const data = await fetchList({ category, search: searchString });
+  if (data.length === 0) {
+    return (
+      <div className="my-32">
+        <ResultsForm category={category} />
+        <h2 className="min-h-[50vh] place-content-center text-center font-bold">
+          No Results found for
+          <br /> {searchString}
+        </h2>
+      </div>
+    );
+  }
 
   const cards = {
     "best-deals": (data: BestDealsType[]) =>
@@ -54,12 +65,14 @@ const fetchList = async ({
   search: string;
 }) => {
   const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
+
   let endpoint;
   if (!search) {
     endpoint = fetchEndPoints.default;
   } else {
     endpoint = fetchEndPoints.search + search;
   }
+
   const url = `${baseURL}${endpoint}${apiKey ? `&${apiKey}` : ""}`;
   const response = await fetch(url, headers ?? undefined);
 

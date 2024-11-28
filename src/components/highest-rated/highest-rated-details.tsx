@@ -176,7 +176,7 @@ export default function HighestRatedDetails(data: HighestRatedGameDetailsType) {
             <TagList />
           </CardContent>
           <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-            <FindDealsButton />
+            <FindDealsButton title={data.name} />
             <WishlistButton title={data.name} />
           </CardFooter>
         </Card>

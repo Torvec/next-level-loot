@@ -1,17 +1,18 @@
+import Form from "next/form";
 import { Button } from "./button";
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { BadgeDollarSign } from "lucide-react";
 
-export default function FindDealsButton() {
+export default function FindDealsButton({ title }: { title: string }) {
   return (
-    <Button
-      asChild
-      className="w-full bg-gold-foreground hover:bg-foreground hover:text-background"
-    >
-      <Link href={"/best-deals"}>
-        Find Deals
-        <ChevronRight />
-      </Link>
-    </Button>
+    <Form action={"/best-deals"} className="w-full">
+      <input type="hidden" name="search" value={title} />
+      <Button
+        type="submit"
+        className="w-full bg-gold-foreground hover:bg-foreground hover:text-background"
+      >
+        <BadgeDollarSign />
+        Deals
+      </Button>
+    </Form>
   );
 }

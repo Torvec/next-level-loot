@@ -20,7 +20,7 @@ export default function Wishlist() {
 
   const ClearWishlist = () => {
     return (
-      <div className="mb-32 flex justify-center">
+      <div className="my-32 flex justify-center">
         <Button
           onClick={() => dispatch({ type: "CLEAR" })}
           className="bg-destructive text-destructive-foreground hover:bg-destructive-foreground hover:text-destructive"

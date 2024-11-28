@@ -77,7 +77,7 @@ export default function HighestRatedGamesCard(data: HighestRatedGameType) {
       </CardContent>
       <CardFooter className="flex-col gap-4">
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <FindDealsButton />
+          <FindDealsButton title={data.name} />
           <WishlistButton title={data.name} />
         </div>
         <MoreDetailsButton path={"/highest-rated/"} id={data.id} />

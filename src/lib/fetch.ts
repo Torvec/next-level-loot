@@ -1,12 +1,27 @@
-import { type Category, type FetchDataType } from "@/lib/types";
+import { type Category } from "@/lib/types";
 
-export const fetchOptions: Record<Category, FetchDataType> = {
+export type FetchOptionsType = {
+  baseURL: string;
+  apiKey: string | null;
+  headers: {
+    headers: Record<string, string>;
+  } | null;
+  fetchEndPoints: Record<string, string>;
+  sort: { name: string; value: string }[];
+  filter: {
+    name: "store" | "platform" | "genre" | "type";
+    value: { name: string; value: string }[];
+  }[];
+  search: boolean;
+};
+
+export const fetchOptions: Record<Category, FetchOptionsType> = {
   "best-deals": {
     baseURL: "https://www.cheapshark.com/api/1.0/",
     apiKey: null,
     headers: null,
     fetchEndPoints: {
-      default: "deals?sortBy=DealRating",
+      default: "deals?sortBy=DealRating&storeID=1",
       details: "deals?id=",
       search: "deals?title=",
     },
@@ -70,7 +85,7 @@ export const fetchOptions: Record<Category, FetchDataType> = {
     apiKey: `key=${process.env.RAWG_API_KEY}`,
     headers: null,
     fetchEndPoints: {
-      default: "games?page_size=24&platforms=7,4,187,186&ordering=-metacritic",
+      default: "games?page_size=24&platforms=4&ordering=-metacritic",
       details: "games/",
       search: "games?search=",
     },
