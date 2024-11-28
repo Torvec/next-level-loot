@@ -120,7 +120,7 @@ export default function BestDealsDetails({
   };
 
   const CheaperDealsSection = () => {
-    const fetchStores = fetchOptions["best-deals"].filter.store;
+    const fetchStores = fetchOptions["best-deals"].filter[0].value;
     const storeNames = fetchStores && fetchStores.map((store) => store.name);
 
     return (
