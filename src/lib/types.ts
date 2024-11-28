@@ -17,12 +17,16 @@ export type FetchDataType = {
   fetchEndPoints: Record<string, string>;
   sort: { name: string; value: string }[];
   filter: {
-    platform?: { name: string; value: string }[];
-    store?: { name: string; value: string }[];
-    genre?: { name: string; value: string }[];
-    type?: { name: string; value: string }[];
-  };
+    name: "store" | "platform" | "genre" | "type";
+    value: { name: string; value: string }[];
+  }[];
+  search: boolean;
 };
+
+export type ResultsListType =
+  | BestDealsType[]
+  | FreeGameType[]
+  | HighestRatedGameType[];
 
 //* CHEAPSHARK API TYPES
 
@@ -208,63 +212,6 @@ export interface HighestRatedGameType {
   genres: Genre[];
 }
 
-export interface HighestRatedGameDetailsType {
-  id: number;
-  slug: string;
-  name: string;
-  name_original: string;
-  description: string;
-  metacritic: number;
-  metacritic_platforms: MetacriticPlatformType[];
-  released: string;
-  tba: boolean;
-  updated: string;
-  background_image: string;
-  background_image_additional: string;
-  website: string;
-  rating: number;
-  rating_top: number;
-  ratings: RatingType[];
-  reactions: Record<string, number>;
-  added: number;
-  added_by_status: AddedByStatusType;
-  playtime: number;
-  screenshots_count: number;
-  movies_count: number;
-  creators_count: number;
-  achievements_count: number;
-  parent_achievements_count: number;
-  reddit_url: string;
-  reddit_name: string;
-  reddit_description: string;
-  reddit_logo: string;
-  reddit_count: number;
-  twitch_count: number;
-  youtube_count: number;
-  reviews_text_count: number;
-  ratings_count: number;
-  suggestions_count: number;
-  alternative_names: string[];
-  metacritic_url: string;
-  parents_count: number;
-  additions_count: number;
-  game_series_count: number;
-  user_game: string | null;
-  reviews_count: number;
-  saturated_color: string;
-  dominant_color: string;
-  parent_platforms: ParentPlatformType[];
-  platforms: PlatformType[];
-  stores: StoreType[];
-  developers: DeveloperType[];
-  genres: GenreType[];
-  tags: TagType[];
-  publishers: PublisherType[];
-  esrb_rating: EsrbRatingType;
-  clip: string | null;
-  description_raw: string;
-}
-
 export interface MetacriticPlatformType {
   metascore: number;
   url: string;
@@ -364,4 +311,61 @@ export interface EsrbRatingType {
   id: number;
   name: string;
   slug: string;
+}
+
+export interface HighestRatedGameDetailsType {
+  id: number;
+  slug: string;
+  name: string;
+  name_original: string;
+  description: string;
+  metacritic: number;
+  metacritic_platforms: MetacriticPlatformType[];
+  released: string;
+  tba: boolean;
+  updated: string;
+  background_image: string;
+  background_image_additional: string;
+  website: string;
+  rating: number;
+  rating_top: number;
+  ratings: RatingType[];
+  reactions: Record<string, number>;
+  added: number;
+  added_by_status: AddedByStatusType;
+  playtime: number;
+  screenshots_count: number;
+  movies_count: number;
+  creators_count: number;
+  achievements_count: number;
+  parent_achievements_count: number;
+  reddit_url: string;
+  reddit_name: string;
+  reddit_description: string;
+  reddit_logo: string;
+  reddit_count: number;
+  twitch_count: number;
+  youtube_count: number;
+  reviews_text_count: number;
+  ratings_count: number;
+  suggestions_count: number;
+  alternative_names: string[];
+  metacritic_url: string;
+  parents_count: number;
+  additions_count: number;
+  game_series_count: number;
+  user_game: string | null;
+  reviews_count: number;
+  saturated_color: string;
+  dominant_color: string;
+  parent_platforms: ParentPlatformType[];
+  platforms: PlatformType[];
+  stores: StoreType[];
+  developers: DeveloperType[];
+  genres: GenreType[];
+  tags: TagType[];
+  publishers: PublisherType[];
+  esrb_rating: EsrbRatingType;
+  clip: string | null;
+  description_raw: string;
 }

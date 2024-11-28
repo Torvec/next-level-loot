@@ -17,7 +17,7 @@ export default function SearchInput() {
     // }
   };
   return (
-    <form onSubmit={handleSearch} className="relative">
+    <form onSubmit={handleSearch} className="relative max-w-xs">
       <Input
         type="search"
         placeholder="Search..."

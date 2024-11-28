@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -7,16 +10,20 @@ import {
 } from "@/components/ui/select";
 
 export default function SelectBox({
-  selectValue,
+  defaultValue,
+  defaultName,
   data,
 }: {
-  selectValue: string;
+  defaultValue: string;
+  defaultName: string;
   data: { name: string; value: string }[];
 }) {
+  const [value, setValue] = useState(defaultValue);
+
   return (
-    <Select>
+    <Select onValueChange={setValue} defaultValue={value}>
       <SelectTrigger className="w-[200px]">
-        <SelectValue placeholder={selectValue} />
+        <SelectValue placeholder={defaultName} />
       </SelectTrigger>
       <SelectContent>
         {data.map(({ name, value }) => (
