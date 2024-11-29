@@ -64,16 +64,15 @@ const fetchList = async ({
   category: Category;
   search: string;
 }) => {
-  const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
+  const { baseURL, apiKey, headers, endPoints } = fetchOptions[category];
 
-  let endpoint;
+  let url;
   if (!search) {
-    endpoint = fetchEndPoints.default;
+    url = baseURL + endPoints.list + (apiKey ? "?" + apiKey : "");
   } else {
-    endpoint = fetchEndPoints.search + search;
+    url = baseURL + endPoints.search + search + (apiKey ? "&" + apiKey : "");
   }
 
-  const url = `${baseURL}${endpoint}${apiKey ? `&${apiKey}` : ""}`;
   const response = await fetch(url, headers ?? undefined);
 
   if (!response.ok) {

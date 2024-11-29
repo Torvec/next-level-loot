@@ -1,15 +1,21 @@
 import { type Category } from "@/lib/types";
 
 export type FetchOptionsType = {
-  baseURL: string;
+  baseURL:
+    | "https://www.cheapshark.com/api/1.0/"
+    | "https://api.rawg.io/api/"
+    | "https://gamerpower.p.rapidapi.com/api/";
+  endPoints: Record<string, string>;
   apiKey: string | null;
   headers: {
     headers: Record<string, string>;
   } | null;
-  fetchEndPoints: Record<string, string>;
-  sort: { name: string; value: string }[];
+  sort: {
+    name: "sortBy" | "ordering" | "sort";
+    value: { name: string; value: string }[];
+  }[];
   filter: {
-    name: "store" | "platform" | "genre" | "type";
+    name: "storeID" | "stores" | "platform" | "platforms" | "genres" | "type";
     value: { name: string; value: string }[];
   }[];
   search: boolean;
@@ -18,27 +24,32 @@ export type FetchOptionsType = {
 export const fetchOptions: Record<Category, FetchOptionsType> = {
   "best-deals": {
     baseURL: "https://www.cheapshark.com/api/1.0/",
-    apiKey: null,
-    headers: null,
-    fetchEndPoints: {
-      default: "deals?sortBy=DealRating&storeID=1",
+    endPoints: {
+      list: "deals",
       details: "deals?id=",
       search: "deals?title=",
     },
+    apiKey: null,
+    headers: null,
     sort: [
-      { name: "Deal Rating", value: "DealRating" },
-      { name: "Title", value: "Title" },
-      { name: "Savings", value: "Savings" },
-      { name: "Price", value: "Price" },
-      { name: "Metacritic", value: "Metacritic" },
-      { name: "Reviews", value: "Reviews" },
-      { name: "Release", value: "Release" },
-      { name: "Store", value: "Store" },
-      { name: "Recent", value: "Recent" },
+      {
+        name: "sortBy",
+        value: [
+          { name: "Deal Rating", value: "DealRating" },
+          { name: "Title", value: "Title" },
+          { name: "Savings", value: "Savings" },
+          { name: "Price", value: "Price" },
+          { name: "Metacritic", value: "Metacritic" },
+          { name: "Reviews", value: "Reviews" },
+          { name: "Release", value: "Release" },
+          { name: "Store", value: "Store" },
+          { name: "Recent", value: "Recent" },
+        ],
+      },
     ],
     filter: [
       {
-        name: "store",
+        name: "storeID",
         value: [
           { name: "Steam", value: "1" },
           { name: "GamersGate", value: "2" },
@@ -82,32 +93,37 @@ export const fetchOptions: Record<Category, FetchOptionsType> = {
   },
   "highest-rated": {
     baseURL: "https://api.rawg.io/api/",
-    apiKey: `key=${process.env.RAWG_API_KEY}`,
-    headers: null,
-    fetchEndPoints: {
-      default: "games?page_size=24&platforms=4&ordering=-metacritic",
+    endPoints: {
+      list: "games",
       details: "games/",
       search: "games?search=",
     },
+    apiKey: `key=${process.env.RAWG_API_KEY}`,
+    headers: null,
     sort: [
-      { name: "Name", value: "name" },
-      { name: "Released", value: "released" },
-      { name: "Added", value: "added" },
-      { name: "Created", value: "created" },
-      { name: "Updated", value: "updated" },
-      { name: "Rating", value: "rating" },
-      { name: "Metacritic", value: "metacritic" },
-      { name: "Name Reverse", value: "-name" },
-      { name: "Released Reverse", value: "-released" },
-      { name: "Added Reverse", value: "-added" },
-      { name: "Created Reverse", value: "-created" },
-      { name: "Updated Reverse", value: "-updated" },
-      { name: "Rating Reverse", value: "-rating" },
-      { name: "Metacritic Reverse", value: "-metacritic" },
+      {
+        name: "ordering",
+        value: [
+          { name: "Name", value: "name" },
+          { name: "Released", value: "released" },
+          { name: "Added", value: "added" },
+          { name: "Created", value: "created" },
+          { name: "Updated", value: "updated" },
+          { name: "Rating", value: "rating" },
+          { name: "Metacritic", value: "metacritic" },
+          { name: "Name Reverse", value: "-name" },
+          { name: "Released Reverse", value: "-released" },
+          { name: "Added Reverse", value: "-added" },
+          { name: "Created Reverse", value: "-created" },
+          { name: "Updated Reverse", value: "-updated" },
+          { name: "Rating Reverse", value: "-rating" },
+          { name: "Metacritic Reverse", value: "-metacritic" },
+        ],
+      },
     ],
     filter: [
       {
-        name: "platform",
+        name: "platforms",
         value: [
           { name: "Xbox One", value: "1" },
           { name: "iOS", value: "3" },
@@ -163,7 +179,7 @@ export const fetchOptions: Record<Category, FetchOptionsType> = {
         ],
       },
       {
-        name: "store",
+        name: "stores",
         value: [
           { name: "Steam", value: "1" },
           { name: "PlayStation Store", value: "2" },
@@ -178,7 +194,7 @@ export const fetchOptions: Record<Category, FetchOptionsType> = {
         ],
       },
       {
-        name: "genre",
+        name: "genres",
         value: [
           { name: "Racing", value: "1" },
           { name: "Shooter", value: "2" },
@@ -206,6 +222,10 @@ export const fetchOptions: Record<Category, FetchOptionsType> = {
   },
   "free-games": {
     baseURL: "https://gamerpower.p.rapidapi.com/api/",
+    endPoints: {
+      list: "giveaways",
+      details: "giveaway?id=",
+    },
     apiKey: null,
     headers: {
       headers: {
@@ -213,14 +233,15 @@ export const fetchOptions: Record<Category, FetchOptionsType> = {
         "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
       },
     },
-    fetchEndPoints: {
-      default: "giveaways?sort=value&type=game",
-      details: "giveaway?id=",
-    },
     sort: [
-      { name: "Date", value: "date" },
-      { name: "Value", value: "value" },
-      { name: "Popularity", value: "popularity" },
+      {
+        name: "sort",
+        value: [
+          { name: "Date", value: "date" },
+          { name: "Value", value: "value" },
+          { name: "Popularity", value: "popularity" },
+        ],
+      },
     ],
     filter: [
       {

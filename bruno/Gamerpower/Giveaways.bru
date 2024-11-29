@@ -5,13 +5,13 @@ meta {
 }
 
 get {
-  url: {{gamerpowerURL}}giveaways?sort={{sort-by-value}}
+  url: {{gamerpowerURL}}giveaways
   body: none
   auth: none
 }
 
 params:query {
-  sort: {{sort-by-value}}
+  ~sort: {{sort-by-value}}
   ~type: {{type-game}}
   ~platform: {{platform-pc}}
 }

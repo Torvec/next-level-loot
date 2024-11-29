@@ -9,17 +9,19 @@ import {
 } from "@/components/ui/select";
 
 export default function SelectBox({
+  name,
   defaultValue,
   defaultName,
   data,
 }: {
+  name: string;
   defaultValue: string;
   defaultName: string;
   data: { name: string; value: string }[];
 }) {
   return (
     <div>
-      <Select defaultValue={defaultValue}>
+      <Select name={name} defaultValue={defaultValue}>
         <SelectTrigger className="w-[calc(100vw-32px)] lg:w-48">
           <SelectValue placeholder={defaultName} />
         </SelectTrigger>

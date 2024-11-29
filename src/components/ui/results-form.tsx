@@ -16,9 +16,10 @@ export default function ResultsForm({ category }: { category: Category }) {
         <div>
           <span className="block text-sm text-muted-foreground">Sort</span>
           <SelectBox
-            defaultValue={sort[0].value}
-            defaultName={sort[0].name}
-            data={sort}
+            name={sort[0].name}
+            defaultValue={sort[0].value[0].value}
+            defaultName={sort[0].value[0].name}
+            data={sort[0].value}
           />
         </div>
         <div>
@@ -27,6 +28,7 @@ export default function ResultsForm({ category }: { category: Category }) {
             {filter.map((f) => (
               <SelectBox
                 key={f.name}
+                name={f.name}
                 defaultValue={f.value[0].value}
                 defaultName={f.value[0].name}
                 data={f.value}
@@ -36,7 +38,7 @@ export default function ResultsForm({ category }: { category: Category }) {
               type="submit"
               className="w-full max-w-64 bg-muted text-muted-foreground"
             >
-              Apply Filter
+              Apply
             </Button>
           </div>
         </div>

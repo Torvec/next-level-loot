@@ -14,7 +14,7 @@ export default async function Page({
 }) {
   const { id, category } = await params;
 
-  const data = await fetchDetails(category, id);
+  const data = await fetchDetails({ category, id });
 
   const categoryComponents: Record<Category, JSX.Element> = {
     "best-deals": <BestDealsDetails {...data} id={id} />,
@@ -27,10 +27,17 @@ export default async function Page({
   return <div className="py-32">{content}</div>;
 }
 
-async function fetchDetails(category: Category, id: string | number) {
-  const { baseURL, apiKey, headers, fetchEndPoints } = fetchOptions[category];
-  const endpoint = fetchEndPoints.details;
-  const url = `${baseURL}${endpoint}${id}${apiKey ? `?${apiKey}` : ""}`;
+async function fetchDetails({
+  category,
+  id,
+}: {
+  category: Category;
+  id: string | number;
+}) {
+  const { baseURL, apiKey, headers, endPoints } = fetchOptions[category];
+
+  const url = baseURL + endPoints.details + id + (apiKey ? "?" + apiKey : "");
+
   const response = await fetch(url, headers ?? undefined);
 
   if (!response.ok) {

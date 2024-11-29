@@ -5,16 +5,18 @@ meta {
 }
 
 get {
-  url: {{rawgURL}}games?key={{rawg-key}}&page_size=1&platforms={{platform-pc}}&ordering={{order-by-metacritic-rev}}
+  url: {{rawgURL}}games?key={{rawg-key}}
   body: none
   auth: none
 }
 
 params:query {
   key: {{rawg-key}}
-  page_size: 1
-  platforms: {{platform-pc}}
-  ordering: {{order-by-metacritic-rev}}
+  ~platforms: {{platform-pc}}
+  ~ordering: {{order-by-metacritic-rev}}
+  ~stores: {{store-steam}}
+  ~genres: {{genre-racing}}
+  ~page_size: 1
   ~dates: 
   ~metacritic: 
   ~search: 
@@ -22,10 +24,8 @@ params:query {
   ~search_precise: 
   ~search_exact: 
   ~parent_platforms: 
-  ~stores: 
   ~developers: 
   ~publishers: 
-  ~genres: 
   ~tags: 
   ~creators: 
   ~updated: 

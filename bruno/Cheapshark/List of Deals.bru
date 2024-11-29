@@ -5,15 +5,15 @@ meta {
 }
 
 get {
-  url: {{cheapsharkURL}}deals?sortBy={{sortby-dealrating}}
+  url: {{cheapsharkURL}}deals
   body: none
   auth: none
 }
 
 params:query {
-  sortBy: {{sortby-dealrating}}
-  ~onSale: 0
+  ~sortBy: {{sortby-dealrating}}
   ~storeID: {{store-id-steam}}
+  ~onSale: 0
   ~upperPrice: {{not-using}}
   ~pageNumber: 
   ~pageSize: 
