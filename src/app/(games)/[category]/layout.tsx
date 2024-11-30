@@ -11,7 +11,7 @@ export default async function Layout({
   const { category } = await params;
 
   return (
-    <div className="mt-8 space-y-16">
+    <div className="mb-32 mt-8 space-y-16">
       <ResultsForm category={category} />
       {children}
     </div>

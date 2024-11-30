@@ -24,7 +24,6 @@ export interface QueryType {
   endPoints: {
     default: string;
     details?: string;
-    search?: string;
   };
   headers?: Record<string, Record<string, string>>;
   queryParams: QueryParamType;
@@ -36,7 +35,6 @@ export const query: Record<Category, QueryType> = {
     endPoints: {
       default: "deals",
       details: "deals?id=",
-      search: "deals?title=",
     },
     queryParams: {
       sort: [
@@ -59,8 +57,8 @@ export const query: Record<Category, QueryType> = {
         {
           name: "desc",
           options: [
-            { name: "Ascending", value: "0" },
-            { name: "Descending", value: "1" },
+            { name: "Descending", value: "0" },
+            { name: "Ascending", value: "1" },
           ],
         },
       ],
@@ -117,7 +115,6 @@ export const query: Record<Category, QueryType> = {
     endPoints: {
       default: "games",
       details: "games/",
-      search: "games?search=",
     },
     queryParams: {
       apiKey: {
@@ -128,20 +125,20 @@ export const query: Record<Category, QueryType> = {
         {
           name: "ordering",
           options: [
-            { name: "Name", value: "name" },
-            { name: "Released", value: "released" },
-            { name: "Added", value: "added" },
-            { name: "Created", value: "created" },
-            { name: "Updated", value: "updated" },
-            { name: "Rating", value: "rating" },
-            { name: "Metacritic", value: "metacritic" },
-            { name: "Name Reverse", value: "-name" },
-            { name: "Released Reverse", value: "-released" },
-            { name: "Added Reverse", value: "-added" },
-            { name: "Created Reverse", value: "-created" },
-            { name: "Updated Reverse", value: "-updated" },
-            { name: "Rating Reverse", value: "-rating" },
-            { name: "Metacritic Reverse", value: "-metacritic" },
+            { name: "Name (Asc)", value: "name" },
+            { name: "Released (Asc)", value: "released" },
+            { name: "Added (Asc)", value: "added" },
+            { name: "Created (Asc)", value: "created" },
+            { name: "Updated (Asc)", value: "updated" },
+            { name: "Rating (Asc)", value: "rating" },
+            { name: "Metacritic (Asc)", value: "metacritic" },
+            { name: "Name (Dsc)", value: "-name" },
+            { name: "Released (Dsc)", value: "-released" },
+            { name: "Added (Dsc)", value: "-added" },
+            { name: "Created (Dsc)", value: "-created" },
+            { name: "Updated (Dsc)", value: "-updated" },
+            { name: "Rating (Dsc)", value: "-rating" },
+            { name: "Metacritic (Dsc)", value: "-metacritic" },
           ],
         },
       ],

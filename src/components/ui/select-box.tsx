@@ -23,12 +23,12 @@ export default function SelectBox({
     <div>
       <Select name={name} defaultValue={defaultValue}>
         <SelectTrigger className="w-[calc(100vw-32px)] lg:w-48">
-          <SelectValue placeholder={name + ": " + defaultName} />
+          <SelectValue placeholder={defaultName} />
         </SelectTrigger>
         <SelectContent>
-          {options.map(({ name, value }) => (
-            <SelectItem key={value} value={value}>
-              {name}
+          {options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.name}
             </SelectItem>
           ))}
         </SelectContent>

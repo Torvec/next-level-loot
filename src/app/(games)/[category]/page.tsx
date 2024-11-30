@@ -4,7 +4,6 @@ import {
   type HighestRatedGameType,
   type Category,
 } from "@/lib/types";
-import ResultsForm from "@/components/ui/results-form";
 import ResultsList from "@/components/ui/results-list";
 import BestDealsCard from "@/components/best-deals/best-deals-card";
 import FreeGamesCard from "@/components/free-games/free-games-card";
@@ -19,18 +18,36 @@ export default async function Page({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { category } = await params;
-  const { searchTerm } = await searchParams;
+  const { searchTerm, sort, order, ...filters } = await searchParams;
 
   const searchString = Array.isArray(searchTerm)
     ? searchTerm.join(",")
     : searchTerm || "";
 
-  const data = await fetchList({ category, searchTerm: searchString });
+  const selectedSort = Array.isArray(sort) ? sort[0] : sort || "";
+
+  const selectedOrder = Array.isArray(order) ? order[0] : order || "";
+
+  const selectedFilters: Record<string, string[]> = Object.fromEntries(
+    Object.entries(filters).map(([key, value]) => [
+      key,
+      (Array.isArray(value) ? value : [value]).filter(
+        (v): v is string => v !== undefined,
+      ),
+    ]),
+  );
+
+  const data = await fetchList({
+    category,
+    searchTerm: searchString,
+    selectedSort,
+    selectedOrder,
+    selectedFilters,
+  });
 
   if (data.length === 0) {
     return (
       <div className="my-32">
-        <ResultsForm category={category} />
         <h2 className="min-h-[50vh] place-content-center text-center font-bold">
           No Results found for
           <br /> {searchString}
@@ -62,27 +79,51 @@ export default async function Page({
 const fetchList = async ({
   category,
   searchTerm,
+  selectedSort,
+  selectedOrder,
+  selectedFilters,
 }: {
   category: Category;
-  searchTerm: string;
+  searchTerm?: string;
+  selectedSort?: string;
+  selectedOrder?: string;
+  selectedFilters?: Record<string, string[]>;
 }) => {
   const { baseURL, endPoints, queryParams, headers } = query[category];
-  const key = queryParams.apiKey
-    ? queryParams.apiKey.name + "=" + queryParams.apiKey.value
-    : "";
+  const { apiKey, search, sort, order, filters } = queryParams;
 
-  let url;
-  if (searchTerm) {
-    url = baseURL + endPoints.search + searchTerm + (key ? "&" + key : "");
-  } else {
-    url = baseURL + endPoints.default + (key ? "?" + key : "");
+  const url = new URL(baseURL + endPoints.default);
+
+  if (apiKey) {
+    url.searchParams.append(apiKey.name, apiKey.value);
   }
-  console.log(url);
-  const response = await fetch(url, headers ?? undefined);
+
+  if (searchTerm && search) {
+    url.searchParams.append(search.name, searchTerm);
+  }
+
+  if (selectedSort && sort) {
+    url.searchParams.append(sort[0].name, selectedSort);
+  }
+
+  if (selectedOrder && order) {
+    url.searchParams.append(order[0].name, selectedOrder);
+  }
+
+  if (selectedFilters && filters) {
+    Object.entries(selectedFilters).forEach(([filterName, values]) => {
+      values.forEach((value) => {
+        url.searchParams.append(filterName, value);
+      });
+    });
+  }
+
+  console.log(`Generated URL: ${url.toString()}`);
+  const response = await fetch(url.toString(), headers ?? undefined);
 
   if (!response.ok) {
     throw new Error(
-      `HTTP error! Status: ${response.status} ${response.statusText}`,
+      `Failed to fetch data. Status: ${response.status} ${response.statusText}`,
     );
   }
 
