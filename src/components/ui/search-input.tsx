@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/buttons/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
-export default function SearchInput() {
+export default function SearchInput({ placeholder }: { placeholder: string }) {
   return (
     <Form action={""} className="relative w-full max-w-64">
       <Input
-        name="search"
+        name="searchTerm"
         type="search"
-        placeholder="Search..."
+        placeholder={placeholder}
         className="rounded-xl bg-muted pr-10 text-muted-foreground"
       />
       <Button

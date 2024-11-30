@@ -1,49 +1,67 @@
 "use client";
 
 import Form from "next/form";
-import { fetchOptions } from "@/lib/fetch";
+import { query } from "@/lib/query";
 import SelectBox from "@/components/ui/select-box";
 import SearchInput from "@/components/ui/search-input";
 import { Button } from "@/components/ui/buttons/button";
 import { type Category } from "@/lib/types";
 
 export default function ResultsForm({ category }: { category: Category }) {
-  const { sort, filter, search } = fetchOptions[category];
+  const { sort, order, filters, search } = query[category].queryParams;
 
   return (
     <div className="flex flex-wrap items-end justify-between gap-2">
-      <Form action={""} className="flex flex-col gap-4 lg:flex-row">
-        <div>
-          <span className="block text-sm text-muted-foreground">Sort</span>
-          <SelectBox
-            name={sort[0].name}
-            defaultValue={sort[0].value[0].value}
-            defaultName={sort[0].value[0].name}
-            data={sort[0].value}
-          />
-        </div>
-        <div>
-          <span className="block text-sm text-muted-foreground">Filter</span>
-          <div className="flex flex-col items-center gap-2 lg:flex-row">
-            {filter.map((f) => (
-              <SelectBox
-                key={f.name}
-                name={f.name}
-                defaultValue={f.value[0].value}
-                defaultName={f.value[0].name}
-                data={f.value}
-              />
-            ))}
-            <Button
-              type="submit"
-              className="w-full max-w-64 bg-muted text-muted-foreground"
-            >
-              Apply
-            </Button>
+      <Form
+        action={""}
+        className="flex flex-col gap-4 lg:flex-row lg:items-end"
+      >
+        {sort && (
+          <div>
+            <span className="block text-sm text-muted-foreground">Sort</span>
+            <SelectBox
+              name={sort[0].name}
+              defaultValue={sort[0].options[0].value}
+              defaultName={sort[0].options[0].name}
+              options={sort[0].options}
+            />
           </div>
-        </div>
+        )}
+        {order && (
+          <div>
+            <span className="block text-sm text-muted-foreground">Order</span>
+            <SelectBox
+              name={order[0].name}
+              defaultValue={order[0].options[0].value}
+              defaultName={order[0].options[0].name}
+              options={order[0].options}
+            />
+          </div>
+        )}
+        {filters && (
+          <div>
+            <span className="block text-sm text-muted-foreground">Filter</span>
+            <div className="flex flex-col items-center gap-2 lg:flex-row">
+              {filters.map(({ name, options }) => (
+                <SelectBox
+                  key={name}
+                  name={name}
+                  defaultValue={options[0].value}
+                  defaultName={options[0].name}
+                  options={options}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        <Button
+          type="submit"
+          className="w-full max-w-64 bg-muted text-muted-foreground"
+        >
+          Apply
+        </Button>
       </Form>
-      {search && <SearchInput />}
+      {search && <SearchInput placeholder={search.placeholder} />}
     </div>
   );
 }

@@ -9,7 +9,7 @@ import ResultsList from "@/components/ui/results-list";
 import BestDealsCard from "@/components/best-deals/best-deals-card";
 import FreeGamesCard from "@/components/free-games/free-games-card";
 import HighestRatedGamesCard from "@/components/highest-rated/highest-rated-games-card";
-import { fetchOptions } from "@/lib/fetch";
+import { query } from "@/lib/query";
 
 export default async function Page({
   params,
@@ -19,11 +19,14 @@ export default async function Page({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { category } = await params;
-  const { search } = await searchParams;
+  const { searchTerm } = await searchParams;
 
-  const searchString = Array.isArray(search) ? search.join(",") : search || "";
+  const searchString = Array.isArray(searchTerm)
+    ? searchTerm.join(",")
+    : searchTerm || "";
 
-  const data = await fetchList({ category, search: searchString });
+  const data = await fetchList({ category, searchTerm: searchString });
+
   if (data.length === 0) {
     return (
       <div className="my-32">
@@ -50,29 +53,31 @@ export default async function Page({
   const content = cards[category](data);
 
   return (
-    <div className="my-16 space-y-16">
-      <ResultsForm category={category} />
+    <>
       <ResultsList>{content}</ResultsList>
-    </div>
+    </>
   );
 }
 
 const fetchList = async ({
   category,
-  search,
+  searchTerm,
 }: {
   category: Category;
-  search: string;
+  searchTerm: string;
 }) => {
-  const { baseURL, apiKey, headers, endPoints } = fetchOptions[category];
+  const { baseURL, endPoints, queryParams, headers } = query[category];
+  const key = queryParams.apiKey
+    ? queryParams.apiKey.name + "=" + queryParams.apiKey.value
+    : "";
 
   let url;
-  if (!search) {
-    url = baseURL + endPoints.list + (apiKey ? "?" + apiKey : "");
+  if (searchTerm) {
+    url = baseURL + endPoints.search + searchTerm + (key ? "&" + key : "");
   } else {
-    url = baseURL + endPoints.search + search + (apiKey ? "&" + apiKey : "");
+    url = baseURL + endPoints.default + (key ? "?" + key : "");
   }
-
+  console.log(url);
   const response = await fetch(url, headers ?? undefined);
 
   if (!response.ok) {

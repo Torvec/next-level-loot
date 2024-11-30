@@ -12,7 +12,7 @@ import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import { BestDealsDetailsType } from "@/lib/types";
-import { fetchOptions } from "@/lib/fetch";
+import { query } from "@/lib/query";
 import { ChevronRight } from "lucide-react";
 
 export default function BestDealsDetails({
@@ -120,8 +120,9 @@ export default function BestDealsDetails({
   };
 
   const CheaperDealsSection = () => {
-    const fetchStores = fetchOptions["best-deals"].filter[0].value;
-    const storeNames = fetchStores && fetchStores.map((store) => store.name);
+    const storeOptions =
+      query["best-deals"]?.queryParams?.filters?.[0]?.options;
+    const storeNames = storeOptions && storeOptions.map((store) => store.name);
 
     return (
       <div className="rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">

@@ -1,5 +1,5 @@
 import { Category } from "@/lib/types";
-import { fetchOptions } from "@/lib/fetch";
+import { query } from "@/lib/query";
 import BestDealsDetails from "@/components/best-deals/best-deals-details";
 import FreeGamesDetails from "@/components/free-games/free-games-details";
 import HighestRatedDetails from "@/components/highest-rated/highest-rated-details";
@@ -16,15 +16,15 @@ export default async function Page({
 
   const data = await fetchDetails({ category, id });
 
-  const categoryComponents: Record<Category, JSX.Element> = {
+  const details: Record<Category, JSX.Element> = {
     "best-deals": <BestDealsDetails {...data} id={id} />,
     "free-games": <FreeGamesDetails {...data} />,
     "highest-rated": <HighestRatedDetails {...data} />,
   };
 
-  const content = categoryComponents[category];
+  const content = details[category];
 
-  return <div className="py-32">{content}</div>;
+  return <div className="pb-32">{content}</div>;
 }
 
 async function fetchDetails({
@@ -34,9 +34,12 @@ async function fetchDetails({
   category: Category;
   id: string | number;
 }) {
-  const { baseURL, apiKey, headers, endPoints } = fetchOptions[category];
+  const { baseURL, endPoints, queryParams, headers } = query[category];
+  const key = queryParams.apiKey
+    ? queryParams.apiKey.name + "=" + queryParams.apiKey.value
+    : "";
 
-  const url = baseURL + endPoints.details + id + (apiKey ? "?" + apiKey : "");
+  const url = baseURL + endPoints.details + id + (key ? "?" + key : "");
 
   const response = await fetch(url, headers ?? undefined);
 
