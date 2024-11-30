@@ -24,7 +24,7 @@ export default async function Page({
 
   const content = details[category];
 
-  return <div className="pb-32">{content}</div>;
+  return <div className="py-32">{content}</div>;
 }
 
 async function fetchDetails({

@@ -5,6 +5,7 @@ import {
   type Category,
 } from "@/lib/types";
 import fetchData from "@/lib/fetch-data";
+import ResultsForm from "@/components/ui/results-form";
 import ResultsList from "@/components/ui/results-list";
 import BestDealsCard from "@/components/best-deals/best-deals-card";
 import FreeGamesCard from "@/components/free-games/free-games-card";
@@ -70,8 +71,9 @@ export default async function Page({
   const content = cards[category](data);
 
   return (
-    <>
+    <div className="mb-32 mt-8 space-y-16">
+      <ResultsForm category={category} />
       <ResultsList>{content}</ResultsList>
-    </>
+    </div>
   );
 }
