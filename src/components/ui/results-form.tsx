@@ -20,10 +20,10 @@ export default function ResultsForm({ category }: { category: Category }) {
           <div>
             <span className="block text-sm text-muted-foreground">Sort</span>
             <SelectBox
-              name={sort[0].name}
-              defaultValue={sort[0].options[0].value}
-              defaultName={sort[0].options[0].name}
-              options={sort[0].options}
+              name={sort.name}
+              defaultValue={sort.options[0].value}
+              defaultName={sort.options[0].name}
+              options={sort.options}
             />
           </div>
         )}
@@ -31,10 +31,10 @@ export default function ResultsForm({ category }: { category: Category }) {
           <div>
             <span className="block text-sm text-muted-foreground">Order</span>
             <SelectBox
-              name={order[0].name}
-              defaultValue={order[0].options[0].value}
-              defaultName={order[0].options[0].name}
-              options={order[0].options}
+              name={order.name}
+              defaultValue={order.options[0].value}
+              defaultName={order.options[0].name}
+              options={order.options}
             />
           </div>
         )}

@@ -1,4 +1,4 @@
-import { Category } from "@/lib/types";
+import { type Category } from "@/lib/types";
 import { query } from "@/lib/query";
 
 export default async function fetchData({
@@ -7,33 +7,44 @@ export default async function fetchData({
   selectedSort,
   selectedOrder,
   selectedFilters,
+  id,
 }: {
   category: Category;
   searchTerm?: string;
   selectedSort?: string;
   selectedOrder?: string;
   selectedFilters?: Record<string, string[]>;
+  id?: string;
 }) {
   const { baseURL, endPoints, queryParams, headers } = query[category];
-  const { apiKey, search, sort, order, filters } = queryParams;
+  const { apiKey, search, sort, order, filters, details } = queryParams;
 
-  const url = new URL(baseURL + endPoints.default);
-
-  if (apiKey) {
-    url.searchParams.append(apiKey.name, apiKey.value);
+  let url;
+  if (id) {
+    if (category === "free-games") {
+      // Because the endpoint is giveaway and not giveaways
+      url = new URL(baseURL + endPoints.details);
+    } else if (category === "highest-rated") {
+      // Because the endpoint is games but with a / at the end and that gets encoded weirdly to %2F
+      url = new URL(baseURL + endPoints.default + "/" + id);
+    } else {
+      url = new URL(baseURL + endPoints.default);
+    }
+  } else {
+    url = new URL(baseURL + endPoints.default);
   }
 
-  if (searchTerm && search) {
-    url.searchParams.append(search.name, searchTerm);
-  }
+  if (details && id)
+    url.searchParams.append(details.name, decodeURIComponent(id));
 
-  if (selectedSort && sort) {
-    url.searchParams.append(sort[0].name, selectedSort);
-  }
+  if (apiKey) url.searchParams.append(apiKey.name, apiKey.value);
 
-  if (selectedOrder && order) {
-    url.searchParams.append(order[0].name, selectedOrder);
-  }
+  if (searchTerm && search) url.searchParams.append(search.name, searchTerm);
+
+  if (selectedSort && sort) url.searchParams.append(sort.name, selectedSort);
+
+  if (selectedOrder && order)
+    url.searchParams.append(order.name, selectedOrder);
 
   if (selectedFilters && filters) {
     Object.entries(selectedFilters).forEach(([filterName, values]) => {
@@ -43,7 +54,6 @@ export default async function fetchData({
     });
   }
 
-  // console.log(`Generated URL: ${url.toString()}`);
   const response = await fetch(url.toString(), headers ?? undefined);
 
   if (!response.ok) {

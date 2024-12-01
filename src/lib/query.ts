@@ -10,12 +10,15 @@ interface QueryParamType {
     name: string;
     value: string;
   };
-  sort?: Option[];
-  order?: Option[];
+  sort?: Option;
+  order?: Option;
   filters?: Option[];
   search?: {
     name: string;
     placeholder: string;
+  };
+  details?: {
+    name: string;
   };
 }
 
@@ -34,34 +37,29 @@ export const query: Record<Category, QueryType> = {
     baseURL: "https://www.cheapshark.com/api/1.0/",
     endPoints: {
       default: "deals",
-      details: "deals?id=",
     },
     queryParams: {
-      sort: [
-        {
-          name: "sortBy",
-          options: [
-            { name: "Deal Rating", value: "DealRating" },
-            { name: "Title", value: "Title" },
-            { name: "Savings", value: "Savings" },
-            { name: "Price", value: "Price" },
-            { name: "Metacritic", value: "Metacritic" },
-            { name: "Reviews", value: "Reviews" },
-            { name: "Release", value: "Release" },
-            { name: "Store", value: "Store" },
-            { name: "Recent", value: "Recent" },
-          ],
-        },
-      ],
-      order: [
-        {
-          name: "desc",
-          options: [
-            { name: "Descending", value: "0" },
-            { name: "Ascending", value: "1" },
-          ],
-        },
-      ],
+      sort: {
+        name: "sortBy",
+        options: [
+          { name: "Deal Rating", value: "DealRating" },
+          { name: "Title", value: "Title" },
+          { name: "Savings", value: "Savings" },
+          { name: "Price", value: "Price" },
+          { name: "Metacritic", value: "Metacritic" },
+          { name: "Reviews", value: "Reviews" },
+          { name: "Release", value: "Release" },
+          { name: "Store", value: "Store" },
+          { name: "Recent", value: "Recent" },
+        ],
+      },
+      order: {
+        name: "desc",
+        options: [
+          { name: "Descending", value: "0" },
+          { name: "Ascending", value: "1" },
+        ],
+      },
       filters: [
         {
           name: "storeID",
@@ -108,40 +106,40 @@ export const query: Record<Category, QueryType> = {
         name: "title",
         placeholder: "Search for deals",
       },
+      details: {
+        name: "id",
+      },
     },
   },
   "highest-rated": {
     baseURL: "https://api.rawg.io/api/",
     endPoints: {
       default: "games",
-      details: "games/",
     },
     queryParams: {
       apiKey: {
         name: "key",
         value: process.env.RAWG_API_KEY || "",
       },
-      sort: [
-        {
-          name: "ordering",
-          options: [
-            { name: "Name (Asc)", value: "name" },
-            { name: "Released (Asc)", value: "released" },
-            { name: "Added (Asc)", value: "added" },
-            { name: "Created (Asc)", value: "created" },
-            { name: "Updated (Asc)", value: "updated" },
-            { name: "Rating (Asc)", value: "rating" },
-            { name: "Metacritic (Asc)", value: "metacritic" },
-            { name: "Name (Dsc)", value: "-name" },
-            { name: "Released (Dsc)", value: "-released" },
-            { name: "Added (Dsc)", value: "-added" },
-            { name: "Created (Dsc)", value: "-created" },
-            { name: "Updated (Dsc)", value: "-updated" },
-            { name: "Rating (Dsc)", value: "-rating" },
-            { name: "Metacritic (Dsc)", value: "-metacritic" },
-          ],
-        },
-      ],
+      sort: {
+        name: "ordering",
+        options: [
+          { name: "Name (Asc)", value: "name" },
+          { name: "Released (Asc)", value: "released" },
+          { name: "Added (Asc)", value: "added" },
+          { name: "Created (Asc)", value: "created" },
+          { name: "Updated (Asc)", value: "updated" },
+          { name: "Rating (Asc)", value: "rating" },
+          { name: "Metacritic (Asc)", value: "metacritic" },
+          { name: "Name (Dsc)", value: "-name" },
+          { name: "Released (Dsc)", value: "-released" },
+          { name: "Added (Dsc)", value: "-added" },
+          { name: "Created (Dsc)", value: "-created" },
+          { name: "Updated (Dsc)", value: "-updated" },
+          { name: "Rating (Dsc)", value: "-rating" },
+          { name: "Metacritic (Dsc)", value: "-metacritic" },
+        ],
+      },
       filters: [
         {
           name: "platforms",
@@ -249,19 +247,17 @@ export const query: Record<Category, QueryType> = {
     baseURL: "https://gamerpower.p.rapidapi.com/api/",
     endPoints: {
       default: "giveaways",
-      details: "giveaway?id=",
+      details: "giveaway",
     },
     queryParams: {
-      sort: [
-        {
-          name: "sort",
-          options: [
-            { name: "Date", value: "date" },
-            { name: "Value", value: "value" },
-            { name: "Popularity", value: "popularity" },
-          ],
-        },
-      ],
+      sort: {
+        name: "sort",
+        options: [
+          { name: "Date", value: "date" },
+          { name: "Value", value: "value" },
+          { name: "Popularity", value: "popularity" },
+        ],
+      },
       filters: [
         {
           name: "platform",
@@ -294,6 +290,9 @@ export const query: Record<Category, QueryType> = {
           ],
         },
       ],
+      details: {
+        name: "id",
+      },
     },
     headers: {
       headers: {
