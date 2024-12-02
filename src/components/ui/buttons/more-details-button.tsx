@@ -15,7 +15,7 @@ export default function MoreDetailsButton({
       className="w-full bg-background text-muted-foreground hover:text-muted"
     >
       <Link href={`${path}${id}`}>
-        More Details <ChevronRight />
+        Details <ChevronRight />
       </Link>
     </Button>
   );

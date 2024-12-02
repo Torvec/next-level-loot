@@ -129,24 +129,24 @@ export default function BestDealsDetails({
   };
 
   const CheaperDealsSection = () => {
-    const storeOptions =
-      query["best-deals"]?.queryParams?.filters?.[0]?.options;
-    const storeNames = storeOptions && storeOptions.map((store) => store.name);
+    const storeOptions = query["best-deals"].queryParams.filters?.[0].options;
 
     return (
       <div className="mx-auto max-w-4xl rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
         <h3 className="mb-4 text-xl font-bold">Cheaper Deals</h3>
-        <div className="flex flex-col gap-12 sm:flex-row">
+        <div className="flex flex-col gap-12 sm:flex-row sm:flex-wrap">
           {data.cheaperStores.length > 0 ? (
             data.cheaperStores.map((cs, index) => {
-              const storeID = Number(cs.storeID);
+              const storeName = storeOptions?.find(
+                (name) => name.value === cs.storeID,
+              );
               return (
                 <div
                   key={cs.dealID}
                   className="flex w-full flex-col justify-between gap-2 lg:w-1/6"
                 >
                   <h3 className="font-bold opacity-75">
-                    {storeNames && storeNames[storeID - 1]} Deal
+                    {storeName?.name} Deal
                   </h3>
                   <div className="flex flex-col gap-2">
                     <div className="space-x-2">

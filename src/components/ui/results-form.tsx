@@ -21,8 +21,7 @@ export default function ResultsForm({ category }: { category: Category }) {
             <span className="block text-sm text-muted-foreground">Sort</span>
             <SelectBox
               name={sort.name}
-              defaultValue={sort.options[0].value}
-              defaultName={sort.options[0].name}
+              placeholder={sort.placeholder}
               options={sort.options}
             />
           </div>
@@ -32,8 +31,7 @@ export default function ResultsForm({ category }: { category: Category }) {
             <span className="block text-sm text-muted-foreground">Order</span>
             <SelectBox
               name={order.name}
-              defaultValue={order.options[0].value}
-              defaultName={order.options[0].name}
+              placeholder={order.placeholder}
               options={order.options}
             />
           </div>
@@ -42,12 +40,11 @@ export default function ResultsForm({ category }: { category: Category }) {
           <div>
             <span className="block text-sm text-muted-foreground">Filter</span>
             <div className="flex flex-col items-center gap-2 lg:flex-row">
-              {filters.map(({ name, options }) => (
+              {filters.map(({ name, placeholder, options }) => (
                 <SelectBox
                   key={name}
                   name={name}
-                  defaultValue={options[0].value}
-                  defaultName={options[0].name}
+                  placeholder={placeholder}
                   options={options}
                 />
               ))}

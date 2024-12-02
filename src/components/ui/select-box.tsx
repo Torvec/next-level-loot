@@ -10,20 +10,18 @@ import {
 
 export default function SelectBox({
   name,
-  defaultValue,
-  defaultName,
+  placeholder,
   options,
 }: {
   name: string;
-  defaultValue: string;
-  defaultName: string;
+  placeholder: string;
   options: { name: string; value: string }[];
 }) {
   return (
     <div>
-      <Select name={name} defaultValue={defaultValue}>
+      <Select name={name}>
         <SelectTrigger className="w-[calc(100vw-32px)] lg:w-48">
-          <SelectValue placeholder={defaultName} />
+          <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
           {options.map((option) => (
