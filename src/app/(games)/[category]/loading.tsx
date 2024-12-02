@@ -10,7 +10,7 @@ import {
 import ResultsList from "@/components/ui/results-list";
 
 export default function Loading() {
-  const skeletonCards = Array.from({ length: 9 }).map((_, index) => (
+  const skeletonCards = Array.from({ length: 12 }).map((_, index) => (
     <SkeletonCard key={index} />
   ));
 
@@ -34,22 +34,22 @@ const SkeletonCard = () => (
     <CardHeader>
       <Skeleton className="mb-4 h-48 rounded-xl" />
       <CardTitle>
-        <Skeleton className="h-8" />
+        <Skeleton className="h-6" />
       </CardTitle>
-      <CardDescription className="flex flex-col gap-2 lg:flex-row lg:justify-between">
-        <Skeleton className="h-6 w-1/2" />
-        <Skeleton className="h-6 w-1/3" />
+      <CardDescription className="space-y-2">
+        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="h-4 w-1/3" />
       </CardDescription>
     </CardHeader>
     <CardContent>
-      <Skeleton className="h-72" />
+      <Skeleton className="h-44" />
     </CardContent>
     <CardFooter className="flex-col gap-4">
+      <Skeleton className="h-10 w-full" />
       <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
         <Skeleton className="h-10 w-full" />
         <Skeleton className="h-10 w-full" />
       </div>
-      <Skeleton className="h-10 w-full" />
     </CardFooter>
   </Card>
 );

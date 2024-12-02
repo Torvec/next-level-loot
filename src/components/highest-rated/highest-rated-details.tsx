@@ -124,63 +124,57 @@ export default function HighestRatedDetails(data: HighestRatedGameDetailsType) {
   );
 
   return (
-    <>
-      <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
-        <div className="lg:w-1/3">
-          <BannerSection src={data.background_image} alt={data.name} />
+    <Card className="mx-auto flex max-w-4xl flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
+      <CardHeader>
+        <BannerSection src={data.background_image} alt={data.name} />
+        <CardTitle>
+          <h2>{data.name}</h2>
+        </CardTitle>
+        <CardDescription>
+          <DescriptionSection />
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="mb-8 space-y-8">
+        <ScoreRatingSection />
+        <DescriptionText />
+        <div className="grid gap-4 sm:grid-cols-3">
+          <InfoList
+            title="Platforms"
+            list={data.platforms}
+            keyExtractor={(p) => p.platform.id.toString()}
+            renderItem={(p) => p.platform.name}
+          />
+          <InfoList
+            title="Genres"
+            list={data.genres}
+            keyExtractor={(genre) => genre.id.toString()}
+            renderItem={(genre) => genre.name}
+          />
+          <InfoList
+            title="Stores"
+            list={data.stores}
+            keyExtractor={(s) => s.store.id.toString()}
+            renderItem={(s) => s.store.name}
+          />
+          <InfoList
+            title="Developers"
+            list={data.developers}
+            keyExtractor={(d) => d.id.toString()}
+            renderItem={(d) => d.name}
+          />
+          <InfoList
+            title="Publishers"
+            list={data.publishers}
+            keyExtractor={(p) => p.id.toString()}
+            renderItem={(p) => p.name}
+          />
         </div>
-        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20 lg:w-2/3">
-          <CardHeader>
-            <CardTitle>
-              <h2>{data.name}</h2>
-            </CardTitle>
-            <CardDescription>
-              <DescriptionSection />
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="mb-8 space-y-8">
-            <ScoreRatingSection />
-            <DescriptionText />
-            <div className="grid gap-4 sm:grid-cols-3">
-              <InfoList
-                title="Platforms"
-                list={data.platforms}
-                keyExtractor={(p) => p.platform.id.toString()}
-                renderItem={(p) => p.platform.name}
-              />
-              <InfoList
-                title="Genres"
-                list={data.genres}
-                keyExtractor={(genre) => genre.id.toString()}
-                renderItem={(genre) => genre.name}
-              />
-              <InfoList
-                title="Stores"
-                list={data.stores}
-                keyExtractor={(s) => s.store.id.toString()}
-                renderItem={(s) => s.store.name}
-              />
-              <InfoList
-                title="Developers"
-                list={data.developers}
-                keyExtractor={(d) => d.id.toString()}
-                renderItem={(d) => d.name}
-              />
-              <InfoList
-                title="Publishers"
-                list={data.publishers}
-                keyExtractor={(p) => p.id.toString()}
-                renderItem={(p) => p.name}
-              />
-            </div>
-            <TagList />
-          </CardContent>
-          <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-            <FindDealsButton title={data.name} />
-            <WishlistButton title={data.name} />
-          </CardFooter>
-        </Card>
-      </div>
-    </>
+        <TagList />
+      </CardContent>
+      <CardFooter className="flex-col justify-between gap-4 md:flex-row">
+        <FindDealsButton title={data.name} />
+        <WishlistButton title={data.name} />
+      </CardFooter>
+    </Card>
   );
 }

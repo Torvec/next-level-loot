@@ -14,32 +14,21 @@ import { FreeGameType } from "@/lib/types";
 
 export default function FreeGamesCard(data: FreeGameType) {
   const DescriptionSection = () => (
-    <>
-      <div>
-        <p>Type: {data.type}</p>
-        <p>Platforms: {data.platforms}</p>
-      </div>
-      <div className="lg:text-right">
-        <p>Started: {data.published_date}</p>
-        <p>Ends: {data.end_date}</p>
-      </div>
-    </>
+    <div className="space-y-1">
+      <p>Type: {data.type}</p>
+      <p>Platforms: {data.platforms}</p>
+      <p>Start: {data.published_date}</p>
+      <p>End: {data.end_date}</p>
+    </div>
   );
 
   const PriceSection = () => {
     return (
-      <div className="mx-auto w-max space-y-4 text-center text-base">
-        <div className="flex gap-4">
-          <span className="rounded-xl border-4 border-gold-foreground p-4 text-2xl font-black text-gold-foreground">
-            -100%
-          </span>
-          <div className="flex flex-col justify-between">
-            <span className="text-muted-foreground line-through">
-              {data.worth}
-            </span>
-            <span className="text-2xl font-bold">Free!</span>
-          </div>
-        </div>
+      <div className="">
+        <span className="block text-2xl font-bold">Free!</span>
+        <span className="block text-muted-foreground line-through">
+          {data.worth}
+        </span>
       </div>
     );
   };
@@ -49,9 +38,9 @@ export default function FreeGamesCard(data: FreeGameType) {
       <CardHeader>
         <BannerSection src={data.image} alt={data.title} />
         <CardTitle>
-          <h2>{data.title}</h2>
+          <h2 className="text-lg">{data.title}</h2>
         </CardTitle>
-        <CardDescription className="flex flex-col justify-between gap-4 sm:flex-row">
+        <CardDescription>
           <DescriptionSection />
         </CardDescription>
       </CardHeader>
@@ -59,11 +48,11 @@ export default function FreeGamesCard(data: FreeGameType) {
         <PriceSection />
       </CardContent>
       <CardFooter className="flex-col gap-4">
+        <RedirectButton url={data.open_giveaway_url} text={"Get Giveaway"} />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <RedirectButton url={data.open_giveaway_url} text={"Get Giveaway"} />
           <WishlistButton title={data.title} />
+          <MoreDetailsButton path={"/free-games/"} id={data.id} />
         </div>
-        <MoreDetailsButton path={"/free-games/"} id={data.id} />
       </CardFooter>
     </Card>
   );

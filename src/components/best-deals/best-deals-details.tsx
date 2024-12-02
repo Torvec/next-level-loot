@@ -13,7 +13,7 @@ import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import { BestDealsDetailsType } from "@/lib/types";
 import { query } from "@/lib/query";
-import { ChevronRight } from "lucide-react";
+import { ThumbsUp, ThumbsDown, ChevronRight } from "lucide-react";
 
 export default function BestDealsDetails({
   id,
@@ -30,9 +30,9 @@ export default function BestDealsDetails({
 
   const ScoreRatingSection = () => {
     return (
-      <div className="flex gap-4">
+      <div className="space-y-4">
         {data.gameInfo.metacriticLink ? (
-          <div className="flex w-1/3 flex-col justify-between gap-1 rounded-xl border-2 border-muted-foreground py-4 text-center">
+          <div className="flex flex-col justify-between gap-1 rounded-xl border-2 border-muted py-4 text-center">
             <span className="block text-sm font-bold uppercase opacity-80">
               Score
             </span>
@@ -56,7 +56,7 @@ export default function BestDealsDetails({
           </p>
         )}
         {data.gameInfo.steamAppID ? (
-          <div className="flex w-2/3 flex-grow flex-col justify-center gap-1">
+          <div className="flex flex-grow flex-col justify-center gap-1">
             <a
               href={`https://store.steampowered.com/app/${data.gameInfo.steamAppID}`}
               target="_blank"
@@ -67,15 +67,24 @@ export default function BestDealsDetails({
               </span>
             </a>
             <div className="flex justify-between rounded py-0.5 text-sm">
-              <span>{data.gameInfo.steamRatingPercent}%</span>
-              <span className="pr-2">{data.gameInfo.steamRatingText}</span>
+              <div className="flex items-start gap-1">
+                <span>{data.gameInfo.steamRatingPercent}%</span>
+                <ThumbsUp size={16} />
+              </div>
+              <div className="flex items-end gap-1">
+                <span>{100 - Number(data.gameInfo.steamRatingPercent)}%</span>
+                <ThumbsDown size={16} />
+              </div>
             </div>
-            <div className="rounded bg-muted">
+            <div className="rounded-xl border border-foreground/50 bg-muted">
               <span
                 className="block h-4 rounded bg-muted-foreground pl-2"
                 style={{ width: `${data.gameInfo.steamRatingPercent}%` }}
               />
             </div>
+            <span className="block text-center">
+              {data.gameInfo.steamRatingText}
+            </span>
             <span className="block text-center text-sm text-muted-foreground">
               {data.gameInfo.steamRatingCount} Ratings
             </span>
@@ -125,7 +134,7 @@ export default function BestDealsDetails({
     const storeNames = storeOptions && storeOptions.map((store) => store.name);
 
     return (
-      <div className="rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
+      <div className="mx-auto max-w-4xl rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
         <h3 className="mb-4 text-xl font-bold">Cheaper Deals</h3>
         <div className="flex flex-col gap-12 sm:flex-row">
           {data.cheaperStores.length > 0 ? (
@@ -179,34 +188,30 @@ export default function BestDealsDetails({
 
   return (
     <>
-      <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
-        <div className="lg:w-1/3">
+      <Card className="mx-auto mb-8 flex max-w-4xl flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
+        <CardHeader>
           <BannerSection src={data.gameInfo.thumb} alt={data.gameInfo.name} />
-        </div>
-        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20 lg:w-2/3">
-          <CardHeader>
-            <CardTitle>
-              <h2>{data.gameInfo.name}</h2>
-            </CardTitle>
-            <CardDescription className="flex justify-between">
-              <DescriptionSection />
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="mb-8 space-y-1">
-            <ScoreRatingSection />
-            <PriceSection />
-          </CardContent>
-          <CardFooter>
-            <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-              <RedirectButton
-                url={`https://www.cheapshark.com/redirect?dealID=${id}&k=1`}
-                text={"Get Deal"}
-              />
-              <WishlistButton title={data.gameInfo.name} />
-            </div>
-          </CardFooter>
-        </Card>
-      </div>
+          <CardTitle>
+            <h2>{data.gameInfo.name}</h2>
+          </CardTitle>
+          <CardDescription className="flex justify-between">
+            <DescriptionSection />
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="mb-8 space-y-1">
+          <ScoreRatingSection />
+          <PriceSection />
+        </CardContent>
+        <CardFooter>
+          <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
+            <RedirectButton
+              url={`https://www.cheapshark.com/redirect?dealID=${id}&k=1`}
+              text={"Get Deal"}
+            />
+            <WishlistButton title={data.gameInfo.name} />
+          </div>
+        </CardFooter>
+      </Card>
       <CheaperDealsSection />
     </>
   );

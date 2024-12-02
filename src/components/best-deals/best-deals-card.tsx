@@ -26,10 +26,7 @@ export default function BestDealsCard(data: BestDealsType) {
     return (
       <div className="flex gap-4">
         {data.metacriticLink ? (
-          <div className="flex w-1/3 flex-col justify-between gap-1 rounded-xl border-2 border-muted-foreground py-4 text-center">
-            <span className="block text-sm font-bold uppercase opacity-80">
-              Score
-            </span>
+          <div className="flex h-full w-full flex-col justify-between gap-1 rounded-xl border-2 border-muted py-4 text-center">
             <span className="block text-3xl font-black">
               {data.metacriticScore !== "0"
                 ? data.metacriticScore + "%"
@@ -44,35 +41,25 @@ export default function BestDealsCard(data: BestDealsType) {
             </a>
           </div>
         ) : (
-          <p className="h-full w-full place-content-center bg-muted p-2 text-muted-foreground">
+          <p className="w-full place-content-center bg-muted p-2 text-muted-foreground">
             Metacritic
             <br /> Data Unavailable
           </p>
         )}
         {data.steamAppID ? (
-          <div className="flex w-2/3 flex-grow flex-col justify-center gap-1">
+          <div className="flex w-full flex-col justify-between gap-1 rounded-xl border-2 border-muted py-4 text-center">
+            <span className="block text-3xl font-black">
+              {data.steamRatingPercent !== 0
+                ? data.steamRatingPercent + "%"
+                : "N/A"}
+            </span>
             <a
               href={`https://store.steampowered.com/app/${data.steamAppID}`}
               target="_blank"
               rel="noopener external"
             >
-              <span className="block text-center text-sm font-bold uppercase opacity-80">
-                Steam Rating
-              </span>
+              <span className="text-sm text-muted-foreground">Steam</span>
             </a>
-            <div className="flex justify-between rounded py-0.5 text-sm">
-              <span>{data.steamRatingPercent}%</span>
-              <span className="pr-2">{data.steamRatingText}</span>
-            </div>
-            <div className="rounded bg-muted">
-              <span
-                className="block h-4 rounded bg-muted-foreground pl-2"
-                style={{ width: `${data.steamRatingPercent}%` }}
-              />
-            </div>
-            <span className="block text-center text-sm text-muted-foreground">
-              {data.steamRatingCount} Ratings
-            </span>
           </div>
         ) : (
           <p className="h-full w-full place-content-center bg-muted p-2 text-muted-foreground">
@@ -88,36 +75,25 @@ export default function BestDealsCard(data: BestDealsType) {
     const formattedSavings = parseFloat(data.savings).toFixed(0);
 
     const formattedDealRating = parseFloat(data.dealRating).toFixed(0);
-    const ratings: { [key: number]: string } = {
-      1: "Abysmal",
-      2: "Terrible",
-      3: "Poor",
-      4: "Bad",
-      5: "Mediocre",
-      6: "Fair",
-      7: "Good",
-      8: "Very Good",
-      9: "Excellent",
-      10: "Perfect",
-    };
-    const rating = ratings[parseInt(formattedDealRating)];
 
     return (
-      <div className="mx-auto w-max space-y-4 pt-12 text-center text-base">
-        <div className="flex gap-4">
-          <span className="rounded-xl border-4 border-gold-foreground p-4 text-2xl font-black text-gold-foreground">
+      <div className="mx-auto w-max space-y-4 pt-12">
+        <div className="flex justify-start gap-4">
+          <span className="font rounded-xl text-2xl text-gold-foreground">
             -{formattedSavings}%
           </span>
           <div className="flex flex-col justify-between">
-            <span className="text-muted-foreground line-through">
-              ${data.normalPrice}
-            </span>
             <span className="text-2xl font-bold">
               {data.salePrice !== "0.00" ? `$${data.salePrice}` : "FREE"}
             </span>
+            <span className="text-muted-foreground line-through">
+              ${data.normalPrice}
+            </span>
           </div>
         </div>
-        <p className="text-muted-foreground">{rating} Deal!</p>
+        <p className="text-center text-muted-foreground">
+          {formattedDealRating}/10 Deal!
+        </p>
       </div>
     );
   };
@@ -127,7 +103,7 @@ export default function BestDealsCard(data: BestDealsType) {
       <CardHeader>
         <BannerSection src={data.thumb} alt={data.title} />
         <CardTitle>
-          <h2>{data.title}</h2>
+          <h2 className="text-lg">{data.title}</h2>
         </CardTitle>
         <CardDescription className="flex justify-between">
           <DescriptionSection />
@@ -138,14 +114,14 @@ export default function BestDealsCard(data: BestDealsType) {
         <PriceSection />
       </CardContent>
       <CardFooter className="flex-col gap-4">
+        <RedirectButton
+          url={`https://www.cheapshark.com/redirect?dealID=${data.dealID}&k=1`}
+          text={"Get Deal"}
+        />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <RedirectButton
-            url={`https://www.cheapshark.com/redirect?dealID=${data.dealID}&k=1`}
-            text={"Get Deal"}
-          />
           <WishlistButton title={data.title} />
+          <MoreDetailsButton path={"/best-deals/"} id={data.dealID} />
         </div>
-        <MoreDetailsButton path={"/best-deals/"} id={data.dealID} />
       </CardFooter>
     </Card>
   );

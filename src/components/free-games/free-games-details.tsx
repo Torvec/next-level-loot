@@ -51,36 +51,27 @@ export default function FreeGamesDetails(data: FreeGameDetailsType) {
   };
 
   return (
-    <>
-      <div className="mb-4 flex w-full flex-col gap-4 lg:flex-row">
-        <div className="lg:w-1/3">
-          <BannerSection src={data.image} alt={data.title} />
+    <Card className="mx-auto flex max-w-4xl flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
+      <CardHeader>
+        <BannerSection src={data.image} alt={data.title} />
+        <CardTitle>
+          <h2>{data.title}</h2>
+        </CardTitle>
+        <CardDescription className="flex flex-col justify-between gap-2 sm:flex-row">
+          <DescriptionSection />
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <TextSection title="Description" text={data.description} />
+        <TextSection title="Instructions" text={data.instructions} />
+        <PriceSection />
+      </CardContent>
+      <CardFooter>
+        <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
+          <RedirectButton url={data.open_giveaway_url} text={"Get Giveaway"} />
+          <WishlistButton title={data.title} />
         </div>
-        <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20 lg:w-2/3">
-          <CardHeader>
-            <CardTitle>
-              <h2>{data.title}</h2>
-            </CardTitle>
-            <CardDescription className="flex flex-col justify-between gap-2 sm:flex-row">
-              <DescriptionSection />
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <TextSection title="Description" text={data.description} />
-            <TextSection title="Instructions" text={data.instructions} />
-            <PriceSection />
-          </CardContent>
-          <CardFooter>
-            <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-              <RedirectButton
-                url={data.open_giveaway_url}
-                text={"Get Giveaway"}
-              />
-              <WishlistButton title={data.title} />
-            </div>
-          </CardFooter>
-        </Card>
-      </div>
-    </>
+      </CardFooter>
+    </Card>
   );
 }
