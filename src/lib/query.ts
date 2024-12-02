@@ -37,6 +37,7 @@ export const query: Record<Category, QueryType> = {
     baseURL: "https://www.cheapshark.com/api/1.0/",
     endPoints: {
       default: "deals",
+      details: "deals?id=", // id here
     },
     queryParams: {
       sort: {
@@ -106,15 +107,13 @@ export const query: Record<Category, QueryType> = {
         name: "title",
         placeholder: "Search for deals",
       },
-      details: {
-        name: "id",
-      },
     },
   },
   "highest-rated": {
     baseURL: "https://api.rawg.io/api/",
     endPoints: {
       default: "games",
+      details: "games/", // id here
     },
     queryParams: {
       apiKey: {
@@ -247,7 +246,7 @@ export const query: Record<Category, QueryType> = {
     baseURL: "https://gamerpower.p.rapidapi.com/api/",
     endPoints: {
       default: "giveaways",
-      details: "giveaway",
+      details: "giveaway?id=", // id here
     },
     queryParams: {
       sort: {
@@ -290,9 +289,6 @@ export const query: Record<Category, QueryType> = {
           ],
         },
       ],
-      details: {
-        name: "id",
-      },
     },
     headers: {
       headers: {
