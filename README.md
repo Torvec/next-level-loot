@@ -22,6 +22,6 @@ Next Level Loot is a web app that allows users to search for video games and vie
 
 ## Project Status
 
-Currntly in Development as of 03 Dec 2024
+Currently in Development as of 03 Dec 2024
 
-See issues for current bugs and features to be implemented.
+[See issues](https://github.com/Torvec/next-level-loot/issues) tab for current bugs and features to be implemented.
