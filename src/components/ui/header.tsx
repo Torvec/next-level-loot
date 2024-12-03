@@ -38,10 +38,10 @@ const Logo = () => (
   <Link
     href={"/"}
     prefetch={true}
-    className="flex items-center gap-2 text-lg font-black text-foreground hover:text-muted-foreground"
+    className="flex items-center gap-2 text-base font-black uppercase text-highlight hover:text-muted-foreground sm:text-lg"
   >
     <Gamepad2 size={22} />
-    The Loot Vault
+    Next-Level-Loot
   </Link>
 );
 

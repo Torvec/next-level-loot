@@ -10,8 +10,8 @@ import Container from "@/components/ui/container";
 import Footer from "@/components/ui/footer";
 
 export const metadata: Metadata = {
-  title: "The Loot Vault",
-  description: "For gamers on a budget!",
+  title: "Next Level Loot",
+  description: "Taking your gaming budget to the Next Level!",
 };
 
 export default function RootLayout({

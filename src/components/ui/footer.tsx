@@ -1,38 +1,41 @@
 import { ExternalLink, Gamepad2 } from "lucide-react";
+import Link from "next/link";
 
-function ExtLink({ href, children }: { href: string; children: string }) {
+export default function Footer() {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener external"
-      className="flex w-max items-center gap-2 text-highlight hover:text-foreground"
-    >
-      <span>{children}</span>
-      <ExternalLink size={16} />
-    </a>
+    <footer className="border-t bg-muted">
+      <div className="container mx-auto px-4 pb-24 pt-16 xl:px-0">
+        <div className="mb-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <LogoSection />
+          <ProjectSection />
+          <APISection />
+          <DeveloperSection />
+        </div>
+        <div className="flex flex-col gap-2 border-t border-t-muted-foreground/25 pt-4 text-sm md:flex-row md:gap-8">
+          <SiteMapSection />
+          <span className="text-muted-foreground md:ml-auto">2024</span>
+        </div>
+      </div>
+    </footer>
   );
 }
 
-function LogoSection() {
+const LogoSection = () => {
   return (
-    <div className="mb-8 flex gap-2">
-      <Gamepad2 size={32} />
+    <div className="flex gap-2">
+      <Gamepad2 size={22} />
       <div>
-        <h3 className="text-xl font-bold uppercase">The Loot Vault</h3>
-        <h4 className="pl-1 text-sm text-muted-foreground">
-          For Gamers on a Budget!
-        </h4>
+        <h3 className="font-bold uppercase">Next-Level-Loot</h3>
       </div>
     </div>
   );
-}
+};
 
-function ProjectSection() {
+const ProjectSection = () => {
   return (
     <div>
       <h3 className="mb-4 font-bold">Project</h3>
-      <ul className="space-y-1 text-muted-foreground">
+      <ul className="space-y-1 text-pretty text-muted-foreground">
         <li>Made with Next.js 15 &amp; React 19</li>
         <li className="flex gap-2">
           GitHub:
@@ -56,43 +59,53 @@ function ProjectSection() {
       </ul>
     </div>
   );
-}
+};
 
-function APISection() {
+const APISection = () => {
+  const apilinks = [
+    {
+      text: "Best Deals",
+      href: "https://apidocs.cheapshark.com/",
+      linktext: "Cheapshark",
+    },
+    {
+      text: "Highest Rated",
+      href: "https://api.rawg.io/docs/",
+      linktext: "RAWG",
+    },
+    {
+      text: "Free Games",
+      href: "https://www.gamerpower.com/api-read",
+      linktext: "Gamerpower",
+    },
+    {
+      text: "API Dev/Testing",
+      href: "https://www.usebruno.com/",
+      linktext: "Bruno",
+    },
+  ];
+
   return (
     <div>
       <h3 className="mb-4 font-bold">API&apos;s</h3>
       <ul className="space-y-1 text-muted-foreground">
-        <li className="flex gap-2">
-          Best Deals:
-          <ExtLink href="https://apidocs.cheapshark.com/">Cheapshark</ExtLink>
-        </li>
-        <li className="flex gap-2">
-          Highest Rated:
-          <ExtLink href="https://api.rawg.io/docs/">RAWG</ExtLink>
-        </li>
-        <li className="flex gap-2">
-          Free Games:
-          <ExtLink href="https://www.gamerpower.com/api-read">
-            Gamerpower
-          </ExtLink>
-        </li>
-        <li className="flex gap-2">
-          API Development/Testing:
-          <ExtLink href="https://www.usebruno.com/">Bruno</ExtLink>
-        </li>
+        {apilinks.map(({ text, href, linktext }) => (
+          <li key={text} className="flex gap-2">
+            {text}:<ExtLink href={href}>{linktext}</ExtLink>
+          </li>
+        ))}
       </ul>
     </div>
   );
-}
+};
 
-function DeveloperSection() {
+const DeveloperSection = () => {
   return (
-    <div className="lg:col-start-2 xl:col-start-4">
+    <div>
       <h3 className="mb-4 font-bold">Developer</h3>
       <ul className="space-y-1 text-muted-foreground">
         <li className="text-pretty">
-          Designed and developed by Edward Vonschondorf in 2024
+          Designed and developed by Edward Vonschondorf
         </li>
         <li>
           <ExtLink href="https://edward-vonschondorf.dev">
@@ -109,19 +122,47 @@ function DeveloperSection() {
       </ul>
     </div>
   );
-}
+};
 
-export default function Footer() {
+const SiteMapSection = () => {
+  const navlinks = [
+    { href: "/", text: "Home" },
+    { href: "/best-deals", text: "Best Deals" },
+    { href: "/highest-rated", text: "Highest Rated" },
+    { href: "/free-games", text: "Free Games" },
+    { href: "/wishlist", text: "Wishlist" },
+  ];
+
   return (
-    <footer className="border-t bg-muted">
-      <div className="container mx-auto px-4 pb-32 pt-16 xl:px-0">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <LogoSection />
-          <ProjectSection />
-          <APISection />
-          <DeveloperSection />
-        </div>
-      </div>
-    </footer>
+    <nav className="flex flex-col gap-2 md:flex-row lg:gap-8">
+      <h3 className="text-muted-foreground">Site Map:</h3>
+      <ul className="flex flex-wrap gap-x-4 gap-y-2 md:flex-row lg:gap-8">
+        {navlinks.map(({ href, text }) => (
+          <li key={href}>
+            <Link
+              href={href}
+              prefetch={true}
+              className="text-highlight hover:text-foreground"
+            >
+              {text}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
-}
+};
+
+const ExtLink = ({ href, children }: { href: string; children: string }) => {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener external"
+      className="flex w-max items-center gap-2 text-highlight hover:text-foreground"
+    >
+      <span>{children}</span>
+      <ExternalLink size={16} />
+    </a>
+  );
+};
