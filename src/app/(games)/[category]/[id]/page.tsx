@@ -1,7 +1,7 @@
 import { Category } from "@/lib/types";
-import BestDealsDetails from "@/components/best-deals/best-deals-details";
-import FreeGamesDetails from "@/components/free-games/free-games-details";
-import HighestRatedDetails from "@/components/highest-rated/highest-rated-details";
+import BestDealsDetails from "@/components/ui/details/best-deals-details";
+import FreeGamesDetails from "@/components/ui/details/free-games-details";
+import HighestRatedDetails from "@/components/ui/details/highest-rated-details";
 import fetchData from "@/lib/fetch-data";
 
 export default async function Page({

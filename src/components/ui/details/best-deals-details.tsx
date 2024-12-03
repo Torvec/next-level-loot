@@ -110,7 +110,7 @@ export default function BestDealsDetails({
     return (
       <div className="mx-auto w-max space-y-4 pt-12 text-center text-base">
         <div className="flex gap-4">
-          <span className="rounded-xl border-4 border-gold-foreground p-4 text-2xl font-black text-gold-foreground">
+          <span className="rounded-xl border-4 border-highlight p-4 text-2xl font-black text-highlight">
             -{percentSavings}%
           </span>
           <div className="flex flex-col justify-between">
@@ -161,7 +161,7 @@ export default function BestDealsDetails({
                     </div>
                     <Button
                       asChild
-                      className={`w-full bg-muted-foreground hover:bg-foreground ${index === 0 ? "bg-gold-foreground" : ""}`}
+                      className={`w-full bg-muted-foreground hover:bg-foreground ${index === 0 ? "bg-foreground hover:bg-highlight" : ""}`}
                     >
                       <Link
                         prefetch={true}

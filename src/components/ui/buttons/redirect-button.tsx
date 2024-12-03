@@ -13,7 +13,7 @@ export default function GiveawayButton({
   return (
     <Button
       asChild
-      className="w-full bg-gold-foreground hover:bg-foreground hover:text-background"
+      className="w-full bg-highlight text-highlight-foreground hover:bg-highlight-foreground hover:text-highlight"
     >
       <a href={url} target="_blank" rel="noopener noreferrer external">
         {text}

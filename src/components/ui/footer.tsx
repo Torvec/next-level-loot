@@ -6,7 +6,7 @@ function ExtLink({ href, children }: { href: string; children: string }) {
       href={href}
       target="_blank"
       rel="noopener external"
-      className="flex w-max items-center gap-2 text-gold hover:text-gold-foreground"
+      className="flex w-max items-center gap-2 text-highlight hover:text-foreground"
     >
       <span>{children}</span>
       <ExternalLink size={16} />

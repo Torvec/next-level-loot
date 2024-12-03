@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/buttons/button";
 import ResultsList from "@/components/ui/results-list";
-import WishlistCard from "./wishlist-card";
+import WishlistCard from "../../components/ui/cards/wishlist-card";
 import { useWishlist, useWishlistDispatch } from "@/lib/wishlist-provider";
 
 export default function Wishlist() {

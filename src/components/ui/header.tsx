@@ -62,9 +62,9 @@ const NavLink = ({ href, children }: { href: string; children: string }) => (
     prefetch={true}
     className={`${
       usePathname().startsWith(href)
-        ? "text-gold-foreground lg:border-b lg:border-gold-foreground"
+        ? "text-highlight lg:border-b lg:border-highlight"
         : ""
-    } w-full px-2 hover:bg-muted-foreground/50 hover:text-gold lg:w-max lg:py-2 lg:hover:text-foreground`}
+    } w-full px-2 lg:w-max lg:py-2 lg:hover:bg-muted-foreground/10 lg:hover:text-foreground`}
   >
     {children}
   </Link>
@@ -83,7 +83,7 @@ const WishlistLinkIcon = () => {
   return (
     <Link
       href="/wishlist"
-      className={`${usePathname().startsWith("/wishlist") ? "text-gold-foreground" : ""} hidden hover:text-muted-foreground lg:inline`}
+      className={`${usePathname().startsWith("/wishlist") ? "text-highlight" : ""} hidden hover:text-muted-foreground lg:inline`}
     >
       <Scroll size={20} />
     </Link>

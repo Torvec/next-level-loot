@@ -31,7 +31,7 @@ export default function BestDealsCard(data: BestDealsType) {
     return (
       <div className="mx-auto w-max space-y-4 pt-12">
         <div className="flex justify-start gap-4">
-          <span className="font rounded-xl text-2xl text-gold-foreground">
+          <span className="font rounded-xl text-2xl text-highlight">
             -{formattedSavings}%
           </span>
           <div className="flex flex-col justify-between">

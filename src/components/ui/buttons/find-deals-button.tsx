@@ -8,7 +8,7 @@ export default function FindDealsButton({ title }: { title: string }) {
       <input type="hidden" name="searchTerm" value={title} />
       <Button
         type="submit"
-        className="w-full bg-gold-foreground hover:bg-foreground hover:text-background"
+        className="w-full bg-highlight text-highlight-foreground hover:bg-highlight-foreground hover:text-highlight"
       >
         <BadgeDollarSign />
         Deals
