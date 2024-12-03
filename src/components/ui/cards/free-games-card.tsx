@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/cards/card";
 import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";

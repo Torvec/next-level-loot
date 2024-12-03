@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/cards/card";
 import { Badge } from "@/components/ui/badge";
 import BannerSection from "@/components/ui/banner-section";
 import FindDealsButton from "@/components/ui/buttons/find-deals-button";

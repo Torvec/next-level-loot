@@ -18,7 +18,7 @@ export type ResultsListType =
 export interface BestDealsType {
   // internalName: string;
   title: string;
-  metacriticLink: string | null;
+  metacriticLink: string;
   dealID: string;
   // storeID: string;
   // gameID: string;
@@ -27,10 +27,10 @@ export interface BestDealsType {
   // isOnSale: string;
   savings: string;
   metacriticScore: string;
-  steamRatingText: string | null;
-  steamRatingPercent: number;
-  steamRatingCount: number;
-  steamAppID: string | null;
+  steamRatingText: string;
+  steamRatingPercent: string;
+  steamRatingCount: string;
+  steamAppID: string;
   releaseDate: number;
   // lastChange: number;
   dealRating: string;

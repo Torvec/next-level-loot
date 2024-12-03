@@ -5,8 +5,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/cards/card";
 import BannerSection from "@/components/ui/banner-section";
+import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
@@ -20,55 +21,6 @@ export default function BestDealsCard(data: BestDealsType) {
         : "N/A";
 
     return <p>Released: {formattedReleaseDate}</p>;
-  };
-
-  const ScoreRatingSection = () => {
-    return (
-      <div className="flex gap-4">
-        {data.metacriticLink ? (
-          <div className="flex h-full w-full flex-col justify-between gap-1 rounded-xl border-2 border-muted py-4 text-center">
-            <span className="block text-3xl font-black">
-              {data.metacriticScore !== "0"
-                ? data.metacriticScore + "%"
-                : "N/A"}
-            </span>
-            <a
-              href={`https://www.metacritic.com${data.metacriticLink}`}
-              target="_blank"
-              rel="noopener external"
-            >
-              <span className="text-sm text-muted-foreground">Metacritic</span>
-            </a>
-          </div>
-        ) : (
-          <p className="w-full place-content-center bg-muted p-2 text-muted-foreground">
-            Metacritic
-            <br /> Data Unavailable
-          </p>
-        )}
-        {data.steamAppID ? (
-          <div className="flex w-full flex-col justify-between gap-1 rounded-xl border-2 border-muted py-4 text-center">
-            <span className="block text-3xl font-black">
-              {data.steamRatingPercent !== 0
-                ? data.steamRatingPercent + "%"
-                : "N/A"}
-            </span>
-            <a
-              href={`https://store.steampowered.com/app/${data.steamAppID}`}
-              target="_blank"
-              rel="noopener external"
-            >
-              <span className="text-sm text-muted-foreground">Steam</span>
-            </a>
-          </div>
-        ) : (
-          <p className="h-full w-full place-content-center bg-muted p-2 text-muted-foreground">
-            Steam
-            <br /> Data Unavailable
-          </p>
-        )}
-      </div>
-    );
   };
 
   const PriceSection = () => {
@@ -110,12 +62,29 @@ export default function BestDealsCard(data: BestDealsType) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ScoreRatingSection />
+        <div className="flex gap-4">
+          <ScoreBoxButton
+            apiLink={data.metacriticLink}
+            title={data.title}
+            score={data.metacriticScore}
+            reviewSourceName="Metacritic"
+            reviewSourceBaseURL="https://www.metacritic.com"
+            reviewSourceSearch="https://www.metacritic.com/search/"
+          />
+          <ScoreBoxButton
+            apiLink={data.steamAppID}
+            title={data.title}
+            score={data.steamRatingPercent}
+            reviewSourceName="Steam"
+            reviewSourceBaseURL="https://store.steampowered.com/app/"
+            reviewSourceSearch="https://store.steampowered.com/search/?term="
+          />
+        </div>
         <PriceSection />
       </CardContent>
       <CardFooter className="flex-col gap-4">
         <RedirectButton
-          url={`https://www.cheapshark.com/redirect?dealID=${data.dealID}&k=1`}
+          url={`https://www.cheapshark.com/redirect?dealID=${data.dealID}`}
           text={"Get Deal"}
         />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">

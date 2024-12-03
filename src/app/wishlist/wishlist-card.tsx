@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/cards/card";
 import { Button } from "@/components/ui/buttons/button";
 import { useWishlistDispatch } from "@/lib/wishlist-provider";
 

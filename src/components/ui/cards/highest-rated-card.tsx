@@ -5,34 +5,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/cards/card";
+import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
 import FindDealsButton from "@/components/ui/buttons/find-deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import BannerSection from "@/components/ui/banner-section";
 import { HighestRatedGameType } from "@/lib/types";
 
-export default function HighestRatedGamesCard(data: HighestRatedGameType) {
+export default function HighestRatedCard(data: HighestRatedGameType) {
   const DescriptionSection = () => (
     <>
       <p>Released: {data.released}</p>
       <p>ESRB: {data.esrb_rating ? data.esrb_rating.name : "Not Rated"}</p>
     </>
   );
-
-  const ScoreRatingSection = () => {
-    return (
-      <div className="space-y-4">
-        <div className="flex flex-col justify-between rounded-xl border-2 border-muted-foreground py-4 text-center">
-          <span className="block text-sm font-bold uppercase opacity-80">
-            Score
-          </span>
-          <span className="block text-3xl font-black">{data.metacritic}%</span>
-          <span className="text-sm text-muted-foreground">Metacritic</span>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/25">
@@ -46,7 +33,13 @@ export default function HighestRatedGamesCard(data: HighestRatedGameType) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ScoreRatingSection />
+        <ScoreBoxButton
+          title={data.name}
+          score={data.metacritic.toString()}
+          reviewSourceName="Metacritic"
+          reviewSourceBaseURL="https://www.metacritic.com"
+          reviewSourceSearch="https://www.metacritic.com/search/"
+        />
       </CardContent>
       <CardFooter className="flex-col gap-4">
         <FindDealsButton title={data.name} />
