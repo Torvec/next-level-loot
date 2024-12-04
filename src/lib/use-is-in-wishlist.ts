@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useWishlist } from "@/lib/wishlist-provider";
+import { useWishlist } from "@/components/providers/wishlist-provider";
 
 export default function useIsInWishlist(title: string) {
   const wishlist = useWishlist();

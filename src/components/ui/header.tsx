@@ -22,7 +22,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useThemeDispatch, useTheme } from "@/lib/theme-provider";
+import {
+  useThemeDispatch,
+  useTheme,
+} from "@/components/providers/theme-provider";
 
 export default function Header() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

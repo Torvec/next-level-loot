@@ -3,15 +3,15 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-muted">
+    <footer className="border-t border-t-muted-foreground/25 bg-muted">
       <div className="container mx-auto px-4 pb-24 pt-16 xl:px-0">
-        <div className="mb-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-8 grid gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <LogoSection />
           <ProjectSection />
           <APISection />
           <DeveloperSection />
         </div>
-        <div className="flex flex-col gap-2 border-t border-t-muted-foreground/25 pt-4 text-sm md:flex-row md:gap-8">
+        <div className="flex flex-col gap-4 border-t border-t-muted-foreground/25 pt-8 text-sm md:flex-row md:gap-8">
           <SiteMapSection />
           <span className="text-muted-foreground md:ml-auto">2024</span>
         </div>

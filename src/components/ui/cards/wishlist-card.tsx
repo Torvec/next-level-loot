@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/cards/card";
 import { Button } from "@/components/ui/buttons/button";
-import { useWishlistDispatch } from "@/lib/wishlist-provider";
+import { useWishlistDispatch } from "@/components/providers/wishlist-provider";
 
 export default function WishlistCard({
   index,

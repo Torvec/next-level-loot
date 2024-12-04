@@ -1,6 +1,6 @@
 "use client";
 
-import { useWishlistDispatch } from "@/lib/wishlist-provider";
+import { useWishlistDispatch } from "@/components/providers/wishlist-provider";
 import useIsInWishlist from "@/lib/use-is-in-wishlist";
 import { Button } from "./button";
 import { BookmarkPlus } from "lucide-react";
