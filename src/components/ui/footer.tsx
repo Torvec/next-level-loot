@@ -40,7 +40,7 @@ const ProjectSection = () => {
         <li className="flex gap-2">
           GitHub:
           <ExtLink href="https://github.com/Torvec/loot_vault_next">
-            Repository
+            Repo
           </ExtLink>
         </li>
         <li className="text-pretty">
@@ -48,12 +48,12 @@ const ProjectSection = () => {
         </li>
         <li>
           <ExtLink href="https://torvec.github.io/Loot-Vault/">
-            Loot Vault v1 Site
+            Loot Vault Site
           </ExtLink>
         </li>
         <li>
           <ExtLink href="https://github.com/Torvec/Loot-Vault">
-            Loot Vault v1 Repository
+            Loot Vault Repo
           </ExtLink>
         </li>
       </ul>

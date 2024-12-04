@@ -3,12 +3,20 @@
 import Form from "next/form";
 import { query } from "@/lib/query";
 import SelectBox from "@/components/ui/select-box";
-import SearchInput from "@/components/ui/search-input";
 import { Button } from "@/components/ui/buttons/button";
 import { type Category } from "@/lib/types";
 
+// How this SHOULD work:
+// Instead of using select boxes, there will be a series of popover menus with list items that can be selected/unselected and will have some kind of icon to show when it is selected
+// When a user clicks on ANY item it will automatically apply the filter and update the results, if they click on that item again it will remove the filter and update the results
+// The url and active filters should be in sync at all times, so if a user refreshes the page or shares the url it will show the same results or if a user changes the url directly it will update the results (assuming it is a valid url)
+// whenever a filter is added it will show up below the menu as a pill with an x to remove it, if a user clicks on the x it will remove the filter and update the results
+// The clear all filters button will be on the same line as the pills and only show up when there are filters applied
+// On mobile view all of the filter and sort items will be within a single slide out menu that will have alll of the same functionality as the desktop view except any selected filters will be at the top of the menu and the clear all filters button will be there also
+//* Stretch Goal: the filters will fetch new data but sort will just re-order the data that is already fetched
+
 export default function ResultsForm({ category }: { category: Category }) {
-  const { sort, order, filters, search } = query[category].queryParams;
+  const { sort, order, filters } = query[category].queryParams;
 
   return (
     <div className="flex flex-wrap items-end justify-between gap-2">
@@ -58,7 +66,6 @@ export default function ResultsForm({ category }: { category: Category }) {
           Apply
         </Button>
       </Form>
-      {search && <SearchInput placeholder={search.placeholder} />}
     </div>
   );
 }
