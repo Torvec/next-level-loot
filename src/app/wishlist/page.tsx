@@ -8,29 +8,6 @@ import { useWishlist, useWishlistDispatch } from "@/lib/wishlist-provider";
 export default function Wishlist() {
   const wishlist = useWishlist();
   const wishlistIsEmpty = wishlist.length === 0;
-  const dispatch = useWishlistDispatch();
-
-  const EmptyWishlist = () => {
-    return (
-      <p className="mb-32 border border-muted py-32 text-center text-2xl font-semibold">
-        Your Wishlist is Empty
-      </p>
-    );
-  };
-
-  const ClearWishlist = () => {
-    return (
-      <div className="my-32 flex justify-center">
-        <Button
-          onClick={() => dispatch({ type: "CLEAR" })}
-          className="bg-destructive text-destructive-foreground hover:bg-destructive-foreground hover:text-destructive"
-          disabled={wishlistIsEmpty}
-        >
-          Clear Wishlist
-        </Button>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -46,7 +23,31 @@ export default function Wishlist() {
           ))}
         </ResultsList>
       )}
-      <ClearWishlist />
+      <ClearWishlist isWishListEmpty={wishlistIsEmpty} />
     </>
   );
 }
+
+const EmptyWishlist = () => {
+  return (
+    <p className="mb-32 border border-muted py-32 text-center text-2xl font-semibold">
+      Your Wishlist is Empty
+    </p>
+  );
+};
+
+const ClearWishlist = ({ isWishListEmpty }: { isWishListEmpty: boolean }) => {
+  const dispatch = useWishlistDispatch();
+
+  return (
+    <div className="my-32 flex justify-center">
+      <Button
+        onClick={() => dispatch({ type: "CLEAR" })}
+        className="bg-destructive text-destructive-foreground hover:bg-destructive-foreground hover:text-destructive"
+        disabled={isWishListEmpty}
+      >
+        Clear Wishlist
+      </Button>
+    </div>
+  );
+};

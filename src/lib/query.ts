@@ -34,7 +34,7 @@ export interface QueryType {
 }
 
 export const query: Record<Category, QueryType> = {
-  "best-deals": {
+  deals: {
     baseURL: "https://www.cheapshark.com/api/1.0/",
     endPoints: {
       default: "deals",
@@ -113,7 +113,7 @@ export const query: Record<Category, QueryType> = {
       },
     },
   },
-  "highest-rated": {
+  games: {
     baseURL: "https://api.rawg.io/api/",
     endPoints: {
       default: "games",
@@ -250,7 +250,7 @@ export const query: Record<Category, QueryType> = {
       },
     },
   },
-  "free-games": {
+  giveaways: {
     baseURL: "https://gamerpower.p.rapidapi.com/api/",
     endPoints: {
       default: "giveaways",

@@ -9,9 +9,9 @@ import {
 import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import { FreeGameDetailsType } from "@/lib/types";
+import { GiveawaysDetailsType } from "@/lib/types";
 
-export default function FreeGamesDetails(data: FreeGameDetailsType) {
+export default function FreeGamesDetails(data: GiveawaysDetailsType) {
   const DescriptionSection = () => (
     <>
       <div>

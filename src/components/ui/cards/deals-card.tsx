@@ -11,9 +11,9 @@ import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
-import { BestDealsType } from "@/lib/types";
+import { DealsListType } from "@/lib/types";
 
-export default function BestDealsCard(data: BestDealsType) {
+export default function BestDealsCard(data: DealsListType) {
   const DescriptionSection = () => {
     const formattedReleaseDate =
       data.releaseDate > 0
@@ -89,7 +89,7 @@ export default function BestDealsCard(data: BestDealsType) {
         />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <WishlistButton title={data.title} />
-          <MoreDetailsButton path={"/best-deals/"} id={data.dealID} />
+          <MoreDetailsButton path={"/deals/"} id={data.dealID} />
         </div>
       </CardFooter>
     </Card>

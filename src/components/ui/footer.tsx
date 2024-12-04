@@ -64,17 +64,17 @@ const ProjectSection = () => {
 const APISection = () => {
   const apilinks = [
     {
-      text: "Best Deals",
+      text: "Deals",
       href: "https://apidocs.cheapshark.com/",
       linktext: "Cheapshark",
     },
     {
-      text: "Highest Rated",
+      text: "Games",
       href: "https://api.rawg.io/docs/",
       linktext: "RAWG",
     },
     {
-      text: "Free Games",
+      text: "Giveaways",
       href: "https://www.gamerpower.com/api-read",
       linktext: "Gamerpower",
     },
@@ -127,9 +127,9 @@ const DeveloperSection = () => {
 const SiteMapSection = () => {
   const navlinks = [
     { href: "/", text: "Home" },
-    { href: "/best-deals", text: "Best Deals" },
-    { href: "/highest-rated", text: "Highest Rated" },
-    { href: "/free-games", text: "Free Games" },
+    { href: "/deals", text: "Deals" },
+    { href: "/games", text: "Games" },
+    { href: "/giveaways", text: "Giveaways" },
     { href: "/wishlist", text: "Wishlist" },
   ];
 

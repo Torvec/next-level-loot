@@ -1,21 +1,10 @@
-export type Category = "best-deals" | "highest-rated" | "free-games";
+export type Category = "deals" | "games" | "giveaways";
 
 export type Routes = Category | "wishlist";
 
-export type Label =
-  | "Best Deals"
-  | "Highest Rated"
-  | "Free Games"
-  | "My Wishlist";
-
-export type ResultsListType =
-  | BestDealsType[]
-  | FreeGameType[]
-  | HighestRatedGameType[];
-
 //* CHEAPSHARK API TYPES
 
-export interface BestDealsType {
+export interface DealsListType {
   // internalName: string;
   title: string;
   metacriticLink: string;
@@ -37,7 +26,7 @@ export interface BestDealsType {
   thumb: string;
 }
 
-export interface BestDealsDetailsType {
+export interface DealsDetailsType {
   gameInfo: {
     // storeID: string;
     // gameID: string;
@@ -69,7 +58,7 @@ export interface BestDealsDetailsType {
 
 //* GAMERPOWER API TYPES
 
-export interface FreeGameType {
+export interface GiveawaysListType {
   id: number;
   title: string;
   worth: string;
@@ -88,7 +77,7 @@ export interface FreeGameType {
   // open_giveaway: string;
 }
 
-export interface FreeGameDetailsType {
+export interface GiveawaysDetailsType {
   id: number;
   title: string;
   worth: string;
@@ -164,7 +153,7 @@ interface Genre {
   slug: string;
 }
 
-export interface HighestRatedGameType {
+export interface GamesListType {
   // slug: string;
   name: string;
   // playtime: number;
@@ -298,7 +287,7 @@ export interface EsrbRatingType {
   slug: string;
 }
 
-export interface HighestRatedGameDetailsType {
+export interface GamesDetailsType {
   id: number;
   slug: string;
   name: string;

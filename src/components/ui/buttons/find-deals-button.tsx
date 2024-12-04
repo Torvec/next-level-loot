@@ -4,7 +4,7 @@ import { BadgeDollarSign } from "lucide-react";
 
 export default function FindDealsButton({ title }: { title: string }) {
   return (
-    <Form action={"/best-deals"} className="w-full">
+    <Form action={"/deals"} className="w-full">
       <input type="hidden" name="searchTerm" value={title} />
       <Button
         type="submit"

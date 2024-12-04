@@ -10,9 +10,9 @@ import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import { FreeGameType } from "@/lib/types";
+import { GiveawaysListType } from "@/lib/types";
 
-export default function FreeGamesCard(data: FreeGameType) {
+export default function FreeGamesCard(data: GiveawaysListType) {
   const DescriptionSection = () => (
     <div className="space-y-1">
       <p>Type: {data.type}</p>
@@ -51,7 +51,7 @@ export default function FreeGamesCard(data: FreeGameType) {
         <RedirectButton url={data.open_giveaway_url} text={"Get Giveaway"} />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <WishlistButton title={data.title} />
-          <MoreDetailsButton path={"/free-games/"} id={data.id} />
+          <MoreDetailsButton path={"/giveaways/"} id={data.id} />
         </div>
       </CardFooter>
     </Card>

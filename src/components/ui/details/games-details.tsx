@@ -10,9 +10,9 @@ import { Badge } from "@/components/ui/badge";
 import BannerSection from "@/components/ui/banner-section";
 import FindDealsButton from "@/components/ui/buttons/find-deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import { HighestRatedGameDetailsType } from "@/lib/types";
+import { GamesDetailsType } from "@/lib/types";
 
-export default function HighestRatedDetails(data: HighestRatedGameDetailsType) {
+export default function HighestRatedDetails(data: GamesDetailsType) {
   const DescriptionSection = () => (
     <div className="flex flex-col justify-between gap-2 sm:flex-row">
       <p>Released: {data.released}</p>

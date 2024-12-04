@@ -11,9 +11,9 @@ import FindDealsButton from "@/components/ui/buttons/find-deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import BannerSection from "@/components/ui/banner-section";
-import { HighestRatedGameType } from "@/lib/types";
+import { GamesListType } from "@/lib/types";
 
-export default function HighestRatedCard(data: HighestRatedGameType) {
+export default function HighestRatedCard(data: GamesListType) {
   const DescriptionSection = () => (
     <>
       <p>Released: {data.released}</p>
@@ -45,7 +45,7 @@ export default function HighestRatedCard(data: HighestRatedGameType) {
         <FindDealsButton title={data.name} />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <WishlistButton title={data.name} />
-          <MoreDetailsButton path={"/highest-rated/"} id={data.id} />
+          <MoreDetailsButton path={"/games/"} id={data.id} />
         </div>
       </CardFooter>
     </Card>

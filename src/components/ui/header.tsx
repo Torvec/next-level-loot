@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Form from "next/form";
 import { usePathname } from "next/navigation";
-import { Menu, Moon, Sun, Scroll, Search, Package } from "lucide-react";
+import { Menu, Moon, Sun, Bookmark, Search, Package } from "lucide-react";
 import { Button } from "./buttons/button";
 import {
   Popover,
@@ -63,9 +63,9 @@ const Logo = () => (
 
 const NavBar = () => (
   <nav className="flex flex-col gap-4 text-sm uppercase lg:flex-row lg:items-center lg:justify-center">
-    <NavLink href="/best-deals">Best Deals</NavLink>
-    <NavLink href="/highest-rated">Highest Rated</NavLink>
-    <NavLink href="/free-games">Free Games</NavLink>
+    <NavLink href="/deals">Deals</NavLink>
+    <NavLink href="/games">Games</NavLink>
+    <NavLink href="/giveaways">Giveaways</NavLink>
     <div className="lg:hidden">
       <NavLink href="/wishlist">Wishlist</NavLink>
     </div>
@@ -127,7 +127,7 @@ const SearchDialogButton = ({ onClick }: { onClick: () => void }) => {
 };
 
 const SearchForm = ({ onSearch }: { onSearch: () => void }) => {
-  const [path, setPath] = useState("best-deals");
+  const [path, setPath] = useState("deals");
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPath(event.target.value);
@@ -156,8 +156,8 @@ const SearchForm = ({ onSearch }: { onSearch: () => void }) => {
         className="flex gap-4"
         onChange={handleRadioChange}
       >
-        <RadioItem value="best-deals">Deals</RadioItem>
-        <RadioItem value="highest-rated">Games</RadioItem>
+        <RadioItem value="deals">Deals</RadioItem>
+        <RadioItem value="games">Games</RadioItem>
       </RadioGroup>
     </Form>
   );
@@ -184,7 +184,7 @@ const WishlistLinkIcon = () => {
       href="/wishlist"
       className={`${usePathname().startsWith("/wishlist") ? "text-highlight" : ""} hidden hover:text-muted-foreground lg:inline`}
     >
-      <Scroll size={20} />
+      <Bookmark size={20} />
     </Link>
   );
 };

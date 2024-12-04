@@ -1,15 +1,15 @@
 import {
-  type FreeGameType,
-  type BestDealsType,
-  type HighestRatedGameType,
+  type DealsListType,
+  type GamesListType,
+  type GiveawaysListType,
   type Category,
 } from "@/lib/types";
 import fetchData from "@/lib/fetch-data";
 import ResultsForm from "@/components/ui/results-form";
 import ResultsList from "@/components/ui/results-list";
-import BestDealsCard from "@/components/ui/cards/best-deals-card";
-import FreeGamesCard from "@/components/ui/cards/free-games-card";
-import HighestRatedCard from "@/components/ui/cards/highest-rated-card";
+import DealsCard from "@/components/ui/cards/deals-card";
+import GiveawaysCard from "@/components/ui/cards/giveaways-card";
+import GamesCard from "@/components/ui/cards/games-card";
 
 export default async function Page({
   params,
@@ -57,12 +57,12 @@ export default async function Page({
   }
 
   const cards = {
-    "best-deals": (data: BestDealsType[]) =>
-      data.map((deal) => <BestDealsCard key={deal.dealID} {...deal} />),
-    "free-games": (data: FreeGameType[]) =>
-      data.map((game) => <FreeGamesCard key={game.id} {...game} />),
-    "highest-rated": (data: { results: HighestRatedGameType[] }) =>
-      data.results.map((game) => <HighestRatedCard key={game.id} {...game} />),
+    deals: (data: DealsListType[]) =>
+      data.map((deal) => <DealsCard key={deal.dealID} {...deal} />),
+    giveaways: (data: GiveawaysListType[]) =>
+      data.map((game) => <GiveawaysCard key={game.id} {...game} />),
+    games: (data: { results: GamesListType[] }) =>
+      data.results.map((game) => <GamesCard key={game.id} {...game} />),
   };
 
   const content = cards[category](data);

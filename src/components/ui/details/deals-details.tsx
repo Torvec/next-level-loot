@@ -11,14 +11,14 @@ import { Button } from "@/components/ui/buttons/button";
 import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import { BestDealsDetailsType } from "@/lib/types";
+import { DealsDetailsType } from "@/lib/types";
 import { query } from "@/lib/query";
 import { ThumbsUp, ThumbsDown, ChevronRight } from "lucide-react";
 
 export default function BestDealsDetails({
   id,
   ...data
-}: { id: string } & BestDealsDetailsType) {
+}: { id: string } & DealsDetailsType) {
   const DescriptionSection = () => {
     const formattedReleaseDate =
       data.gameInfo.releaseDate > 0
@@ -129,7 +129,7 @@ export default function BestDealsDetails({
   };
 
   const CheaperDealsSection = () => {
-    const storeOptions = query["best-deals"].queryParams.filters?.[0].options;
+    const storeOptions = query["deals"].queryParams.filters?.[0].options;
 
     return (
       <div className="mx-auto max-w-4xl rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
