@@ -35,7 +35,7 @@ export default function HighestRatedCard(data: HighestRatedGameType) {
       <CardContent>
         <ScoreBoxButton
           title={data.name}
-          score={data.metacritic.toString()}
+          score={data.metacritic}
           reviewSourceName="Metacritic"
           reviewSourceBaseURL="https://www.metacritic.com"
           reviewSourceSearch="https://www.metacritic.com/search/"

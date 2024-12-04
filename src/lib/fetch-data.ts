@@ -40,7 +40,7 @@ export default async function fetchData({
     });
   }
 
-  const response = await fetch(url.toString(), headers ?? undefined);
+  const response = await fetch(url, headers ?? undefined);
 
   if (!response.ok) {
     throw new Error(

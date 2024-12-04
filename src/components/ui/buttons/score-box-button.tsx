@@ -10,7 +10,7 @@ export default function ScoreBoxButton({
 }: {
   title: string;
   apiLink?: string;
-  score: string;
+  score: string | number | null;
   reviewSourceName: string;
   reviewSourceBaseURL: string;
   reviewSourceSearch: string;
@@ -32,7 +32,7 @@ export default function ScoreBoxButton({
         rel="noopener noreferrer external"
       >
         <span className="block text-2xl font-bold text-muted-foreground">
-          {score !== "0" ? score + "%" : "N/A"}
+          {score !== "0" && score !== 0 && score !== null ? score + "%" : "N/A"}
         </span>
         <span className="block text-sm text-muted-foreground">
           {reviewSourceName}

@@ -1,4 +1,4 @@
-import { ExternalLink, Gamepad2 } from "lucide-react";
+import { ExternalLink, Package } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
@@ -23,7 +23,7 @@ export default function Footer() {
 const LogoSection = () => {
   return (
     <div className="flex gap-2">
-      <Gamepad2 size={22} />
+      <Package size={22} />
       <div>
         <h3 className="font-bold uppercase">Next-Level-Loot</h3>
       </div>

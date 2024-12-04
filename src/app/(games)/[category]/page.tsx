@@ -50,8 +50,7 @@ export default async function Page({
     return (
       <div className="my-32">
         <h2 className="min-h-[50vh] place-content-center text-center font-bold">
-          No Results found for
-          <br /> {searchString}
+          No Results found
         </h2>
       </div>
     );

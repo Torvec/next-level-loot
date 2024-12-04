@@ -5,15 +5,15 @@ meta {
 }
 
 get {
-  url: {{rawgURL}}games?key={{rawg-key}}&page_size=24&search=Metal Gear
+  url: {{rawgURL}}games?key={{rawg-key}}&search=Metal Gear
   body: none
   auth: none
 }
 
 params:query {
   key: {{rawg-key}}
-  page_size: 24
   search: Metal Gear
+  ~page_size: 24
   ~search_exact: 
   ~search_precise: 
 }

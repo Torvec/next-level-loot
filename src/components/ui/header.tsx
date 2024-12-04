@@ -1,17 +1,32 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import Form from "next/form";
 import { usePathname } from "next/navigation";
-import { Gamepad2, Menu, Moon, Sun, Scroll, Search } from "lucide-react";
+import { Menu, Moon, Sun, Scroll, Search, Package } from "lucide-react";
 import { Button } from "./buttons/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useThemeDispatch, useTheme } from "@/lib/theme-provider";
 
 export default function Header() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return (
     <header className="border-b border-b-muted-foreground/25 bg-muted">
       <div className="container mx-auto flex items-center justify-between px-4 py-4 xl:px-0">
@@ -22,7 +37,8 @@ export default function Header() {
           </div>
         </div>
         <div className="flex items-center gap-2 lg:gap-4">
-          <SearchBarButton />
+          <SearchDialogButton onClick={() => setIsDialogOpen(true)} />
+          <SearchDialog open={isDialogOpen} setOpen={setIsDialogOpen} />
           <WishlistLinkIcon />
           <DropDownMenu />
           <div className="hidden lg:flex">
@@ -40,7 +56,7 @@ const Logo = () => (
     prefetch={true}
     className="flex items-center gap-2 text-base font-black uppercase text-highlight hover:text-muted-foreground sm:text-lg"
   >
-    <Gamepad2 size={22} />
+    <Package size={22} />
     Next-Level-Loot
   </Link>
 );
@@ -70,12 +86,95 @@ const NavLink = ({ href, children }: { href: string; children: string }) => (
   </Link>
 );
 
-const SearchBarButton = () => {
+const SearchDialog = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}) => {
+  const handleCloseDialog = () => {
+    setOpen(false);
+  };
+
   return (
-    <Button className="rounded-full border border-muted-foreground/50 bg-background text-muted-foreground hover:border-foreground/50 hover:bg-background hover:text-foreground lg:space-x-24">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Search</DialogTitle>
+        </DialogHeader>
+        <SearchForm onSearch={handleCloseDialog} />
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button type="button">Close</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const SearchDialogButton = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <Button
+      onClick={onClick}
+      className="rounded-full border border-muted-foreground/50 bg-background text-muted-foreground hover:border-foreground/50 hover:bg-background hover:text-foreground lg:space-x-24"
+    >
       <span className="hidden lg:inline">Search</span>
       <Search />
     </Button>
+  );
+};
+
+const SearchForm = ({ onSearch }: { onSearch: () => void }) => {
+  const [path, setPath] = useState("best-deals");
+
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPath(event.target.value);
+  };
+
+  return (
+    <Form action={`/${path}`} onSubmit={onSearch} className="space-y-4">
+      <div className="relative w-full">
+        <Input
+          name="searchTerm"
+          type="search"
+          placeholder="Find deals or games.."
+          className="rounded-xl bg-muted pr-10 text-muted-foreground"
+        />
+        <Button
+          type="submit"
+          size="icon"
+          className="absolute right-0 top-0 h-full rounded-l-none rounded-r-xl bg-muted text-muted-foreground"
+        >
+          <Search className="h-4 w-4" />
+          <span className="sr-only">Search</span>
+        </Button>
+      </div>
+      <RadioGroup
+        defaultValue={path}
+        className="flex gap-4"
+        onChange={handleRadioChange}
+      >
+        <RadioItem value="best-deals">Deals</RadioItem>
+        <RadioItem value="highest-rated">Games</RadioItem>
+      </RadioGroup>
+    </Form>
+  );
+};
+
+const RadioItem = ({
+  value,
+  children,
+}: {
+  value: string;
+  children: string;
+}) => {
+  return (
+    <div className="flex gap-2">
+      <RadioGroupItem value={value} id={value} />
+      <Label htmlFor={value}>{children}</Label>
+    </div>
   );
 };
 
