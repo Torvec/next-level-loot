@@ -1,9 +1,14 @@
 "use client";
 
-import Form from "next/form";
+import Link from "next/link";
 import { query } from "@/lib/query";
-import SelectBox from "@/components/ui/select-box";
 import { Button } from "@/components/ui/buttons/button";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { ChevronUp } from "lucide-react";
 import { type Category } from "@/lib/types";
 
 // How this SHOULD work:
@@ -13,59 +18,171 @@ import { type Category } from "@/lib/types";
 // whenever a filter is added it will show up below the menu as a pill with an x to remove it, if a user clicks on the x it will remove the filter and update the results
 // The clear all filters button will be on the same line as the pills and only show up when there are filters applied
 // On mobile view all of the filter and sort items will be within a single slide out menu that will have alll of the same functionality as the desktop view except any selected filters will be at the top of the menu and the clear all filters button will be there also
-//* Stretch Goal: the filters will fetch new data but sort will just re-order the data that is already fetched
+
+// export default function ResultsForm({ category }: { category: Category }) {
+//   const { sort, order, filters } = query[category].queryParams;
+
+//   return (
+//     <div className="flex flex-col gap-4">
+//       <Form
+//         action={""}
+//         className="flex flex-col gap-4 lg:flex-row lg:items-end"
+//       >
+//         {sort && (
+//           <div>
+//             <span className="block text-sm text-muted-foreground">Sort</span>
+//             <SelectBox
+//               name={sort.name}
+//               placeholder={sort.placeholder}
+//               options={sort.options}
+//             />
+//           </div>
+//         )}
+//         {order && (
+//           <div>
+//             <span className="block text-sm text-muted-foreground">Order</span>
+//             <SelectBox
+//               name={order.name}
+//               placeholder={order.placeholder}
+//               options={order.options}
+//             />
+//           </div>
+//         )}
+//         {filters && (
+//           <div>
+//             <span className="block text-sm text-muted-foreground">Filter</span>
+//             <div className="flex flex-col items-center gap-2 lg:flex-row">
+//               {filters.map(({ name, placeholder, options }) => (
+//                 <SelectBox
+//                   key={name}
+//                   name={name}
+//                   placeholder={placeholder}
+//                   options={options}
+//                 />
+//               ))}
+//             </div>
+//           </div>
+//         )}
+//         <Button
+//           type="submit"
+//           className="w-full max-w-64 bg-muted text-muted-foreground"
+//         >
+//           Apply
+//         </Button>
+//       </Form>
+//     </div>
+//   );
+// }
 
 export default function ResultsForm({ category }: { category: Category }) {
   const { sort, order, filters } = query[category].queryParams;
 
   return (
-    <div className="flex flex-wrap items-end justify-between gap-2">
-      <Form
-        action={""}
-        className="flex flex-col gap-4 lg:flex-row lg:items-end"
-      >
+    <div className="flex items-end justify-between">
+      {filters && (
+        <div>
+          <h2>Filters</h2>
+          <div className="flex gap-4">
+            {filters.map((filter) => (
+              <Popover key={filter.name}>
+                <PopoverTrigger asChild>
+                  <Button className="min-w-32 bg-muted-foreground">
+                    {filter.placeholder}
+                    <ChevronUp />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  align="start"
+                  className="max-h-96 overflow-y-auto"
+                >
+                  <ul>
+                    {filter.options.map((option) => (
+                      <li key={option.value}>
+                        <Link
+                          href={"?" + filter.name + "=" + option.value}
+                          className="block px-2 py-1 hover:bg-muted"
+                        >
+                          {option.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </PopoverContent>
+              </Popover>
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="flex gap-4">
         {sort && (
           <div>
-            <span className="block text-sm text-muted-foreground">Sort</span>
-            <SelectBox
-              name={sort.name}
-              placeholder={sort.placeholder}
-              options={sort.options}
-            />
+            <div className="flex gap-4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button className="min-w-32 bg-muted-foreground">
+                    {sort.placeholder}
+                    <ChevronUp />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="end">
+                  <ul>
+                    {sort.options.map((option) => (
+                      <li key={option.value}>
+                        <Link
+                          href={"?" + sort.name + "=" + option.value}
+                          className="block px-2 py-1 hover:bg-muted"
+                        >
+                          {option.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
         )}
         {order && (
           <div>
-            <span className="block text-sm text-muted-foreground">Order</span>
-            <SelectBox
-              name={order.name}
-              placeholder={order.placeholder}
-              options={order.options}
-            />
-          </div>
-        )}
-        {filters && (
-          <div>
-            <span className="block text-sm text-muted-foreground">Filter</span>
-            <div className="flex flex-col items-center gap-2 lg:flex-row">
-              {filters.map(({ name, placeholder, options }) => (
-                <SelectBox
-                  key={name}
-                  name={name}
-                  placeholder={placeholder}
-                  options={options}
-                />
-              ))}
+            <div className="flex gap-4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button className="min-w-32 bg-muted-foreground">
+                    {order.placeholder}
+                    <ChevronUp />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="end">
+                  <ul>
+                    {order.options.map((option) => (
+                      <li key={option.value}>
+                        <Link
+                          href={"?" + order.name + "=" + option.value}
+                          className="block px-2 py-1 hover:bg-muted"
+                        >
+                          {option.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         )}
-        <Button
-          type="submit"
-          className="w-full max-w-64 bg-muted text-muted-foreground"
-        >
-          Apply
-        </Button>
-      </Form>
+      </div>
     </div>
   );
 }
+
+// Filters Form -> Can select multiple options at a time
+
+// Sort Form -> Can only select one option at a time
+
+// Button with popover menu
+
+// List of items with icons
+
+// List of Pills with x to remove added whenever a filter is applied
+
+// Clear all filters button added at end of list when there are filters applied

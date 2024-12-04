@@ -43,7 +43,7 @@ export const query: Record<Category, QueryType> = {
     queryParams: {
       sort: {
         name: "sortBy",
-        placeholder: "Sort By",
+        placeholder: "Sort",
         options: [
           { name: "Deal Rating", value: "DealRating" },
           { name: "Title", value: "Title" },
@@ -126,7 +126,7 @@ export const query: Record<Category, QueryType> = {
       },
       sort: {
         name: "ordering",
-        placeholder: "Sort By",
+        placeholder: "Sort",
         options: [
           { name: "Name (Asc)", value: "name" },
           { name: "Released (Asc)", value: "released" },
@@ -259,7 +259,7 @@ export const query: Record<Category, QueryType> = {
     queryParams: {
       sort: {
         name: "sort",
-        placeholder: "Sort By",
+        placeholder: "Sort",
         options: [
           { name: "Date", value: "date" },
           { name: "Value", value: "value" },
