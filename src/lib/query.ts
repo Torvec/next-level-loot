@@ -2,7 +2,8 @@ import { type Category } from "@/lib/types";
 
 interface Option {
   name: string;
-  placeholder: string;
+  type?: string;
+  default?: string;
   options: { name: string; value: string }[];
 }
 
@@ -43,7 +44,7 @@ export const query: Record<Category, QueryType> = {
     queryParams: {
       sort: {
         name: "sortBy",
-        placeholder: "Sort",
+        default: "Deal Rating",
         options: [
           { name: "Deal Rating", value: "DealRating" },
           { name: "Title", value: "Title" },
@@ -58,7 +59,7 @@ export const query: Record<Category, QueryType> = {
       },
       order: {
         name: "desc",
-        placeholder: "Order",
+        default: "Descending",
         options: [
           { name: "Descending", value: "0" },
           { name: "Ascending", value: "1" },
@@ -67,7 +68,7 @@ export const query: Record<Category, QueryType> = {
       filters: [
         {
           name: "storeID",
-          placeholder: "Store",
+          type: "Store",
           options: [
             { name: "Steam", value: "1" },
             { name: "GamersGate", value: "2" },
@@ -126,7 +127,7 @@ export const query: Record<Category, QueryType> = {
       },
       sort: {
         name: "ordering",
-        placeholder: "Sort",
+        default: "None",
         options: [
           { name: "Name (Asc)", value: "name" },
           { name: "Released (Asc)", value: "released" },
@@ -147,7 +148,7 @@ export const query: Record<Category, QueryType> = {
       filters: [
         {
           name: "platforms",
-          placeholder: "Platforms",
+          type: "Platform",
           options: [
             { name: "Xbox One", value: "1" },
             { name: "iOS", value: "3" },
@@ -204,7 +205,7 @@ export const query: Record<Category, QueryType> = {
         },
         {
           name: "stores",
-          placeholder: "Stores",
+          type: "Store",
           options: [
             { name: "Steam", value: "1" },
             { name: "PlayStation Store", value: "2" },
@@ -220,7 +221,7 @@ export const query: Record<Category, QueryType> = {
         },
         {
           name: "genres",
-          placeholder: "Genres",
+          type: "Genre",
           options: [
             { name: "Racing", value: "1" },
             { name: "Shooter", value: "2" },
@@ -259,9 +260,9 @@ export const query: Record<Category, QueryType> = {
     queryParams: {
       sort: {
         name: "sort",
-        placeholder: "Sort",
+        default: "None",
         options: [
-          { name: "Date", value: "date" },
+          { name: "Start Date", value: "date" },
           { name: "Value", value: "value" },
           { name: "Popularity", value: "popularity" },
         ],
@@ -269,7 +270,7 @@ export const query: Record<Category, QueryType> = {
       filters: [
         {
           name: "platform",
-          placeholder: "Platforms",
+          type: "Platform",
           options: [
             { name: "PC", value: "pc" },
             { name: "Steam", value: "steam" },
@@ -292,7 +293,7 @@ export const query: Record<Category, QueryType> = {
         },
         {
           name: "type",
-          placeholder: "Type",
+          type: "Type",
           options: [
             { name: "Game", value: "game" },
             { name: "DLC", value: "loot" },

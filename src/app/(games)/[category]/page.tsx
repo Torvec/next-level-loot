@@ -69,7 +69,7 @@ export default async function Page({
 
   return (
     <div className="mb-32 mt-8 space-y-16">
-      <ResultsForm category={category} />
+      <ResultsForm category={category} searchParams={searchParams} />
       <ResultsList>{content}</ResultsList>
     </div>
   );

@@ -23,9 +23,9 @@ export default function Loading() {
 }
 
 const SkeletonForm = () => (
-  <div className="flex flex-col gap-2 lg:flex-row lg:justify-between">
-    <Skeleton className="h-12 w-full lg:w-1/4" />
-    <Skeleton className="h-12 w-full lg:w-1/3" />
+  <div className="flex flex-col gap-2 md:flex-row md:justify-between">
+    <Skeleton className="h-10 w-full md:w-1/4" />
+    <Skeleton className="h-10 w-full md:w-1/4" />
   </div>
 );
 

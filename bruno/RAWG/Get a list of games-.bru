@@ -5,18 +5,18 @@ meta {
 }
 
 get {
-  url: {{rawgURL}}games?key={{rawg-key}}
+  url: {{rawgURL}}games?key={{rawg-key}}&page_size=5
   body: none
   auth: none
 }
 
 params:query {
   key: {{rawg-key}}
+  page_size: 5
   ~platforms: {{platform-pc}}
   ~ordering: {{order-by-metacritic-rev}}
   ~stores: {{store-steam}}
   ~genres: {{genre-racing}}
-  ~page_size: 1
   ~dates: 
   ~metacritic: 
   ~search: 
