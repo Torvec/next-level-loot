@@ -78,22 +78,21 @@ export default function ResultsForm({ category }: { category: Category }) {
   const { sort, order, filters } = query[category].queryParams;
 
   return (
-    <div className="flex items-end justify-between">
+    <div className="flex flex-col justify-between gap-2 md:flex-row">
       {filters && (
         <div>
-          <h2>Filters</h2>
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-2 md:flex-row">
             {filters.map((filter) => (
               <Popover key={filter.name}>
                 <PopoverTrigger asChild>
-                  <Button className="min-w-32 bg-muted-foreground">
+                  <Button className="w-full min-w-32 bg-muted-foreground">
                     {filter.placeholder}
                     <ChevronUp />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent
                   align="start"
-                  className="max-h-96 overflow-y-auto"
+                  className="max-h-96 w-[calc(100vw-32px)] overflow-y-auto md:w-max"
                 >
                   <ul>
                     {filter.options.map((option) => (
@@ -113,61 +112,63 @@ export default function ResultsForm({ category }: { category: Category }) {
           </div>
         </div>
       )}
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-2 md:flex-row">
         {sort && (
           <div>
-            <div className="flex gap-4">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button className="min-w-32 bg-muted-foreground">
-                    {sort.placeholder}
-                    <ChevronUp />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="end">
-                  <ul>
-                    {sort.options.map((option) => (
-                      <li key={option.value}>
-                        <Link
-                          href={"?" + sort.name + "=" + option.value}
-                          className="block px-2 py-1 hover:bg-muted"
-                        >
-                          {option.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </PopoverContent>
-              </Popover>
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button className="w-full min-w-32 bg-muted-foreground">
+                  {sort.placeholder}
+                  <ChevronUp />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent
+                align="end"
+                className="max-h-96 w-[calc(100vw-32px)] overflow-y-auto md:w-max"
+              >
+                <ul>
+                  {sort.options.map((option) => (
+                    <li key={option.value}>
+                      <Link
+                        href={"?" + sort.name + "=" + option.value}
+                        className="block px-2 py-1 hover:bg-muted"
+                      >
+                        {option.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </PopoverContent>
+            </Popover>
           </div>
         )}
         {order && (
           <div>
-            <div className="flex gap-4">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button className="min-w-32 bg-muted-foreground">
-                    {order.placeholder}
-                    <ChevronUp />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="end">
-                  <ul>
-                    {order.options.map((option) => (
-                      <li key={option.value}>
-                        <Link
-                          href={"?" + order.name + "=" + option.value}
-                          className="block px-2 py-1 hover:bg-muted"
-                        >
-                          {option.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </PopoverContent>
-              </Popover>
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button className="w-full min-w-32 bg-muted-foreground">
+                  {order.placeholder}
+                  <ChevronUp />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent
+                align="end"
+                className="max-h-96 w-[calc(100vw-32px)] overflow-y-auto md:w-max"
+              >
+                <ul>
+                  {order.options.map((option) => (
+                    <li key={option.value}>
+                      <Link
+                        href={"?" + order.name + "=" + option.value}
+                        className="block px-2 py-1 hover:bg-muted"
+                      >
+                        {option.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </PopoverContent>
+            </Popover>
           </div>
         )}
       </div>

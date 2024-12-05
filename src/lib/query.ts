@@ -295,8 +295,8 @@ export const query: Record<Category, QueryType> = {
           placeholder: "Type",
           options: [
             { name: "Game", value: "game" },
-            { name: "Loot/DLC", value: "loot" },
-            { name: "Beta/Early Access", value: "beta" },
+            { name: "DLC", value: "loot" },
+            { name: "Early Access", value: "beta" },
           ],
         },
       ],
