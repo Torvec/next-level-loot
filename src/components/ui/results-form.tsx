@@ -44,6 +44,14 @@ export default async function ResultsForm({
     return `?${updatedParams.toString()}`;
   };
 
+  const isSelected = (key: string, value: string) => {
+    return params.get(key) === value;
+  };
+
+  const hasParams = () => {
+    return Array.from(params.entries()).length > 0;
+  };
+
   return (
     <div className="flex flex-col justify-between gap-2 md:flex-row">
       {filters && (
@@ -67,7 +75,9 @@ export default async function ResultsForm({
                     <li>
                       <Link
                         href={getUpdatedQuery(filter.name, "")} // Remove the filter
-                        className="block px-2 py-1 hover:bg-muted"
+                        className={`block px-2 py-1 hover:bg-muted ${
+                          !params.get(filter.name) ? "bg-muted" : ""
+                        }`}
                       >
                         All
                       </Link>
@@ -76,7 +86,11 @@ export default async function ResultsForm({
                       <li key={option.value}>
                         <Link
                           href={getUpdatedQuery(filter.name, option.value)}
-                          className="block px-2 py-1 hover:bg-muted"
+                          className={`block px-2 py-1 hover:bg-muted ${
+                            isSelected(filter.name, option.value)
+                              ? "bg-muted"
+                              : ""
+                          }`}
                         >
                           {option.name}
                         </Link>
@@ -87,6 +101,7 @@ export default async function ResultsForm({
               </Popover>
             ))}
           </div>
+          {hasParams() && <Link href={`/${category}`}>Reset Filters</Link>}
         </div>
       )}
       <div className="flex flex-col gap-2 md:flex-row">
@@ -106,7 +121,9 @@ export default async function ResultsForm({
                 <li>
                   <Link
                     href={getUpdatedQuery(sort.name, "")} // Remove the filter
-                    className="block px-2 py-1 hover:bg-muted"
+                    className={`block px-2 py-1 hover:bg-muted ${
+                      !params.get(sort.name) ? "bg-muted" : ""
+                    }`}
                   >
                     Default
                   </Link>
@@ -115,7 +132,9 @@ export default async function ResultsForm({
                   <li key={option.value}>
                     <Link
                       href={getUpdatedQuery(sort.name, option.value)}
-                      className="block px-2 py-1 hover:bg-muted"
+                      className={`block px-2 py-1 hover:bg-muted ${
+                        isSelected(sort.name, option.value) ? "bg-muted" : ""
+                      }`}
                     >
                       {option.name}
                     </Link>
@@ -143,7 +162,9 @@ export default async function ResultsForm({
                   <li key={option.value}>
                     <Link
                       href={getUpdatedQuery(order.name, option.value)}
-                      className="block px-2 py-1 hover:bg-muted"
+                      className={`block px-2 py-1 hover:bg-muted ${
+                        isSelected(order.name, option.value) ? "bg-muted" : ""
+                      }`}
                     >
                       {option.name}
                     </Link>
