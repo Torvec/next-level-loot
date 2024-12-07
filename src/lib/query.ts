@@ -7,7 +7,7 @@ interface Option {
   options: { name: string; value: string }[];
 }
 
-interface QueryParamType {
+export interface QueryParamType {
   apiKey?: {
     name: string;
     value: string;
