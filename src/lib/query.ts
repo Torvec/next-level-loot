@@ -1,6 +1,6 @@
 import { type Category } from "@/lib/types";
 
-interface Option {
+export interface OptionType {
   name: string;
   type?: string;
   default?: string;
@@ -12,9 +12,9 @@ export interface QueryParamType {
     name: string;
     value: string;
   };
-  sort?: Option;
-  order?: Option;
-  filters?: Option[];
+  sort?: OptionType;
+  order?: OptionType;
+  filters?: OptionType[];
   search?: {
     name: string;
     placeholder: string;
@@ -39,11 +39,12 @@ export const query: Record<Category, QueryType> = {
     baseURL: "https://www.cheapshark.com/api/1.0/",
     endPoints: {
       default: "deals",
-      details: "deals?id=", // id here
+      details: "deals?id=",
     },
     queryParams: {
       sort: {
         name: "sortBy",
+        type: "Sort",
         default: "Deal Rating",
         options: [
           { name: "Deal Rating", value: "DealRating" },
@@ -59,6 +60,7 @@ export const query: Record<Category, QueryType> = {
       },
       order: {
         name: "desc",
+        type: "Order",
         default: "Descending",
         options: [
           { name: "Descending", value: "0" },
@@ -68,6 +70,7 @@ export const query: Record<Category, QueryType> = {
       filters: [
         {
           name: "storeID",
+          default: "All",
           type: "Store",
           options: [
             { name: "Steam", value: "1" },
@@ -118,7 +121,7 @@ export const query: Record<Category, QueryType> = {
     baseURL: "https://api.rawg.io/api/",
     endPoints: {
       default: "games",
-      details: "games/", // id here
+      details: "games/",
     },
     queryParams: {
       apiKey: {
@@ -127,6 +130,7 @@ export const query: Record<Category, QueryType> = {
       },
       sort: {
         name: "ordering",
+        type: "Sort",
         default: "None",
         options: [
           { name: "Name (Asc)", value: "name" },
@@ -149,6 +153,7 @@ export const query: Record<Category, QueryType> = {
         {
           name: "platforms",
           type: "Platform",
+          default: "All",
           options: [
             { name: "Xbox One", value: "1" },
             { name: "iOS", value: "3" },
@@ -206,6 +211,7 @@ export const query: Record<Category, QueryType> = {
         {
           name: "stores",
           type: "Store",
+          default: "All",
           options: [
             { name: "Steam", value: "1" },
             { name: "PlayStation Store", value: "2" },
@@ -222,6 +228,7 @@ export const query: Record<Category, QueryType> = {
         {
           name: "genres",
           type: "Genre",
+          default: "All",
           options: [
             { name: "Racing", value: "1" },
             { name: "Shooter", value: "2" },
@@ -255,11 +262,12 @@ export const query: Record<Category, QueryType> = {
     baseURL: "https://gamerpower.p.rapidapi.com/api/",
     endPoints: {
       default: "giveaways",
-      details: "giveaway?id=", // id here
+      details: "giveaway?id=",
     },
     queryParams: {
       sort: {
         name: "sort",
+        type: "Sort",
         default: "None",
         options: [
           { name: "Start Date", value: "date" },
@@ -271,6 +279,7 @@ export const query: Record<Category, QueryType> = {
         {
           name: "platform",
           type: "Platform",
+          default: "All",
           options: [
             { name: "PC", value: "pc" },
             { name: "Steam", value: "steam" },
@@ -294,6 +303,7 @@ export const query: Record<Category, QueryType> = {
         {
           name: "type",
           type: "Type",
+          default: "All",
           options: [
             { name: "Game", value: "game" },
             { name: "DLC", value: "loot" },

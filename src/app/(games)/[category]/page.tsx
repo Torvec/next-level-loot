@@ -5,7 +5,7 @@ import {
   type Category,
 } from "@/lib/types";
 import fetchData from "@/lib/fetch-data";
-import ResultsForm from "@/components/ui/results-form";
+import QueryOptionsForm from "@/app/(games)/[category]/query-options-form";
 import ResultsList from "@/components/ui/results-list";
 import DealsCard from "@/components/ui/cards/deals-card";
 import GiveawaysCard from "@/components/ui/cards/giveaways-card";
@@ -69,7 +69,7 @@ export default async function Page({
 
   return (
     <div className="mb-32 mt-8 space-y-16">
-      <ResultsForm category={category} searchParams={searchParams} />
+      <QueryOptionsForm category={category} searchParams={searchParams} />
       <ResultsList>{content}</ResultsList>
     </div>
   );
