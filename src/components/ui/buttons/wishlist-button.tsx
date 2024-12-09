@@ -3,7 +3,7 @@
 import { useWishlistDispatch } from "@/components/providers/wishlist-provider";
 import useIsInWishlist from "@/lib/use-is-in-wishlist";
 import { Button } from "./button";
-import { BookmarkPlus } from "lucide-react";
+import { BookmarkPlus, BookmarkCheck } from "lucide-react";
 import { type ItemType } from "@/components/providers/wishlist-provider";
 
 export default function WishlistButton({ item }: { item: ItemType }) {
@@ -28,7 +28,9 @@ export default function WishlistButton({ item }: { item: ItemType }) {
       disabled={isInWishlist}
     >
       {isInWishlist ? (
-        "In Wishlist"
+        <>
+          <BookmarkCheck /> Added
+        </>
       ) : (
         <>
           <BookmarkPlus /> Wishlist
