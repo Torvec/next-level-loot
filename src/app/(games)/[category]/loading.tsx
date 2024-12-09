@@ -6,8 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cards/card";
-import ResultsList from "@/components/ui/results-list";
+} from "@/components/ui/card";
 
 export default function Loading() {
   const skeletonCards = Array.from({ length: 12 }).map((_, index) => (
@@ -17,7 +16,9 @@ export default function Loading() {
   return (
     <div className="mb-32 mt-8 space-y-16">
       <SkeletonForm />
-      <ResultsList>{skeletonCards}</ResultsList>
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {skeletonCards}
+      </div>
     </div>
   );
 }

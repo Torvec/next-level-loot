@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cards/card";
+} from "@/components/ui/card";
 import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
@@ -50,7 +50,15 @@ export default function FreeGamesCard(data: GiveawaysListType) {
       <CardFooter className="flex-col gap-4">
         <RedirectButton url={data.open_giveaway_url} text={"Get Giveaway"} />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <WishlistButton title={data.title} />
+          <WishlistButton
+            item={{
+              id: data.id,
+              title: data.title,
+              src: data.image,
+              path: "/giveaways/",
+              price: "Free",
+            }}
+          />
           <MoreDetailsButton path={"/giveaways/"} id={data.id} />
         </div>
       </CardFooter>

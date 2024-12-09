@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cards/card";
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/buttons/button";
 import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
@@ -208,7 +208,15 @@ export default function BestDealsDetails({
               url={`https://www.cheapshark.com/redirect?dealID=${id}&k=1`}
               text={"Get Deal"}
             />
-            <WishlistButton title={data.gameInfo.name} />
+            <WishlistButton
+              item={{
+                id: id,
+                title: data.gameInfo.name,
+                src: data.gameInfo.thumb,
+                path: "/deals/",
+                price: data.gameInfo.salePrice,
+              }}
+            />
           </div>
         </CardFooter>
       </Card>

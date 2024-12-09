@@ -5,13 +5,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cards/card";
+} from "@/components/ui/card";
 import BannerSection from "@/components/ui/banner-section";
 import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
-import { DealsListType } from "@/lib/types";
+import { type DealsListType } from "@/lib/types";
 
 export default function BestDealsCard(data: DealsListType) {
   const DescriptionSection = () => {
@@ -88,7 +88,15 @@ export default function BestDealsCard(data: DealsListType) {
           text={"Get Deal"}
         />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <WishlistButton title={data.title} />
+          <WishlistButton
+            item={{
+              id: data.dealID,
+              title: data.title,
+              src: data.thumb,
+              path: "/deals/",
+              price: data.salePrice,
+            }}
+          />
           <MoreDetailsButton path={"/deals/"} id={data.dealID} />
         </div>
       </CardFooter>

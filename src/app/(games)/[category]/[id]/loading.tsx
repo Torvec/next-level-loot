@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cards/card";
+} from "@/components/ui/card";
 
 export default function Loading() {
   return (

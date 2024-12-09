@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cards/card";
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import BannerSection from "@/components/ui/banner-section";
 import FindDealsButton from "@/components/ui/buttons/find-deals-button";
@@ -173,7 +173,14 @@ export default function HighestRatedDetails(data: GamesDetailsType) {
       </CardContent>
       <CardFooter className="flex-col justify-between gap-4 md:flex-row">
         <FindDealsButton title={data.name} />
-        <WishlistButton title={data.name} />
+        <WishlistButton
+          item={{
+            id: data.id,
+            title: data.name,
+            src: data.background_image,
+            path: "/games/",
+          }}
+        />
       </CardFooter>
     </Card>
   );

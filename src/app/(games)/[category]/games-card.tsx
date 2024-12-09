@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cards/card";
+} from "@/components/ui/card";
 import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
 import FindDealsButton from "@/components/ui/buttons/find-deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
@@ -44,7 +44,14 @@ export default function HighestRatedCard(data: GamesListType) {
       <CardFooter className="flex-col gap-4">
         <FindDealsButton title={data.name} />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <WishlistButton title={data.name} />
+          <WishlistButton
+            item={{
+              id: data.id,
+              title: data.name,
+              src: data.background_image,
+              path: "/games/",
+            }}
+          />
           <MoreDetailsButton path={"/games/"} id={data.id} />
         </div>
       </CardFooter>

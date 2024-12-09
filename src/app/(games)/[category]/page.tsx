@@ -6,10 +6,9 @@ import {
 } from "@/lib/types";
 import fetchData from "@/lib/fetch-data";
 import QueryOptionsForm from "@/app/(games)/[category]/query-options-form";
-import ResultsList from "@/components/ui/results-list";
-import DealsCard from "@/components/ui/cards/deals-card";
-import GiveawaysCard from "@/components/ui/cards/giveaways-card";
-import GamesCard from "@/components/ui/cards/games-card";
+import DealsCard from "@/app/(games)/[category]/deals-card";
+import GiveawaysCard from "@/app/(games)/[category]/giveaways-card";
+import GamesCard from "@/app/(games)/[category]/games-card";
 
 export default async function Page({
   params,
@@ -70,7 +69,9 @@ export default async function Page({
   return (
     <div className="mb-32 mt-8 space-y-16">
       <QueryOptionsForm category={category} searchParams={searchParams} />
-      <ResultsList>{content}</ResultsList>
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {content}
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { Category } from "@/lib/types";
-import DealsDetails from "@/components/ui/details/deals-details";
-import GiveawaysDetails from "@/components/ui/details/giveaways-details";
-import GamesDetails from "@/components/ui/details/games-details";
+import DealsDetails from "@/app/(games)/[category]/[id]/deals-details";
+import GiveawaysDetails from "@/app/(games)/[category]/[id]/giveaways-details";
+import GamesDetails from "@/app/(games)/[category]/[id]/games-details";
 import fetchData from "@/lib/fetch-data";
 
 export default async function Page({
