@@ -6,7 +6,6 @@ import "@/styles/globals.css";
 import ThemeProvider from "@/components/providers/theme-provider";
 import WishlistProvider from "@/components/providers/wishlist-provider";
 import Header from "@/components/ui/header";
-import Container from "@/components/ui/container";
 import Footer from "@/components/ui/footer";
 
 export const metadata: Metadata = {
@@ -26,13 +25,13 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <Header />
-          <Container>
+          <main className="container mx-auto flex-grow place-content-center px-4 leading-relaxed xl:px-0">
             <WishlistProvider>
               {children}
               <SpeedInsights />
               <Analytics />
             </WishlistProvider>
-          </Container>
+          </main>
           <Footer />
         </ThemeProvider>
       </body>

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/buttons/button";
+import { Button } from "@/components/ui/button";
 
 export default function ScoreBoxButton({
   apiLink,
@@ -20,7 +20,7 @@ export default function ScoreBoxButton({
     <Button
       asChild
       variant="outline"
-      className="flex h-max w-full flex-col border border-muted bg-transparent"
+      className="flex h-full w-full flex-col border border-muted bg-transparent"
     >
       <a
         href={

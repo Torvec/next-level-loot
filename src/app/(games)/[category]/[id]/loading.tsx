@@ -1,12 +1,4 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 export default function Loading() {
   return (
@@ -16,27 +8,29 @@ export default function Loading() {
   );
 }
 
-const SkeletonDetails = () => (
-  <Card className="mx-auto mb-8 flex max-w-4xl flex-col justify-between rounded-xl border-0 bg-muted/50">
-    <CardHeader>
-      <Skeleton className="mb-4 h-48 rounded-xl" />
-      <CardTitle>
-        <Skeleton className="h-8" />
-      </CardTitle>
-      <CardDescription className="flex justify-between">
-        <Skeleton className="h-6 w-1/3" />
-        <Skeleton className="h-6 w-1/3" />
-      </CardDescription>
-    </CardHeader>
-    <CardContent className="mb-8 space-y-4">
-      <Skeleton className="h-60" />
-      <Skeleton className="h-60" />
-    </CardContent>
-    <CardFooter>
-      <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-        <Skeleton className="h-10 w-full" />
-        <Skeleton className="h-10 w-full" />
+const SkeletonDetails = () => {
+  return (
+    <div className="mx-auto flex max-w-4xl flex-col gap-6">
+      <div className="space-y-4 rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
+        <Skeleton className="h-48" />
+        <div className="space-y-1">
+          <Skeleton className="h-8" />
+          <div className="flex flex-col sm:flex-row md:justify-between">
+            <Skeleton className="h-5 w-1/3" />
+            <Skeleton className="h-5 w-1/3" />
+          </div>
+        </div>
       </div>
-    </CardFooter>
-  </Card>
-);
+      <div className="flex flex-col gap-6 md:flex-row">
+        <div className="w-full space-y-6 rounded-xl bg-gradient-to-tl from-muted to-muted/20 p-6 md:w-2/3">
+          <Skeleton className="h-10" />
+          <Skeleton className="h-64" />
+        </div>
+        <div className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
+          <Skeleton className="h-10" />
+          <Skeleton className="h-64" />
+        </div>
+      </div>
+    </div>
+  );
+};

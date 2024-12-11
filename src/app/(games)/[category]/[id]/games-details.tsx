@@ -1,187 +1,261 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import BannerSection from "@/components/ui/banner-section";
+import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
 import FindDealsButton from "@/components/ui/buttons/find-deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import { GamesDetailsType } from "@/lib/types";
 
-export default function HighestRatedDetails(data: GamesDetailsType) {
-  const DescriptionSection = () => (
-    <div className="flex flex-col justify-between gap-2 sm:flex-row">
-      <p>Released: {data.released}</p>
-      <p>ESRB: {data.esrb_rating ? data.esrb_rating.name : "Not Rated"}</p>
+export default function GamesDetails(data: GamesDetailsType) {
+  return (
+    <div className="mx-auto flex max-w-4xl flex-col gap-6">
+      <Header
+        title={data.name}
+        src={data.background_image}
+        released={data.released}
+        esrb={data.esrb_rating}
+      />
+      <div className="flex flex-col gap-6 md:flex-row">
+        <MainColumn
+          src={data.background_image}
+          title={data.name}
+          id={data.id}
+          metacritic={data.metacritic}
+          ratings={data.ratings}
+          description={data.description_raw}
+        />
+        <SideBar
+          platforms={data.platforms}
+          genres={data.genres}
+          stores={data.stores}
+          developers={data.developers}
+          publishers={data.publishers}
+          tags={data.tags}
+        />
+      </div>
     </div>
   );
+}
 
-  const ScoreRatingSection = () => {
-    const initCount = 0;
-    const totalRatingCount = data.ratings.reduce(
-      (acc, rating) => acc + rating.count,
-      initCount,
-    );
-
-    return (
-      <div className="flex gap-4">
-        <div className="flex w-1/3 flex-col justify-between rounded-xl border-2 border-muted-foreground py-4 text-center">
-          <span className="block text-sm font-bold uppercase opacity-80">
-            Score
-          </span>
-          <span className="block text-3xl font-black">{data.metacritic}%</span>
-          <span className="text-sm text-muted-foreground">Metacritic</span>
+const Header = ({
+  title,
+  src,
+  released,
+  esrb,
+}: {
+  title: string;
+  src: string;
+  released: string;
+  esrb: { name: string } | null;
+}) => {
+  return (
+    <div className="space-y-4 rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
+      <BannerSection src={src} alt={title} />
+      <div>
+        <h2 className="text-2xl font-bold">{title}</h2>
+        <div className="flex flex-col text-sm text-muted-foreground sm:flex-row md:justify-between">
+          <p>Released: {released}</p>
+          <p>ESRB: {esrb ? esrb.name : "Not Rated"}</p>
         </div>
-        <div className="w-2/3">
-          <ul className="mb-2 space-y-1">
-            {data.ratings.map((rating) => (
-              <li
-                key={rating.id}
-                className="flex justify-between bg-muted py-0.5 text-sm"
+      </div>
+    </div>
+  );
+};
+
+const MainColumn = ({
+  src,
+  title,
+  id,
+  metacritic,
+  ratings,
+  description,
+}: {
+  src: string;
+  title: string;
+  id: number;
+  metacritic: number;
+  ratings: { id: number; count: number; percent: number; title: string }[];
+  description: string;
+}) => {
+  return (
+    <div className="w-full space-y-6 rounded-xl bg-gradient-to-tl from-muted to-muted/20 p-6 md:w-2/3">
+      <ScoreRatingSection
+        title={title}
+        metacritic={metacritic}
+        ratings={ratings}
+      />
+      <div className="flex flex-col gap-4 md:flex-row">
+        <FindDealsButton title={title} />
+        <WishlistButton
+          item={{
+            id: id,
+            title: title,
+            src: src,
+            path: "/games/",
+          }}
+        />
+      </div>
+      <DescriptionText description={description} />
+    </div>
+  );
+};
+
+const ScoreRatingSection = ({
+  ratings,
+  title,
+  metacritic,
+}: {
+  ratings: { id: number; count: number; percent: number; title: string }[];
+  title: string;
+  metacritic: number;
+}) => {
+  const initCount = 0;
+  const totalRatingCount = ratings.reduce(
+    (acc, rating) => acc + rating.count,
+    initCount,
+  );
+
+  return (
+    <div className="flex flex-col gap-6 md:flex-row">
+      <div className="md:w-1/4">
+        <ScoreBoxButton
+          title={title}
+          score={metacritic}
+          reviewSourceName="Metacritic"
+          reviewSourceBaseURL="https://www.metacritic.com"
+          reviewSourceSearch="https://www.metacritic.com/search/"
+        />
+      </div>
+      <div className="md:w-3/4">
+        <ul className="mb-2 space-y-1">
+          {ratings.map((rating) => (
+            <li
+              key={rating.id}
+              className="flex justify-between rounded-xl bg-muted py-0.5 text-sm"
+            >
+              <span
+                className="block rounded-xl bg-muted-foreground pl-2"
+                style={{ width: `${rating.percent}%` }}
               >
-                <span
-                  className="block bg-muted-foreground pl-2"
-                  style={{ width: `${rating.percent}%` }}
-                >
-                  {rating.percent}%
-                </span>
-                <span className="pr-2">{rating.title}</span>
-              </li>
-            ))}
-          </ul>
-          <span className="block text-center text-sm text-muted-foreground">
-            {totalRatingCount} Ratings
-          </span>
-        </div>
+                {rating.percent}%
+              </span>
+              <span className="pr-2">{rating.title}</span>
+            </li>
+          ))}
+        </ul>
+        <span className="block text-center text-sm text-muted-foreground">
+          {totalRatingCount} Ratings on{" "}
+          <a
+            href="https://rawg.io/"
+            target="_blank"
+            rel="noopener external"
+            className="text-highlight hover:underline"
+          >
+            RAWG
+          </a>
+        </span>
       </div>
-    );
-  };
-
-  const DescriptionText = () => (
-    <div>
-      {data.description_raw ? (
-        <>
-          <h3 className="font-bold">Description</h3>
-          <p className="text-sm leading-loose text-muted-foreground">
-            {data.description_raw}
-          </p>
-        </>
-      ) : (
-        <div className="bg-background px-4 py-2 text-center text-foreground">
-          Description Unavailable
-        </div>
-      )}
     </div>
   );
+};
 
-  const InfoList = <T,>(props: {
-    title: string;
-    list: T[];
-    keyExtractor: (item: T) => string;
-    renderItem: (item: T) => React.ReactNode;
-  }) => {
-    const { title, list, keyExtractor, renderItem } = props;
-
-    return (
-      <div className="space-y-2">
-        <h3 className="text-sm font-bold">{title}</h3>
-        {list.length > 0 ? (
-          <ul className="space-y-1">
-            {list.map((item) => (
-              <li key={keyExtractor(item)}>
-                <Badge>{renderItem(item)}</Badge>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-sm text-muted-foreground">Data Unavailable</p>
-        )}
+const DescriptionText = ({ description }: { description: string }) => (
+  <div>
+    {description ? (
+      <>
+        <h3>Description</h3>
+        <p className="text-sm leading-loose text-muted-foreground">
+          {description}
+        </p>
+      </>
+    ) : (
+      <div className="bg-background px-4 py-2 text-center text-foreground">
+        Description Unavailable
       </div>
-    );
-  };
+    )}
+  </div>
+);
 
-  const TagList = () => (
-    <div className="space-y-2">
-      <h3 className="text-sm font-bold">Tags</h3>
-      {data.tags.length > 0 ? (
+const SideBar = ({
+  platforms,
+  genres,
+  stores,
+  developers,
+  publishers,
+  tags,
+}: {
+  platforms: { platform: { id: number; name: string } }[];
+  genres: { id: number; name: string }[];
+  stores: { store: { id: number; name: string } }[];
+  developers: { id: number; name: string }[];
+  publishers: { id: number; name: string }[];
+  tags: { id: number; name: string }[];
+}) => {
+  return (
+    <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
+      <div className="space-y-6">
+        <BadgeList
+          title="Platforms"
+          list={platforms}
+          keyExtractor={(p) => p.platform.id.toString()}
+          renderItem={(p) => p.platform.name}
+        />
+        <BadgeList
+          title="Genres"
+          list={genres}
+          keyExtractor={(g) => g.id.toString()}
+          renderItem={(g) => g.name}
+        />
+        <BadgeList
+          title="Stores"
+          list={stores}
+          keyExtractor={(s) => s.store.id.toString()}
+          renderItem={(s) => s.store.name}
+        />
+        <BadgeList
+          title="Developers"
+          list={developers}
+          keyExtractor={(d) => d.id.toString()}
+          renderItem={(d) => d.name}
+        />
+        <BadgeList
+          title="Publishers"
+          list={publishers}
+          keyExtractor={(p) => p.id.toString()}
+          renderItem={(p) => p.name}
+        />
+        <BadgeList
+          title="Tags"
+          list={tags}
+          keyExtractor={(t) => t.id.toString()}
+          renderItem={(t) => t.name}
+        />
+      </div>
+    </aside>
+  );
+};
+
+const BadgeList = <T,>(props: {
+  title: string;
+  list: T[];
+  keyExtractor: (item: T) => string;
+  renderItem: (item: T) => React.ReactNode;
+}) => {
+  const { title, list, keyExtractor, renderItem } = props;
+
+  return (
+    <div>
+      <h3>{title}</h3>
+      {list.length > 0 ? (
         <ul className="flex flex-wrap gap-2">
-          {data.tags.map((tag) => (
-            <li key={tag.id}>
-              <Badge>{tag.name}</Badge>
+          {list.map((item) => (
+            <li key={keyExtractor(item)}>
+              <Badge className="bg-muted-foreground">{renderItem(item)}</Badge>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="text-center text-sm text-muted-foreground">
-          Data Unavailable
-        </p>
+        <p className="text-sm text-muted-foreground">Data Unavailable</p>
       )}
     </div>
   );
-
-  return (
-    <Card className="mx-auto flex max-w-4xl flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
-      <CardHeader>
-        <BannerSection src={data.background_image} alt={data.name} />
-        <CardTitle>
-          <h2>{data.name}</h2>
-        </CardTitle>
-        <CardDescription>
-          <DescriptionSection />
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="mb-8 space-y-8">
-        <ScoreRatingSection />
-        <DescriptionText />
-        <div className="grid gap-4 sm:grid-cols-3">
-          <InfoList
-            title="Platforms"
-            list={data.platforms}
-            keyExtractor={(p) => p.platform.id.toString()}
-            renderItem={(p) => p.platform.name}
-          />
-          <InfoList
-            title="Genres"
-            list={data.genres}
-            keyExtractor={(genre) => genre.id.toString()}
-            renderItem={(genre) => genre.name}
-          />
-          <InfoList
-            title="Stores"
-            list={data.stores}
-            keyExtractor={(s) => s.store.id.toString()}
-            renderItem={(s) => s.store.name}
-          />
-          <InfoList
-            title="Developers"
-            list={data.developers}
-            keyExtractor={(d) => d.id.toString()}
-            renderItem={(d) => d.name}
-          />
-          <InfoList
-            title="Publishers"
-            list={data.publishers}
-            keyExtractor={(p) => p.id.toString()}
-            renderItem={(p) => p.name}
-          />
-        </div>
-        <TagList />
-      </CardContent>
-      <CardFooter className="flex-col justify-between gap-4 md:flex-row">
-        <FindDealsButton title={data.name} />
-        <WishlistButton
-          item={{
-            id: data.id,
-            title: data.name,
-            src: data.background_image,
-            path: "/games/",
-          }}
-        />
-      </CardFooter>
-    </Card>
-  );
-}
+};

@@ -3,7 +3,7 @@
 //! This is temporary
 import Link from "next/link";
 import { query } from "@/lib/query";
-import { Button } from "@/components/ui/buttons/button";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverTrigger,

@@ -1,85 +1,136 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import BannerSection from "@/components/ui/banner-section";
-import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
+import RedirectButton from "@/components/ui/buttons/redirect-button";
 import { GiveawaysDetailsType } from "@/lib/types";
 
-export default function FreeGamesDetails(data: GiveawaysDetailsType) {
-  const DescriptionSection = () => (
-    <>
-      <div>
-        <p>Type: {data.type}</p>
-        <p>Platforms: {data.platforms}</p>
+export default function GiveawaysDetails(data: GiveawaysDetailsType) {
+  return (
+    <div className="mx-auto flex max-w-4xl flex-col gap-6">
+      <Header
+        title={data.title}
+        src={data.image}
+        type={data.type}
+        platforms={data.platforms}
+      />
+      <div className="flex flex-col gap-6 md:flex-row">
+        <MainColumn
+          src={data.image}
+          title={data.title}
+          id={data.id}
+          url={data.open_giveaway_url}
+          worth={data.worth}
+          description={data.description}
+          instructions={data.instructions}
+        />
+        <SideBar startDate={data.published_date} endDate={data.end_date} />
       </div>
-      <div className="sm:text-right">
-        <p>Started: {data.published_date}</p>
-        <p>Ends: {data.end_date}</p>
-      </div>
-    </>
-  );
-
-  const TextSection = ({ title, text }: { title: string; text: string }) => (
-    <div>
-      <h3 className="font-bold">{title}</h3>
-      <p className="text-sm">{text}</p>
     </div>
   );
+}
 
-  const PriceSection = () => {
-    return (
-      <div className="mx-auto w-max space-y-4 text-center text-base">
-        <div className="flex gap-4">
-          <span className="rounded-xl border-4 border-highlight p-4 text-2xl font-black text-highlight">
-            -100%
-          </span>
-          <div className="flex flex-col justify-between">
-            <span className="text-muted-foreground line-through">
-              {data.worth}
-            </span>
-            <span className="text-2xl font-bold">Free!</span>
-          </div>
+const Header = ({
+  title,
+  src,
+  type,
+  platforms,
+}: {
+  title: string;
+  src: string;
+  type: string;
+  platforms: string;
+}) => {
+  return (
+    <div className="space-y-4 rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
+      <BannerSection src={src} alt={title} />
+      <div>
+        <h2 className="text-2xl font-bold">{title}</h2>
+        <div className="flex flex-col text-sm text-muted-foreground md:flex-row md:justify-between">
+          <span className="block">Type: {type}</span>
+          <span className="block">Platforms: {platforms}</span>
         </div>
       </div>
-    );
-  };
-
-  return (
-    <Card className="mx-auto flex max-w-4xl flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
-      <CardHeader>
-        <BannerSection src={data.image} alt={data.title} />
-        <CardTitle>
-          <h2>{data.title}</h2>
-        </CardTitle>
-        <CardDescription className="flex flex-col justify-between gap-2 sm:flex-row">
-          <DescriptionSection />
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <TextSection title="Description" text={data.description} />
-        <TextSection title="Instructions" text={data.instructions} />
-        <PriceSection />
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-          <RedirectButton url={data.open_giveaway_url} text={"Get Giveaway"} />
-          <WishlistButton
-            item={{
-              id: data.id,
-              title: data.title,
-              src: data.image,
-              path: "/giveaways/",
-              price: "Free",
-            }}
-          />
-        </div>
-      </CardFooter>
-    </Card>
+    </div>
   );
-}
+};
+
+const MainColumn = ({
+  src,
+  title,
+  id,
+  url,
+  worth,
+  description,
+  instructions,
+}: {
+  src: string;
+  title: string;
+  id: number;
+  url: string;
+  worth: string;
+  description: string;
+  instructions: string;
+}) => {
+  return (
+    <div className="w-full space-y-6 rounded-xl bg-gradient-to-tl from-muted to-muted/20 p-6 md:w-2/3">
+      <div>
+        <h3 className="font-bold">Description</h3>
+        <p className="text-sm leading-loose text-muted-foreground">
+          {description}
+        </p>
+      </div>
+      <div>
+        <h3 className="font-bold">Instructions</h3>
+        <p className="text-sm leading-loose text-muted-foreground">
+          {instructions}
+        </p>
+      </div>
+      <PriceSection worth={worth} />
+      <div className="flex flex-col gap-4 md:flex-row">
+        <RedirectButton url={url} text={"Get Deal"} />
+        <WishlistButton
+          item={{
+            id: id,
+            title: title,
+            src: src,
+            path: "/giveaways/",
+            price: "Free",
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+const PriceSection = ({ worth }: { worth: string }) => {
+  return (
+    <div className="mx-auto w-max space-y-4 text-center text-base">
+      <div className="flex gap-4">
+        <span className="rounded-xl border-4 border-highlight p-4 text-2xl font-black text-highlight">
+          -100%
+        </span>
+        <div className="flex flex-col justify-between">
+          <span className="text-muted-foreground line-through">{worth}</span>
+          <span className="text-2xl font-bold">Free!</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SideBar = ({
+  startDate,
+  endDate,
+}: {
+  startDate: string;
+  endDate: string;
+}) => {
+  return (
+    <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
+      <ul>
+        <li>Started: {startDate}</li>
+        <li>Ends: {endDate}</li>
+      </ul>
+      <div className="sm:text-right"></div>
+    </aside>
+  );
+};

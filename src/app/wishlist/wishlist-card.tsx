@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { Button } from "@/components/ui/buttons/button";
+import { Button } from "@/components/ui/button";
 import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
 import BannerSection from "@/components/ui/banner-section";
 import { X, Grip, ChevronUp, ChevronDown } from "lucide-react";

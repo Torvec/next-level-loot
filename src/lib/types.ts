@@ -31,14 +31,14 @@ export interface DealsDetailsType {
     // storeID: string;
     // gameID: string;
     name: string;
-    steamAppID: string | null;
+    steamAppID: string;
     salePrice: string;
     retailPrice: string;
-    steamRatingText: string | null;
+    steamRatingText: string;
     steamRatingPercent: string;
     steamRatingCount: string;
     metacriticScore: string;
-    metacriticLink: string | null;
+    metacriticLink: string;
     releaseDate: number;
     // publisher: string;
     // steamworks: string;

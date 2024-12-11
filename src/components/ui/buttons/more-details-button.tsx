@@ -1,4 +1,4 @@
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CircleChevronRight } from "lucide-react";
 

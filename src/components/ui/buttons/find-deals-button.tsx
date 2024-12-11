@@ -1,5 +1,5 @@
 import Form from "next/form";
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
 import { BadgeDollarSign } from "lucide-react";
 
 export default function FindDealsButton({ title }: { title: string }) {

@@ -1,7 +1,7 @@
-import { Category } from "@/lib/types";
-import DealsDetails from "@/app/(games)/[category]/[id]/deals-details";
-import GiveawaysDetails from "@/app/(games)/[category]/[id]/giveaways-details";
-import GamesDetails from "@/app/(games)/[category]/[id]/games-details";
+import { type Category } from "@/lib/types";
+import DealsDetails from "./deals-details";
+import GamesDetails from "./games-details";
+import GiveawaysDetails from "./giveaways-details";
 import fetchData from "@/lib/fetch-data";
 
 export default async function Page({

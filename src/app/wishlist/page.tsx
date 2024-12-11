@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/buttons/button";
+import { Button } from "@/components/ui/button";
 import {
   useWishlist,
   useWishlistDispatch,
@@ -39,26 +39,24 @@ export default function Wishlist() {
 
 const EmptyWishlist = () => {
   return (
-    <>
-      <div className="mb-32 space-y-2 rounded-xl border-2 border-muted py-32 text-center">
-        <h2 className="text-2xl font-semibold">Your Wishlist is Empty =/</h2>
-        <p className="text-lg text-muted-foreground">
-          Check out the{" "}
-          <Link href={"/deals"} className="text-highlight hover:underline">
-            Deals
-          </Link>
-          ,{" "}
-          <Link href={"/games"} className="text-highlight hover:underline">
-            Games
-          </Link>
-          , and{" "}
-          <Link href={"/giveaways"} className="text-highlight hover:underline">
-            Giveaways
-          </Link>{" "}
-          for games to add here.
-        </p>
-      </div>
-    </>
+    <div className="mb-32 space-y-2 rounded-xl border-2 border-muted py-32 text-center">
+      <h2 className="text-2xl font-semibold">Your Wishlist is Empty =/</h2>
+      <p className="text-lg text-muted-foreground">
+        Check out the{" "}
+        <Link href={"/deals"} className="text-highlight hover:underline">
+          Deals
+        </Link>
+        ,{" "}
+        <Link href={"/games"} className="text-highlight hover:underline">
+          Games
+        </Link>
+        , and{" "}
+        <Link href={"/giveaways"} className="text-highlight hover:underline">
+          Giveaways
+        </Link>{" "}
+        for games to add here.
+      </p>
+    </div>
   );
 };
 

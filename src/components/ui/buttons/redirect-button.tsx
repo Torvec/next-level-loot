@@ -1,6 +1,6 @@
 // This is called a redirect button because the api's provide a url or id that is used to then redirect to the actual deal or giveaway.
 
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
 export default function GiveawayButton({

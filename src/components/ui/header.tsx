@@ -5,7 +5,7 @@ import Link from "next/link";
 import Form from "next/form";
 import { usePathname } from "next/navigation";
 import { Menu, Moon, Sun, Bookmark, Search, Package } from "lucide-react";
-import { Button } from "./buttons/button";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
