@@ -13,8 +13,10 @@ import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/details-button";
 import {
   type DealsCardProps,
+  type DealsCardDescriptionSectionProps,
   type DealsCardPriceSectionProps,
 } from "@/types/deals-types";
+import { query } from "@/lib/query";
 
 export default function DealsCard(data: DealsCardProps) {
   return (
@@ -24,11 +26,14 @@ export default function DealsCard(data: DealsCardProps) {
         <CardTitle>
           <h2 className="text-lg">{data.title}</h2>
         </CardTitle>
-        <CardDescription className="flex justify-between">
-          <DealsCardDescriptionSection releaseDate={data.releaseDate} />
+        <CardDescription>
+          <DealsCardDescriptionSection
+            storeID={data.storeID}
+            releaseDate={data.releaseDate}
+          />
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
         <div className="flex gap-4">
           <ScoreBoxButton
             apiLink={data.metacriticLink}
@@ -78,13 +83,22 @@ export default function DealsCard(data: DealsCardProps) {
 
 const DealsCardDescriptionSection = ({
   releaseDate,
-}: {
-  releaseDate: number;
-}) => {
+  storeID,
+}: DealsCardDescriptionSectionProps) => {
+  const storeOptions = query["deals"].queryParams.filters?.[0].options;
+  const storeName = storeOptions?.find((name) => name.value === storeID);
+
   const formattedReleaseDate =
     releaseDate > 0 ? new Date(releaseDate * 1000).toLocaleDateString() : "N/A";
 
-  return <p>Released: {formattedReleaseDate}</p>;
+  return (
+    <>
+      <span className="block text-sm">
+        Store: {storeName && storeName.name}
+      </span>
+      <span>Released: {formattedReleaseDate}</span>
+    </>
+  );
 };
 
 const DealsCardPriceSection = ({
@@ -100,21 +114,21 @@ const DealsCardPriceSection = ({
   const displaySalePrice = salePrice !== "0.00" ? `$${salePrice}` : "FREE";
 
   return (
-    <div className="mx-auto w-max space-y-4 pt-12">
-      <div className="flex justify-start gap-4">
+    <div className="mx-auto w-max">
+      <div className="flex items-center gap-4 rounded-xl border-2 border-muted px-4 py-2">
         <span className="font rounded-xl text-2xl text-highlight">
           -{formattedSavings}%
         </span>
-        <div className="flex flex-col justify-between">
-          <span className="text-2xl font-bold">{displaySalePrice}</span>
-          <span className="text-muted-foreground line-through">
+        <div>
+          <span className="block text-sm text-muted-foreground line-through">
             ${normalPrice}
           </span>
+          <span className="block">{displaySalePrice}</span>
         </div>
       </div>
-      <p className="text-center text-muted-foreground">
-        {formattedDealRating}/10 Deal!
-      </p>
+      <span className="block text-center text-sm text-muted-foreground">
+        {formattedDealRating}/10 Deal
+      </span>
     </div>
   );
 };

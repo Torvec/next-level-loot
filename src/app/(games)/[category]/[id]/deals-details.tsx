@@ -23,6 +23,7 @@ export default function DealsDetails({
       <DealsDetailsHeader
         title={data.gameInfo.name}
         src={data.gameInfo.thumb}
+        storeID={data.gameInfo.storeID}
         released={data.gameInfo.releaseDate}
       />
       <div className="flex flex-col gap-6 md:flex-row">
@@ -50,7 +51,11 @@ const DealsDetailsHeader = ({
   title,
   src,
   released,
+  storeID,
 }: DealsDetailsHeaderProps) => {
+  const storeOptions = query["deals"].queryParams.filters?.[0].options;
+  const storeName = storeOptions?.find((name) => name.value === storeID);
+
   const formattedReleaseDate =
     released > 0 ? new Date(released * 1000).toLocaleDateString() : "N/A";
 
@@ -59,9 +64,12 @@ const DealsDetailsHeader = ({
       <BannerSection src={src} alt={title} />
       <div>
         <h2 className="text-2xl font-bold">{title}</h2>
-        <p className="text-sm text-muted-foreground">
+        <span className="block text-sm text-muted-foreground">
+          Store: {storeName && storeName.name}
+        </span>
+        <span className="block text-sm text-muted-foreground">
           Released: {formattedReleaseDate}
-        </p>
+        </span>
       </div>
     </div>
   );
@@ -122,8 +130,8 @@ const DealsDetailsMainColumn = ({
 };
 
 const DealsDetailsPriceSection = ({
-  retailPrice,
   salePrice,
+  retailPrice,
 }: DealsDetailsPriceSectionProps) => {
   const percentSavings = (
     ((parseFloat(retailPrice) - parseFloat(salePrice)) /
@@ -131,19 +139,19 @@ const DealsDetailsPriceSection = ({
     100
   ).toFixed(0);
 
+  const displaySalePrice = salePrice !== "0.00" ? `$${salePrice}` : "FREE";
+
   return (
-    <div className="mx-auto w-max space-y-4 text-center text-base">
-      <div className="flex gap-4">
-        <span className="rounded-xl border-4 border-highlight p-4 text-2xl font-black text-highlight">
+    <div className="mx-auto w-max">
+      <div className="flex items-center gap-4 rounded-xl border-2 border-muted px-4 py-2">
+        <span className="font rounded-xl text-2xl text-highlight">
           -{percentSavings}%
         </span>
-        <div className="flex flex-col justify-between">
-          <span className="text-muted-foreground line-through">
+        <div>
+          <span className="block text-sm text-muted-foreground line-through">
             ${retailPrice}
           </span>
-          <span className="text-2xl font-bold">
-            {salePrice !== "0.00" ? `$${salePrice}` : "FREE"}
-          </span>
+          <span className="block">{displaySalePrice}</span>
         </div>
       </div>
     </div>
@@ -154,56 +162,53 @@ const DealsDetailsSideBar = ({
   cheaperStores,
   salePrice,
 }: DealsDetailsSideBarProps) => {
-  const storeOptions = query["deals"].queryParams.filters?.[0].options;
-
   return (
     <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
       <>
-        <h3 className="mb-4 text-xl font-bold">Cheaper Deals</h3>
+        <h3 className="mb-4 text-center text-xl font-bold">Cheaper Deals</h3>
         <div className="space-y-6">
           {cheaperStores.length > 0 ? (
             cheaperStores.map((cs, index: number) => {
+              const storeOptions =
+                query["deals"].queryParams.filters?.[0].options;
+
               const storeName = storeOptions?.find(
                 (name) => name.value === cs.storeID,
               );
+
+              const percentSavings = (
+                ((parseFloat(cs.retailPrice) - parseFloat(cs.salePrice)) /
+                  parseFloat(cs.retailPrice)) *
+                100
+              ).toFixed(0);
+
+              const displaySalePrice =
+                salePrice !== "0.00" ? `$${cs.salePrice}` : "FREE";
+
               return (
-                <div
-                  key={cs.dealID}
-                  className="flex w-full flex-col justify-between gap-2"
-                >
-                  <h3 className="font-bold opacity-75">
-                    {storeName?.name} Deal
-                  </h3>
-                  <div className="flex flex-col gap-2">
-                    <div className="space-x-2">
-                      <span className="line-through opacity-70">
+                <div key={cs.dealID} className="space-y-1">
+                  <span className="block text-sm">{storeName?.name} Deal</span>
+                  <Button
+                    asChild
+                    className={`w-full rounded-xl border border-muted-foreground bg-transparent hover:border-foreground ${index === 0 ? "border-foreground hover:border-highlight" : ""}`}
+                    variant="outline"
+                  >
+                    <Link prefetch={true} href={`/deals/${cs.dealID}`}>
+                      <span className="block font-bold text-highlight">
+                        -{percentSavings}%
+                      </span>
+                      <span className="block text-muted-foreground line-through">
                         ${cs.retailPrice}
                       </span>
-                      <span className="text-xl">
-                        {salePrice !== "0.00" ? `$${cs.salePrice}` : "FREE"}
-                      </span>
-                    </div>
-                    <Button
-                      asChild
-                      className={`w-full bg-muted-foreground hover:bg-foreground ${index === 0 ? "bg-foreground hover:bg-highlight" : ""}`}
-                    >
-                      <Link
-                        prefetch={true}
-                        href={`/deals/${cs.dealID}`}
-                        className={``}
-                      >
-                        {index === 0 ? "Best Deal" : "Better Deal"}
-                        <ChevronRight />
-                      </Link>
-                    </Button>
-                  </div>
+                      <span className="block">{displaySalePrice}</span>
+                      <ChevronRight />
+                    </Link>
+                  </Button>
                 </div>
               );
             })
           ) : (
-            <p className="text-lg font-bold text-muted-foreground">
-              You found the best deal!
-            </p>
+            <p className="text-center text-lg text-muted-foreground">N/A</p>
           )}
         </div>
       </>

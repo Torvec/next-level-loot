@@ -3,7 +3,7 @@ export interface DealsCardProps {
   title: string;
   metacriticLink: string;
   dealID: string;
-  // storeID: string;
+  storeID: string;
   // gameID: string;
   salePrice: string;
   normalPrice: string;
@@ -20,6 +20,11 @@ export interface DealsCardProps {
   thumb: string;
 }
 
+export type DealsCardDescriptionSectionProps = {
+  releaseDate: number;
+  storeID: string;
+};
+
 export type DealsCardPriceSectionProps = {
   savings: string;
   dealRating: string;
@@ -29,7 +34,7 @@ export type DealsCardPriceSectionProps = {
 
 export interface DealsDetailsProps {
   gameInfo: {
-    // storeID: string;
+    storeID: string;
     // gameID: string;
     name: string;
     steamAppID: string;
@@ -61,6 +66,7 @@ export type DealsDetailsHeaderProps = {
   title: string;
   src: string;
   released: number;
+  storeID: string;
 };
 
 export type DealsDetailsMainColumnProps = {
