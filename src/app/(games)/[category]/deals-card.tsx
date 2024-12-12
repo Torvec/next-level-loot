@@ -10,46 +10,13 @@ import BannerSection from "@/components/ui/banner-section";
 import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
-import { type DealsListType } from "@/lib/types";
+import MoreDetailsButton from "@/components/ui/buttons/details-button";
+import {
+  type DealsCardProps,
+  type DealsCardPriceSectionProps,
+} from "@/types/deals-types";
 
-export default function BestDealsCard(data: DealsListType) {
-  const DescriptionSection = () => {
-    const formattedReleaseDate =
-      data.releaseDate > 0
-        ? new Date(data.releaseDate * 1000).toLocaleDateString()
-        : "N/A";
-
-    return <p>Released: {formattedReleaseDate}</p>;
-  };
-
-  const PriceSection = () => {
-    const formattedSavings = parseFloat(data.savings).toFixed(0);
-
-    const formattedDealRating = parseFloat(data.dealRating).toFixed(0);
-
-    return (
-      <div className="mx-auto w-max space-y-4 pt-12">
-        <div className="flex justify-start gap-4">
-          <span className="font rounded-xl text-2xl text-highlight">
-            -{formattedSavings}%
-          </span>
-          <div className="flex flex-col justify-between">
-            <span className="text-2xl font-bold">
-              {data.salePrice !== "0.00" ? `$${data.salePrice}` : "FREE"}
-            </span>
-            <span className="text-muted-foreground line-through">
-              ${data.normalPrice}
-            </span>
-          </div>
-        </div>
-        <p className="text-center text-muted-foreground">
-          {formattedDealRating}/10 Deal!
-        </p>
-      </div>
-    );
-  };
-
+export default function DealsCard(data: DealsCardProps) {
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
       <CardHeader>
@@ -58,7 +25,7 @@ export default function BestDealsCard(data: DealsListType) {
           <h2 className="text-lg">{data.title}</h2>
         </CardTitle>
         <CardDescription className="flex justify-between">
-          <DescriptionSection />
+          <DealsCardDescriptionSection releaseDate={data.releaseDate} />
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -80,12 +47,17 @@ export default function BestDealsCard(data: DealsListType) {
             reviewSourceSearch="https://store.steampowered.com/search/?term="
           />
         </div>
-        <PriceSection />
+        <DealsCardPriceSection
+          savings={data.savings}
+          dealRating={data.dealRating}
+          salePrice={data.salePrice}
+          normalPrice={data.normalPrice}
+        />
       </CardContent>
       <CardFooter className="flex-col gap-4">
         <RedirectButton
           url={`https://www.cheapshark.com/redirect?dealID=${data.dealID}`}
-          text={"Get Deal"}
+          displayText={"Get Deal"}
         />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <WishlistButton
@@ -103,3 +75,46 @@ export default function BestDealsCard(data: DealsListType) {
     </Card>
   );
 }
+
+const DealsCardDescriptionSection = ({
+  releaseDate,
+}: {
+  releaseDate: number;
+}) => {
+  const formattedReleaseDate =
+    releaseDate > 0 ? new Date(releaseDate * 1000).toLocaleDateString() : "N/A";
+
+  return <p>Released: {formattedReleaseDate}</p>;
+};
+
+const DealsCardPriceSection = ({
+  savings,
+  dealRating,
+  salePrice,
+  normalPrice,
+}: DealsCardPriceSectionProps) => {
+  const formattedSavings = parseFloat(savings).toFixed(0);
+
+  const formattedDealRating = parseFloat(dealRating).toFixed(0);
+
+  const displaySalePrice = salePrice !== "0.00" ? `$${salePrice}` : "FREE";
+
+  return (
+    <div className="mx-auto w-max space-y-4 pt-12">
+      <div className="flex justify-start gap-4">
+        <span className="font rounded-xl text-2xl text-highlight">
+          -{formattedSavings}%
+        </span>
+        <div className="flex flex-col justify-between">
+          <span className="text-2xl font-bold">{displaySalePrice}</span>
+          <span className="text-muted-foreground line-through">
+            ${normalPrice}
+          </span>
+        </div>
+      </div>
+      <p className="text-center text-muted-foreground">
+        {formattedDealRating}/10 Deal!
+      </p>
+    </div>
+  );
+};

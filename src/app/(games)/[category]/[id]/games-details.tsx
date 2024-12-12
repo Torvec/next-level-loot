@@ -1,21 +1,28 @@
 import { Badge } from "@/components/ui/badge";
 import BannerSection from "@/components/ui/banner-section";
 import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
-import FindDealsButton from "@/components/ui/buttons/find-deals-button";
+import FindDealsButton from "@/components/ui/buttons/deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import { GamesDetailsType } from "@/lib/types";
+import {
+  type GamesDetailsProps,
+  type GamesDetailsHeaderProps,
+  type GamesDetailsMainColumnProps,
+  type GamesDetailsScoreRatingSectionProps,
+  type GamesDetailsSideBarProps,
+  type GamesDetailsBadgeListProps,
+} from "@/types/games-types";
 
-export default function GamesDetails(data: GamesDetailsType) {
+export default function GamesDetails(data: GamesDetailsProps) {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
-      <Header
+      <GamesDetailsHeader
         title={data.name}
         src={data.background_image}
         released={data.released}
         esrb={data.esrb_rating}
       />
       <div className="flex flex-col gap-6 md:flex-row">
-        <MainColumn
+        <GamesDetailsMainColumn
           src={data.background_image}
           title={data.name}
           id={data.id}
@@ -23,7 +30,7 @@ export default function GamesDetails(data: GamesDetailsType) {
           ratings={data.ratings}
           description={data.description_raw}
         />
-        <SideBar
+        <GamesDetailsSideBar
           platforms={data.platforms}
           genres={data.genres}
           stores={data.stores}
@@ -36,17 +43,12 @@ export default function GamesDetails(data: GamesDetailsType) {
   );
 }
 
-const Header = ({
+const GamesDetailsHeader = ({
   title,
   src,
   released,
   esrb,
-}: {
-  title: string;
-  src: string;
-  released: string;
-  esrb: { name: string } | null;
-}) => {
+}: GamesDetailsHeaderProps) => {
   return (
     <div className="space-y-4 rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
       <BannerSection src={src} alt={title} />
@@ -61,24 +63,17 @@ const Header = ({
   );
 };
 
-const MainColumn = ({
+const GamesDetailsMainColumn = ({
   src,
   title,
   id,
   metacritic,
   ratings,
   description,
-}: {
-  src: string;
-  title: string;
-  id: number;
-  metacritic: number;
-  ratings: { id: number; count: number; percent: number; title: string }[];
-  description: string;
-}) => {
+}: GamesDetailsMainColumnProps) => {
   return (
     <div className="w-full space-y-6 rounded-xl bg-gradient-to-tl from-muted to-muted/20 p-6 md:w-2/3">
-      <ScoreRatingSection
+      <GamesDetailsScoreRatingSection
         title={title}
         metacritic={metacritic}
         ratings={ratings}
@@ -94,20 +89,16 @@ const MainColumn = ({
           }}
         />
       </div>
-      <DescriptionText description={description} />
+      <GamesDetailsDescriptionText description={description} />
     </div>
   );
 };
 
-const ScoreRatingSection = ({
+const GamesDetailsScoreRatingSection = ({
   ratings,
   title,
   metacritic,
-}: {
-  ratings: { id: number; count: number; percent: number; title: string }[];
-  title: string;
-  metacritic: number;
-}) => {
+}: GamesDetailsScoreRatingSectionProps) => {
   const initCount = 0;
   const totalRatingCount = ratings.reduce(
     (acc, rating) => acc + rating.count,
@@ -158,7 +149,11 @@ const ScoreRatingSection = ({
   );
 };
 
-const DescriptionText = ({ description }: { description: string }) => (
+const GamesDetailsDescriptionText = ({
+  description,
+}: {
+  description: string;
+}) => (
   <div>
     {description ? (
       <>
@@ -175,55 +170,48 @@ const DescriptionText = ({ description }: { description: string }) => (
   </div>
 );
 
-const SideBar = ({
+const GamesDetailsSideBar = ({
   platforms,
   genres,
   stores,
   developers,
   publishers,
   tags,
-}: {
-  platforms: { platform: { id: number; name: string } }[];
-  genres: { id: number; name: string }[];
-  stores: { store: { id: number; name: string } }[];
-  developers: { id: number; name: string }[];
-  publishers: { id: number; name: string }[];
-  tags: { id: number; name: string }[];
-}) => {
+}: GamesDetailsSideBarProps) => {
   return (
     <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
       <div className="space-y-6">
-        <BadgeList
+        <GamesDetailsBadgeList
           title="Platforms"
           list={platforms}
           keyExtractor={(p) => p.platform.id.toString()}
           renderItem={(p) => p.platform.name}
         />
-        <BadgeList
+        <GamesDetailsBadgeList
           title="Genres"
           list={genres}
           keyExtractor={(g) => g.id.toString()}
           renderItem={(g) => g.name}
         />
-        <BadgeList
+        <GamesDetailsBadgeList
           title="Stores"
           list={stores}
           keyExtractor={(s) => s.store.id.toString()}
           renderItem={(s) => s.store.name}
         />
-        <BadgeList
+        <GamesDetailsBadgeList
           title="Developers"
           list={developers}
           keyExtractor={(d) => d.id.toString()}
           renderItem={(d) => d.name}
         />
-        <BadgeList
+        <GamesDetailsBadgeList
           title="Publishers"
           list={publishers}
           keyExtractor={(p) => p.id.toString()}
           renderItem={(p) => p.name}
         />
-        <BadgeList
+        <GamesDetailsBadgeList
           title="Tags"
           list={tags}
           keyExtractor={(t) => t.id.toString()}
@@ -234,14 +222,12 @@ const SideBar = ({
   );
 };
 
-const BadgeList = <T,>(props: {
-  title: string;
-  list: T[];
-  keyExtractor: (item: T) => string;
-  renderItem: (item: T) => React.ReactNode;
-}) => {
-  const { title, list, keyExtractor, renderItem } = props;
-
+const GamesDetailsBadgeList = <T,>({
+  title,
+  list,
+  keyExtractor,
+  renderItem,
+}: GamesDetailsBadgeListProps<T>) => {
   return (
     <div>
       <h3>{title}</h3>

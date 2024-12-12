@@ -7,20 +7,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
-import FindDealsButton from "@/components/ui/buttons/find-deals-button";
+import FindDealsButton from "@/components/ui/buttons/deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
+import MoreDetailsButton from "@/components/ui/buttons/details-button";
 import BannerSection from "@/components/ui/banner-section";
-import { GamesListType } from "@/lib/types";
+import {
+  type GamesCardProps,
+  type GamesCardDescriptionSectionProps,
+} from "@/types/games-types";
 
-export default function HighestRatedCard(data: GamesListType) {
-  const DescriptionSection = () => (
-    <>
-      <p>Released: {data.released}</p>
-      <p>ESRB: {data.esrb_rating ? data.esrb_rating.name : "Not Rated"}</p>
-    </>
-  );
-
+export default function GamesCard(data: GamesCardProps) {
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/25">
       <CardHeader>
@@ -29,7 +25,10 @@ export default function HighestRatedCard(data: GamesListType) {
           <h2 className="text-lg">{data.name}</h2>
         </CardTitle>
         <CardDescription>
-          <DescriptionSection />
+          <GamesCardDescriptionSection
+            released={data.released}
+            esrbRating={data.esrb_rating}
+          />
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -58,3 +57,13 @@ export default function HighestRatedCard(data: GamesListType) {
     </Card>
   );
 }
+
+const GamesCardDescriptionSection = ({
+  released,
+  esrbRating,
+}: GamesCardDescriptionSectionProps) => (
+  <>
+    <p>Released: {released}</p>
+    <p>ESRB: {esrbRating ? esrbRating.name : "Not Rated"}</p>
+  </>
+);

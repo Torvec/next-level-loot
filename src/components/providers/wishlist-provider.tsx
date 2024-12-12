@@ -1,31 +1,22 @@
 "use client";
 
 import { createContext, useReducer, useEffect, useContext } from "react";
+import { type WishlistItemType, type WishlistAction } from "@/types/types";
 
-export type ItemType = {
-  id: string | number;
-  title: string;
-  src: string;
-  path: string;
-  price?: string | number;
-};
-
-const WishlistContext = createContext<ItemType[]>([]);
-const WishlistDispatchContext = createContext<
-  React.Dispatch<{
-    type: string;
-    item?: ItemType;
-    index?: number;
-    payload?: ItemType[];
-  }>
->(() => {});
+const WishlistContext = createContext<WishlistItemType[]>([]);
+const WishlistDispatchContext = createContext<React.Dispatch<WishlistAction>>(
+  () => {},
+);
 
 export default function WishlistProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [wishlist, dispatch] = useReducer(wishlistReducer, [] as ItemType[]);
+  const [wishlist, dispatch] = useReducer(
+    wishlistReducer,
+    [] as WishlistItemType[],
+  );
 
   useEffect(() => {
     const storedWishlist = initWishlist("wishlist");
@@ -49,15 +40,7 @@ export function useWishlistDispatch() {
   return useContext(WishlistDispatchContext);
 }
 
-function wishlistReducer(
-  state: ItemType[],
-  action: {
-    type: string;
-    item?: ItemType;
-    index?: number;
-    payload?: ItemType[];
-  },
-) {
+function wishlistReducer(state: WishlistItemType[], action: WishlistAction) {
   switch (action.type) {
     case "INIT":
       return action.payload || [];
@@ -77,7 +60,7 @@ function wishlistReducer(
   }
 }
 
-function initWishlist(key: string): ItemType[] {
+function initWishlist(key: string): WishlistItemType[] {
   const storedWishlist = localStorage.getItem(key);
   return storedWishlist ? JSON.parse(storedWishlist) : [];
 }

@@ -1,4 +1,4 @@
-import { type Category } from "@/lib/types";
+import { type FetchDataProps } from "@/types/types";
 import { query } from "@/lib/query";
 
 export default async function fetchData({
@@ -8,14 +8,7 @@ export default async function fetchData({
   selectedOrder,
   selectedFilters,
   id,
-}: {
-  category: Category;
-  searchTerm?: string;
-  selectedSort?: string;
-  selectedOrder?: string;
-  selectedFilters?: Record<string, string[]>;
-  id?: string;
-}) {
+}: FetchDataProps) {
   const { baseURL, endPoints, queryParams, headers } = query[category];
   const { apiKey, search, sort, order, filters } = queryParams;
 

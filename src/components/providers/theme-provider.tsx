@@ -1,13 +1,12 @@
 "use client";
 
 import { createContext, useContext, useReducer, useEffect } from "react";
-
-type Themes = "" | "light" | "dark";
+import { type Themes, type ThemeAction } from "@/types/types";
 
 const ThemeContext = createContext<Themes>("");
-const ThemeDispatchContext = createContext<
-  React.Dispatch<{ type: string; theme: Themes }>
->(() => {});
+const ThemeDispatchContext = createContext<React.Dispatch<ThemeAction>>(
+  () => {},
+);
 
 export default function ThemeProvider({
   children,
@@ -49,7 +48,7 @@ export function useThemeDispatch() {
   return useContext(ThemeDispatchContext);
 }
 
-function themeReducer(state: Themes, action: { type: string; theme: Themes }) {
+function themeReducer(state: Themes, action: ThemeAction) {
   switch (action.type) {
     case "SET":
       localStorage.setItem("theme", action.theme);

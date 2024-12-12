@@ -1,19 +1,24 @@
 import BannerSection from "@/components/ui/banner-section";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
-import { GiveawaysDetailsType } from "@/lib/types";
+import {
+  type GiveawaysDetailsProps,
+  type GiveawaysDetailsHeaderProps,
+  type GiveawaysDetailsMainColumnProps,
+  type GiveawaysDetailsSideBarProps,
+} from "@/types/giveaways-types";
 
-export default function GiveawaysDetails(data: GiveawaysDetailsType) {
+export default function GiveawaysDetails(data: GiveawaysDetailsProps) {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
-      <Header
+      <GiveawaysDetailsHeader
         title={data.title}
         src={data.image}
         type={data.type}
         platforms={data.platforms}
       />
       <div className="flex flex-col gap-6 md:flex-row">
-        <MainColumn
+        <GiveawaysDetailsMainColumn
           src={data.image}
           title={data.title}
           id={data.id}
@@ -22,23 +27,21 @@ export default function GiveawaysDetails(data: GiveawaysDetailsType) {
           description={data.description}
           instructions={data.instructions}
         />
-        <SideBar startDate={data.published_date} endDate={data.end_date} />
+        <GiveawaysDetailsSideBar
+          startDate={data.published_date}
+          endDate={data.end_date}
+        />
       </div>
     </div>
   );
 }
 
-const Header = ({
+const GiveawaysDetailsHeader = ({
   title,
   src,
   type,
   platforms,
-}: {
-  title: string;
-  src: string;
-  type: string;
-  platforms: string;
-}) => {
+}: GiveawaysDetailsHeaderProps) => {
   return (
     <div className="space-y-4 rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
       <BannerSection src={src} alt={title} />
@@ -53,7 +56,7 @@ const Header = ({
   );
 };
 
-const MainColumn = ({
+const GiveawaysDetailsMainColumn = ({
   src,
   title,
   id,
@@ -61,15 +64,7 @@ const MainColumn = ({
   worth,
   description,
   instructions,
-}: {
-  src: string;
-  title: string;
-  id: number;
-  url: string;
-  worth: string;
-  description: string;
-  instructions: string;
-}) => {
+}: GiveawaysDetailsMainColumnProps) => {
   return (
     <div className="w-full space-y-6 rounded-xl bg-gradient-to-tl from-muted to-muted/20 p-6 md:w-2/3">
       <div>
@@ -84,9 +79,9 @@ const MainColumn = ({
           {instructions}
         </p>
       </div>
-      <PriceSection worth={worth} />
+      <GiveawaysPriceSection worth={worth} />
       <div className="flex flex-col gap-4 md:flex-row">
-        <RedirectButton url={url} text={"Get Deal"} />
+        <RedirectButton url={url} displayText={"Get Giveaway"} />
         <WishlistButton
           item={{
             id: id,
@@ -101,7 +96,7 @@ const MainColumn = ({
   );
 };
 
-const PriceSection = ({ worth }: { worth: string }) => {
+const GiveawaysPriceSection = ({ worth }: { worth: string }) => {
   return (
     <div className="mx-auto w-max space-y-4 text-center text-base">
       <div className="flex gap-4">
@@ -117,13 +112,10 @@ const PriceSection = ({ worth }: { worth: string }) => {
   );
 };
 
-const SideBar = ({
+const GiveawaysDetailsSideBar = ({
   startDate,
   endDate,
-}: {
-  startDate: string;
-  endDate: string;
-}) => {
+}: GiveawaysDetailsSideBarProps) => {
   return (
     <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
       <ul>

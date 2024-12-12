@@ -8,31 +8,14 @@ import {
 } from "@/components/ui/card";
 import BannerSection from "@/components/ui/banner-section";
 import RedirectButton from "@/components/ui/buttons/redirect-button";
-import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
+import MoreDetailsButton from "@/components/ui/buttons/details-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import { GiveawaysListType } from "@/lib/types";
+import {
+  type GiveawaysCardProps,
+  type GiveawaysCardDescriptionSectionProps,
+} from "@/types/giveaways-types";
 
-export default function FreeGamesCard(data: GiveawaysListType) {
-  const DescriptionSection = () => (
-    <div className="space-y-1">
-      <p>Type: {data.type}</p>
-      <p>Platforms: {data.platforms}</p>
-      <p>Start: {data.published_date}</p>
-      <p>End: {data.end_date}</p>
-    </div>
-  );
-
-  const PriceSection = () => {
-    return (
-      <div className="">
-        <span className="block text-2xl font-bold">Free!</span>
-        <span className="block text-muted-foreground line-through">
-          {data.worth}
-        </span>
-      </div>
-    );
-  };
-
+export default function GiveawaysCard(data: GiveawaysCardProps) {
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
       <CardHeader>
@@ -41,14 +24,22 @@ export default function FreeGamesCard(data: GiveawaysListType) {
           <h2 className="text-lg">{data.title}</h2>
         </CardTitle>
         <CardDescription>
-          <DescriptionSection />
+          <GiveawaysCardDescriptionSection
+            type={data.type}
+            platforms={data.platforms}
+            publishedDate={data.published_date}
+            endDate={data.end_date}
+          />
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <PriceSection />
+        <GiveawaysCardPriceSection worth={data.worth} />
       </CardContent>
       <CardFooter className="flex-col gap-4">
-        <RedirectButton url={data.open_giveaway_url} text={"Get Giveaway"} />
+        <RedirectButton
+          url={data.open_giveaway_url}
+          displayText={"Get Giveaway"}
+        />
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <WishlistButton
             item={{
@@ -65,3 +56,26 @@ export default function FreeGamesCard(data: GiveawaysListType) {
     </Card>
   );
 }
+
+const GiveawaysCardDescriptionSection = ({
+  type,
+  platforms,
+  publishedDate,
+  endDate,
+}: GiveawaysCardDescriptionSectionProps) => (
+  <div className="space-y-1">
+    <p>Type: {type}</p>
+    <p>Platforms: {platforms}</p>
+    <p>Start: {publishedDate}</p>
+    <p>End: {endDate}</p>
+  </div>
+);
+
+const GiveawaysCardPriceSection = ({ worth }: { worth: string }) => {
+  return (
+    <div>
+      <span className="block text-2xl font-bold">Free!</span>
+      <span className="block text-muted-foreground line-through">{worth}</span>
+    </div>
+  );
+};

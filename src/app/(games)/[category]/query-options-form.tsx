@@ -1,6 +1,3 @@
-//! This is temporary
-/* eslint-disable @typescript-eslint/no-explicit-any */
-//! This is temporary
 import Link from "next/link";
 import { query } from "@/lib/query";
 import { Button } from "@/components/ui/button";
@@ -10,20 +7,26 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 import { ChevronUp } from "lucide-react";
-import { type Category } from "@/lib/types";
+import {
+  type QueryOptionsFormProps,
+  type QueryOptionButtonProps,
+  type QueryOptionProps,
+  type QueryOptionListProps,
+  type FilterResetButtonProps,
+  type GetCurrentValueProps,
+  type GetUpdatedQueryProps,
+  type IsSelectedProps,
+} from "@/types/types";
 
-export default async function QueryOptionsForm({
+export default function QueryOptionsForm({
   category,
   searchParams,
-}: {
-  category: Category;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+}: QueryOptionsFormProps) {
   const { sort, order, filters } = query[category].queryParams;
 
-  const paramsObject = await searchParams;
+  //! I really need to figure out why i need this
   const params = new URLSearchParams(
-    Object.entries(paramsObject).flatMap(([key, value]) =>
+    Object.entries(searchParams).flatMap(([key, value]) =>
       Array.isArray(value)
         ? value.map((v) => [key, v])
         : value !== undefined
@@ -37,17 +40,10 @@ export default async function QueryOptionsForm({
       <div className="mb-2 flex flex-col justify-between gap-2 md:flex-row">
         <div className="flex flex-col gap-2 md:flex-row">
           {filters?.map((filter) => (
-            <QueryOption
-              key={filter.name}
-              params={params}
-              filter={filter}
-              align="start"
-            />
+            <QueryOption key={filter.name} params={params} filter={filter} />
           ))}
-          <QueryOption params={params} filter={sort} align="start" />
-          {order && (
-            <QueryOption params={params} filter={order} align="start" />
-          )}
+          {sort && <QueryOption params={params} filter={sort} />}
+          {order && <QueryOption params={params} filter={order} />}
         </div>
       </div>
       <FilterResetButton category={category} params={params} />
@@ -55,28 +51,17 @@ export default async function QueryOptionsForm({
   );
 }
 
-const QueryOption = ({
-  params,
-  filter,
-  align,
-}: {
-  params: URLSearchParams;
-  filter: any;
-  align: "start" | "end";
-}) => {
+const QueryOption = ({ params, filter }: QueryOptionProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <QueryOptionButton
           params={params}
           filter={filter}
-          typeText={filter.type}
+          typeText={filter.type || ""}
         />
       </PopoverTrigger>
-      <PopoverContent
-        align={align}
-        className="max-h-96 w-[calc(100vw-32px)] overflow-y-auto md:w-max"
-      >
+      <PopoverContent className="max-h-96 w-[calc(100vw-32px)] overflow-y-auto md:w-max">
         <QueryOptionList params={params} filter={filter} />
       </PopoverContent>
     </Popover>
@@ -87,54 +72,51 @@ const QueryOptionButton = ({
   params,
   filter,
   typeText,
-}: {
-  params: URLSearchParams;
-  filter: any;
-  typeText: string;
-}) => {
+}: QueryOptionButtonProps) => {
   const currentOption =
-    getCurrentValue(params, filter.name, filter.options) || filter.default;
+    getCurrentValue({ params, key: filter.name, options: filter.options }) ||
+    filter.default ||
+    "";
 
   return (
     <Button className="w-full min-w-max bg-muted-foreground">
-      {typeText}: {currentOption}
+      {typeText}: {currentOption || ""}
       <ChevronUp />
     </Button>
   );
 };
 
-const QueryOptionList = ({
-  params,
-  filter,
-}: {
-  params: URLSearchParams;
-  filter: any;
-}) => {
+const QueryOptionList = ({ params, filter }: QueryOptionListProps) => {
   return (
     <ul>
-      {filter.options.map((option: any) => (
-        <li key={option.value}>
-          <Link
-            href={getUpdatedQuery(params, filter.name, option.value)}
-            className={`block px-2 py-1 hover:bg-muted ${
-              isSelected(params, filter.name, option.value) ? "bg-muted" : ""
-            }`}
-          >
-            {option.name}
-          </Link>
-        </li>
-      ))}
+      {filter.options.map((option) => {
+        const selectedValue = isSelected({
+          params,
+          key: filter.name,
+          value: option.value,
+        })
+          ? "bg-muted"
+          : "";
+        return (
+          <li key={option.value}>
+            <Link
+              href={getUpdatedQuery({
+                params,
+                key: filter.name,
+                value: option.value,
+              })}
+              className={`block px-2 py-1 hover:bg-muted ${selectedValue}`}
+            >
+              {option.name}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 };
 
-const FilterResetButton = ({
-  category,
-  params,
-}: {
-  category: Category;
-  params: URLSearchParams;
-}) => {
+const FilterResetButton = ({ category, params }: FilterResetButtonProps) => {
   return hasParams(params) ? (
     <Link href={`/${category}`}>Reset Filters</Link>
   ) : (
@@ -142,27 +124,19 @@ const FilterResetButton = ({
   );
 };
 
-const getCurrentValue = (
-  params: URLSearchParams,
-  key: string,
-  options: { name: string; value: string }[],
-) => {
+const getCurrentValue = ({ params, key, options }: GetCurrentValueProps) => {
   const selectedValue = params.get(key) || "";
   return options.find((option) => option.value === selectedValue)?.name;
 };
 
-const getUpdatedQuery = (
-  params: URLSearchParams,
-  key: string,
-  value: string,
-) => {
+const getUpdatedQuery = ({ params, key, value }: GetUpdatedQueryProps) => {
   const updatedParams = new URLSearchParams(params.toString());
   if (value) updatedParams.set(key, value);
   else updatedParams.delete(key);
   return `?${updatedParams.toString()}`;
 };
 
-const isSelected = (params: URLSearchParams, key: string, value: string) => {
+const isSelected = ({ params, key, value }: IsSelectedProps) => {
   return params.get(key) === value;
 };
 

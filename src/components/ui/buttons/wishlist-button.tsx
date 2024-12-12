@@ -4,11 +4,20 @@ import { useWishlistDispatch } from "@/components/providers/wishlist-provider";
 import useIsInWishlist from "@/lib/use-is-in-wishlist";
 import { Button } from "@/components/ui/button";
 import { BookmarkPlus, BookmarkCheck } from "lucide-react";
-import { type ItemType } from "@/components/providers/wishlist-provider";
+import { type WishlistItemType } from "@/types/types";
 
-export default function WishlistButton({ item }: { item: ItemType }) {
+export default function WishlistButton({ item }: { item: WishlistItemType }) {
   const dispatch = useWishlistDispatch();
   const isInWishlist = useIsInWishlist(item.id);
+  const content = isInWishlist ? (
+    <>
+      <BookmarkCheck /> Added
+    </>
+  ) : (
+    <>
+      <BookmarkPlus /> Wishlist
+    </>
+  );
 
   return (
     <Button
@@ -27,15 +36,7 @@ export default function WishlistButton({ item }: { item: ItemType }) {
       className="w-full bg-background text-muted-foreground hover:text-muted"
       disabled={isInWishlist}
     >
-      {isInWishlist ? (
-        <>
-          <BookmarkCheck /> Added
-        </>
-      ) : (
-        <>
-          <BookmarkPlus /> Wishlist
-        </>
-      )}
+      {content}
     </Button>
   );
 }

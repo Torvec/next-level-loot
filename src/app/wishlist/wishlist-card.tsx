@@ -2,13 +2,11 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { Button } from "@/components/ui/button";
-import MoreDetailsButton from "@/components/ui/buttons/more-details-button";
+import MoreDetailsButton from "@/components/ui/buttons/details-button";
 import BannerSection from "@/components/ui/banner-section";
 import { X, Grip, ChevronUp, ChevronDown } from "lucide-react";
-import {
-  type ItemType,
-  useWishlistDispatch,
-} from "@/components/providers/wishlist-provider";
+import { useWishlistDispatch } from "@/components/providers/wishlist-provider";
+import { type WishlistItemType } from "@/types/types";
 
 export default function WishlistCard({
   id,
@@ -17,7 +15,7 @@ export default function WishlistCard({
   path,
   price,
   index,
-}: ItemType & { index: number }) {
+}: WishlistItemType & { index: number }) {
   return (
     <section className="mx-auto flex max-w-4xl items-center gap-4 rounded-xl bg-muted p-6">
       <MoveItemButton />
@@ -28,7 +26,7 @@ export default function WishlistCard({
           </div>
           <div className="md:w-2/3">
             <h2 className="font-bold">{title}</h2>
-            <FormatPrice price={price} />
+            <DisplayPrice price={price} />
           </div>
         </div>
         <div className="flex flex-row items-center gap-2">
@@ -40,18 +38,20 @@ export default function WishlistCard({
   );
 }
 
-const FormatPrice = ({ price }: { price: string | undefined | number }) => {
-  let displayPrice = "";
+const DisplayPrice = ({ price }: { price: string | undefined | number }) => {
+  let formattedPrice;
 
   if (!price) {
-    displayPrice = "";
+    formattedPrice = "";
   } else if (price === "0.00" || price === "Free") {
-    displayPrice = "FREE!";
+    formattedPrice = "FREE!";
   } else {
-    displayPrice = `$${price}`;
+    formattedPrice = `$${price}`;
   }
 
-  return <span className="text-lg text-muted-foreground">{displayPrice}</span>;
+  return (
+    <span className="text-lg text-muted-foreground">{formattedPrice}</span>
+  );
 };
 
 const RemoveItemButton = ({ index }: { index: number }) => {

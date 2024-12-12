@@ -2,21 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { type RedirectButtonProps } from "@/types/types";
 
-export default function GiveawayButton({
+export default function RedirectButton({
   url,
-  text,
-}: {
-  url: string;
-  text: string;
-}) {
+  displayText,
+}: RedirectButtonProps) {
   return (
     <Button
       asChild
       className="w-full bg-highlight text-highlight-foreground hover:bg-highlight-foreground hover:text-highlight"
     >
       <a href={url} target="_blank" rel="noopener noreferrer external">
-        {text}
+        {displayText}
         <ExternalLink />
       </a>
     </Button>

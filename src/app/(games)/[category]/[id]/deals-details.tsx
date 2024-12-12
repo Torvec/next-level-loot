@@ -6,21 +6,27 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { query } from "@/lib/query";
-import { DealsDetailsType } from "@/lib/types";
+import {
+  type DealsDetailsProps,
+  type DealsDetailsHeaderProps,
+  type DealsDetailsMainColumnProps,
+  type DealsDetailsPriceSectionProps,
+  type DealsDetailsSideBarProps,
+} from "@/types/deals-types";
 
 export default function DealsDetails({
   id,
   ...data
-}: { id: string } & DealsDetailsType) {
+}: { id: string } & DealsDetailsProps) {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
-      <Header
+      <DealsDetailsHeader
         title={data.gameInfo.name}
         src={data.gameInfo.thumb}
         released={data.gameInfo.releaseDate}
       />
       <div className="flex flex-col gap-6 md:flex-row">
-        <MainColumn
+        <DealsDetailsMainColumn
           src={data.gameInfo.thumb}
           title={data.gameInfo.name}
           id={id}
@@ -31,7 +37,7 @@ export default function DealsDetails({
           retailPrice={data.gameInfo.retailPrice}
           salePrice={data.gameInfo.salePrice}
         />
-        <SideBar
+        <DealsDetailsSideBar
           cheaperStores={data.cheaperStores}
           salePrice={data.gameInfo.salePrice}
         />
@@ -40,15 +46,11 @@ export default function DealsDetails({
   );
 }
 
-const Header = ({
+const DealsDetailsHeader = ({
   title,
   src,
   released,
-}: {
-  title: string;
-  src: string;
-  released: number;
-}) => {
+}: DealsDetailsHeaderProps) => {
   const formattedReleaseDate =
     released > 0 ? new Date(released * 1000).toLocaleDateString() : "N/A";
 
@@ -65,7 +67,7 @@ const Header = ({
   );
 };
 
-const MainColumn = ({
+const DealsDetailsMainColumn = ({
   src,
   title,
   id,
@@ -75,17 +77,7 @@ const MainColumn = ({
   steamRatingPercent,
   retailPrice,
   salePrice,
-}: {
-  src: string;
-  title: string;
-  id: string;
-  metacriticLink: string;
-  metacriticScore: string;
-  steamAppID: string;
-  steamRatingPercent: string;
-  retailPrice: string;
-  salePrice: string;
-}) => {
+}: DealsDetailsMainColumnProps) => {
   return (
     <div className="w-full space-y-6 rounded-xl bg-gradient-to-tl from-muted to-muted/20 p-6 md:w-2/3">
       <div className="flex gap-4">
@@ -106,11 +98,14 @@ const MainColumn = ({
           reviewSourceSearch="https://store.steampowered.com/search/?term="
         />
       </div>
-      <PriceSection retailPrice={retailPrice} salePrice={salePrice} />
+      <DealsDetailsPriceSection
+        retailPrice={retailPrice}
+        salePrice={salePrice}
+      />
       <div className="flex flex-col gap-4 md:flex-row">
         <RedirectButton
           url={`https://www.cheapshark.com/redirect?dealID=${id}`}
-          text={"Get Deal"}
+          displayText={"Get Deal"}
         />
         <WishlistButton
           item={{
@@ -126,13 +121,10 @@ const MainColumn = ({
   );
 };
 
-const PriceSection = ({
+const DealsDetailsPriceSection = ({
   retailPrice,
   salePrice,
-}: {
-  retailPrice: string;
-  salePrice: string;
-}) => {
+}: DealsDetailsPriceSectionProps) => {
   const percentSavings = (
     ((parseFloat(retailPrice) - parseFloat(salePrice)) /
       parseFloat(retailPrice)) *
@@ -158,89 +150,63 @@ const PriceSection = ({
   );
 };
 
-const SideBar = ({
+const DealsDetailsSideBar = ({
   cheaperStores,
   salePrice,
-}: {
-  cheaperStores: {
-    storeID: string;
-    dealID: string;
-    retailPrice: string;
-    salePrice: string;
-  }[];
-  salePrice: string;
-}) => {
-  return (
-    <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
-      <CheaperDealsSection
-        cheaperStores={cheaperStores}
-        salePrice={salePrice}
-      />
-    </aside>
-  );
-};
-
-const CheaperDealsSection = ({
-  cheaperStores,
-  salePrice,
-}: {
-  cheaperStores: {
-    storeID: string;
-    dealID: string;
-    retailPrice: string;
-    salePrice: string;
-  }[];
-  salePrice: string;
-}) => {
+}: DealsDetailsSideBarProps) => {
   const storeOptions = query["deals"].queryParams.filters?.[0].options;
 
   return (
-    <>
-      <h3 className="mb-4 text-xl font-bold">Cheaper Deals</h3>
-      <div className="space-y-6">
-        {cheaperStores.length > 0 ? (
-          cheaperStores.map((cs, index: number) => {
-            const storeName = storeOptions?.find(
-              (name) => name.value === cs.storeID,
-            );
-            return (
-              <div
-                key={cs.dealID}
-                className="flex w-full flex-col justify-between gap-2"
-              >
-                <h3 className="font-bold opacity-75">{storeName?.name} Deal</h3>
-                <div className="flex flex-col gap-2">
-                  <div className="space-x-2">
-                    <span className="line-through opacity-70">
-                      ${cs.retailPrice}
-                    </span>
-                    <span className="text-xl">
-                      {salePrice !== "0.00" ? `$${cs.salePrice}` : "FREE"}
-                    </span>
-                  </div>
-                  <Button
-                    asChild
-                    className={`w-full bg-muted-foreground hover:bg-foreground ${index === 0 ? "bg-foreground hover:bg-highlight" : ""}`}
-                  >
-                    <Link
-                      prefetch={true}
-                      href={`/deals/${cs.dealID}`}
-                      className={``}
+    <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
+      <>
+        <h3 className="mb-4 text-xl font-bold">Cheaper Deals</h3>
+        <div className="space-y-6">
+          {cheaperStores.length > 0 ? (
+            cheaperStores.map((cs, index: number) => {
+              const storeName = storeOptions?.find(
+                (name) => name.value === cs.storeID,
+              );
+              return (
+                <div
+                  key={cs.dealID}
+                  className="flex w-full flex-col justify-between gap-2"
+                >
+                  <h3 className="font-bold opacity-75">
+                    {storeName?.name} Deal
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    <div className="space-x-2">
+                      <span className="line-through opacity-70">
+                        ${cs.retailPrice}
+                      </span>
+                      <span className="text-xl">
+                        {salePrice !== "0.00" ? `$${cs.salePrice}` : "FREE"}
+                      </span>
+                    </div>
+                    <Button
+                      asChild
+                      className={`w-full bg-muted-foreground hover:bg-foreground ${index === 0 ? "bg-foreground hover:bg-highlight" : ""}`}
                     >
-                      {index === 0 ? "Best Deal" : "Better Deal"}
-                      <ChevronRight />
-                    </Link>
-                  </Button>
+                      <Link
+                        prefetch={true}
+                        href={`/deals/${cs.dealID}`}
+                        className={``}
+                      >
+                        {index === 0 ? "Best Deal" : "Better Deal"}
+                        <ChevronRight />
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <p className="text-lg font-bold text-muted-foreground">
-            You found the best deal!
-          </p>
-        )}
-      </div>
-    </>
+              );
+            })
+          ) : (
+            <p className="text-lg font-bold text-muted-foreground">
+              You found the best deal!
+            </p>
+          )}
+        </div>
+      </>
+    </aside>
   );
 };

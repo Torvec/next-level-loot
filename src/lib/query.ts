@@ -1,40 +1,6 @@
-import { type Category } from "@/lib/types";
+import { type Category, type Query } from "@/types/types";
 
-export interface OptionType {
-  name: string;
-  type?: string;
-  default?: string;
-  options: { name: string; value: string }[];
-}
-
-export interface QueryParamType {
-  apiKey?: {
-    name: string;
-    value: string;
-  };
-  sort?: OptionType;
-  order?: OptionType;
-  filters?: OptionType[];
-  search?: {
-    name: string;
-    placeholder: string;
-  };
-  details?: {
-    name: string;
-  };
-}
-
-export interface QueryType {
-  baseURL: string;
-  endPoints: {
-    default: string;
-    details?: string;
-  };
-  headers?: Record<string, Record<string, string>>;
-  queryParams: QueryParamType;
-}
-
-export const query: Record<Category, QueryType> = {
+export const query: Record<Category, Query> = {
   deals: {
     baseURL: "https://www.cheapshark.com/api/1.0/",
     endPoints: {

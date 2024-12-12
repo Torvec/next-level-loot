@@ -1,4 +1,4 @@
-import { type Category } from "@/lib/types";
+import { type Category } from "@/types/types";
 import DealsDetails from "./deals-details";
 import GamesDetails from "./games-details";
 import GiveawaysDetails from "./giveaways-details";

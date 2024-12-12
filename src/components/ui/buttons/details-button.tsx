@@ -1,14 +1,9 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CircleChevronRight } from "lucide-react";
+import { type DetailsButtonProps } from "@/types/types";
 
-export default function MoreDetailsButton({
-  id,
-  path,
-}: {
-  id: string | number;
-  path: string;
-}) {
+export default function DetailsButton({ path, id }: DetailsButtonProps) {
   return (
     <Button
       asChild

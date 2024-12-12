@@ -1,102 +1,3 @@
-export type Category = "deals" | "games" | "giveaways";
-
-export type Routes = Category | "wishlist";
-
-//* CHEAPSHARK API TYPES
-
-export interface DealsListType {
-  // internalName: string;
-  title: string;
-  metacriticLink: string;
-  dealID: string;
-  // storeID: string;
-  // gameID: string;
-  salePrice: string;
-  normalPrice: string;
-  // isOnSale: string;
-  savings: string;
-  metacriticScore: string;
-  steamRatingText: string;
-  steamRatingPercent: string;
-  steamRatingCount: string;
-  steamAppID: string;
-  releaseDate: number;
-  // lastChange: number;
-  dealRating: string;
-  thumb: string;
-}
-
-export interface DealsDetailsType {
-  gameInfo: {
-    // storeID: string;
-    // gameID: string;
-    name: string;
-    steamAppID: string;
-    salePrice: string;
-    retailPrice: string;
-    steamRatingText: string;
-    steamRatingPercent: string;
-    steamRatingCount: string;
-    metacriticScore: string;
-    metacriticLink: string;
-    releaseDate: number;
-    // publisher: string;
-    // steamworks: string;
-    thumb: string;
-  };
-  cheaperStores: {
-    dealID: string;
-    storeID: string;
-    salePrice: string;
-    retailPrice: string;
-  }[];
-  cheapestPrice: {
-    price: string;
-    date: number;
-  };
-}
-
-//* GAMERPOWER API TYPES
-
-export interface GiveawaysListType {
-  id: number;
-  title: string;
-  worth: string;
-  // thumbnail: string;
-  image: string;
-  // description: string;
-  // instructions: string;
-  open_giveaway_url: string;
-  published_date: string;
-  type: string;
-  platforms: string;
-  end_date: string;
-  // users: number;
-  // status: string;
-  // gamerpower_url: string;
-  // open_giveaway: string;
-}
-
-export interface GiveawaysDetailsType {
-  id: number;
-  title: string;
-  worth: string;
-  // thumbnail: string;
-  image: string;
-  description: string;
-  instructions: string;
-  open_giveaway_url: string;
-  published_date: string;
-  type: string;
-  platforms: string;
-  end_date: string;
-  // users: number;
-  // status: string;
-  // gamerpower_url: string;
-}
-
-//* RAWG API TYPES
-
 interface Platform {
   id: number;
   name: string;
@@ -153,7 +54,7 @@ interface Genre {
   slug: string;
 }
 
-export interface GamesListType {
+export interface GamesCardProps {
   // slug: string;
   name: string;
   // playtime: number;
@@ -184,6 +85,11 @@ export interface GamesListType {
   short_screenshots: Screenshot[];
   // parent_platforms: { platform: Platform }[];
   genres: Genre[];
+}
+
+export interface GamesCardDescriptionSectionProps {
+  released: string;
+  esrbRating: { name: string };
 }
 
 export interface MetacriticPlatformType {
@@ -287,7 +193,7 @@ export interface EsrbRatingType {
   slug: string;
 }
 
-export interface GamesDetailsType {
+export interface GamesDetailsProps {
   id: number;
   slug: string;
   name: string;
@@ -342,4 +248,42 @@ export interface GamesDetailsType {
   esrb_rating: EsrbRatingType;
   clip: string | null;
   description_raw: string;
+}
+
+export interface GamesDetailsHeaderProps {
+  title: string;
+  src: string;
+  released: string;
+  esrb: { name: string } | null;
+}
+
+export interface GamesDetailsMainColumnProps {
+  src: string;
+  title: string;
+  id: number;
+  metacritic: number;
+  ratings: Rating[];
+  description: string;
+}
+
+export interface GamesDetailsScoreRatingSectionProps {
+  title: string;
+  metacritic: number;
+  ratings: Rating[];
+}
+
+export interface GamesDetailsSideBarProps {
+  platforms: PlatformType[];
+  genres: GenreType[];
+  stores: StoreType[];
+  developers: DeveloperType[];
+  publishers: PublisherType[];
+  tags: TagType[];
+}
+
+export interface GamesDetailsBadgeListProps<T> {
+  title: string;
+  list: T[];
+  keyExtractor: (item: T) => string;
+  renderItem: (item: T) => React.ReactNode;
 }

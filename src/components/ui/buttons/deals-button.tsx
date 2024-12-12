@@ -2,7 +2,7 @@ import Form from "next/form";
 import { Button } from "@/components/ui/button";
 import { BadgeDollarSign } from "lucide-react";
 
-export default function FindDealsButton({ title }: { title: string }) {
+export default function DealsButton({ title }: { title: string }) {
   return (
     <Form action={"/deals"} className="w-full">
       <input type="hidden" name="searchTerm" value={title} />
