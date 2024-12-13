@@ -131,9 +131,11 @@ const SearchDialogButton = ({ onClick }: { onClick: () => void }) => {
 
 const SearchForm = ({ onSearch }: { onSearch: () => void }) => {
   const [path, setPath] = useState("deals");
+  const [placeholder, setPlaceholder] = useState("Find deals...");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPath(event.target.value);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value); // Update search term
   };
 
   return (
@@ -142,22 +144,28 @@ const SearchForm = ({ onSearch }: { onSearch: () => void }) => {
         <Input
           name="searchTerm"
           type="search"
-          placeholder="Find deals or games.."
+          placeholder={placeholder}
+          value={searchTerm}
+          onChange={handleInputChange}
           className="rounded-xl bg-muted pr-10 text-muted-foreground"
         />
         <Button
           type="submit"
           size="icon"
-          className="absolute right-0 top-0 h-full rounded-l-none rounded-r-xl bg-muted text-muted-foreground"
+          className="absolute right-0 top-0 h-full rounded-l-none rounded-r-xl bg-muted hover:bg-background"
+          disabled={!searchTerm.trim()}
         >
-          <Search className="h-4 w-4" />
+          <Search className="size-4 text-highlight" />
           <span className="sr-only">Search</span>
         </Button>
       </div>
       <RadioGroup
         defaultValue={path}
         className="flex gap-4"
-        onChange={handleRadioChange}
+        onValueChange={(value) => {
+          setPath(value);
+          setPlaceholder(value === "deals" ? "Find deals..." : "Find games...");
+        }}
       >
         <RadioItem value="deals">Deals</RadioItem>
         <RadioItem value="games">Games</RadioItem>
@@ -187,7 +195,7 @@ const WishlistLinkIcon = () => {
       href="/wishlist"
       className={`${usePathname().startsWith("/wishlist") ? "text-highlight" : ""} hidden hover:text-muted-foreground lg:inline`}
     >
-      <Bookmark size={20} />
+      <Bookmark size={20} aria-label="My Wishlist" />
     </Link>
   );
 };
