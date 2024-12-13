@@ -97,7 +97,7 @@ export const query: Record<Category, Query> = {
       sort: {
         name: "ordering",
         type: "Sort",
-        default: "None",
+        default: "Added (Dsc)",
         options: [
           { name: "Name (Asc)", value: "name" },
           { name: "Released (Asc)", value: "released" },

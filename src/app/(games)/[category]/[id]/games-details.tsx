@@ -7,7 +7,7 @@ import {
   type GamesDetailsProps,
   type GamesDetailsHeaderProps,
   type GamesDetailsMainColumnProps,
-  type GamesDetailsScoreRatingSectionProps,
+  type GamesDetailsRatingsGraphProps,
   type GamesDetailsSideBarProps,
   type GamesDetailsBadgeListProps,
 } from "@/types/games-types";
@@ -73,11 +73,20 @@ const GamesDetailsMainColumn = ({
 }: GamesDetailsMainColumnProps) => {
   return (
     <div className="w-full space-y-6 rounded-xl bg-gradient-to-tl from-muted to-muted/20 p-6 md:w-2/3">
-      <GamesDetailsScoreRatingSection
-        title={title}
-        metacritic={metacritic}
-        ratings={ratings}
-      />
+      <div className="flex flex-col gap-6 md:flex-row">
+        <div className="md:w-1/4">
+          <ScoreBoxButton
+            title={title}
+            score={metacritic}
+            reviewSourceName="Metacritic"
+            reviewSourceBaseURL="https://www.metacritic.com"
+            reviewSourceSearch="https://www.metacritic.com/search/"
+          />
+        </div>
+        <div className="md:w-3/4">
+          <GamesDetailsRatingsGraph ratings={ratings} />
+        </div>
+      </div>
       <div className="flex flex-col gap-4 md:flex-row">
         <FindDealsButton title={title} />
         <WishlistButton
@@ -94,11 +103,9 @@ const GamesDetailsMainColumn = ({
   );
 };
 
-const GamesDetailsScoreRatingSection = ({
+const GamesDetailsRatingsGraph = ({
   ratings,
-  title,
-  metacritic,
-}: GamesDetailsScoreRatingSectionProps) => {
+}: GamesDetailsRatingsGraphProps) => {
   const initCount = 0;
   const totalRatingCount = ratings.reduce(
     (acc, rating) => acc + rating.count,
@@ -106,46 +113,35 @@ const GamesDetailsScoreRatingSection = ({
   );
 
   return (
-    <div className="flex flex-col gap-6 md:flex-row">
-      <div className="md:w-1/4">
-        <ScoreBoxButton
-          title={title}
-          score={metacritic}
-          reviewSourceName="Metacritic"
-          reviewSourceBaseURL="https://www.metacritic.com"
-          reviewSourceSearch="https://www.metacritic.com/search/"
-        />
-      </div>
-      <div className="md:w-3/4">
-        <ul className="mb-2 space-y-1">
-          {ratings.map((rating) => (
-            <li
-              key={rating.id}
-              className="flex justify-between rounded-xl bg-muted py-0.5 text-sm"
-            >
-              <span
-                className="block rounded-xl bg-muted-foreground pl-2"
-                style={{ width: `${rating.percent}%` }}
-              >
-                {rating.percent}%
-              </span>
-              <span className="pr-2">{rating.title}</span>
-            </li>
-          ))}
-        </ul>
-        <span className="block text-center text-sm text-muted-foreground">
-          {totalRatingCount} Ratings on{" "}
-          <a
-            href="https://rawg.io/"
-            target="_blank"
-            rel="noopener external"
-            className="text-highlight hover:underline"
+    <>
+      <ul className="mb-2 space-y-1">
+        {ratings.map((rating) => (
+          <li
+            key={rating.id}
+            className="flex justify-between rounded-xl bg-muted py-0.5 text-sm"
           >
-            RAWG
-          </a>
-        </span>
-      </div>
-    </div>
+            <span
+              className="block rounded-xl bg-muted-foreground pl-2"
+              style={{ width: `${rating.percent}%` }}
+            >
+              {rating.percent}%
+            </span>
+            <span className="pr-2">{rating.title}</span>
+          </li>
+        ))}
+      </ul>
+      <span className="block text-center text-sm text-muted-foreground">
+        {totalRatingCount} Ratings on{" "}
+        <a
+          href="https://rawg.io/"
+          target="_blank"
+          rel="noopener external"
+          className="text-highlight hover:underline"
+        >
+          RAWG
+        </a>
+      </span>
+    </>
   );
 };
 
@@ -163,7 +159,7 @@ const GamesDetailsDescriptionText = ({
         </p>
       </>
     ) : (
-      <div className="bg-background px-4 py-2 text-center text-foreground">
+      <div className="px-4 py-2 text-center text-foreground">
         Description Unavailable
       </div>
     )}
