@@ -1,5 +1,15 @@
 "use client";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   useWishlist,
@@ -7,10 +17,12 @@ import {
 } from "@/components/providers/wishlist-provider";
 import WishlistCard from "@/app/wishlist/wishlist-card";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Wishlist() {
   const wishlist = useWishlist();
   const wishlistIsEmpty = wishlist.length === 0;
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <>
@@ -32,7 +44,11 @@ export default function Wishlist() {
           ))}
         </div>
       )}
-      <ClearWishlist isWishListEmpty={wishlistIsEmpty} />
+      <ClearWishlistButton
+        isWishListEmpty={wishlistIsEmpty}
+        onClick={() => setIsDialogOpen(true)}
+      />
+      <ClearWishlistDialog open={isDialogOpen} setOpen={setIsDialogOpen} />
     </>
   );
 }
@@ -60,18 +76,55 @@ const EmptyWishlist = () => {
   );
 };
 
-const ClearWishlist = ({ isWishListEmpty }: { isWishListEmpty: boolean }) => {
-  const dispatch = useWishlistDispatch();
-
+const ClearWishlistButton = ({
+  isWishListEmpty,
+  onClick,
+}: {
+  isWishListEmpty: boolean;
+  onClick: () => void;
+}) => {
   return (
     <div className="my-32 flex justify-center">
       <Button
-        onClick={() => dispatch({ type: "CLEAR" })}
         className="bg-destructive text-destructive-foreground hover:bg-destructive-foreground hover:text-destructive"
         disabled={isWishListEmpty}
+        onClick={onClick}
       >
         Clear Wishlist
       </Button>
     </div>
+  );
+};
+
+const ClearWishlistDialog = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}) => {
+  const dispatch = useWishlistDispatch();
+
+  return (
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete all of
+            your wishlist items.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={() => dispatch({ type: "CLEAR" })}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive-foreground hover:text-destructive"
+          >
+            Clear
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
