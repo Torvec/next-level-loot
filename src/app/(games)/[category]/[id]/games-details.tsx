@@ -54,7 +54,7 @@ const GamesDetailsHeader = ({
       <BannerSection src={src} alt={title} />
       <div>
         <h2 className="text-2xl font-bold">{title}</h2>
-        <div className="flex flex-col text-sm text-muted-foreground sm:flex-row md:justify-between">
+        <div className="text-sm text-muted-foreground">
           <p>Released: {released}</p>
           <p>ESRB: {esrb ? esrb.name : "Not Rated"}</p>
         </div>

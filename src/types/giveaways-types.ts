@@ -20,6 +20,9 @@ export interface GiveawaysCardProps {
 export interface GiveawaysCardDescriptionSectionProps {
   type: string;
   platforms: string;
+}
+
+export interface GiveawaysCardDateTimeProps {
   publishedDate: string;
   endDate: string;
 }

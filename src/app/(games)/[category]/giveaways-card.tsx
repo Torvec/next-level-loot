@@ -13,6 +13,7 @@ import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import {
   type GiveawaysCardProps,
   type GiveawaysCardDescriptionSectionProps,
+  type GiveawaysCardDateTimeProps,
 } from "@/types/giveaways-types";
 
 export default function GiveawaysCard(data: GiveawaysCardProps) {
@@ -27,12 +28,14 @@ export default function GiveawaysCard(data: GiveawaysCardProps) {
           <GiveawaysCardDescriptionSection
             type={data.type}
             platforms={data.platforms}
-            publishedDate={data.published_date}
-            endDate={data.end_date}
           />
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
+        <GiveawaysCardDateTime
+          publishedDate={data.published_date}
+          endDate={data.end_date}
+        />
         <GiveawaysCardPriceSection worth={data.worth} />
       </CardContent>
       <CardFooter className="flex-col gap-4">
@@ -60,22 +63,43 @@ export default function GiveawaysCard(data: GiveawaysCardProps) {
 const GiveawaysCardDescriptionSection = ({
   type,
   platforms,
-  publishedDate,
-  endDate,
 }: GiveawaysCardDescriptionSectionProps) => (
   <div className="space-y-1">
     <p>Type: {type}</p>
     <p>Platforms: {platforms}</p>
-    <p>Start: {publishedDate}</p>
-    <p>End: {endDate}</p>
   </div>
 );
 
+const GiveawaysCardDateTime = ({
+  publishedDate,
+  endDate,
+}: GiveawaysCardDateTimeProps) => {
+  return (
+    <div className="flex justify-between gap-4 text-center">
+      <div className="w-1/2 rounded-xl border border-muted p-2">
+        <span className="block text-sm text-muted-foreground">Start:</span>
+        <span className="block">{publishedDate}</span>
+      </div>
+      <div className="w-1/2 rounded-xl border border-muted p-2">
+        <span className="block text-sm text-muted-foreground">End:</span>
+        <span className="block">{endDate}</span>
+      </div>
+    </div>
+  );
+};
+
 const GiveawaysCardPriceSection = ({ worth }: { worth: string }) => {
   return (
-    <div>
-      <span className="block text-2xl font-bold">Free!</span>
-      <span className="block text-muted-foreground line-through">{worth}</span>
+    <div className="mx-auto w-max">
+      <div className="flex items-center gap-4 rounded-xl border-2 border-muted px-4 py-2">
+        <span className="font rounded-xl text-2xl text-highlight">-100%</span>
+        <div>
+          <span className="block text-muted-foreground line-through">
+            {worth}
+          </span>
+          <span className="block">Free!</span>
+        </div>
+      </div>
     </div>
   );
 };

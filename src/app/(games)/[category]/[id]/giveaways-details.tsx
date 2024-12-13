@@ -47,7 +47,7 @@ const GiveawaysDetailsHeader = ({
       <BannerSection src={src} alt={title} />
       <div>
         <h2 className="text-2xl font-bold">{title}</h2>
-        <div className="flex flex-col text-sm text-muted-foreground md:flex-row md:justify-between">
+        <div className="text-sm text-muted-foreground">
           <span className="block">Type: {type}</span>
           <span className="block">Platforms: {platforms}</span>
         </div>
@@ -79,7 +79,7 @@ const GiveawaysDetailsMainColumn = ({
           {instructions}
         </p>
       </div>
-      <GiveawaysPriceSection worth={worth} />
+      <GiveawaysDetailsPriceSection worth={worth} />
       <div className="flex flex-col gap-4 md:flex-row">
         <RedirectButton url={url} displayText={"Get Giveaway"} />
         <WishlistButton
@@ -96,16 +96,16 @@ const GiveawaysDetailsMainColumn = ({
   );
 };
 
-const GiveawaysPriceSection = ({ worth }: { worth: string }) => {
+const GiveawaysDetailsPriceSection = ({ worth }: { worth: string }) => {
   return (
-    <div className="mx-auto w-max space-y-4 text-center text-base">
-      <div className="flex gap-4">
-        <span className="rounded-xl border-4 border-highlight p-4 text-2xl font-black text-highlight">
-          -100%
-        </span>
-        <div className="flex flex-col justify-between">
-          <span className="text-muted-foreground line-through">{worth}</span>
-          <span className="text-2xl font-bold">Free!</span>
+    <div className="mx-auto w-max">
+      <div className="flex items-center gap-4 rounded-xl border-2 border-muted px-4 py-2">
+        <span className="font rounded-xl text-2xl text-highlight">-100%</span>
+        <div>
+          <span className="block text-muted-foreground line-through">
+            {worth}
+          </span>
+          <span className="block">Free!</span>
         </div>
       </div>
     </div>
@@ -117,12 +117,15 @@ const GiveawaysDetailsSideBar = ({
   endDate,
 }: GiveawaysDetailsSideBarProps) => {
   return (
-    <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
-      <ul>
-        <li>Started: {startDate}</li>
-        <li>Ends: {endDate}</li>
-      </ul>
-      <div className="sm:text-right"></div>
+    <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 text-center md:w-1/3">
+      <div className="rounded-xl border border-muted p-2">
+        <span className="block text-sm text-muted-foreground">Start:</span>
+        <span className="block">{startDate}</span>
+      </div>
+      <div className="rounded-xl border border-muted p-2">
+        <span className="block text-sm text-muted-foreground">End:</span>
+        <span className="block">{endDate}</span>
+      </div>
     </aside>
   );
 };
