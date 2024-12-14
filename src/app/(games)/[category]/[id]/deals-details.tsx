@@ -14,6 +14,8 @@ import {
   type DealsDetailsSideBarProps,
 } from "@/types/deals-types";
 
+// Main Component
+
 export default function DealsDetails({
   id,
   ...data
@@ -38,14 +40,13 @@ export default function DealsDetails({
           retailPrice={data.gameInfo.retailPrice}
           salePrice={data.gameInfo.salePrice}
         />
-        <DealsDetailsSideBar
-          cheaperStores={data.cheaperStores}
-          salePrice={data.gameInfo.salePrice}
-        />
+        <DealsDetailsSideBar cheaperStores={data.cheaperStores} />
       </div>
     </div>
   );
 }
+
+// Sub-Components
 
 const DealsDetailsHeader = ({
   title,
@@ -53,22 +54,16 @@ const DealsDetailsHeader = ({
   released,
   storeID,
 }: DealsDetailsHeaderProps) => {
-  const storeOptions = query["deals"].queryParams.filters?.[0].options;
-  const storeName = storeOptions?.find((name) => name.value === storeID);
-
-  const formattedReleaseDate =
-    released > 0 ? new Date(released * 1000).toLocaleDateString() : "N/A";
-
   return (
     <div className="space-y-4 rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
       <BannerSection src={src} alt={title} />
       <div>
         <h2 className="text-2xl font-bold">{title}</h2>
         <span className="block text-sm text-muted-foreground">
-          Store: {storeName && storeName.name}
+          Store: {getStoreNameFromID(storeID)}
         </span>
         <span className="block text-sm text-muted-foreground">
-          Released: {formattedReleaseDate}
+          Released: {formatReleaseDate(released)}
         </span>
       </div>
     </div>
@@ -133,35 +128,24 @@ const DealsDetailsPriceSection = ({
   salePrice,
   retailPrice,
 }: DealsDetailsPriceSectionProps) => {
-  const percentSavings = (
-    ((parseFloat(retailPrice) - parseFloat(salePrice)) /
-      parseFloat(retailPrice)) *
-    100
-  ).toFixed(0);
-
-  const displaySalePrice = salePrice !== "0.00" ? `$${salePrice}` : "FREE";
-
   return (
     <div className="mx-auto w-max">
       <div className="flex items-center gap-4 rounded-xl border-2 border-muted px-4 py-2">
         <span className="font rounded-xl text-2xl text-highlight">
-          -{percentSavings}%
+          -{calculateSavings(retailPrice, salePrice)}%
         </span>
         <div>
           <span className="block text-sm text-muted-foreground line-through">
             ${retailPrice}
           </span>
-          <span className="block">{displaySalePrice}</span>
+          <span className="block">{displaySalePrice(salePrice)}</span>
         </div>
       </div>
     </div>
   );
 };
 
-const DealsDetailsSideBar = ({
-  cheaperStores,
-  salePrice,
-}: DealsDetailsSideBarProps) => {
+const DealsDetailsSideBar = ({ cheaperStores }: DealsDetailsSideBarProps) => {
   return (
     <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
       <>
@@ -169,38 +153,26 @@ const DealsDetailsSideBar = ({
         <div className="space-y-6">
           {cheaperStores.length > 0 ? (
             cheaperStores.map((cs, index: number) => {
-              const storeOptions =
-                query["deals"].queryParams.filters?.[0].options;
-
-              const storeName = storeOptions?.find(
-                (name) => name.value === cs.storeID,
-              );
-
-              const percentSavings = (
-                ((parseFloat(cs.retailPrice) - parseFloat(cs.salePrice)) /
-                  parseFloat(cs.retailPrice)) *
-                100
-              ).toFixed(0);
-
-              const displaySalePrice =
-                salePrice !== "0.00" ? `$${cs.salePrice}` : "FREE";
-
               return (
                 <div key={cs.dealID} className="space-y-1">
-                  <span className="block text-sm">{storeName?.name} Deal</span>
+                  <span className="block text-sm">
+                    {getStoreNameFromID(cs.storeID)} Deal
+                  </span>
                   <Button
                     asChild
-                    className={`w-full rounded-xl border border-muted-foreground bg-transparent hover:border-foreground ${index === 0 ? "border-foreground hover:border-highlight" : ""}`}
+                    className={`w-full rounded-xl border border-muted-foreground bg-transparent hover:border-foreground ${index === 0 ? "border-2 border-foreground hover:border-highlight" : ""}`}
                     variant="outline"
                   >
                     <Link prefetch={true} href={`/deals/${cs.dealID}`}>
                       <span className="block font-bold text-highlight">
-                        -{percentSavings}%
+                        -{calculateSavings(cs.retailPrice, cs.salePrice)}%
                       </span>
                       <span className="block text-muted-foreground line-through">
                         ${cs.retailPrice}
                       </span>
-                      <span className="block">{displaySalePrice}</span>
+                      <span className="block">
+                        {displaySalePrice(cs.salePrice)}
+                      </span>
                       <ChevronRight />
                     </Link>
                   </Button>
@@ -214,4 +186,31 @@ const DealsDetailsSideBar = ({
       </>
     </aside>
   );
+};
+
+// Helper Functions
+
+const getStoreNameFromID = (storeID: string) => {
+  const storeOptions = query["deals"].queryParams.filters?.[0].options;
+  const storeName = storeOptions?.find((name) => name.value === storeID);
+
+  return storeName && storeName.name;
+};
+
+const formatReleaseDate = (releaseDate: number) => {
+  return releaseDate > 0
+    ? new Date(releaseDate * 1000).toLocaleDateString()
+    : "N/A";
+};
+
+const calculateSavings = (retailPrice: string, salePrice: string) => {
+  return (
+    ((parseFloat(retailPrice) - parseFloat(salePrice)) /
+      parseFloat(retailPrice)) *
+    100
+  ).toFixed(0);
+};
+
+const displaySalePrice = (salePrice: string) => {
+  return salePrice !== "0.00" ? `$${salePrice}` : "FREE";
 };

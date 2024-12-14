@@ -16,6 +16,8 @@ import {
   type GiveawaysCardDateTimeProps,
 } from "@/types/giveaways-types";
 
+// Main Component
+
 export default function GiveawaysCard(data: GiveawaysCardProps) {
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
@@ -60,6 +62,8 @@ export default function GiveawaysCard(data: GiveawaysCardProps) {
   );
 }
 
+// Sub-Components
+
 const GiveawaysCardDescriptionSection = ({
   type,
   platforms,
@@ -77,11 +81,11 @@ const GiveawaysCardDateTime = ({
   return (
     <div className="flex justify-between gap-4 text-center">
       <div className="w-1/2 rounded-xl border border-muted p-2">
-        <span className="block text-sm text-muted-foreground">Start:</span>
+        <span className="block text-sm text-muted-foreground">Started:</span>
         <span className="block">{publishedDate}</span>
       </div>
       <div className="w-1/2 rounded-xl border border-muted p-2">
-        <span className="block text-sm text-muted-foreground">End:</span>
+        <span className="block text-sm text-muted-foreground">Ends:</span>
         <span className="block">{endDate}</span>
       </div>
     </div>

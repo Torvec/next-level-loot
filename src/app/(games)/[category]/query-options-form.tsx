@@ -18,6 +18,8 @@ import {
   type IsSelectedProps,
 } from "@/types/types";
 
+// Main Component
+
 export default function QueryOptionsForm({
   category,
   searchParams,
@@ -50,6 +52,8 @@ export default function QueryOptionsForm({
     </>
   );
 }
+
+// Sub-Components
 
 const QueryOption = ({ params, filter }: QueryOptionProps) => {
   return (
@@ -123,6 +127,8 @@ const FilterResetButton = ({ category, params }: FilterResetButtonProps) => {
     <span className="opacity-50">Select Filters</span>
   );
 };
+
+// Utility Functions
 
 const getCurrentValue = ({ params, key, options }: GetCurrentValueProps) => {
   const selectedValue = params.get(key) || "";

@@ -93,5 +93,4 @@ export type DealsDetailsSideBarProps = {
     retailPrice: string;
     salePrice: string;
   }[];
-  salePrice: string;
 };

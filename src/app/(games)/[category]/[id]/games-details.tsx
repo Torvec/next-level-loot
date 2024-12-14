@@ -12,6 +12,8 @@ import {
   type GamesDetailsBadgeListProps,
 } from "@/types/games-types";
 
+// Main Component
+
 export default function GamesDetails(data: GamesDetailsProps) {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
@@ -19,7 +21,7 @@ export default function GamesDetails(data: GamesDetailsProps) {
         title={data.name}
         src={data.background_image}
         released={data.released}
-        esrb={data.esrb_rating}
+        esrbRating={data.esrb_rating}
       />
       <div className="flex flex-col gap-6 md:flex-row">
         <GamesDetailsMainColumn
@@ -43,11 +45,13 @@ export default function GamesDetails(data: GamesDetailsProps) {
   );
 }
 
+// Sub-Components
+
 const GamesDetailsHeader = ({
   title,
   src,
   released,
-  esrb,
+  esrbRating,
 }: GamesDetailsHeaderProps) => {
   return (
     <div className="space-y-4 rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
@@ -56,7 +60,7 @@ const GamesDetailsHeader = ({
         <h2 className="text-2xl font-bold">{title}</h2>
         <div className="text-sm text-muted-foreground">
           <p>Released: {released}</p>
-          <p>ESRB: {esrb ? esrb.name : "Not Rated"}</p>
+          <p>ESRB: {getESRBRating(esrbRating)}</p>
         </div>
       </div>
     </div>
@@ -106,12 +110,6 @@ const GamesDetailsMainColumn = ({
 const GamesDetailsRatingsGraph = ({
   ratings,
 }: GamesDetailsRatingsGraphProps) => {
-  const initCount = 0;
-  const totalRatingCount = ratings.reduce(
-    (acc, rating) => acc + rating.count,
-    initCount,
-  );
-
   return (
     <>
       <ul className="mb-2 space-y-1">
@@ -131,7 +129,7 @@ const GamesDetailsRatingsGraph = ({
         ))}
       </ul>
       <span className="block text-center text-sm text-muted-foreground">
-        {totalRatingCount} Ratings on{" "}
+        {getTotalRatingCount(ratings)} Ratings on{" "}
         <a
           href="https://rawg.io/"
           target="_blank"
@@ -240,4 +238,14 @@ const GamesDetailsBadgeList = <T,>({
       )}
     </div>
   );
+};
+
+// Helper Functions
+
+const getESRBRating = (rating: { name: string }) => {
+  return rating ? rating.name : "Not Rated";
+};
+
+const getTotalRatingCount = (ratings: { count: number }[]) => {
+  return ratings.reduce((acc, rating) => acc + rating.count, 0);
 };

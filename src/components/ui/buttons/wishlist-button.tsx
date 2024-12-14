@@ -8,6 +8,7 @@ import { type WishlistItemType } from "@/types/types";
 
 export default function WishlistButton({ item }: { item: WishlistItemType }) {
   const dispatch = useWishlistDispatch();
+
   const isInWishlist = useIsInWishlist(item.id);
   const content = isInWishlist ? (
     <>
@@ -29,6 +30,7 @@ export default function WishlistButton({ item }: { item: WishlistItemType }) {
             title: item.title,
             src: item.src,
             path: item.path,
+            store: item.store,
             price: item.price,
           },
         })

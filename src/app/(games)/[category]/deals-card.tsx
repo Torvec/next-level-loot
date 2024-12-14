@@ -18,6 +18,8 @@ import {
 } from "@/types/deals-types";
 import { query } from "@/lib/query";
 
+// Main Component
+
 export default function DealsCard(data: DealsCardProps) {
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
@@ -71,6 +73,7 @@ export default function DealsCard(data: DealsCardProps) {
               title: data.title,
               src: data.thumb,
               path: "/deals/",
+              store: getStoreNameFromID(data.storeID),
               price: data.salePrice,
             }}
           />
@@ -81,22 +84,18 @@ export default function DealsCard(data: DealsCardProps) {
   );
 }
 
+// Sub-Components
+
 const DealsCardDescriptionSection = ({
   releaseDate,
   storeID,
 }: DealsCardDescriptionSectionProps) => {
-  const storeOptions = query["deals"].queryParams.filters?.[0].options;
-  const storeName = storeOptions?.find((name) => name.value === storeID);
-
-  const formattedReleaseDate =
-    releaseDate > 0 ? new Date(releaseDate * 1000).toLocaleDateString() : "N/A";
-
   return (
     <>
       <span className="block text-sm">
-        Store: {storeName && storeName.name}
+        Store: {getStoreNameFromID(storeID)}
       </span>
-      <span>Released: {formattedReleaseDate}</span>
+      <span>Released: {formatReleaseDate(releaseDate)}</span>
     </>
   );
 };
@@ -107,28 +106,45 @@ const DealsCardPriceSection = ({
   salePrice,
   normalPrice,
 }: DealsCardPriceSectionProps) => {
-  const formattedSavings = parseFloat(savings).toFixed(0);
-
-  const formattedDealRating = parseFloat(dealRating).toFixed(0);
-
-  const displaySalePrice = salePrice !== "0.00" ? `$${salePrice}` : "FREE";
-
   return (
     <div className="mx-auto w-max">
       <div className="flex items-center gap-4 rounded-xl border-2 border-muted px-4 py-2">
         <span className="font rounded-xl text-2xl text-highlight">
-          -{formattedSavings}%
+          -{parseNumber(savings)}%
         </span>
         <div>
           <span className="block text-sm text-muted-foreground line-through">
             ${normalPrice}
           </span>
-          <span className="block">{displaySalePrice}</span>
+          <span className="block">{displaySalePrice(salePrice)}</span>
         </div>
       </div>
       <span className="block text-center text-sm text-muted-foreground">
-        {formattedDealRating}/10 Deal
+        {parseNumber(dealRating)}/10 Deal
       </span>
     </div>
   );
+};
+
+// Helper Functions
+
+const getStoreNameFromID = (storeID: string) => {
+  const storeOptions = query["deals"].queryParams.filters?.[0].options;
+  const storeName = storeOptions?.find((name) => name.value === storeID);
+
+  return storeName && storeName.name;
+};
+
+const formatReleaseDate = (releaseDate: number) => {
+  return releaseDate > 0
+    ? new Date(releaseDate * 1000).toLocaleDateString()
+    : "N/A";
+};
+
+const displaySalePrice = (salePrice: string) => {
+  return salePrice !== "0.00" ? `$${salePrice}` : "FREE";
+};
+
+const parseNumber = (num: string) => {
+  return parseFloat(num).toFixed(0);
 };

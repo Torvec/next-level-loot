@@ -16,6 +16,8 @@ import {
   type GamesCardDescriptionSectionProps,
 } from "@/types/games-types";
 
+// Main Component
+
 export default function GamesCard(data: GamesCardProps) {
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/25">
@@ -58,12 +60,20 @@ export default function GamesCard(data: GamesCardProps) {
   );
 }
 
+// Sub-Components
+
 const GamesCardDescriptionSection = ({
   released,
   esrbRating,
 }: GamesCardDescriptionSectionProps) => (
   <>
     <p>Released: {released}</p>
-    <p>ESRB: {esrbRating ? esrbRating.name : "Not Rated"}</p>
+    <p>ESRB: {getESRBRating(esrbRating)}</p>
   </>
 );
+
+// Helper Functions
+
+const getESRBRating = (rating: { name: string }) => {
+  return rating ? rating.name : "Not Rated";
+};

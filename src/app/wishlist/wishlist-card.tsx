@@ -8,12 +8,15 @@ import { X, Grip, ChevronUp, ChevronDown } from "lucide-react";
 import { useWishlistDispatch } from "@/components/providers/wishlist-provider";
 import { type WishlistItemType } from "@/types/types";
 
+// Main Component
+
 export default function WishlistCard({
   id,
   title,
   src,
   path,
   price,
+  store,
   index,
 }: WishlistItemType & { index: number }) {
   return (
@@ -26,7 +29,10 @@ export default function WishlistCard({
           </div>
           <div className="md:w-2/3">
             <h2 className="font-bold">{title}</h2>
-            <DisplayPrice price={price} />
+            <span className="block text-sm text-muted-foreground">{store}</span>
+            <span className="text-lg text-highlight">
+              {displayPrice(price)}
+            </span>
           </div>
         </div>
         <div className="flex flex-row items-center gap-2">
@@ -38,21 +44,7 @@ export default function WishlistCard({
   );
 }
 
-const DisplayPrice = ({ price }: { price: string | undefined | number }) => {
-  let formattedPrice;
-
-  if (!price) {
-    formattedPrice = "";
-  } else if (price === "0.00" || price === "Free") {
-    formattedPrice = "FREE!";
-  } else {
-    formattedPrice = `$${price}`;
-  }
-
-  return (
-    <span className="text-lg text-muted-foreground">{formattedPrice}</span>
-  );
-};
+// Sub-Components
 
 const RemoveItemButton = ({ index }: { index: number }) => {
   const dispatch = useWishlistDispatch();
@@ -77,4 +69,20 @@ const MoveItemButton = () => {
       </span>
     </Button>
   );
+};
+
+// Helper Functions
+
+const displayPrice = (price: string | number | undefined) => {
+  let formattedPrice;
+
+  if (!price) {
+    formattedPrice = "";
+  } else if (price === "0.00" || price === "Free") {
+    formattedPrice = "FREE!";
+  } else {
+    formattedPrice = `$${price}`;
+  }
+
+  return formattedPrice;
 };

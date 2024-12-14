@@ -153,7 +153,7 @@ export interface GamesDetailsHeaderProps {
   title: string;
   src: string;
   released: string;
-  esrb: { name: string } | null;
+  esrbRating: { name: string };
 }
 
 export interface GamesDetailsMainColumnProps {

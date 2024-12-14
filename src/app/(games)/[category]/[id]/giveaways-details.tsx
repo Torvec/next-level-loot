@@ -8,6 +8,8 @@ import {
   type GiveawaysDetailsSideBarProps,
 } from "@/types/giveaways-types";
 
+// Main Component
+
 export default function GiveawaysDetails(data: GiveawaysDetailsProps) {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
@@ -35,6 +37,8 @@ export default function GiveawaysDetails(data: GiveawaysDetailsProps) {
     </div>
   );
 }
+
+// Sub-Components
 
 const GiveawaysDetailsHeader = ({
   title,
@@ -119,12 +123,12 @@ const GiveawaysDetailsSideBar = ({
   return (
     <aside className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 text-center md:w-1/3">
       <div className="rounded-xl border border-muted p-2">
-        <span className="block text-sm text-muted-foreground">Start:</span>
-        <span className="block">{startDate}</span>
+        <span className="block text-sm text-muted-foreground">Ends:</span>
+        <span className="block">{endDate}</span>
       </div>
       <div className="rounded-xl border border-muted p-2">
-        <span className="block text-sm text-muted-foreground">End:</span>
-        <span className="block">{endDate}</span>
+        <span className="block text-sm text-muted-foreground">Started:</span>
+        <span className="block">{startDate}</span>
       </div>
     </aside>
   );

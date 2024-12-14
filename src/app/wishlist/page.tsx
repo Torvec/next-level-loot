@@ -19,6 +19,8 @@ import WishlistCard from "@/app/wishlist/wishlist-card";
 import Link from "next/link";
 import { useState } from "react";
 
+// Main Component
+
 export default function Wishlist() {
   const wishlist = useWishlist();
   const wishlistIsEmpty = wishlist.length === 0;
@@ -37,6 +39,7 @@ export default function Wishlist() {
               title={item.title}
               src={item.src}
               path={item.path}
+              store={item.store}
               price={item.price}
               index={index}
               id={item.id}
@@ -52,6 +55,8 @@ export default function Wishlist() {
     </>
   );
 }
+
+// Sub-Components
 
 const EmptyWishlist = () => {
   return (
