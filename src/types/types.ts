@@ -33,6 +33,7 @@ export interface WishlistItemType {
   src: string;
   path: string;
   store?: string;
+  type?: string;
   price?: string | number;
 }
 

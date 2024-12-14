@@ -31,6 +31,7 @@ export default function WishlistButton({ item }: { item: WishlistItemType }) {
             src: item.src,
             path: item.path,
             store: item.store,
+            type: item.type,
             price: item.price,
           },
         })

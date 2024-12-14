@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-t-muted-foreground/25 bg-muted">
       <div className="container mx-auto px-4 pb-24 pt-16 xl:px-0">
-        <div className="mb-8 grid gap-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mb-8 grid gap-6 md:grid-cols-3 lg:grid-cols-4">
           <LogoSection />
           <ProjectSection />
           <APISection />
@@ -101,7 +101,7 @@ const APISection = () => {
 
 const DeveloperSection = () => {
   return (
-    <div>
+    <div className="md:col-start-2 lg:col-start-4">
       <h3 className="mb-4 font-bold">Developer</h3>
       <ul className="space-y-1 text-muted-foreground">
         <li className="text-pretty">

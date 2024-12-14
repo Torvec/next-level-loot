@@ -23,6 +23,7 @@ export default function GiveawaysDetails(data: GiveawaysDetailsProps) {
         <GiveawaysDetailsMainColumn
           src={data.image}
           title={data.title}
+          type={data.type}
           id={data.id}
           url={data.open_giveaway_url}
           worth={data.worth}
@@ -63,6 +64,7 @@ const GiveawaysDetailsHeader = ({
 const GiveawaysDetailsMainColumn = ({
   src,
   title,
+  type,
   id,
   url,
   worth,
@@ -92,6 +94,7 @@ const GiveawaysDetailsMainColumn = ({
             title: title,
             src: src,
             path: "/giveaways/",
+            type: type,
             price: "Free",
           }}
         />

@@ -50,6 +50,7 @@ export default function GiveawaysCard(data: GiveawaysCardProps) {
             item={{
               id: data.id,
               title: data.title,
+              type: data.type,
               src: data.image,
               path: "/giveaways/",
               price: "Free",

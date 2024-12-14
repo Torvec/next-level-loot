@@ -10,6 +10,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import {
   useWishlist,
@@ -18,6 +23,10 @@ import {
 import WishlistCard from "@/app/wishlist/wishlist-card";
 import Link from "next/link";
 import { useState } from "react";
+import { WishlistItemType } from "@/types/types";
+
+// TODO: Sort by title, price, user's rank
+// TODO: Undo remove item
 
 // Main Component
 
@@ -27,32 +36,19 @@ export default function Wishlist() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
-    <>
-      <h1 className="py-32 text-center text-4xl">Wishlist</h1>
+    <div className="mx-auto my-8 max-w-4xl space-y-8">
+      <Sort />
       {wishlistIsEmpty ? (
         <EmptyWishlist />
       ) : (
-        <div className="space-y-4">
-          {wishlist.map((item, index) => (
-            <WishlistCard
-              key={item.id}
-              title={item.title}
-              src={item.src}
-              path={item.path}
-              store={item.store}
-              price={item.price}
-              index={index}
-              id={item.id}
-            />
-          ))}
-        </div>
+        <WishlistCards wishlist={wishlist} />
       )}
       <ClearWishlistButton
         isWishListEmpty={wishlistIsEmpty}
         onClick={() => setIsDialogOpen(true)}
       />
       <ClearWishlistDialog open={isDialogOpen} setOpen={setIsDialogOpen} />
-    </>
+    </div>
   );
 }
 
@@ -60,7 +56,7 @@ export default function Wishlist() {
 
 const EmptyWishlist = () => {
   return (
-    <div className="mb-32 space-y-2 rounded-xl border-2 border-muted py-32 text-center">
+    <section className="space-y-4 rounded-xl border-2 border-muted px-4 py-16 text-center md:py-32">
       <h2 className="text-2xl font-semibold">Your Wishlist is Empty =/</h2>
       <p className="text-lg text-muted-foreground">
         Check out the{" "}
@@ -77,6 +73,61 @@ const EmptyWishlist = () => {
         </Link>{" "}
         for games to add here.
       </p>
+    </section>
+  );
+};
+
+const Sort = () => {
+  return (
+    <Popover>
+      <PopoverTrigger className="rounded-lg bg-muted-foreground px-4 py-2">
+        Sort
+      </PopoverTrigger>
+      <PopoverContent align="start">
+        <SortList />
+      </PopoverContent>
+    </Popover>
+  );
+};
+
+// const SortButton = () => {
+//   return <Button className="bg-muted-foreground">Sort</Button>;
+// };
+
+const SortList = () => {
+  const sortOptions = [
+    { name: "Title", value: "title" },
+    { name: "Price", value: "price" },
+    { name: "Manual", value: "manual" },
+  ];
+
+  return (
+    <ul className="space-y-2">
+      {sortOptions.map((option) => (
+        <li key={option.value}>
+          <Link href={`?sort=${option.value}`}>{option.name}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const WishlistCards = ({ wishlist }: { wishlist: WishlistItemType[] }) => {
+  return (
+    <div className="space-y-4">
+      {wishlist.map((item, index) => (
+        <WishlistCard
+          key={item.id}
+          title={item.title}
+          src={item.src}
+          path={item.path}
+          store={item.store}
+          type={item.type}
+          price={item.price}
+          index={index}
+          id={item.id}
+        />
+      ))}
     </div>
   );
 };
@@ -89,7 +140,7 @@ const ClearWishlistButton = ({
   onClick: () => void;
 }) => {
   return (
-    <div className="my-32 flex justify-center">
+    <div className="flex justify-center">
       <Button
         className="bg-destructive text-destructive-foreground hover:bg-destructive-foreground hover:text-destructive"
         disabled={isWishListEmpty}

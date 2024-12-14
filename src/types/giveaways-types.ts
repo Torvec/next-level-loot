@@ -55,6 +55,7 @@ export interface GiveawaysDetailsHeaderProps {
 export interface GiveawaysDetailsMainColumnProps {
   src: string;
   title: string;
+  type: string;
   id: number;
   url: string;
   worth: string;

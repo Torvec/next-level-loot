@@ -15,12 +15,13 @@ export default function WishlistCard({
   title,
   src,
   path,
-  price,
+  type,
   store,
+  price,
   index,
 }: WishlistItemType & { index: number }) {
   return (
-    <section className="mx-auto flex max-w-4xl items-center gap-4 rounded-xl bg-muted p-6">
+    <section className="flex items-center gap-4 rounded-xl bg-muted p-6">
       <MoveItemButton />
       <div className="flex w-full flex-col gap-6 md:flex-row md:justify-between">
         <div className="flex flex-col gap-6 md:flex-1 md:flex-row md:items-center">
@@ -29,7 +30,16 @@ export default function WishlistCard({
           </div>
           <div className="md:w-2/3">
             <h2 className="font-bold">{title}</h2>
-            <span className="block text-sm text-muted-foreground">{store}</span>
+            {store && (
+              <span className="block text-sm text-muted-foreground">
+                {store}
+              </span>
+            )}
+            {type && (
+              <span className="block text-sm text-muted-foreground">
+                Type: {type}
+              </span>
+            )}
             <span className="text-lg text-highlight">
               {displayPrice(price)}
             </span>
