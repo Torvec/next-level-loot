@@ -55,6 +55,16 @@ function wishlistReducer(state: WishlistItemType[], action: WishlistAction) {
     case "CLEAR":
       localStorage.removeItem("wishlist");
       return [];
+    case "SORT-BY-TITLE":
+      const sortedByTitle = sortWishlistByTitle(state);
+      localStorage.setItem("wishlist", JSON.stringify(sortedByTitle));
+      return sortedByTitle;
+    case "SORT-BY-PRICE":
+      const sortedByPrice = sortWishlistByPrice(state);
+      localStorage.setItem("wishlist", JSON.stringify(sortedByPrice));
+      return sortedByPrice;
+    case "SORT-BY-MANUAL":
+      return state;
     default:
       throw new Error("Unknown action: " + action.type);
   }
@@ -63,4 +73,24 @@ function wishlistReducer(state: WishlistItemType[], action: WishlistAction) {
 function initWishlist(key: string): WishlistItemType[] {
   const storedWishlist = localStorage.getItem(key);
   return storedWishlist ? JSON.parse(storedWishlist) : [];
+}
+
+function sortWishlistByTitle(wishlist: WishlistItemType[]): WishlistItemType[] {
+  return [...wishlist].sort((a, b) => a.title.localeCompare(b.title));
+}
+
+function sortWishlistByPrice(wishlist: WishlistItemType[]): WishlistItemType[] {
+  return [...wishlist].sort(
+    (a, b) => convertPrice(a.price) - convertPrice(b.price),
+  );
+}
+
+function convertPrice(price: string | number | undefined): number {
+  if (price === undefined) {
+    return Infinity;
+  }
+  if (price === "Free") {
+    return 0;
+  }
+  return Number(price);
 }

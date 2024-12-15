@@ -11,42 +11,39 @@ import { type WishlistItemType } from "@/types/types";
 // Main Component
 
 export default function WishlistCard({
-  id,
-  title,
-  src,
-  path,
-  type,
-  store,
-  price,
+  items,
   index,
-}: WishlistItemType & { index: number }) {
+}: {
+  items: WishlistItemType;
+  index: number;
+}) {
   return (
     <section className="flex items-center gap-4 rounded-xl bg-muted p-6">
       <MoveItemButton />
       <div className="flex w-full flex-col gap-6 md:flex-row md:justify-between">
         <div className="flex flex-col gap-6 md:flex-1 md:flex-row md:items-center">
           <div className="md:w-1/3">
-            <BannerSection src={src} alt={title} />
+            <BannerSection src={items.src} alt={items.title} />
           </div>
           <div className="md:w-2/3">
-            <h2 className="font-bold">{title}</h2>
-            {store && (
+            <h2 className="font-bold">{items.title}</h2>
+            {items.store && (
               <span className="block text-sm text-muted-foreground">
-                {store}
+                {items.store}
               </span>
             )}
-            {type && (
+            {items.type && (
               <span className="block text-sm text-muted-foreground">
-                Type: {type}
+                Type: {items.type}
               </span>
             )}
             <span className="text-lg text-highlight">
-              {displayPrice(price)}
+              {displayPrice(items.price)}
             </span>
           </div>
         </div>
         <div className="flex flex-row items-center gap-2">
-          <MoreDetailsButton path={path} id={id} />
+          <MoreDetailsButton path={items.path} id={items.id} />
           <RemoveItemButton index={index} />
         </div>
       </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,12 +23,6 @@ import {
   useWishlistDispatch,
 } from "@/components/providers/wishlist-provider";
 import WishlistCard from "@/app/wishlist/wishlist-card";
-import Link from "next/link";
-import { useState } from "react";
-import { WishlistItemType } from "@/types/types";
-
-// TODO: Sort by title, price, user's rank
-// TODO: Undo remove item
 
 // Main Component
 
@@ -35,13 +31,23 @@ export default function Wishlist() {
   const wishlistIsEmpty = wishlist.length === 0;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const sortOptions = [
+    { name: "Title", dispatch: "SORT-BY-TITLE" },
+    { name: "Price", dispatch: "SORT-BY-PRICE" },
+    { name: "Manual", dispatch: "SORT-BY-MANUAL" },
+  ];
+
   return (
     <div className="mx-auto my-8 max-w-4xl space-y-8">
-      <Sort />
+      <Sort sortOptions={sortOptions} />
       {wishlistIsEmpty ? (
         <EmptyWishlist />
       ) : (
-        <WishlistCards wishlist={wishlist} />
+        <div className="space-y-4">
+          {wishlist.map((items, index) => (
+            <WishlistCard key={items.id} items={items} index={index} />
+          ))}
+        </div>
       )}
       <ClearWishlistButton
         isWishListEmpty={wishlistIsEmpty}
@@ -77,58 +83,30 @@ const EmptyWishlist = () => {
   );
 };
 
-const Sort = () => {
+const Sort = ({ sortOptions }: { sortOptions: Record<string, string>[] }) => {
+  const dispatch = useWishlistDispatch();
+
   return (
     <Popover>
       <PopoverTrigger className="rounded-lg bg-muted-foreground px-4 py-2">
-        Sort
+        Sort:
       </PopoverTrigger>
       <PopoverContent align="start">
-        <SortList />
+        <ul>
+          {sortOptions.map((option) => (
+            <li key={option.name}>
+              <Button
+                variant="ghost"
+                className="w-full justify-start hover:bg-muted"
+                onClick={() => dispatch({ type: `${option.dispatch}` })}
+              >
+                {option.name}
+              </Button>
+            </li>
+          ))}
+        </ul>
       </PopoverContent>
     </Popover>
-  );
-};
-
-// const SortButton = () => {
-//   return <Button className="bg-muted-foreground">Sort</Button>;
-// };
-
-const SortList = () => {
-  const sortOptions = [
-    { name: "Title", value: "title" },
-    { name: "Price", value: "price" },
-    { name: "Manual", value: "manual" },
-  ];
-
-  return (
-    <ul className="space-y-2">
-      {sortOptions.map((option) => (
-        <li key={option.value}>
-          <Link href={`?sort=${option.value}`}>{option.name}</Link>
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-const WishlistCards = ({ wishlist }: { wishlist: WishlistItemType[] }) => {
-  return (
-    <div className="space-y-4">
-      {wishlist.map((item, index) => (
-        <WishlistCard
-          key={item.id}
-          title={item.title}
-          src={item.src}
-          path={item.path}
-          store={item.store}
-          type={item.type}
-          price={item.price}
-          index={index}
-          id={item.id}
-        />
-      ))}
-    </div>
   );
 };
 
