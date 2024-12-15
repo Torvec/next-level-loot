@@ -21,7 +21,6 @@ import { Button } from "@/components/ui/button";
 import {
   useWishlist,
   useWishlistDispatch,
-  getCurrentSort,
 } from "@/components/providers/wishlist-provider";
 import WishlistCard from "@/app/wishlist/wishlist-card";
 import { ArrowDownUp } from "lucide-react";
@@ -30,7 +29,6 @@ import { ArrowDownUp } from "lucide-react";
 
 export default function Wishlist() {
   const wishlist = useWishlist();
-  const currentSort = getCurrentSort();
   const wishlistIsEmpty = wishlist.length === 0;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -42,11 +40,7 @@ export default function Wishlist() {
 
   return (
     <div className="mx-auto my-8 max-w-4xl space-y-8">
-      <Sort
-        isWishlistEmpty={wishlistIsEmpty}
-        currentSort={currentSort}
-        sortOptions={sortOptions}
-      />
+      <Sort isWishlistEmpty={wishlistIsEmpty} sortOptions={sortOptions} />
       {wishlistIsEmpty ? (
         <EmptyWishlist />
       ) : (
@@ -91,11 +85,9 @@ const EmptyWishlist = () => {
 };
 
 const Sort = ({
-  currentSort,
   sortOptions,
   isWishlistEmpty,
 }: {
-  currentSort: string;
   sortOptions: Record<string, string>[];
   isWishlistEmpty: boolean;
 }) => {
@@ -108,19 +100,16 @@ const Sort = ({
         disabled={isWishlistEmpty}
       >
         <ArrowDownUp size={18} />
-        Sort: {currentSort}
+        Sort
       </PopoverTrigger>
       <PopoverContent align="start">
         <ul>
           {sortOptions.map((option) => {
-            const selectedValue = isCurrentSort(currentSort, option.name)
-              ? "bg-muted"
-              : "";
             return (
               <li key={option.name}>
                 <Button
                   variant="ghost"
-                  className={`w-full justify-start rounded-none hover:bg-muted ${selectedValue}`}
+                  className="w-full justify-start rounded-none hover:bg-muted"
                   onClick={() => {
                     dispatch({ type: `${option.dispatch}` });
                   }}
@@ -187,10 +176,4 @@ const ClearWishlistDialog = ({
       </AlertDialogContent>
     </AlertDialog>
   );
-};
-
-// Utility Functions
-
-const isCurrentSort = (currentSort: string, sortOption: string) => {
-  return currentSort === sortOption;
 };

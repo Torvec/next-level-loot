@@ -8,7 +8,6 @@ const WishlistDispatchContext = createContext<React.Dispatch<WishlistAction>>(
   () => {},
 );
 const STORE = "wishlist";
-const STORE_SORT = "wishlist_sort";
 
 // Main Component
 
@@ -17,18 +16,11 @@ export default function WishlistProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [wishlist, dispatch] = useReducer(
-    wishlistReducer,
-    [] as WishlistItemType[],
-  );
+  const [wishlist, dispatch] = useReducer(wishlistReducer, []);
 
   useEffect(() => {
     const storedWishlist = initWishlist(STORE);
     dispatch({ type: "INIT", payload: storedWishlist });
-
-    if (!localStorage.getItem(STORE_SORT)) {
-      localStorage.setItem(STORE_SORT, "Added");
-    }
   }, []);
 
   return (
@@ -64,22 +56,18 @@ const wishlistReducer = (state: WishlistItemType[], action: WishlistAction) => {
       return updatedRemoveState;
     case "CLEAR":
       localStorage.removeItem(STORE);
-      localStorage.removeItem(STORE_SORT);
       return [];
     case "SORT-BY-TITLE":
       const sortedByTitle = sortWishlistByTitle(state);
       localStorage.setItem(STORE, JSON.stringify(sortedByTitle));
-      localStorage.setItem(STORE_SORT, "Title");
       return sortedByTitle;
     case "SORT-BY-PRICE":
       const sortedByPrice = sortWishlistByPrice(state);
       localStorage.setItem(STORE, JSON.stringify(sortedByPrice));
-      localStorage.setItem(STORE_SORT, "Price");
       return sortedByPrice;
     case "SORT-BY-DATE-ADDED":
       const sortedByDateAdded = sortWishlistByDateAdded(state);
       localStorage.setItem(STORE, JSON.stringify(sortedByDateAdded));
-      localStorage.setItem(STORE_SORT, "Added");
       return sortedByDateAdded;
     default:
       throw new Error("Unknown action: " + action.type);
@@ -88,32 +76,26 @@ const wishlistReducer = (state: WishlistItemType[], action: WishlistAction) => {
 
 // Utility functions
 
-const initWishlist = (key: string): WishlistItemType[] => {
+const initWishlist = (key: string) => {
   const storedWishlist = localStorage.getItem(key);
   return storedWishlist ? JSON.parse(storedWishlist) : [];
 };
 
-const sortWishlistByTitle = (
-  wishlist: WishlistItemType[],
-): WishlistItemType[] => {
+const sortWishlistByTitle = (wishlist: WishlistItemType[]) => {
   return [...wishlist].sort((a, b) => a.title.localeCompare(b.title));
 };
 
-const sortWishlistByPrice = (
-  wishlist: WishlistItemType[],
-): WishlistItemType[] => {
+const sortWishlistByPrice = (wishlist: WishlistItemType[]) => {
   return [...wishlist].sort(
     (a, b) => convertPrice(a.price) - convertPrice(b.price),
   );
 };
 
-const sortWishlistByDateAdded = (
-  wishlist: WishlistItemType[],
-): WishlistItemType[] => {
+const sortWishlistByDateAdded = (wishlist: WishlistItemType[]) => {
   return [...wishlist].sort((a, b) => a.timestamp - b.timestamp);
 };
 
-const convertPrice = (price: string | number | undefined): number => {
+const convertPrice = (price: string | number | undefined) => {
   if (price === undefined) {
     return Infinity;
   }
@@ -121,8 +103,4 @@ const convertPrice = (price: string | number | undefined): number => {
     return 0;
   }
   return Number(price);
-};
-
-export const getCurrentSort = (): string => {
-  return localStorage.getItem(STORE_SORT) as string;
 };
