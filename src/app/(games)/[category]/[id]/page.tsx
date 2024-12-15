@@ -4,6 +4,18 @@ import GamesDetails from "./games-details";
 import GiveawaysDetails from "./giveaways-details";
 import fetchData from "@/lib/fetch-data";
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ category: Category }>;
+}) => {
+  const { category } = await params;
+  return {
+    title: `${category.charAt(0).toUpperCase()}${category.slice(1)} | Next Level Loot`,
+    description: `Check out the latest ${category} on Next Level Loot!`,
+  };
+};
+
 export default async function Page({
   params,
 }: {
