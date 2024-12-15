@@ -25,7 +25,6 @@ export default function WishlistProvider({
   useEffect(() => {
     const storedWishlist = initWishlist(STORE);
     dispatch({ type: "INIT", payload: storedWishlist });
-    getCurrentSort();
   }, []);
 
   return (
