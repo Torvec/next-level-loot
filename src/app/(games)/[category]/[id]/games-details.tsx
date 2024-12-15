@@ -99,6 +99,7 @@ const GamesDetailsMainColumn = ({
             title: title,
             src: src,
             path: "/games/",
+            timestamp: Date.now(),
           }}
         />
       </div>

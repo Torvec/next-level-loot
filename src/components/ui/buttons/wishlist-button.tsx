@@ -33,6 +33,7 @@ export default function WishlistButton({ item }: { item: WishlistItemType }) {
             store: item.store,
             type: item.type,
             price: item.price,
+            timestamp: Date.now(),
           },
         })
       }

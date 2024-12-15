@@ -96,6 +96,7 @@ const GiveawaysDetailsMainColumn = ({
             path: "/giveaways/",
             type: type,
             price: "Free",
+            timestamp: Date.now(),
           }}
         />
       </div>

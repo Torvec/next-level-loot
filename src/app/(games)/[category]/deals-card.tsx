@@ -75,6 +75,7 @@ export default function DealsCard(data: DealsCardProps) {
               path: "/deals/",
               store: getStoreNameFromID(data.storeID),
               price: data.salePrice,
+              timestamp: Date.now(),
             }}
           />
           <MoreDetailsButton path={"/deals/"} id={data.dealID} />

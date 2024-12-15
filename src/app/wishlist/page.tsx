@@ -21,31 +21,38 @@ import { Button } from "@/components/ui/button";
 import {
   useWishlist,
   useWishlistDispatch,
+  getCurrentSort,
 } from "@/components/providers/wishlist-provider";
 import WishlistCard from "@/app/wishlist/wishlist-card";
+import { ArrowDownUp } from "lucide-react";
 
 // Main Component
 
 export default function Wishlist() {
   const wishlist = useWishlist();
+  const currentSort = getCurrentSort();
   const wishlistIsEmpty = wishlist.length === 0;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const sortOptions = [
     { name: "Title", dispatch: "SORT-BY-TITLE" },
     { name: "Price", dispatch: "SORT-BY-PRICE" },
-    { name: "Manual", dispatch: "SORT-BY-MANUAL" },
+    { name: "Added", dispatch: "SORT-BY-DATE-ADDED" },
   ];
 
   return (
     <div className="mx-auto my-8 max-w-4xl space-y-8">
-      <Sort sortOptions={sortOptions} />
+      <Sort
+        isWishlistEmpty={wishlistIsEmpty}
+        currentSort={currentSort}
+        sortOptions={sortOptions}
+      />
       {wishlistIsEmpty ? (
         <EmptyWishlist />
       ) : (
         <div className="space-y-4">
           {wishlist.map((items, index) => (
-            <WishlistCard key={items.id} items={items} index={index} />
+            <WishlistCard key={items.id} item={items} index={index} />
           ))}
         </div>
       )}
@@ -83,27 +90,46 @@ const EmptyWishlist = () => {
   );
 };
 
-const Sort = ({ sortOptions }: { sortOptions: Record<string, string>[] }) => {
+const Sort = ({
+  currentSort,
+  sortOptions,
+  isWishlistEmpty,
+}: {
+  currentSort: string;
+  sortOptions: Record<string, string>[];
+  isWishlistEmpty: boolean;
+}) => {
   const dispatch = useWishlistDispatch();
 
   return (
     <Popover>
-      <PopoverTrigger className="rounded-lg bg-muted-foreground px-4 py-2">
-        Sort:
+      <PopoverTrigger
+        className="flex items-center gap-2 rounded-lg bg-muted-foreground px-4 py-2 text-sm text-muted hover:bg-foreground disabled:bg-muted disabled:text-muted-foreground/50"
+        disabled={isWishlistEmpty}
+      >
+        <ArrowDownUp size={18} />
+        Sort: {currentSort}
       </PopoverTrigger>
       <PopoverContent align="start">
         <ul>
-          {sortOptions.map((option) => (
-            <li key={option.name}>
-              <Button
-                variant="ghost"
-                className="w-full justify-start hover:bg-muted"
-                onClick={() => dispatch({ type: `${option.dispatch}` })}
-              >
-                {option.name}
-              </Button>
-            </li>
-          ))}
+          {sortOptions.map((option) => {
+            const selectedValue = isCurrentSort(currentSort, option.name)
+              ? "bg-muted"
+              : "";
+            return (
+              <li key={option.name}>
+                <Button
+                  variant="ghost"
+                  className={`w-full justify-start rounded-none hover:bg-muted ${selectedValue}`}
+                  onClick={() => {
+                    dispatch({ type: `${option.dispatch}` });
+                  }}
+                >
+                  {option.name}
+                </Button>
+              </li>
+            );
+          })}
         </ul>
       </PopoverContent>
     </Popover>
@@ -161,4 +187,10 @@ const ClearWishlistDialog = ({
       </AlertDialogContent>
     </AlertDialog>
   );
+};
+
+// Utility Functions
+
+const isCurrentSort = (currentSort: string, sortOption: string) => {
+  return currentSort === sortOption;
 };

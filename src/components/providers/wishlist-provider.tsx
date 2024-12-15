@@ -7,6 +7,10 @@ const WishlistContext = createContext<WishlistItemType[]>([]);
 const WishlistDispatchContext = createContext<React.Dispatch<WishlistAction>>(
   () => {},
 );
+const STORE = "wishlist";
+const STORE_SORT = "wishlist_sort";
+
+// Main Component
 
 export default function WishlistProvider({
   children,
@@ -19,8 +23,9 @@ export default function WishlistProvider({
   );
 
   useEffect(() => {
-    const storedWishlist = initWishlist("wishlist");
+    const storedWishlist = initWishlist(STORE);
     dispatch({ type: "INIT", payload: storedWishlist });
+    getCurrentSort();
   }, []);
 
   return (
@@ -32,60 +37,80 @@ export default function WishlistProvider({
   );
 }
 
-export function useWishlist() {
+// Sub-Components
+
+export const useWishlist = () => {
   return useContext(WishlistContext);
-}
+};
 
-export function useWishlistDispatch() {
+export const useWishlistDispatch = () => {
   return useContext(WishlistDispatchContext);
-}
+};
 
-function wishlistReducer(state: WishlistItemType[], action: WishlistAction) {
+const wishlistReducer = (state: WishlistItemType[], action: WishlistAction) => {
   switch (action.type) {
     case "INIT":
       return action.payload || [];
     case "ADD":
       const updatedAddState = [...state, action.item!];
-      localStorage.setItem("wishlist", JSON.stringify(updatedAddState));
+      localStorage.setItem(STORE, JSON.stringify(updatedAddState));
       return updatedAddState;
     case "REMOVE":
       const updatedRemoveState = state.filter((_, i) => i !== action.index);
-      localStorage.setItem("wishlist", JSON.stringify(updatedRemoveState));
+      localStorage.setItem(STORE, JSON.stringify(updatedRemoveState));
       return updatedRemoveState;
     case "CLEAR":
-      localStorage.removeItem("wishlist");
+      localStorage.removeItem(STORE);
+      localStorage.removeItem(STORE_SORT);
       return [];
     case "SORT-BY-TITLE":
       const sortedByTitle = sortWishlistByTitle(state);
-      localStorage.setItem("wishlist", JSON.stringify(sortedByTitle));
+      localStorage.setItem(STORE, JSON.stringify(sortedByTitle));
+      localStorage.setItem(STORE_SORT, "Title");
       return sortedByTitle;
     case "SORT-BY-PRICE":
       const sortedByPrice = sortWishlistByPrice(state);
-      localStorage.setItem("wishlist", JSON.stringify(sortedByPrice));
+      localStorage.setItem(STORE, JSON.stringify(sortedByPrice));
+      localStorage.setItem(STORE_SORT, "Price");
       return sortedByPrice;
-    case "SORT-BY-MANUAL":
-      return state;
+    case "SORT-BY-DATE-ADDED":
+      const sortedByDateAdded = sortWishlistByDateAdded(state);
+      localStorage.setItem(STORE, JSON.stringify(sortedByDateAdded));
+      localStorage.setItem(STORE_SORT, "Added");
+      return sortedByDateAdded;
     default:
       throw new Error("Unknown action: " + action.type);
   }
-}
+};
 
-function initWishlist(key: string): WishlistItemType[] {
+// Utility functions
+
+const initWishlist = (key: string): WishlistItemType[] => {
   const storedWishlist = localStorage.getItem(key);
   return storedWishlist ? JSON.parse(storedWishlist) : [];
-}
+};
 
-function sortWishlistByTitle(wishlist: WishlistItemType[]): WishlistItemType[] {
+const sortWishlistByTitle = (
+  wishlist: WishlistItemType[],
+): WishlistItemType[] => {
   return [...wishlist].sort((a, b) => a.title.localeCompare(b.title));
-}
+};
 
-function sortWishlistByPrice(wishlist: WishlistItemType[]): WishlistItemType[] {
+const sortWishlistByPrice = (
+  wishlist: WishlistItemType[],
+): WishlistItemType[] => {
   return [...wishlist].sort(
     (a, b) => convertPrice(a.price) - convertPrice(b.price),
   );
-}
+};
 
-function convertPrice(price: string | number | undefined): number {
+const sortWishlistByDateAdded = (
+  wishlist: WishlistItemType[],
+): WishlistItemType[] => {
+  return [...wishlist].sort((a, b) => a.timestamp - b.timestamp);
+};
+
+const convertPrice = (price: string | number | undefined): number => {
   if (price === undefined) {
     return Infinity;
   }
@@ -93,4 +118,8 @@ function convertPrice(price: string | number | undefined): number {
     return 0;
   }
   return Number(price);
-}
+};
+
+export const getCurrentSort = (): string => {
+  return localStorage.getItem(STORE_SORT) || "Added";
+};

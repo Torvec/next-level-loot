@@ -54,6 +54,7 @@ export default function GiveawaysCard(data: GiveawaysCardProps) {
               src: data.image,
               path: "/giveaways/",
               price: "Free",
+              timestamp: Date.now(),
             }}
           />
           <MoreDetailsButton path={"/giveaways/"} id={data.id} />

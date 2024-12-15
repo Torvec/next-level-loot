@@ -117,6 +117,7 @@ const DealsDetailsMainColumn = ({
             src: src,
             path: "/deals/",
             price: salePrice,
+            timestamp: Date.now(),
           }}
         />
       </div>

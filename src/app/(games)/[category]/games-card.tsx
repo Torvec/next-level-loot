@@ -51,6 +51,7 @@ export default function GamesCard(data: GamesCardProps) {
               title: data.name,
               src: data.background_image,
               path: "/games/",
+              timestamp: Date.now(),
             }}
           />
           <MoreDetailsButton path={"/games/"} id={data.id} />

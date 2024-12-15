@@ -35,6 +35,7 @@ export interface WishlistItemType {
   store?: string;
   type?: string;
   price?: string | number;
+  timestamp: number;
 }
 
 export interface WishlistAction {
