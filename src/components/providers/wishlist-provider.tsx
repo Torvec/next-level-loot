@@ -25,6 +25,10 @@ export default function WishlistProvider({
   useEffect(() => {
     const storedWishlist = initWishlist(STORE);
     dispatch({ type: "INIT", payload: storedWishlist });
+
+    if (!localStorage.getItem(STORE_SORT)) {
+      localStorage.setItem(STORE_SORT, "Added");
+    }
   }, []);
 
   return (
@@ -120,5 +124,5 @@ const convertPrice = (price: string | number | undefined): number => {
 };
 
 export const getCurrentSort = (): string => {
-  return localStorage.getItem(STORE_SORT) || "Added";
+  return localStorage.getItem(STORE_SORT) as string;
 };
