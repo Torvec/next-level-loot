@@ -5,12 +5,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import BannerSection from "@/components/ui/banner-section";
 import { ChevronRight } from "lucide-react";
 
+// Main Component
+
 export default function Home() {
   return (
-    <div className="space-y-6">
-      <span className="block bg-destructive py-4 text-center italic">
-        Under Development - Almost done! I think..
-      </span>
+    <div className="mb-32 space-y-32">
       <HeroSection />
       <div className="grid grid-cols-6 gap-6">
         <Suspense fallback={<CategorySectionSkeleton />}>
@@ -26,16 +25,15 @@ export default function Home() {
       <Suspense fallback={<div>Loading StoreFronts...</div>}>
         <StoreFrontsSection />
       </Suspense>
-      <span className="block bg-destructive py-4 text-center italic">
-        Under Development - Is anything ever REALLY done though?
-      </span>
     </div>
   );
 }
 
+// Sub Components
+
 const HeroSection = () => {
   return (
-    <section className="grid min-h-[50vh] place-content-center bg-muted text-center">
+    <section className="grid min-h-[50vh] place-content-center text-center">
       <h2 className="text-4xl font-black uppercase">Next-Level-Loot</h2>
       <span className="text-muted-foreground">
         Taking your gaming budget to the next level!
@@ -65,9 +63,12 @@ const LatestDealsSection = async () => {
     salePrice: item.salePrice,
   }));
 
+  const apiLink = { name: "CheapShark", href: "https://www.cheapshark.com/" };
+
   return (
     <CategorySection
       sectionTitle="Latest Deals"
+      apiLink={apiLink}
       data={formattedData}
       path="/deals"
       buttonText="More Deals"
@@ -103,9 +104,15 @@ const LatestGiveawaysSection = async () => {
       worth: item.worth,
     }));
 
+  const apiLink = {
+    name: "GamerPower",
+    href: "https://www.gamerpower.com/",
+  };
+
   return (
     <CategorySection
       sectionTitle="Latest Giveaways"
+      apiLink={apiLink}
       data={formattedData}
       path="/giveaways"
       buttonText="More Giveaways"
@@ -133,9 +140,12 @@ const HighestRatedGamesSection = async () => {
     rating: item.metacritic,
   }));
 
+  const apiLink = { name: "RAWG", href: "https://rawg.io/" };
+
   return (
     <CategorySection
       sectionTitle="Highest Rated Games"
+      apiLink={apiLink}
       data={formattedData}
       path="/games"
       buttonText="More Games"
@@ -144,20 +154,106 @@ const HighestRatedGamesSection = async () => {
 };
 
 const StoreFrontsSection = () => {
+  const stores = [
+    {
+      name: "Steam",
+      href: "https://store.steampowered.com/",
+    },
+    {
+      name: "Epic Games Store",
+      href: "https://store.epicgames.com/",
+    },
+    { name: "itch.io", href: "https://itch.io/" },
+    { name: "GoG", href: "https://www.gog.com/" },
+    {
+      name: "GamersGate",
+      href: "https://www.gamersgate.com/",
+    },
+    {
+      name: "GreenManGaming",
+      href: "https://www.greenmangaming.com/",
+    },
+    {
+      name: "EA App Store",
+      href: "https://www.ea.com/games/library/pc-download",
+    },
+    {
+      name: "Humble Store",
+      href: "https://www.humblebundle.com/store",
+    },
+    { name: "Ubisoft Store", href: "https://store.ubi.com/" },
+    { name: "Fanatical", href: "https://www.fanatical.com/" },
+    {
+      name: "WinGameStore",
+      href: "https://www.wingamestore.com/",
+    },
+    {
+      name: "GameBillet",
+      href: "https://www.gamebillet.com/",
+    },
+    { name: "Voidu", href: "https://www.voidu.com/" },
+    {
+      name: "Gamesplanet",
+      href: "https://us.gamesplanet.com/",
+    },
+    { name: "Gamesload", href: "https://www.gamesload.com/" },
+    { name: "2Game", href: "https://www.2game.com/" },
+    { name: "IndieGala", href: "https://www.indiegala.com/" },
+    {
+      name: "Blizzard Shop",
+      href: "https://us.shop.battle.net/",
+    },
+    { name: "DLGamer", href: "https://www.dlgamer.com/" },
+    { name: "Noctre", href: "https://www.noctre.com/" },
+    { name: "DreamGame", href: "https://www.dreamgame.com/" },
+    {
+      name: "PlayStation Store",
+      href: "https://store.playstation.com/",
+    },
+    { name: "Xbox Store", href: "https://www.xbox.com/" },
+    {
+      name: "App Store",
+      href: "https://www.apple.com/app-store/",
+    },
+    {
+      name: "Nintendo Store",
+      href: "https://www.nintendo.com/store/",
+    },
+    {
+      name: "Google Play Store",
+      href: "https://play.google.com/store",
+    },
+  ];
+
   return (
-    <section className="min-h-[50vh] rounded-xl border p-6">
-      <h3 className="text-xl font-bold">Stores</h3>
+    <section>
+      <h3 className="mb-16 text-center text-xl font-bold">Featured Stores</h3>
+      <div className="flex flex-wrap items-end justify-center gap-6 text-lg">
+        {stores.map((store) => (
+          <a
+            key={store.name}
+            href={store.href}
+            target="_blank"
+            rel="noopener noreferrer external"
+            className="mx-auto block w-max rounded-xl bg-muted px-4 py-1 text-highlight hover:bg-muted-foreground hover:text-background"
+          >
+            {store.name}
+          </a>
+        ))}
+      </div>
     </section>
   );
 };
 
 const CategorySection = ({
   sectionTitle,
+  apiLink,
   data,
   path,
   buttonText,
 }: {
   sectionTitle: string;
+  apiLink: { name: string; href: string };
   data: {
     id: string | number;
     image: string;
@@ -172,9 +268,19 @@ const CategorySection = ({
 }) => {
   return (
     <section className="col-span-6 space-y-2 rounded-xl border p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
-      <h3 className="text-center text-xl font-bold lg:text-left">
-        {sectionTitle}
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-center text-xl font-bold lg:text-left">
+          {sectionTitle}
+        </h3>
+        <a
+          href={apiLink.href}
+          target="_blank"
+          rel="noopener noreferrer external"
+          className="px-2 py-1 text-highlight hover:text-foreground hover:underline"
+        >
+          {apiLink.name}
+        </a>
+      </div>
       <div>
         {data.map((item) => (
           <Link

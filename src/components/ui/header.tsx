@@ -67,8 +67,8 @@ const Logo = () => (
 const NavBar = () => (
   <nav className="flex flex-col gap-4 text-sm uppercase lg:flex-row lg:items-center lg:justify-center">
     <NavLink href="/deals">Deals</NavLink>
-    <NavLink href="/games">Games</NavLink>
     <NavLink href="/giveaways">Giveaways</NavLink>
+    <NavLink href="/games">Games</NavLink>
     <div className="lg:hidden">
       <NavLink href="/wishlist">Wishlist</NavLink>
     </div>
