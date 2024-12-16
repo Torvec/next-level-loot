@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import BannerSection from "@/components/ui/banner-section";
+import { ChevronRight } from "lucide-react";
 
 export default function Home() {
   return (
@@ -9,14 +12,14 @@ export default function Home() {
         Under Development - Almost done! I think..
       </span>
       <HeroSection />
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Suspense fallback={<div>Loading Latest Deals...</div>}>
+      <div className="grid grid-cols-6 gap-6">
+        <Suspense fallback={<CategorySectionSkeleton />}>
           <LatestDealsSection />
         </Suspense>
-        <Suspense fallback={<div>Loading Latest Giveaways...</div>}>
+        <Suspense fallback={<CategorySectionSkeleton />}>
           <LatestGiveawaysSection />
         </Suspense>
-        <Suspense fallback={<div>Loading Highest Rated Games...</div>}>
+        <Suspense fallback={<CategorySectionSkeleton />}>
           <HighestRatedGamesSection />
         </Suspense>
       </div>
@@ -58,6 +61,7 @@ const LatestDealsSection = async () => {
     id: item.dealID,
     image: item.thumb,
     name: item.title,
+    normalPrice: item.normalPrice,
     salePrice: item.salePrice,
   }));
 
@@ -160,38 +164,85 @@ const CategorySection = ({
     name: string;
     rating?: string;
     worth?: string;
+    normalPrice?: string;
     salePrice?: string;
   }[];
   path: string;
   buttonText: string;
 }) => {
   return (
-    <section className="flex flex-col gap-4 rounded-xl border p-6">
-      <h3 className="text-xl font-bold">{sectionTitle}</h3>
-      {data.map((item, index) => (
-        <Link
-          href={`${path}/${item.id}`}
-          prefetch={true}
-          key={item.id}
-          className="bg-muted hover:bg-muted/50"
-        >
-          <div className="flex items-center justify-between gap-2 p-4">
-            <div className="flex items-center gap-2">
-              <span className="block text-xs text-muted-foreground">
-                {index + 1}
+    <section className="col-span-6 space-y-2 rounded-xl border p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
+      <h3 className="text-center text-xl font-bold lg:text-left">
+        {sectionTitle}
+      </h3>
+      <div>
+        {data.map((item) => (
+          <Link
+            href={`${path}/${item.id}`}
+            prefetch={true}
+            key={item.id}
+            className="grid grid-cols-4 items-center gap-2 p-2 hover:bg-muted md:gap-4"
+          >
+            <BannerSection src={item.image} alt={item.name} height="h-24" />
+            <span className="col-span-2 block text-sm">{item.name}</span>
+            {item.rating && (
+              <span className="block text-right text-lg font-bold">
+                {item.rating}%
               </span>
-              <img src={item.image} className="max-h-12 w-auto" />
-              <span className="block text-xs">{item.name}</span>
-            </div>
-            {item.rating && <span className="block">{item.rating}%</span>}
-            {item.worth && <span className="block">{item.worth}</span>}
-            {item.salePrice && <span className="block">${item.salePrice}</span>}
-          </div>
+            )}
+            {item.worth && (
+              <div className="text-right">
+                <span className="block text-xs text-muted-foreground line-through">
+                  {item.worth}
+                </span>
+                <span className="block">Free</span>
+              </div>
+            )}
+            {item.salePrice && (
+              <div className="text-right">
+                <span className="block text-xs text-muted-foreground line-through">
+                  ${item.normalPrice}
+                </span>
+                <span className="block">${item.salePrice}</span>
+              </div>
+            )}
+          </Link>
+        ))}
+      </div>
+
+      <Button asChild className="w-full bg-highlight">
+        <Link href={path}>
+          {buttonText}
+          <ChevronRight />
         </Link>
-      ))}
-      <Button asChild className="bg-highlight">
-        <Link href={path}>{buttonText}</Link>
       </Button>
     </section>
+  );
+};
+
+const CategorySectionSkeleton = () => {
+  const skeletonCards = Array.from({ length: 10 }).map((_, index) => (
+    <CategorySectionSkeletonCards key={index} />
+  ));
+
+  return (
+    <div className="space-y-6 rounded-xl border p-6">
+      <Skeleton className="h-7" />
+      <div>{skeletonCards}</div>
+      <Skeleton className="h-10" />
+    </div>
+  );
+};
+
+const CategorySectionSkeletonCards = () => {
+  return (
+    <div className="grid grid-cols-4 items-center gap-4 p-2">
+      <Skeleton className="h-24" />
+      <Skeleton className="col-span-2 h-5 w-full" />
+      <div className="space-y-1">
+        <Skeleton className="ml-auto h-4" />
+        <Skeleton className="ml-auto h-7" />
+      </div>
+    </div>
   );
 };

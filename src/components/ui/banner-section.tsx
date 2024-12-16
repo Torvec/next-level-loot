@@ -2,12 +2,14 @@
 export default function BannerSection({
   src,
   alt,
+  height = "h-48",
 }: {
   src: string;
   alt: string;
+  height?: string;
 }) {
   return (
-    <div className="relative h-48 overflow-hidden rounded-xl">
+    <div className={`relative ${height} overflow-hidden rounded-xl`}>
       <img
         src={src}
         alt=""
