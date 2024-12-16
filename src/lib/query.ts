@@ -232,9 +232,9 @@ export const query: Record<Category, Query> = {
     },
     queryParams: {
       sort: {
-        name: "sort",
+        name: "sort-by",
         type: "Sort",
-        default: "None",
+        default: "Start Date",
         options: [
           { name: "Start Date", value: "date" },
           { name: "Value", value: "value" },

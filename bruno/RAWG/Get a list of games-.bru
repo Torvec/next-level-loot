@@ -5,16 +5,16 @@ meta {
 }
 
 get {
-  url: {{rawgURL}}games?key={{rawg-key}}&page_size=5
+  url: {{rawgURL}}games?key={{rawg-key}}&ordering={{order-by-metacritic-rev}}&page_size=10&platforms={{platform-pc}}, {{platform-nintendo-switch}}, {{platform-xbox-series-s-x}},{{platform-playstation-5}}
   body: none
   auth: none
 }
 
 params:query {
   key: {{rawg-key}}
-  page_size: 5
-  ~platforms: {{platform-pc}}
-  ~ordering: {{order-by-metacritic-rev}}
+  ordering: {{order-by-metacritic-rev}}
+  page_size: 10
+  platforms: {{platform-pc}}, {{platform-nintendo-switch}}, {{platform-xbox-series-s-x}},{{platform-playstation-5}}
   ~stores: {{store-steam}}
   ~genres: {{genre-racing}}
   ~dates: 
