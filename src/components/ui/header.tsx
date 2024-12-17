@@ -32,7 +32,7 @@ export default function Header() {
 
   return (
     <header className="border-b border-b-muted-foreground/25 bg-muted">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4 xl:px-0">
+      <div className="container mx-auto flex items-center justify-between px-4 py-3 xl:px-0">
         <div className="flex gap-12">
           <Logo />
           <div className="hidden lg:block">
@@ -65,7 +65,10 @@ const Logo = () => (
 );
 
 const NavBar = () => (
-  <nav className="flex flex-col gap-4 text-sm uppercase lg:flex-row lg:items-center lg:justify-center">
+  <nav className="flex flex-col gap-6 text-sm uppercase lg:flex-row lg:items-center lg:justify-center">
+    <div className="lg:hidden">
+      <NavLink href="/">Home</NavLink>
+    </div>
     <NavLink href="/deals">Deals</NavLink>
     <NavLink href="/giveaways">Giveaways</NavLink>
     <NavLink href="/games">Games</NavLink>
@@ -75,19 +78,20 @@ const NavBar = () => (
   </nav>
 );
 
-const NavLink = ({ href, children }: { href: string; children: string }) => (
-  <Link
-    href={href}
-    prefetch={true}
-    className={`${
-      usePathname().startsWith(href)
-        ? "text-highlight lg:border-b lg:border-highlight"
-        : ""
-    } w-full px-2 lg:w-max lg:py-2 lg:hover:bg-muted-foreground/10 lg:hover:text-foreground`}
-  >
-    {children}
-  </Link>
-);
+const NavLink = ({ href, children }: { href: string; children: string }) => {
+  const pathname = usePathname();
+  return (
+    <Link
+      href={href}
+      prefetch={true}
+      className={`${
+        pathname === href ? "text-highlight" : ""
+      } w-full px-4 lg:w-max lg:rounded-xl lg:py-3 lg:hover:bg-muted-foreground/20 lg:hover:text-highlight`}
+    >
+      {children}
+    </Link>
+  );
+};
 
 const SearchDialog = ({
   open,
@@ -205,11 +209,11 @@ const ThemeSelect = () => {
   const currentTheme = useTheme();
 
   return (
-    <div className="divide-x">
+    <div className="pl-4 lg:pl-0">
       {currentTheme === "light" && (
         <Button
           onClick={() => dispatch({ type: "SET", theme: "dark" })}
-          className="bg-muted-foreground/60 text-foreground hover:text-background"
+          className="bg-muted-foreground/50 text-foreground hover:text-background"
           aria-label="Switch to dark theme"
           size="icon"
         >
@@ -219,7 +223,7 @@ const ThemeSelect = () => {
       {currentTheme === "dark" && (
         <Button
           onClick={() => dispatch({ type: "SET", theme: "light" })}
-          className="bg-muted-foreground/60 text-foreground hover:text-background"
+          className="bg-muted-foreground/50 text-foreground hover:text-background"
           aria-label="Switch to light theme"
           size="icon"
         >

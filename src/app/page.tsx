@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="mb-32 space-y-32">
       <HeroSection />
-      <div className="grid grid-cols-6 gap-6">
+      <div className="container mx-auto grid grid-cols-6 gap-6">
         <Suspense fallback={<CategorySectionSkeleton />}>
           <LatestDealsSection />
         </Suspense>
@@ -22,9 +22,7 @@ export default function Home() {
           <HighestRatedGamesSection />
         </Suspense>
       </div>
-      <Suspense fallback={<div>Loading StoreFronts...</div>}>
-        <StoreFrontsSection />
-      </Suspense>
+      <StoreFrontsSection />
     </div>
   );
 }
@@ -33,7 +31,7 @@ export default function Home() {
 
 const HeroSection = () => {
   return (
-    <section className="grid min-h-[50vh] place-content-center text-center">
+    <section className="grid h-[640px] place-content-center border-b text-center">
       <h2 className="text-4xl font-black uppercase">Next-Level-Loot</h2>
       <span className="text-muted-foreground">
         Taking your gaming budget to the next level!
@@ -64,6 +62,8 @@ const LatestDealsSection = async () => {
   }));
 
   const apiLink = { name: "CheapShark", href: "https://www.cheapshark.com/" };
+
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
 
   return (
     <CategorySection
@@ -109,6 +109,8 @@ const LatestGiveawaysSection = async () => {
     href: "https://www.gamerpower.com/",
   };
 
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
+
   return (
     <CategorySection
       sectionTitle="Latest Giveaways"
@@ -141,6 +143,8 @@ const HighestRatedGamesSection = async () => {
   }));
 
   const apiLink = { name: "RAWG", href: "https://rawg.io/" };
+
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
 
   return (
     <CategorySection
@@ -226,7 +230,7 @@ const StoreFrontsSection = () => {
   ];
 
   return (
-    <section>
+    <section className="container mx-auto">
       <h3 className="mb-16 text-center text-xl font-bold">Featured Stores</h3>
       <div className="flex flex-wrap items-end justify-center gap-6 text-lg">
         {stores.map((store) => (
@@ -332,9 +336,9 @@ const CategorySectionSkeleton = () => {
   ));
 
   return (
-    <div className="space-y-6 rounded-xl border p-6">
+    <div className="col-span-6 space-y-2 rounded-xl border p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
       <Skeleton className="h-7" />
-      <div>{skeletonCards}</div>
+      {skeletonCards}
       <Skeleton className="h-10" />
     </div>
   );
@@ -342,9 +346,9 @@ const CategorySectionSkeleton = () => {
 
 const CategorySectionSkeletonCards = () => {
   return (
-    <div className="grid grid-cols-4 items-center gap-4 p-2">
+    <div className="flex items-center justify-between">
       <Skeleton className="h-24" />
-      <Skeleton className="col-span-2 h-5 w-full" />
+      <Skeleton className="h-5 w-full" />
       <div className="space-y-1">
         <Skeleton className="ml-auto h-4" />
         <Skeleton className="ml-auto h-7" />

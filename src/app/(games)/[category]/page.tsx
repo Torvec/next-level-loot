@@ -78,7 +78,7 @@ export default async function Page({
   const content = cards[category](data);
 
   return (
-    <div className="mb-32 mt-8 space-y-16">
+    <div className="container mx-auto mb-32 mt-8 space-y-16">
       <QueryOptionsForm
         category={category}
         searchParams={resolvedSearchParams}
