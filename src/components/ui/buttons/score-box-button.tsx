@@ -22,7 +22,7 @@ export default function ScoreBoxButton({
     <Button
       asChild
       variant="outline"
-      className="flex h-full w-full flex-col border border-muted bg-transparent"
+      className="flex h-full w-full flex-col border-2 border-muted bg-transparent"
     >
       <a href={createLink} target="_blank" rel="noopener noreferrer external">
         <span className="block text-2xl font-bold text-muted-foreground">

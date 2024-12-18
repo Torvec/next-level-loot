@@ -25,6 +25,31 @@ export interface DetailsButtonProps {
   id: string | number;
 }
 
+//* LANDING PAGE TYPES
+
+interface ItemDataProps {
+  id: string | number;
+  image: string;
+  name: string;
+  rating?: string;
+  worth?: string;
+  normalPrice?: string;
+  salePrice?: string;
+}
+
+export interface CategorySectionProps {
+  sectionTitle: string;
+  apiLink: { name: string; href: string };
+  data: ItemDataProps[];
+  path: string;
+  buttonText: string;
+}
+
+export interface FetchLatestDataProps {
+  url: string;
+  headers?: { headers: Record<string, string> };
+}
+
 //* WISHLIST TYPES
 
 export interface WishlistItemType {
@@ -67,6 +92,11 @@ export interface FetchDataProps {
 
 //* QUERY TYPES
 
+export interface StoresData {
+  name: string;
+  href: string;
+}
+
 export interface QueryOption {
   name: string;
   type?: string;
@@ -97,7 +127,7 @@ export interface Query {
     default: string;
     details?: string;
   };
-  headers?: Record<string, Record<string, string>>;
+  headers?: { headers: Record<string, string> };
   queryParams: QueryParam;
 }
 

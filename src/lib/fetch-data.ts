@@ -33,7 +33,9 @@ export default async function fetchData({
     });
   }
 
-  const response = await fetch(url, headers ?? undefined);
+  const options: RequestInit = headers ? { headers: headers.headers } : {};
+
+  const response = await fetch(url, options);
 
   if (!response.ok) {
     throw new Error(

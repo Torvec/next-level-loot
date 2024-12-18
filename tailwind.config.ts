@@ -45,6 +45,11 @@ const config: Config = {
           DEFAULT: "hsl(var(--highlight))",
           foreground: "hsl(var(--highlight-foreground))",
         },
+        gradient: {
+          "1": "hsl(var(--gradient-1))",
+          "2": "hsl(var(--gradient-2))",
+          "3": "hsl(var(--gradient-3))",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

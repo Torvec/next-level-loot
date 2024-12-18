@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Form from "next/form";
 import { usePathname } from "next/navigation";
-import { Menu, Moon, Sun, Bookmark, Search, Package } from "lucide-react";
+import { Menu, Moon, Sun, Bookmark, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -33,7 +33,7 @@ export default function Header() {
   return (
     <header className="border-b border-b-muted-foreground/25 bg-muted">
       <div className="container mx-auto flex items-center justify-between px-4 py-3 xl:px-0">
-        <div className="flex gap-12">
+        <div className="flex items-center gap-12">
           <Logo />
           <div className="hidden lg:block">
             <NavBar />
@@ -57,9 +57,8 @@ const Logo = () => (
   <Link
     href={"/"}
     prefetch={true}
-    className="flex items-center gap-2 text-base font-black uppercase text-highlight hover:text-muted-foreground sm:text-lg"
+    className="block bg-gradient-to-r from-gradient-3 via-gradient-2 to-gradient-1 bg-clip-text font-black uppercase text-transparent hover:bg-gradient-to-l sm:text-xl"
   >
-    <Package size={22} />
     Next-Level-Loot
   </Link>
 );

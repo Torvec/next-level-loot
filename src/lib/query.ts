@@ -1,4 +1,4 @@
-import { type Category, type Query } from "@/types/types";
+import { type Category, type StoresData, type Query } from "@/types/types";
 
 export const query: Record<Category, Query> = {
   deals: {
@@ -286,3 +286,74 @@ export const query: Record<Category, Query> = {
     },
   },
 };
+
+export const storesData: StoresData[] = [
+  {
+    name: "Steam",
+    href: "https://store.steampowered.com/",
+  },
+  {
+    name: "Epic Games Store",
+    href: "https://store.epicgames.com/",
+  },
+  { name: "itch.io", href: "https://itch.io/" },
+  { name: "GoG", href: "https://www.gog.com/" },
+  {
+    name: "GamersGate",
+    href: "https://www.gamersgate.com/",
+  },
+  {
+    name: "GreenManGaming",
+    href: "https://www.greenmangaming.com/",
+  },
+  {
+    name: "EA App Store",
+    href: "https://www.ea.com/games/library/pc-download",
+  },
+  {
+    name: "Humble Store",
+    href: "https://www.humblebundle.com/store",
+  },
+  { name: "Ubisoft Store", href: "https://store.ubi.com/" },
+  { name: "Fanatical", href: "https://www.fanatical.com/" },
+  {
+    name: "WinGameStore",
+    href: "https://www.wingamestore.com/",
+  },
+  {
+    name: "GameBillet",
+    href: "https://www.gamebillet.com/",
+  },
+  { name: "Voidu", href: "https://www.voidu.com/" },
+  {
+    name: "Gamesplanet",
+    href: "https://us.gamesplanet.com/",
+  },
+  { name: "Gamesload", href: "https://www.gamesload.com/" },
+  { name: "2Game", href: "https://www.2game.com/" },
+  { name: "IndieGala", href: "https://www.indiegala.com/" },
+  {
+    name: "Blizzard Shop",
+    href: "https://us.shop.battle.net/",
+  },
+  { name: "DLGamer", href: "https://www.dlgamer.com/" },
+  { name: "Noctre", href: "https://www.noctre.com/" },
+  { name: "DreamGame", href: "https://www.dreamgame.com/" },
+  {
+    name: "PlayStation Store",
+    href: "https://store.playstation.com/",
+  },
+  { name: "Xbox Store", href: "https://www.xbox.com/" },
+  {
+    name: "App Store",
+    href: "https://www.apple.com/app-store/",
+  },
+  {
+    name: "Nintendo Store",
+    href: "https://www.nintendo.com/store/",
+  },
+  {
+    name: "Google Play Store",
+    href: "https://play.google.com/store",
+  },
+];

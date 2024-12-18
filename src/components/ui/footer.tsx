@@ -1,4 +1,4 @@
-import { ExternalLink, Package } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="border-t border-t-muted-foreground/25 bg-muted">
       <div className="container mx-auto px-4 pb-24 pt-16 xl:px-0">
         <div className="mb-8 grid gap-6 md:grid-cols-3 lg:grid-cols-4">
-          <LogoSection />
+          <h3 className="font-bold uppercase">Next-Level-Loot</h3>
           <ProjectSection />
           <APISection />
           <DeveloperSection />
@@ -19,17 +19,6 @@ export default function Footer() {
     </footer>
   );
 }
-
-const LogoSection = () => {
-  return (
-    <div className="flex gap-2">
-      <Package size={22} />
-      <div>
-        <h3 className="font-bold uppercase">Next-Level-Loot</h3>
-      </div>
-    </div>
-  );
-};
 
 const ProjectSection = () => {
   return (

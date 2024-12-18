@@ -13,7 +13,7 @@ body {
 
 @layer base {
   .light {
-    --background: 0 0% 100%;
+    --background: 210, 40%, 98%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -29,8 +29,11 @@ body {
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --highlight: 25, 95%, 53%;
+    --highlight: 25, 95%, 53%; /* orange-500 */
     --highlight-foreground: 33, 100%, 96%;
+    --gradient-1: 21, 90%, 48%; /* orange-600 */
+    --gradient-2: 25, 95%, 53%; /* orange-500 */
+    --gradient-3: 27, 96%, 61%; /* orange-400 */
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
@@ -58,8 +61,11 @@ body {
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --highlight: 48, 96%, 53%;
+    --highlight: 48, 96%, 53%; /* yellow-400 */
     --highlight-foreground: 222, 47%, 11%;
+    --gradient-1: 45, 93%, 47%; /* yellow-500 */
+    --gradient-2: 48, 96%, 53%; /* yellow-400 */
+    --gradient-3: 50, 98%, 64%; /* yellow-300 */
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;

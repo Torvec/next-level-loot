@@ -4,10 +4,15 @@ import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import BannerSection from "@/components/ui/banner-section";
 import { ChevronRight } from "lucide-react";
+import {
+  type CategorySectionProps,
+  type FetchLatestDataProps,
+} from "@/types/types";
+import { query, storesData } from "@/lib/query";
 
 // Main Component
 
-export default function Home() {
+export default function Page() {
   return (
     <div className="mb-32 space-y-32">
       <HeroSection />
@@ -41,17 +46,11 @@ const HeroSection = () => {
 };
 
 const LatestDealsSection = async () => {
+  const apiLink = { name: "CheapShark", href: "https://www.cheapshark.com/" };
   const url =
     "https://www.cheapshark.com/api/1.0/deals?sortBy=Recent&pageSize=10";
-  const response = await fetch(url);
 
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch the latest deals. Status: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  const data = await response.json();
+  const data = await fetchLatestData({ url });
 
   const formattedData = data.map((item: Record<string, string>) => ({
     id: item.dealID,
@@ -60,10 +59,6 @@ const LatestDealsSection = async () => {
     normalPrice: item.normalPrice,
     salePrice: item.salePrice,
   }));
-
-  const apiLink = { name: "CheapShark", href: "https://www.cheapshark.com/" };
-
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
 
   return (
     <CategorySection
@@ -77,23 +72,15 @@ const LatestDealsSection = async () => {
 };
 
 const LatestGiveawaysSection = async () => {
+  const apiLink = {
+    name: "GamerPower",
+    href: "https://www.gamerpower.com/",
+  };
   const url =
     "https://gamerpower.p.rapidapi.com/api/giveaways?sort-by=date&type=game";
-  const headers = {
-    headers: {
-      "X-RapidAPI-Key": process.env.RAPIDAPI_KEY || "",
-      "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
-    },
-  };
-  const response = await fetch(url, headers);
+  const headers = query.giveaways.headers;
 
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch Latest Giveaways. Status: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  const data = await response.json();
+  const data = await fetchLatestData({ url, headers });
 
   const formattedData = data
     .slice(0, 10)
@@ -103,13 +90,6 @@ const LatestGiveawaysSection = async () => {
       name: item.title,
       worth: item.worth,
     }));
-
-  const apiLink = {
-    name: "GamerPower",
-    href: "https://www.gamerpower.com/",
-  };
-
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
 
   return (
     <CategorySection
@@ -125,15 +105,8 @@ const LatestGiveawaysSection = async () => {
 const HighestRatedGamesSection = async () => {
   const apiKey = process.env.RAWG_API_KEY;
   const url = `https://api.rawg.io/api/games?key=${apiKey}&ordering=-metacritic&page_size=10&platforms=4, 7, 186,187`;
-  const response = await fetch(url);
 
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch Latest Giveaways. Status: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  const data = await response.json();
+  const data = await fetchLatestData({ url });
 
   const formattedData = data.results.map((item: Record<string, string>) => ({
     id: item.id,
@@ -143,8 +116,6 @@ const HighestRatedGamesSection = async () => {
   }));
 
   const apiLink = { name: "RAWG", href: "https://rawg.io/" };
-
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
 
   return (
     <CategorySection
@@ -158,82 +129,11 @@ const HighestRatedGamesSection = async () => {
 };
 
 const StoreFrontsSection = () => {
-  const stores = [
-    {
-      name: "Steam",
-      href: "https://store.steampowered.com/",
-    },
-    {
-      name: "Epic Games Store",
-      href: "https://store.epicgames.com/",
-    },
-    { name: "itch.io", href: "https://itch.io/" },
-    { name: "GoG", href: "https://www.gog.com/" },
-    {
-      name: "GamersGate",
-      href: "https://www.gamersgate.com/",
-    },
-    {
-      name: "GreenManGaming",
-      href: "https://www.greenmangaming.com/",
-    },
-    {
-      name: "EA App Store",
-      href: "https://www.ea.com/games/library/pc-download",
-    },
-    {
-      name: "Humble Store",
-      href: "https://www.humblebundle.com/store",
-    },
-    { name: "Ubisoft Store", href: "https://store.ubi.com/" },
-    { name: "Fanatical", href: "https://www.fanatical.com/" },
-    {
-      name: "WinGameStore",
-      href: "https://www.wingamestore.com/",
-    },
-    {
-      name: "GameBillet",
-      href: "https://www.gamebillet.com/",
-    },
-    { name: "Voidu", href: "https://www.voidu.com/" },
-    {
-      name: "Gamesplanet",
-      href: "https://us.gamesplanet.com/",
-    },
-    { name: "Gamesload", href: "https://www.gamesload.com/" },
-    { name: "2Game", href: "https://www.2game.com/" },
-    { name: "IndieGala", href: "https://www.indiegala.com/" },
-    {
-      name: "Blizzard Shop",
-      href: "https://us.shop.battle.net/",
-    },
-    { name: "DLGamer", href: "https://www.dlgamer.com/" },
-    { name: "Noctre", href: "https://www.noctre.com/" },
-    { name: "DreamGame", href: "https://www.dreamgame.com/" },
-    {
-      name: "PlayStation Store",
-      href: "https://store.playstation.com/",
-    },
-    { name: "Xbox Store", href: "https://www.xbox.com/" },
-    {
-      name: "App Store",
-      href: "https://www.apple.com/app-store/",
-    },
-    {
-      name: "Nintendo Store",
-      href: "https://www.nintendo.com/store/",
-    },
-    {
-      name: "Google Play Store",
-      href: "https://play.google.com/store",
-    },
-  ];
-
   return (
     <section className="container mx-auto">
       <h3 className="mb-16 text-center text-xl font-bold">Featured Stores</h3>
       <div className="flex flex-wrap items-end justify-center gap-6 text-lg">
-        {stores.map((store) => (
+        {storesData.map((store) => (
           <a
             key={store.name}
             href={store.href}
@@ -255,21 +155,7 @@ const CategorySection = ({
   data,
   path,
   buttonText,
-}: {
-  sectionTitle: string;
-  apiLink: { name: string; href: string };
-  data: {
-    id: string | number;
-    image: string;
-    name: string;
-    rating?: string;
-    worth?: string;
-    normalPrice?: string;
-    salePrice?: string;
-  }[];
-  path: string;
-  buttonText: string;
-}) => {
+}: CategorySectionProps) => {
   return (
     <section className="col-span-6 space-y-2 rounded-xl border p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
       <div className="flex items-center justify-between">
@@ -280,7 +166,7 @@ const CategorySection = ({
           href={apiLink.href}
           target="_blank"
           rel="noopener noreferrer external"
-          className="px-2 py-1 text-highlight hover:text-foreground hover:underline"
+          className="px-2 py-1 text-sm text-highlight hover:text-foreground hover:underline"
         >
           {apiLink.name}
         </a>
@@ -319,7 +205,6 @@ const CategorySection = ({
           </Link>
         ))}
       </div>
-
       <Button asChild className="w-full bg-highlight">
         <Link href={path}>
           {buttonText}
@@ -330,29 +215,48 @@ const CategorySection = ({
   );
 };
 
+// Loading State UI Components
+
 const CategorySectionSkeleton = () => {
   const skeletonCards = Array.from({ length: 10 }).map((_, index) => (
-    <CategorySectionSkeletonCards key={index} />
+    <SkeletonCards key={index} />
   ));
 
   return (
     <div className="col-span-6 space-y-2 rounded-xl border p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
-      <Skeleton className="h-7" />
-      {skeletonCards}
+      <div className="flex items-center justify-between">
+        <Skeleton className="h-7 w-1/4" />
+        <Skeleton className="h-4 w-1/5" />
+      </div>
+      <div>{skeletonCards}</div>
       <Skeleton className="h-10" />
     </div>
   );
 };
 
-const CategorySectionSkeletonCards = () => {
+const SkeletonCards = () => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="grid grid-cols-4 items-center gap-2 p-2 md:gap-4">
       <Skeleton className="h-24" />
-      <Skeleton className="h-5 w-full" />
+      <Skeleton className="col-span-2 h-5" />
       <div className="space-y-1">
-        <Skeleton className="ml-auto h-4" />
-        <Skeleton className="ml-auto h-7" />
+        <Skeleton className="h-4" />
+        <Skeleton className="h-7" />
       </div>
     </div>
   );
+};
+
+// Utility Functions
+
+const fetchLatestData = async ({ url, headers }: FetchLatestDataProps) => {
+  const response = await fetch(url, headers);
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch data. Status: ${response.status} ${response.statusText}`,
+    );
+  }
+
+  return await response.json();
 };
