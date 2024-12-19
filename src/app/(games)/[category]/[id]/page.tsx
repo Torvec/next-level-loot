@@ -36,5 +36,5 @@ export default async function Page({
 
   const content = details[category];
 
-  return <div className="py-32">{content}</div>;
+  return <div className="px-4 py-32 xl:px-0">{content}</div>;
 }

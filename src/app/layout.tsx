@@ -25,7 +25,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <Header />
-          <main className="flex-grow place-content-center px-4 leading-relaxed xl:px-0">
+          <main className="flex-grow place-content-center leading-relaxed">
             <WishlistProvider>
               {children}
               <SpeedInsights />

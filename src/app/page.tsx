@@ -16,7 +16,7 @@ export default function Page() {
   return (
     <div className="mb-32 space-y-32">
       <HeroSection />
-      <div className="container mx-auto grid grid-cols-6 gap-6">
+      <div className="container mx-auto grid grid-cols-6 gap-6 px-4 xl:px-0">
         <Suspense fallback={<CategorySectionSkeleton />}>
           <LatestDealsSection />
         </Suspense>
@@ -38,11 +38,11 @@ export default function Page() {
 const HeroSection = () => {
   return (
     <section className="relative flex min-h-[512px] items-center justify-center border-b-2 bg-hero bg-cover bg-center bg-no-repeat">
-      <div className="container z-20 mx-auto space-y-4 text-center">
-        <h2 className="mx-auto w-max rounded-2xl border-[8px] border-highlight px-6 py-3 text-3xl font-black uppercase text-highlight shadow-xl shadow-foreground/20 backdrop-blur-3xl md:text-5xl">
+      <div className="container z-20 mx-auto space-y-4 px-4 text-center md:px-0">
+        <h2 className="mx-auto rounded-2xl border-4 border-highlight px-3 py-3 text-2xl font-black uppercase text-highlight shadow-xl shadow-foreground/20 backdrop-blur-3xl md:w-max md:border-[8px] md:px-6 md:text-5xl">
           Next-Level-Loot
         </h2>
-        <span className="mx-auto block w-max rounded bg-highlight px-4 py-1.5 font-medium text-background shadow-xl shadow-foreground/20 md:text-xl">
+        <span className="mx-auto block rounded bg-highlight px-2 py-1.5 text-sm font-medium text-background shadow-xl shadow-foreground/20 md:w-max md:px-4 md:text-xl">
           Take your gaming budget to the next level!
         </span>
       </div>
@@ -246,7 +246,7 @@ const SkeletonCards = () => {
 
 const StoreFrontsSection = () => {
   return (
-    <section className="container mx-auto max-w-5xl">
+    <section className="container mx-auto max-w-5xl px-4 xl:px-0">
       <h3 className="mb-16 text-center text-xl font-bold">Featured Stores</h3>
       <div className="flex flex-wrap items-end justify-center gap-6 text-lg">
         {storesData.map((store) => (
@@ -267,7 +267,7 @@ const StoreFrontsSection = () => {
 
 const AboutSection = () => {
   return (
-    <section className="container mx-auto max-w-5xl space-y-6 border-y-2 border-y-muted py-16 text-muted-foreground">
+    <section className="container mx-auto max-w-5xl space-y-6 border-y-2 border-y-muted px-4 py-16 text-muted-foreground xl:px-0">
       <div>
         <h3 className="mb-2 text-2xl font-bold text-foreground">
           About this site

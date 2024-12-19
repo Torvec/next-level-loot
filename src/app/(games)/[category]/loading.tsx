@@ -14,7 +14,7 @@ export default function Loading() {
   ));
 
   return (
-    <div className="container mx-auto mb-32 mt-8 space-y-16">
+    <div className="container mx-auto mb-32 mt-8 space-y-16 px-4 xl:px-0">
       <SkeletonForm />
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {skeletonCards}
