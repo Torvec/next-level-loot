@@ -28,6 +28,7 @@ export default function Page() {
         </Suspense>
       </div>
       <StoreFrontsSection />
+      <AboutSection />
     </div>
   );
 }
@@ -128,27 +129,6 @@ const HighestRatedGamesSection = async () => {
   );
 };
 
-const StoreFrontsSection = () => {
-  return (
-    <section className="container mx-auto">
-      <h3 className="mb-16 text-center text-xl font-bold">Featured Stores</h3>
-      <div className="flex flex-wrap items-end justify-center gap-6 text-lg">
-        {storesData.map((store) => (
-          <a
-            key={store.name}
-            href={store.href}
-            target="_blank"
-            rel="noopener noreferrer external"
-            className="mx-auto block w-max rounded-xl bg-muted px-4 py-1 text-highlight hover:bg-muted-foreground hover:text-background"
-          >
-            {store.name}
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-};
-
 const CategorySection = ({
   sectionTitle,
   apiLink,
@@ -158,7 +138,7 @@ const CategorySection = ({
 }: CategorySectionProps) => {
   return (
     <section className="col-span-6 space-y-2 rounded-xl border p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-center justify-between md:flex-row">
         <h3 className="text-center text-xl font-bold lg:text-left">
           {sectionTitle}
         </h3>
@@ -177,25 +157,35 @@ const CategorySection = ({
             href={`${path}/${item.id}`}
             prefetch={true}
             key={item.id}
-            className="grid grid-cols-4 items-center gap-2 p-2 hover:bg-muted md:gap-4"
+            className="grid grid-cols-6 items-center gap-2 p-2 hover:bg-muted md:gap-4"
           >
-            <BannerSection src={item.image} alt={item.name} height="h-24" />
-            <span className="col-span-2 block text-sm">{item.name}</span>
+            <div className="col-span-5 grid grid-cols-6 items-center gap-2">
+              <div className="col-span-2">
+                <BannerSection src={item.image} alt={item.name} height="h-24" />
+              </div>
+              <span className="col-span-4 block text-sm">{item.name}</span>
+            </div>
+
             {item.rating && (
-              <span className="block text-right text-lg font-bold">
-                {item.rating}%
-              </span>
+              <div className="text-center">
+                <span className="block text-xs text-muted-foreground">
+                  Score
+                </span>
+                <span className="block text-lg font-bold">{item.rating}%</span>
+              </div>
             )}
+
             {item.worth && (
-              <div className="text-right">
+              <div className="text-center">
                 <span className="block text-xs text-muted-foreground line-through">
                   {item.worth}
                 </span>
                 <span className="block">Free</span>
               </div>
             )}
+
             {item.salePrice && (
-              <div className="text-right">
+              <div className="text-center">
                 <span className="block text-xs text-muted-foreground line-through">
                   ${item.normalPrice}
                 </span>
@@ -215,8 +205,6 @@ const CategorySection = ({
   );
 };
 
-// Loading State UI Components
-
 const CategorySectionSkeleton = () => {
   const skeletonCards = Array.from({ length: 10 }).map((_, index) => (
     <SkeletonCards key={index} />
@@ -224,7 +212,7 @@ const CategorySectionSkeleton = () => {
 
   return (
     <div className="col-span-6 space-y-2 rounded-xl border p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-center justify-between md:flex-row">
         <Skeleton className="h-7 w-1/4" />
         <Skeleton className="h-4 w-1/5" />
       </div>
@@ -236,9 +224,13 @@ const CategorySectionSkeleton = () => {
 
 const SkeletonCards = () => {
   return (
-    <div className="grid grid-cols-4 items-center gap-2 p-2 md:gap-4">
-      <Skeleton className="h-24" />
-      <Skeleton className="col-span-2 h-5" />
+    <div className="grid grid-cols-6 items-center gap-2 p-2 md:gap-4">
+      <div className="col-span-5 grid grid-cols-6 items-center gap-2">
+        <div className="col-span-2">
+          <Skeleton className="h-24" />
+        </div>
+        <Skeleton className="col-span-2 h-5" />
+      </div>
       <div className="space-y-1">
         <Skeleton className="h-4" />
         <Skeleton className="h-7" />
@@ -247,6 +239,110 @@ const SkeletonCards = () => {
   );
 };
 
+const StoreFrontsSection = () => {
+  return (
+    <section className="container mx-auto max-w-5xl">
+      <h3 className="mb-16 text-center text-xl font-bold">Featured Stores</h3>
+      <div className="flex flex-wrap items-end justify-center gap-6 text-lg">
+        {storesData.map((store) => (
+          <a
+            key={store.name}
+            href={store.href}
+            target="_blank"
+            rel="noopener noreferrer external"
+            className="mx-auto block w-max rounded-xl bg-muted px-4 py-1 text-highlight hover:bg-muted-foreground hover:text-background"
+          >
+            {store.name}
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const AboutSection = () => {
+  return (
+    <section className="container mx-auto max-w-5xl space-y-6 border-y border-y-muted py-16 text-muted-foreground">
+      <div>
+        <h3 className="mb-2 text-2xl font-bold text-foreground">
+          About this site
+        </h3>
+        <div className="space-y-6">
+          <p>
+            Next Level Loot is primarily a portfolio piece to showcase my skills
+            as a web developer, and as a way for me to learn how to build a site
+            using <ExtLink href="https://nextjs.org/">Next.js</ExtLink> and{" "}
+            <ExtLink href="https://shadcn.dev/">shadcn/ui</ExtLink> components.
+            It is also a continuation of a previous project, called{" "}
+            <ExtLink href="https://torvec.github.io/Loot-Vault/">
+              Loot Vault
+            </ExtLink>{" "}
+            <ExtLink href="https://github.com/Torvec/Loot-Vault">
+              (Repo)
+            </ExtLink>
+            , I worked on as part of my first group project in a{" "}
+            <ExtLink href="https://extension.berkeley.edu/">
+              UC Berkeley coding bootcamp
+            </ExtLink>{" "}
+            in 2023. Like Loot Vault, Next Level Loot is a site that aggregates
+            game data from multiple APIs and allows gamers to find deals,
+            giveaways, and information about games.
+          </p>
+          <p>
+            The site was built using{" "}
+            <ExtLink href="https://nextjs.org/">Next.js 15</ExtLink>,{" "}
+            <ExtLink href="https://reactjs.org/">React 19</ExtLink>,{" "}
+            <ExtLink href="https://tailwindcss.com/">Tailwind CSS</ExtLink>,{" "}
+            <ExtLink href="https://www.typescriptlang.org/">TypeScript</ExtLink>
+            , and <ExtLink href="https://shadcn.dev/">shadcn/ui</ExtLink>{" "}
+            components. All API development and testing was done using{" "}
+            <ExtLink href="https://usebruno.com/">Bruno</ExtLink> and all data
+            was fetched from the following APIs:{" "}
+            <ExtLink href="https://www.cheapshark.com/">CheapShark</ExtLink>,{" "}
+            <ExtLink href="https://www.gamerpower.com/">GamerPower</ExtLink>,
+            and <ExtLink href="https://rawg.io/">RAWG</ExtLink>. Deployment is
+            handled by <ExtLink href="https://vercel.com/">Vercel</ExtLink>.
+          </p>
+        </div>
+      </div>
+      <div>
+        <h4 className="mb-2 font-bold text-foreground">About the developer</h4>
+        <p>
+          Hello, my name is Edward Vonschondorf, and I am a freelance full stack
+          developer located in the San Francisco Bay Area. I enjoy making full
+          stack apps as well as games. Check out{" "}
+          <ExtLink href="https://edward-vonschondorf.dev/">my website</ExtLink>{" "}
+          for more projects by me!
+        </p>
+      </div>
+      <div>
+        <h4 className="mb-2 font-bold text-foreground">Future Development</h4>
+        <p>
+          Updates/Improvments and bug fixes will continue on a regular basis for
+          the foreseeable future as it has been a great experience for me to
+          have a fully-featured site, excluding database usage, for me to
+          implement various design and development patterns. Check out{" "}
+          <ExtLink href="https://github.com/Torvec/loot_vault_next">
+            the repository
+          </ExtLink>{" "}
+          for the latest issues and details on what is being worked on
+          currently.
+        </p>
+      </div>
+      <div>
+        <h4 className="mb-2 font-bold text-foreground">Disclaimer</h4>
+        <p className="text-sm">
+          The information displayed on this site is obtained from third-party
+          APIs, and I do not own or operate any of these APIs. Therefore, I
+          cannot guarantee the accuracy, completeness, or reliability of the
+          data provided. Additionally, I do not own any trademarks or copyrights
+          for the games or other content displayed on this site. All trademarks
+          and copyrights are the property of their respective owners.
+        </p>
+      </div>
+    </section>
+  );
+};
 // Utility Functions
 
 const fetchLatestData = async ({ url, headers }: FetchLatestDataProps) => {
@@ -259,4 +355,23 @@ const fetchLatestData = async ({ url, headers }: FetchLatestDataProps) => {
   }
 
   return await response.json();
+};
+
+const ExtLink = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer external"
+      className="text-highlight hover:underline"
+    >
+      {children}
+    </a>
+  );
 };

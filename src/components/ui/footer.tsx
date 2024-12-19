@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="border-t border-t-muted-foreground/25 bg-muted">
       <div className="container mx-auto px-4 pb-24 pt-16 xl:px-0">
         <div className="mb-8 grid gap-6 md:grid-cols-3 lg:grid-cols-4">
-          <h3 className="font-bold uppercase">Next-Level-Loot</h3>
+          <LogoSection />
           <ProjectSection />
           <APISection />
           <DeveloperSection />
@@ -19,6 +19,19 @@ export default function Footer() {
     </footer>
   );
 }
+
+const LogoSection = () => {
+  return (
+    <div>
+      <h3 className="bg-gradient-to-r from-gradient-3 via-gradient-2 to-gradient-1 bg-clip-text font-black uppercase text-transparent sm:text-xl">
+        Next-Level-Loot
+      </h3>
+      <p className="text-sm opacity-80">
+        Taking your gaming budget to the next level!
+      </p>
+    </div>
+  );
+};
 
 const ProjectSection = () => {
   return (
