@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-t-muted-foreground/25 bg-muted">
+    <footer className="border-t-2 border-t-muted-foreground/25 bg-muted">
       <div className="container mx-auto px-4 pb-24 pt-16 xl:px-0">
         <div className="mb-8 grid gap-6 md:grid-cols-3 lg:grid-cols-4">
           <LogoSection />
@@ -27,7 +27,7 @@ const LogoSection = () => {
         Next-Level-Loot
       </h3>
       <p className="text-sm opacity-80">
-        Taking your gaming budget to the next level!
+        Take your gaming budget to the next level!
       </p>
     </div>
   );

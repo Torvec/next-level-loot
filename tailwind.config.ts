@@ -10,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        hero: "url('/landing-page-banner.png')",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

@@ -37,11 +37,16 @@ export default function Page() {
 
 const HeroSection = () => {
   return (
-    <section className="grid h-[640px] place-content-center border-b text-center">
-      <h2 className="text-4xl font-black uppercase">Next-Level-Loot</h2>
-      <span className="text-muted-foreground">
-        Taking your gaming budget to the next level!
-      </span>
+    <section className="relative flex min-h-[512px] items-center justify-center border-b-2 bg-hero bg-cover bg-center bg-no-repeat">
+      <div className="container z-20 mx-auto space-y-4 text-center">
+        <h2 className="mx-auto w-max rounded-2xl border-[8px] border-highlight px-6 py-3 text-3xl font-black uppercase text-highlight shadow-xl shadow-foreground/20 backdrop-blur-3xl md:text-5xl">
+          Next-Level-Loot
+        </h2>
+        <span className="mx-auto block w-max rounded bg-highlight px-4 py-1.5 font-medium text-background shadow-xl shadow-foreground/20 md:text-xl">
+          Take your gaming budget to the next level!
+        </span>
+      </div>
+      <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent to-background to-90%" />
     </section>
   );
 };
@@ -137,7 +142,7 @@ const CategorySection = ({
   buttonText,
 }: CategorySectionProps) => {
   return (
-    <section className="col-span-6 space-y-2 rounded-xl border p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
+    <section className="col-span-6 space-y-2 rounded-xl border-2 p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
       <div className="flex flex-col items-center justify-between md:flex-row">
         <h3 className="text-center text-xl font-bold lg:text-left">
           {sectionTitle}
@@ -250,7 +255,7 @@ const StoreFrontsSection = () => {
             href={store.href}
             target="_blank"
             rel="noopener noreferrer external"
-            className="mx-auto block w-max rounded-xl bg-muted px-4 py-1 text-highlight hover:bg-muted-foreground hover:text-background"
+            className="mx-auto block w-max rounded-xl border-2 border-muted px-4 py-1 text-sm text-highlight transition-colors duration-150 ease-in-out hover:bg-muted-foreground hover:text-background"
           >
             {store.name}
           </a>
@@ -262,7 +267,7 @@ const StoreFrontsSection = () => {
 
 const AboutSection = () => {
   return (
-    <section className="container mx-auto max-w-5xl space-y-6 border-y border-y-muted py-16 text-muted-foreground">
+    <section className="container mx-auto max-w-5xl space-y-6 border-y-2 border-y-muted py-16 text-muted-foreground">
       <div>
         <h3 className="mb-2 text-2xl font-bold text-foreground">
           About this site
