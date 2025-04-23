@@ -142,64 +142,75 @@ const CategorySection = ({
   buttonText,
 }: CategorySectionProps) => {
   return (
-    <section className="col-span-6 space-y-2 rounded-xl border-2 p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
-      <div className="flex flex-col items-center justify-between md:flex-row">
-        <h3 className="text-center text-xl font-bold lg:text-left">
-          {sectionTitle}
-        </h3>
-        <a
-          href={apiLink.href}
-          target="_blank"
-          rel="noopener noreferrer external"
-          className="px-2 py-1 text-sm text-highlight hover:text-foreground hover:underline"
-        >
-          {apiLink.name}
-        </a>
-      </div>
+    <section className="col-span-6 flex flex-col justify-between space-y-2 rounded-xl border-2 p-2 md:col-span-3 md:space-y-6 md:last:col-span-4 md:last:col-start-2 lg:col-span-2 lg:p-4 lg:last:col-span-2 lg:last:col-start-5 xl:p-6">
+      {/* COLUMN HEADER */}
       <div>
-        {data.map((item) => (
-          <Link
-            href={`${path}/${item.id}`}
-            prefetch={true}
-            key={item.id}
-            className="grid grid-cols-6 items-center gap-2 p-2 hover:bg-muted md:gap-4"
+        <div className="flex flex-col items-center justify-between md:flex-row">
+          <h3 className="text-center text-xl font-bold lg:text-left">
+            {sectionTitle}
+          </h3>
+          <a
+            href={apiLink.href}
+            target="_blank"
+            rel="noopener noreferrer external"
+            className="px-2 py-1 text-sm text-highlight hover:text-foreground hover:underline"
           >
-            <div className="col-span-5 grid grid-cols-6 items-center gap-2">
-              <div className="col-span-2">
-                <BannerSection src={item.image} alt={item.name} height="h-24" />
+            {apiLink.name}
+          </a>
+        </div>
+        {/* GAMES LIST */}
+        <div>
+          {data.map((item) => (
+            <Link
+              href={`${path}/${item.id}`}
+              prefetch={true}
+              key={item.id}
+              className="grid grid-cols-6 items-center gap-2 p-2 hover:bg-muted md:gap-4"
+            >
+              <div className="col-span-5 grid grid-cols-6 items-center gap-2">
+                <div className="col-span-2">
+                  <BannerSection
+                    src={item.image}
+                    alt={item.name}
+                    height="h-24"
+                  />
+                </div>
+                <span className="col-span-4 block text-sm">{item.name}</span>
               </div>
-              <span className="col-span-4 block text-sm">{item.name}</span>
-            </div>
 
-            {item.rating && (
-              <div className="text-center">
-                <span className="block text-xs text-muted-foreground">
-                  Score
-                </span>
-                <span className="block text-lg font-bold">{item.rating}%</span>
-              </div>
-            )}
+              {item.rating && (
+                <div className="text-center">
+                  <span className="block text-xs text-muted-foreground">
+                    Score
+                  </span>
+                  <span className="block text-lg font-bold">
+                    {item.rating}%
+                  </span>
+                </div>
+              )}
 
-            {item.worth && (
-              <div className="text-center">
-                <span className="block text-xs text-muted-foreground line-through">
-                  {item.worth}
-                </span>
-                <span className="block">Free</span>
-              </div>
-            )}
+              {item.worth && (
+                <div className="text-center">
+                  <span className="block text-xs text-muted-foreground line-through">
+                    {item.worth}
+                  </span>
+                  <span className="block">Free</span>
+                </div>
+              )}
 
-            {item.salePrice && (
-              <div className="text-center">
-                <span className="block text-xs text-muted-foreground line-through">
-                  ${item.normalPrice}
-                </span>
-                <span className="block">${item.salePrice}</span>
-              </div>
-            )}
-          </Link>
-        ))}
+              {item.salePrice && (
+                <div className="text-center">
+                  <span className="block text-xs text-muted-foreground line-through">
+                    ${item.normalPrice}
+                  </span>
+                  <span className="block">${item.salePrice}</span>
+                </div>
+              )}
+            </Link>
+          ))}
+        </div>
       </div>
+      {/* MORE BUTTON */}
       <Button asChild className="w-full bg-highlight">
         <Link href={path}>
           {buttonText}
