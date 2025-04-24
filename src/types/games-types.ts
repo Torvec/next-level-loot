@@ -31,11 +31,6 @@ export interface GamesCardProps {
   genres: Genre[];
 }
 
-export interface GamesCardDescriptionSectionProps {
-  released: string;
-  esrbRating: { name: string };
-}
-
 interface Platform {
   id: number;
   name: string;

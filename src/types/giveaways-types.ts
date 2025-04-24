@@ -17,16 +17,6 @@ export interface GiveawaysCardProps {
   // open_giveaway: string;
 }
 
-export interface GiveawaysCardDescriptionSectionProps {
-  type: string;
-  platforms: string;
-}
-
-export interface GiveawaysCardDateTimeProps {
-  publishedDate: string;
-  endDate: string;
-}
-
 export interface GiveawaysDetailsProps {
   id: number;
   title: string;

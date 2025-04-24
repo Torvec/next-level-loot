@@ -11,14 +11,13 @@ import FindDealsButton from "@/components/ui/buttons/deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import MoreDetailsButton from "@/components/ui/buttons/details-button";
 import BannerSection from "@/components/ui/banner-section";
-import {
-  type GamesCardProps,
-  type GamesCardDescriptionSectionProps,
-} from "@/types/games-types";
-
-// Main Component
+import { type GamesCardProps } from "@/types/games-types";
 
 export default function GamesCard(data: GamesCardProps) {
+  const getESRBRating = (rating: { name: string }) => {
+    return rating ? rating.name : "Not Rated";
+  };
+
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/25">
       <CardHeader>
@@ -27,10 +26,8 @@ export default function GamesCard(data: GamesCardProps) {
           <h2 className="text-lg">{data.name}</h2>
         </CardTitle>
         <CardDescription>
-          <GamesCardDescriptionSection
-            released={data.released}
-            esrbRating={data.esrb_rating}
-          />
+          <span className="block">Released: {data.released}</span>
+          <span className="block">ESRB: {getESRBRating(data.esrb_rating)}</span>
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -60,21 +57,3 @@ export default function GamesCard(data: GamesCardProps) {
     </Card>
   );
 }
-
-// Sub-Components
-
-const GamesCardDescriptionSection = ({
-  released,
-  esrbRating,
-}: GamesCardDescriptionSectionProps) => (
-  <>
-    <p>Released: {released}</p>
-    <p>ESRB: {getESRBRating(esrbRating)}</p>
-  </>
-);
-
-// Helper Functions
-
-const getESRBRating = (rating: { name: string }) => {
-  return rating ? rating.name : "Not Rated";
-};

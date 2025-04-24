@@ -20,18 +20,6 @@ export interface DealsCardProps {
   thumb: string;
 }
 
-export type DealsCardDescriptionSectionProps = {
-  releaseDate: number;
-  storeID: string;
-};
-
-export type DealsCardPriceSectionProps = {
-  savings: string;
-  dealRating: string;
-  normalPrice: string;
-  salePrice: string;
-};
-
 export interface DealsDetailsProps {
   gameInfo: {
     storeID: string;
