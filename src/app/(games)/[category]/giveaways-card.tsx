@@ -13,6 +13,20 @@ import WishlistButton from "@/components/ui/buttons/wishlist-button";
 import { type GiveawaysCardProps } from "@/types/giveaways-types";
 
 export default function GiveawaysCard(data: GiveawaysCardProps) {
+  const formatDateTime = (dateTime: string | number | Date) => {
+    if (dateTime !== "N/A") {
+      return new Date(dateTime).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      });
+    }
+    return dateTime;
+  };
+
   return (
     <Card className="flex flex-col justify-between rounded-xl border-0 bg-gradient-to-t from-muted to-muted/20">
       <CardHeader>
@@ -31,11 +45,15 @@ export default function GiveawaysCard(data: GiveawaysCardProps) {
             <span className="block text-sm text-muted-foreground">
               Started:
             </span>
-            <time dateTime={data.published_date}>{data.published_date}</time>
+            <time dateTime={data.published_date}>
+              {formatDateTime(data.published_date)}
+            </time>
           </div>
           <div className="w-1/2 rounded-xl border border-muted p-2">
             <span className="block text-sm text-muted-foreground">Ends:</span>
-            <time dateTime={data.end_date}>{data.end_date}</time>
+            <time dateTime={data.end_date}>
+              {formatDateTime(data.end_date)}
+            </time>
           </div>
         </div>
         <div className="mx-auto w-max">

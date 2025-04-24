@@ -6,6 +6,20 @@ import { type GiveawaysDetailsProps } from "@/types/giveaways-types";
 // Main Component
 
 export default function GiveawaysDetails(data: GiveawaysDetailsProps) {
+  const formatDateTime = (dateTime: string | number | Date) => {
+    if (dateTime !== "N/A") {
+      return new Date(dateTime).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      });
+    }
+    return dateTime;
+  };
+
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-6">
       {/* HEADER */}
@@ -71,11 +85,15 @@ export default function GiveawaysDetails(data: GiveawaysDetailsProps) {
             <span className="block text-sm text-muted-foreground">
               Started:
             </span>
-            <time dateTime={data.published_date}>{data.published_date}</time>
+            <time dateTime={data.published_date}>
+              {formatDateTime(data.published_date)}
+            </time>
           </div>
           <div className="rounded-xl border border-muted p-2">
             <span className="block text-sm text-muted-foreground">Ends:</span>
-            <span className="block">{data.end_date}</span>
+            <time dateTime={data.end_date}>
+              {formatDateTime(data.end_date)}
+            </time>
           </div>
         </aside>
       </div>
