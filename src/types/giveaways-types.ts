@@ -44,26 +44,3 @@ export interface GiveawaysDetailsProps {
   // status: string;
   // gamerpower_url: string;
 }
-
-export interface GiveawaysDetailsHeaderProps {
-  title: string;
-  src: string;
-  type: string;
-  platforms: string;
-}
-
-export interface GiveawaysDetailsMainColumnProps {
-  src: string;
-  title: string;
-  type: string;
-  id: number;
-  url: string;
-  worth: string;
-  description: string;
-  instructions: string;
-}
-
-export interface GiveawaysDetailsSideBarProps {
-  startDate: string;
-  endDate: string;
-}

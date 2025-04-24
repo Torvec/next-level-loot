@@ -61,36 +61,3 @@ export interface DealsDetailsProps {
     date: number;
   };
 }
-
-export type DealsDetailsHeaderProps = {
-  title: string;
-  src: string;
-  released: number;
-  storeID: string;
-};
-
-export type DealsDetailsMainColumnProps = {
-  src: string;
-  title: string;
-  id: string;
-  metacriticLink: string;
-  metacriticScore: string;
-  steamAppID: string;
-  steamRatingPercent: string;
-  retailPrice: string;
-  salePrice: string;
-};
-
-export type DealsDetailsPriceSectionProps = {
-  retailPrice: string;
-  salePrice: string;
-};
-
-export type DealsDetailsSideBarProps = {
-  cheaperStores: {
-    storeID: string;
-    dealID: string;
-    retailPrice: string;
-    salePrice: string;
-  }[];
-};

@@ -149,35 +149,6 @@ export interface GamesDetailsProps {
   description_raw: string;
 }
 
-export interface GamesDetailsHeaderProps {
-  title: string;
-  src: string;
-  released: string;
-  esrbRating: { name: string };
-}
-
-export interface GamesDetailsMainColumnProps {
-  src: string;
-  title: string;
-  id: number;
-  metacritic: number;
-  ratings: GamesRating[];
-  description: string;
-}
-
-export interface GamesDetailsRatingsGraphProps {
-  ratings: GamesRating[];
-}
-
-export interface GamesDetailsSideBarProps {
-  platforms: PlatformType[];
-  genres: GenreType[];
-  stores: StoreType[];
-  developers: DeveloperType[];
-  publishers: PublisherType[];
-  tags: TagType[];
-}
-
 export interface GamesDetailsBadgeListProps<T> {
   title: string;
   list: T[];
