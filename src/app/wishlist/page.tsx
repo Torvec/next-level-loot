@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   description: "Check out your wishlist on Next Level Loot!",
 };
 
-// Main Component
-
 export default function Page() {
   return (
     <div className="mx-auto my-8 max-w-4xl space-y-8 px-4 xl:px-0">
