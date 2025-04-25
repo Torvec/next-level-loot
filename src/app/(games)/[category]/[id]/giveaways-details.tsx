@@ -68,13 +68,13 @@ export function GiveawaysDetailsMainColumn(data: GiveawaysDetailsProps) {
 export function GiveawaysDetailsSideBar(data: GiveawaysDetailsProps) {
   return (
     <>
-      <div className="rounded-xl border border-muted p-2">
+      <div className="rounded-xl border border-muted p-2 text-center">
         <span className="block text-sm text-muted-foreground">Started:</span>
         <time dateTime={data.published_date}>
           {formatDateTime(data.published_date)}
         </time>
       </div>
-      <div className="rounded-xl border border-muted p-2">
+      <div className="rounded-xl border border-muted p-2 text-center">
         <span className="block text-sm text-muted-foreground">Ends:</span>
         <time dateTime={data.end_date}>{formatDateTime(data.end_date)}</time>
       </div>

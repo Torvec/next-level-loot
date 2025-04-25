@@ -39,7 +39,7 @@ export default async function Page({
   // Fetch data based off of the current category and id (NOTE: id is only so I can add specific games to wishlist)
   const data = await fetchData({ category, id });
 
-  // Pass the fetched data to the component that needs it
+  // Pass the fetched data to the component that needs it based on the current category
   const details = {
     deals: {
       header: <DealsDetailsHeader {...data} />,
@@ -58,29 +58,18 @@ export default async function Page({
     },
   };
 
-  // Get the correct components based off of the current category and render the jsx
-  const content = {
-    header: details[category].header,
-    mainColumn: details[category].mainColumn,
-    sideBar: details[category].sideBar,
-  };
-
   return (
     <article className="px-4 py-32 xl:px-0">
       <div className="mx-auto flex max-w-4xl flex-col gap-6">
-        {/* HEADER SECTION */}
         <section className="space-y-4 rounded-xl bg-gradient-to-t from-muted to-muted/20 p-6">
-          {content.header}
+          {details[category].header}
         </section>
-        {/* BODY */}
         <div className="flex flex-col gap-6 md:flex-row">
-          {/* MAIN COLUMN */}
           <section className="w-full space-y-6 rounded-xl bg-gradient-to-tl from-muted to-muted/20 p-6 md:w-2/3">
-            {content.mainColumn}
+            {details[category].mainColumn}
           </section>
-          {/* SIDEBAR COLUMN */}
-          <section className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 text-center md:w-1/3">
-            {content.sideBar}
+          <section className="w-full space-y-4 rounded-xl bg-gradient-to-tr from-muted to-muted/20 p-6 md:w-1/3">
+            {details[category].sideBar}
           </section>
         </div>
       </div>
