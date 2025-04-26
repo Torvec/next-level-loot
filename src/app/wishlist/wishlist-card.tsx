@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import { Button } from "@/components/ui/button";
 import MoreDetailsButton from "@/components/ui/buttons/details-button";
@@ -10,13 +9,7 @@ import { type WishlistItemType } from "@/types/types";
 
 // Main Component
 
-export default function WishlistCard({
-  item,
-  index,
-}: {
-  item: WishlistItemType;
-  index: number;
-}) {
+export default function WishlistCard({ item, index }: { item: WishlistItemType; index: number }) {
   return (
     <section className="rounded-xl bg-muted p-6">
       <div className="flex w-full flex-col gap-6 md:flex-row md:justify-between">
@@ -28,18 +21,12 @@ export default function WishlistCard({
             <div className="my-auto">
               <h2 className="font-bold">{item.title}</h2>
               {item.store && (
-                <span className="block text-sm text-muted-foreground">
-                  {item.store}
-                </span>
+                <span className="block text-sm text-muted-foreground">{item.store}</span>
               )}
               {item.type && (
-                <span className="block text-sm text-muted-foreground">
-                  Type: {item.type}
-                </span>
+                <span className="block text-sm text-muted-foreground">Type: {item.type}</span>
               )}
-              <span className="text-lg text-highlight">
-                {displayPrice(item.price)}
-              </span>
+              <span className="text-lg text-highlight">{displayPrice(item.price)}</span>
             </div>
             <span className="block text-xs italic text-muted-foreground">
               Added: {displayDateTime(item.timestamp)}

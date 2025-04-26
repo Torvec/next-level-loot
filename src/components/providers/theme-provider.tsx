@@ -4,15 +4,9 @@ import { createContext, useContext, useReducer, useEffect } from "react";
 import { type Themes, type ThemeAction } from "@/types/types";
 
 const ThemeContext = createContext<Themes>("");
-const ThemeDispatchContext = createContext<React.Dispatch<ThemeAction>>(
-  () => {},
-);
+const ThemeDispatchContext = createContext<React.Dispatch<ThemeAction>>(() => {});
 
-export default function ThemeProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, dispatch] = useReducer(themeReducer, "");
 
   useEffect(() => {
@@ -28,9 +22,7 @@ export default function ThemeProvider({
 
   return (
     <ThemeContext.Provider value={theme}>
-      <ThemeDispatchContext.Provider value={dispatch}>
-        {children}
-      </ThemeDispatchContext.Provider>
+      <ThemeDispatchContext.Provider value={dispatch}>{children}</ThemeDispatchContext.Provider>
     </ThemeContext.Provider>
   );
 }

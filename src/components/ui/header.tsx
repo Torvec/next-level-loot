@@ -6,11 +6,7 @@ import Form from "next/form";
 import { usePathname } from "next/navigation";
 import { Menu, Moon, Sun, Bookmark, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Dialog,
   DialogClose,
@@ -22,10 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  useThemeDispatch,
-  useTheme,
-} from "@/components/providers/theme-provider";
+import { useThemeDispatch, useTheme } from "@/components/providers/theme-provider";
 
 export default function Header() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -92,13 +85,7 @@ const NavLink = ({ href, children }: { href: string; children: string }) => {
   );
 };
 
-const SearchDialog = ({
-  open,
-  setOpen,
-}: {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-}) => {
+const SearchDialog = ({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) => {
   const handleCloseDialog = () => {
     setOpen(false);
   };
@@ -177,13 +164,7 @@ const SearchForm = ({ onSearch }: { onSearch: () => void }) => {
   );
 };
 
-const RadioItem = ({
-  value,
-  children,
-}: {
-  value: string;
-  children: string;
-}) => {
+const RadioItem = ({ value, children }: { value: string; children: string }) => {
   return (
     <div className="flex gap-2">
       <RadioGroupItem value={value} id={value} />

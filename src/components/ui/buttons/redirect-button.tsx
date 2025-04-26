@@ -4,10 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { type RedirectButtonProps } from "@/types/types";
 
-export default function RedirectButton({
-  url,
-  displayText,
-}: RedirectButtonProps) {
+export default function RedirectButton({ url, displayText }: RedirectButtonProps) {
   return (
     <Button
       asChild

@@ -26,9 +26,7 @@ const LogoSection = () => {
       <h3 className="bg-gradient-to-r from-gradient-3 via-gradient-2 to-gradient-1 bg-clip-text font-black uppercase text-transparent sm:text-xl">
         Next-Level-Loot
       </h3>
-      <p className="text-sm opacity-80">
-        Take your gaming budget to the next level!
-      </p>
+      <p className="text-sm opacity-80">Take your gaming budget to the next level!</p>
     </div>
   );
 };
@@ -41,22 +39,16 @@ const ProjectSection = () => {
         <li>Made with Next.js 15 &amp; React 19</li>
         <li className="flex gap-2">
           GitHub:
-          <ExtLink href="https://github.com/Torvec/loot_vault_next">
-            Repo
-          </ExtLink>
+          <ExtLink href="https://github.com/Torvec/loot_vault_next">Repo</ExtLink>
         </li>
         <li className="text-pretty">
           Based on my first UC Berkeley coding bootcamp group project:
         </li>
         <li>
-          <ExtLink href="https://torvec.github.io/Loot-Vault/">
-            Loot Vault Site
-          </ExtLink>
+          <ExtLink href="https://torvec.github.io/Loot-Vault/">Loot Vault Site</ExtLink>
         </li>
         <li>
-          <ExtLink href="https://github.com/Torvec/Loot-Vault">
-            Loot Vault Repo
-          </ExtLink>
+          <ExtLink href="https://github.com/Torvec/Loot-Vault">Loot Vault Repo</ExtLink>
         </li>
       </ul>
     </div>
@@ -106,20 +98,14 @@ const DeveloperSection = () => {
     <div className="md:col-start-2 lg:col-start-4">
       <h3 className="mb-4 font-bold">Developer</h3>
       <ul className="space-y-1 text-muted-foreground">
-        <li className="text-pretty">
-          Designed and developed by Edward Vonschondorf
-        </li>
+        <li className="text-pretty">Designed and developed by Edward Vonschondorf</li>
         <li>
-          <ExtLink href="https://edward-vonschondorf.dev">
-            Edward-vonschondorf.dev
-          </ExtLink>
+          <ExtLink href="https://edward-vonschondorf.dev">Edward-vonschondorf.dev</ExtLink>
         </li>
         <li className="flex gap-8">
           <ExtLink href="https://github.com/Torvec">Github</ExtLink>
           <span>|</span>
-          <ExtLink href="https://www.linkedin.com/in/edward-vonschondorf/">
-            LinkedIn
-          </ExtLink>
+          <ExtLink href="https://www.linkedin.com/in/edward-vonschondorf/">LinkedIn</ExtLink>
         </li>
       </ul>
     </div>
@@ -141,11 +127,7 @@ const SiteMapSection = () => {
       <ul className="flex flex-wrap gap-x-4 gap-y-2 md:flex-row lg:gap-8">
         {navlinks.map(({ href, text }) => (
           <li key={href}>
-            <Link
-              href={href}
-              prefetch={true}
-              className="text-highlight hover:text-foreground"
-            >
+            <Link href={href} prefetch={true} className="text-highlight hover:text-foreground">
               {text}
             </Link>
           </li>

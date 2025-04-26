@@ -4,18 +4,12 @@ import { createContext, useReducer, useEffect, useContext } from "react";
 import { type WishlistItemType, type WishlistAction } from "@/types/types";
 
 const WishlistContext = createContext<WishlistItemType[]>([]);
-const WishlistDispatchContext = createContext<React.Dispatch<WishlistAction>>(
-  () => {},
-);
+const WishlistDispatchContext = createContext<React.Dispatch<WishlistAction>>(() => {});
 const STORE = "wishlist";
 
 // Main Component
 
-export default function WishlistProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function WishlistProvider({ children }: { children: React.ReactNode }) {
   const [wishlist, dispatch] = useReducer(wishlistReducer, []);
 
   useEffect(() => {
@@ -86,9 +80,7 @@ const sortWishlistByTitle = (wishlist: WishlistItemType[]) => {
 };
 
 const sortWishlistByPrice = (wishlist: WishlistItemType[]) => {
-  return [...wishlist].sort(
-    (a, b) => convertPrice(a.price) - convertPrice(b.price),
-  );
+  return [...wishlist].sort((a, b) => convertPrice(a.price) - convertPrice(b.price));
 };
 
 const sortWishlistByDateAdded = (wishlist: WishlistItemType[]) => {

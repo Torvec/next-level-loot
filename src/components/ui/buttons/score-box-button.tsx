@@ -15,8 +15,7 @@ export default function ScoreBoxButton({
     ? `${reviewSourceBaseURL}${apiLink}`
     : `${reviewSourceSearch}${encodedTitle}`;
 
-  const displayScore =
-    score !== "0" && score !== 0 && score !== null ? score + "%" : "N/A";
+  const displayScore = score !== "0" && score !== 0 && score !== null ? score + "%" : "N/A";
 
   return (
     <Button
@@ -25,12 +24,8 @@ export default function ScoreBoxButton({
       className="flex h-full w-full flex-col border-2 border-muted bg-transparent"
     >
       <a href={createLink} target="_blank" rel="noopener noreferrer external">
-        <span className="block text-2xl font-bold text-muted-foreground">
-          {displayScore}
-        </span>
-        <span className="block text-sm text-muted-foreground">
-          {reviewSourceName}
-        </span>
+        <span className="block text-2xl font-bold text-muted-foreground">{displayScore}</span>
+        <span className="block text-sm text-muted-foreground">{reviewSourceName}</span>
       </a>
     </Button>
   );

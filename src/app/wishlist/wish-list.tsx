@@ -13,10 +13,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import {
-  useWishlist,
-  useWishlistDispatch,
-} from "@/components/providers/wishlist-provider";
+import { useWishlist, useWishlistDispatch } from "@/components/providers/wishlist-provider";
 import WishlistCard from "@/app/wishlist/wishlist-card";
 
 export default function Wishlist() {
@@ -40,10 +37,7 @@ export default function Wishlist() {
               Games
             </Link>
             , and{" "}
-            <Link
-              href={"/giveaways"}
-              className="text-highlight hover:underline"
-            >
+            <Link href={"/giveaways"} className="text-highlight hover:underline">
               Giveaways
             </Link>{" "}
             for games to add here.
@@ -70,8 +64,7 @@ export default function Wishlist() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete all of
-              your wishlist items.
+              This action cannot be undone. This will permanently delete all of your wishlist items.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

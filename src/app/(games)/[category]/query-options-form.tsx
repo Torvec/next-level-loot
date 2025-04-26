@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { query } from "@/lib/query";
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { ChevronUp } from "lucide-react";
 import {
   type QueryOptionsFormProps,
@@ -20,20 +16,13 @@ import {
 
 // Main Component
 
-export default function QueryOptionsForm({
-  category,
-  searchParams,
-}: QueryOptionsFormProps) {
+export default function QueryOptionsForm({ category, searchParams }: QueryOptionsFormProps) {
   const { sort, order, filters } = query[category].queryParams;
 
   //! I really need to figure out why i need this
   const params = new URLSearchParams(
     Object.entries(searchParams).flatMap(([key, value]) =>
-      Array.isArray(value)
-        ? value.map((v) => [key, v])
-        : value !== undefined
-          ? [[key, value]]
-          : [],
+      Array.isArray(value) ? value.map((v) => [key, v]) : value !== undefined ? [[key, value]] : [],
     ),
   );
 
@@ -59,11 +48,7 @@ const QueryOption = ({ params, filter }: QueryOptionProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <QueryOptionButton
-          params={params}
-          filter={filter}
-          typeText={filter.type || ""}
-        />
+        <QueryOptionButton params={params} filter={filter} typeText={filter.type || ""} />
       </PopoverTrigger>
       <PopoverContent className="max-h-96 w-[calc(100vw-32px)] overflow-y-auto md:w-max">
         <QueryOptionList params={params} filter={filter} />
@@ -72,15 +57,9 @@ const QueryOption = ({ params, filter }: QueryOptionProps) => {
   );
 };
 
-const QueryOptionButton = ({
-  params,
-  filter,
-  typeText,
-}: QueryOptionButtonProps) => {
+const QueryOptionButton = ({ params, filter, typeText }: QueryOptionButtonProps) => {
   const currentOption =
-    getCurrentValue({ params, key: filter.name, options: filter.options }) ||
-    filter.default ||
-    "";
+    getCurrentValue({ params, key: filter.name, options: filter.options }) || filter.default || "";
 
   return (
     <Button className="w-full min-w-max bg-muted-foreground">

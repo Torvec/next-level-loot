@@ -25,10 +25,7 @@ export function DealsDetailsHeader(data: DealsDetailsProps) {
   );
 }
 
-export function DealsDetailsMainColumn({
-  id,
-  ...data
-}: { id: string } & DealsDetailsProps) {
+export function DealsDetailsMainColumn({ id, ...data }: { id: string } & DealsDetailsProps) {
   return (
     <>
       <div className="flex gap-4">
@@ -52,20 +49,13 @@ export function DealsDetailsMainColumn({
       <div className="mx-auto w-max">
         <div className="flex items-center gap-4 rounded-xl border-2 border-muted px-4 py-2">
           <span className="font rounded-xl text-2xl text-highlight">
-            -
-            {calculateSavings(
-              data.gameInfo.retailPrice,
-              data.gameInfo.salePrice,
-            )}
-            %
+            -{calculateSavings(data.gameInfo.retailPrice, data.gameInfo.salePrice)}%
           </span>
           <div>
             <span className="block text-sm text-muted-foreground line-through">
               ${data.gameInfo.retailPrice}
             </span>
-            <span className="block">
-              {displaySalePrice(data.gameInfo.salePrice)}
-            </span>
+            <span className="block">{displaySalePrice(data.gameInfo.salePrice)}</span>
           </div>
         </div>
       </div>
@@ -98,9 +88,7 @@ export function DealsDetailsSideBar(data: DealsDetailsProps) {
           data.cheaperStores.map((cs, index: number) => {
             return (
               <div key={cs.dealID} className="space-y-1">
-                <span className="block text-sm">
-                  {getStoreNameFromID(cs.storeID)} Deal
-                </span>
+                <span className="block text-sm">{getStoreNameFromID(cs.storeID)} Deal</span>
                 <Button
                   asChild
                   className={`w-full rounded-xl border border-muted-foreground bg-transparent hover:border-foreground ${index === 0 ? "border-2 border-foreground hover:border-highlight" : ""}`}
@@ -113,9 +101,7 @@ export function DealsDetailsSideBar(data: DealsDetailsProps) {
                     <span className="block text-muted-foreground line-through">
                       ${cs.retailPrice}
                     </span>
-                    <span className="block">
-                      {displaySalePrice(cs.salePrice)}
-                    </span>
+                    <span className="block">{displaySalePrice(cs.salePrice)}</span>
                     <ChevronRight />
                   </Link>
                 </Button>
@@ -123,9 +109,7 @@ export function DealsDetailsSideBar(data: DealsDetailsProps) {
             );
           })
         ) : (
-          <p className="text-center text-lg italic text-muted-foreground">
-            Cheapest Deal Found!
-          </p>
+          <p className="text-center text-lg italic text-muted-foreground">Cheapest Deal Found!</p>
         )}
       </div>
     </>
@@ -136,8 +120,7 @@ export function DealsDetailsSideBar(data: DealsDetailsProps) {
 
 const calculateSavings = (retailPrice: string, salePrice: string) => {
   return (
-    ((parseFloat(retailPrice) - parseFloat(salePrice)) /
-      parseFloat(retailPrice)) *
+    ((parseFloat(retailPrice) - parseFloat(salePrice)) / parseFloat(retailPrice)) *
     100
   ).toFixed(0);
 };
@@ -147,9 +130,7 @@ const displaySalePrice = (salePrice: string) => {
 };
 
 const formatReleaseDate = (releaseDate: number) => {
-  return releaseDate > 0
-    ? new Date(releaseDate * 1000).toLocaleDateString()
-    : "N/A";
+  return releaseDate > 0 ? new Date(releaseDate * 1000).toLocaleDateString() : "N/A";
 };
 
 const getStoreNameFromID = (storeID: string) => {

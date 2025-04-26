@@ -15,9 +15,7 @@ export function DealsCardHeader(data: DealsCardProps) {
         <h2 className="text-lg">{data.title}</h2>
       </CardTitle>
       <CardDescription>
-        <span className="block text-sm">
-          Store: {getStoreNameFromID(data.storeID)}
-        </span>
+        <span className="block text-sm">Store: {getStoreNameFromID(data.storeID)}</span>
         <span>Released: {formatReleaseDate(data.releaseDate)}</span>
       </CardDescription>
     </>
@@ -99,9 +97,7 @@ const getStoreNameFromID = (storeID: string) => {
 };
 
 const formatReleaseDate = (releaseDate: number) => {
-  return releaseDate > 0
-    ? new Date(releaseDate * 1000).toLocaleDateString()
-    : "N/A";
+  return releaseDate > 0 ? new Date(releaseDate * 1000).toLocaleDateString() : "N/A";
 };
 
 const displaySalePrice = (salePrice: string) => {

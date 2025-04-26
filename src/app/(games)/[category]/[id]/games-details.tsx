@@ -3,10 +3,7 @@ import BannerSection from "@/components/ui/banner-section";
 import ScoreBoxButton from "@/components/ui/buttons/score-box-button";
 import FindDealsButton from "@/components/ui/buttons/deals-button";
 import WishlistButton from "@/components/ui/buttons/wishlist-button";
-import {
-  type GamesDetailsProps,
-  type GamesDetailsBadgeListProps,
-} from "@/types/games-types";
+import { type GamesDetailsProps, type GamesDetailsBadgeListProps } from "@/types/games-types";
 
 export function GamesDetailsHeader(data: GamesDetailsProps) {
   return (
@@ -82,14 +79,10 @@ export function GamesDetailsMainColumn(data: GamesDetailsProps) {
         {data.description_raw ? (
           <>
             <h3>Description</h3>
-            <p className="text-sm leading-loose text-muted-foreground">
-              {data.description_raw}
-            </p>
+            <p className="text-sm leading-loose text-muted-foreground">{data.description_raw}</p>
           </>
         ) : (
-          <div className="px-4 py-2 text-center text-foreground">
-            Description Unavailable
-          </div>
+          <div className="px-4 py-2 text-center text-foreground">Description Unavailable</div>
         )}
       </div>
     </>

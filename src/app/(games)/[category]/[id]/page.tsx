@@ -1,14 +1,6 @@
 import { type Category } from "@/types/types";
-import {
-  DealsDetailsHeader,
-  DealsDetailsMainColumn,
-  DealsDetailsSideBar,
-} from "./deals-details";
-import {
-  GamesDetailsHeader,
-  GamesDetailsMainColumn,
-  GamesDetailsSideBar,
-} from "./games-details";
+import { DealsDetailsHeader, DealsDetailsMainColumn, DealsDetailsSideBar } from "./deals-details";
+import { GamesDetailsHeader, GamesDetailsMainColumn, GamesDetailsSideBar } from "./games-details";
 import {
   GiveawaysDetailsHeader,
   GiveawaysDetailsMainColumn,
@@ -16,11 +8,7 @@ import {
 } from "./giveaways-details";
 import fetchData from "@/lib/fetch-data";
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: Promise<{ category: Category }>;
-}) => {
+export const generateMetadata = async ({ params }: { params: Promise<{ category: Category }> }) => {
   const { category } = await params;
   return {
     title: `${category.charAt(0).toUpperCase()}${category.slice(1)} | Next Level Loot`,

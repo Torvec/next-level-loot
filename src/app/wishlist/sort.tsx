@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import {
-  useWishlistDispatch,
-  useWishlist,
-} from "@/components/providers/wishlist-provider";
+import { useWishlistDispatch, useWishlist } from "@/components/providers/wishlist-provider";
 import { ArrowDownUp } from "lucide-react";
 
 export default function Sort() {

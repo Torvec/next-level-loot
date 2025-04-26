@@ -26,9 +26,7 @@ export function GiveawaysCardContent(data: GiveawaysCardProps) {
       <div className="flex justify-between gap-4 text-center">
         <div className="w-1/2 rounded-xl border border-muted p-2">
           <span className="block text-sm text-muted-foreground">Started:</span>
-          <time dateTime={data.published_date}>
-            {formatDateTime(data.published_date)}
-          </time>
+          <time dateTime={data.published_date}>{formatDateTime(data.published_date)}</time>
         </div>
         <div className="w-1/2 rounded-xl border border-muted p-2">
           <span className="block text-sm text-muted-foreground">Ends:</span>
@@ -39,9 +37,7 @@ export function GiveawaysCardContent(data: GiveawaysCardProps) {
         <div className="flex items-center gap-4 rounded-xl border-2 border-muted px-4 py-2">
           <span className="font rounded-xl text-2xl text-highlight">-100%</span>
           <div>
-            <span className="block text-muted-foreground line-through">
-              {data.worth}
-            </span>
+            <span className="block text-muted-foreground line-through">{data.worth}</span>
             <span className="block">Free!</span>
           </div>
         </div>
@@ -53,10 +49,7 @@ export function GiveawaysCardContent(data: GiveawaysCardProps) {
 export function GiveawaysCardFooter(data: GiveawaysCardProps) {
   return (
     <>
-      <RedirectButton
-        url={data.open_giveaway_url}
-        displayText={"Get Giveaway"}
-      />
+      <RedirectButton url={data.open_giveaway_url} displayText={"Get Giveaway"} />
       <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
         <WishlistButton
           item={{

@@ -22,8 +22,7 @@ export default async function fetchData({
 
   if (selectedSort && sort) url.searchParams.append(sort.name, selectedSort);
 
-  if (selectedOrder && order)
-    url.searchParams.append(order.name, selectedOrder);
+  if (selectedOrder && order) url.searchParams.append(order.name, selectedOrder);
 
   if (selectedFilters && filters) {
     Object.entries(selectedFilters).forEach(([filterName, options]) => {
@@ -38,9 +37,7 @@ export default async function fetchData({
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch data. Status: ${response.status} ${response.statusText}`,
-    );
+    throw new Error(`Failed to fetch data. Status: ${response.status} ${response.statusText}`);
   }
 
   return response.json();
