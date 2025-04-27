@@ -86,7 +86,7 @@ export interface FetchDataProps {
   searchTerm?: string;
   selectedSort?: string;
   selectedOrder?: string;
-  selectedFilters?: Record<string, string[]>;
+  selectedFilters?: Record<string, string>;
   id?: string;
 }
 

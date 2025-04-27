@@ -25,10 +25,8 @@ export default async function fetchData({
   if (selectedOrder && order) url.searchParams.append(order.name, selectedOrder);
 
   if (selectedFilters && filters) {
-    Object.entries(selectedFilters).forEach(([filterName, options]) => {
-      options.forEach((option) => {
-        url.searchParams.append(filterName, option);
-      });
+    Object.entries(selectedFilters).forEach(([filterName, option]) => {
+      if (option) url.searchParams.append(filterName, option);
     });
   }
 
