@@ -154,11 +154,6 @@ export interface QueryOptionListProps {
   filter: QueryOption;
 }
 
-export interface FilterResetButtonProps {
-  category: Category;
-  params: URLSearchParams;
-}
-
 export interface GetCurrentValueProps {
   params: URLSearchParams;
   key: string;

@@ -30,8 +30,8 @@ export default async function Page({
   // Next gets the search params from the url
   const resolvedSearchParams = await searchParams;
 
-  // Parse search parameters
-  const { searchTerm, sort, order, ...filters } = await searchParams;
+  // Parse search parameters for fetching
+  const { searchTerm, sort, order, ...filters } = resolvedSearchParams;
 
   const parsed = {
     searchTerm: searchTerm || "",

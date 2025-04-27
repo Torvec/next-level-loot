@@ -8,7 +8,6 @@ import {
   type QueryOptionButtonProps,
   type QueryOptionProps,
   type QueryOptionListProps,
-  type FilterResetButtonProps,
   type GetCurrentValueProps,
   type GetUpdatedQueryProps,
   type IsSelectedProps,
@@ -19,25 +18,33 @@ import {
 export default function QueryOptionsForm({ category, searchParams }: QueryOptionsFormProps) {
   const { sort, order, filters } = query[category].queryParams;
 
-  //! I really need to figure out why i need this
   const params = new URLSearchParams(
-    Object.entries(searchParams).flatMap(([key, value]) =>
-      Array.isArray(value) ? value.map((v) => [key, v]) : value !== undefined ? [[key, value]] : [],
-    ),
+    Object.entries(searchParams).filter(([, value]) => value !== undefined) as [string, string][],
   );
+
+  // Dynamically combine all query options
+  const queryOptions = [
+    ...(filters || []), // map over filters if they exist
+    ...(sort ? [sort] : []), // add sort if it exists
+    ...(order ? [order] : []), // add order if it exists
+  ];
+
+  const showReset = hasParams(params);
 
   return (
     <>
       <div className="mb-2 flex flex-col justify-between gap-2 md:flex-row">
         <div className="flex flex-col gap-2 md:flex-row">
-          {filters?.map((filter) => (
-            <QueryOption key={filter.name} params={params} filter={filter} />
+          {queryOptions.map((option) => (
+            <QueryOption key={option.name} params={params} filter={option} />
           ))}
-          {sort && <QueryOption params={params} filter={sort} />}
-          {order && <QueryOption params={params} filter={order} />}
         </div>
       </div>
-      <FilterResetButton category={category} params={params} />
+      {showReset ? (
+        <Link href={`/${category}`}>Reset Filters</Link>
+      ) : (
+        <span className="opacity-50">Select Filters</span>
+      )}
     </>
   );
 }
@@ -96,14 +103,6 @@ const QueryOptionList = ({ params, filter }: QueryOptionListProps) => {
         );
       })}
     </ul>
-  );
-};
-
-const FilterResetButton = ({ category, params }: FilterResetButtonProps) => {
-  return hasParams(params) ? (
-    <Link href={`/${category}`}>Reset Filters</Link>
-  ) : (
-    <span className="opacity-50">Select Filters</span>
   );
 };
 
