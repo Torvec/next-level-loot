@@ -13,7 +13,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-col gap-4 border-t border-t-muted-foreground/25 pt-8 text-sm md:flex-row md:gap-8">
           <SiteMapSection />
-          <span className="text-muted-foreground md:ml-auto">2024</span>
+          <span className="text-muted-foreground md:ml-auto">2025</span>
         </div>
       </div>
     </footer>
